@@ -1,0 +1,16 @@
+@startuml
+skinparam monochrome true
+
+actor "User" as user
+
+node "Drugstore App" {
+    component "Presentation" as ui
+    component Domain
+    component Data
+    ui -down-> Domain
+    Domain -down-> Data
+}
+
+user -right-> ui
+
+@enduml
