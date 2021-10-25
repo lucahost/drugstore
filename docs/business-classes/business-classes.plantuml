@@ -1,0 +1,36 @@
+# Drugstore Fachklassen
+
+Erster Wurf, kein korrektes UML
+
+@startuml
+skinparam monochrome true
+
+object Mitarbeiter
+object Abgabe
+object Patient
+object Bestandeskontrolle
+object Abteilungsapotheke
+object Substanz
+
+Mitarbeiter -right- Abgabe: > erfasst
+Abgabe -right- Patient: > geht an
+Abgabe -down- Substanz: > enthält
+
+Abteilungsapotheke -right- Substanz: enthält
+Mitarbeiter -down- Bestandeskontrolle: > erstellt/\n> signiert/\n> versendet
+
+Bestandeskontrolle -- Abteilungsapotheke: > verwendet
+Bestandeskontrolle -- Substanz: > enthält
+
+Mitarbeiter : Name
+Abgabe : Dosis
+Patient : Name
+Bestandeskontrolle : Substanzanzahl
+Abteilungsapotheke : Bestand
+Substanz : Name
+Substanz : Einheit
+Substanz : Dosierung
+Substanz : Art
+Substanz : Ablaufdatum
+
+@enduml
