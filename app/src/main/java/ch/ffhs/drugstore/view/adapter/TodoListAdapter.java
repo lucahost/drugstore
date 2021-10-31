@@ -6,78 +6,68 @@ import android.view.ViewGroup;
 import android.widget.CheckedTextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
-
 import ch.ffhs.drugstore.databinding.TodoItemBinding;
-import ch.ffhs.drugstore.view.Todo;
+import ch.ffhs.drugstore.model.TodoModel;
 
-public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHolder> {
+public class TodoListAdapter extends ListAdapter<TodoModel, TodoListAdapter.TodoHolder> {
 
-  private final List<Todo> todos;
-  private ItemClickListener clickListener;
-  private ItemLongClickListener longClickListener;
+  private static final DiffUtil.ItemCallback<TodoModel> DIFF_CALLBACK =
+      new DiffUtil.ItemCallback<TodoModel>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull TodoModel oldItem, @NonNull TodoModel newItem) {
+          // Todo compare by id's
+          return false;
+        }
 
-  /**
-   * Initialize the dataset of the Adapter.
-   *
-   * @param data List<String> containing the data to populate views to be used by RecyclerView.
-   */
-  public TodoListAdapter(List<Todo> data) {
-    todos = data;
+        @Override
+        public boolean areContentsTheSame(@NonNull TodoModel oldItem, @NonNull TodoModel newItem) {
+          return oldItem.getText().equals(newItem.getText())
+              && oldItem.isChecked() == newItem.isChecked();
+        }
+      };
+  private OnTodoClickListener clickListener;
+
+  public TodoListAdapter() {
+    super(DIFF_CALLBACK);
   }
 
   // Create new views (invoked by the layout manager)
   @NonNull
   @Override
-  public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+  public TodoHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     TodoItemBinding binding =
         TodoItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-    return new ViewHolder(binding);
+    return new TodoHolder(binding);
   }
 
   // Replace the contents of a view (invoked by the layout manager)
   @Override
-  public void onBindViewHolder(ViewHolder holder, int position) {
+  public void onBindViewHolder(TodoHolder holder, int position) {
     holder.bind(position);
   }
 
-  // total number of rows
-  @Override
-  public int getItemCount() {
-    return todos.size();
-  }
-
-  // convenience method for getting data at click position
-  public Todo getItem(int id) {
-    return todos.get(id);
-  }
-
   // allows clicks events to be caught
-  public void setClickListener(ItemClickListener itemClickListener) {
+  public void setClickListener(OnTodoClickListener itemClickListener) {
     this.clickListener = itemClickListener;
   }
 
-  public void setLongClickListener(ItemLongClickListener itemLongClickListener) {
-    this.longClickListener = itemLongClickListener;
-  }
-
   // parent activity will implement this method to respond to click events
-  public interface ItemClickListener {
-    void onItemClick(View view, int position);
-  }
+  public interface OnTodoClickListener {
+    void onItemClick(TodoModel todo);
 
-  public interface ItemLongClickListener {
-    void onItemLongClick(View view, int position);
+    void onItemLongClick(TodoModel todo);
   }
 
   /** Provide a reference to the type of views that you are using (custom ViewHolder). */
-  public class ViewHolder extends RecyclerView.ViewHolder
+  public class TodoHolder extends RecyclerView.ViewHolder
       implements View.OnClickListener, View.OnLongClickListener {
     private final CheckedTextView checkedTextView;
 
-    ViewHolder(TodoItemBinding binding) {
+    TodoHolder(TodoItemBinding binding) {
       super(binding.getRoot());
       checkedTextView = binding.todo;
       itemView.setOnClickListener(this);
@@ -85,18 +75,18 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
     }
 
     void bind(int position) {
-      checkedTextView.setText(todos.get(position).getText());
-      checkedTextView.setChecked(todos.get(position).isChecked());
+      checkedTextView.setText(getItem(position).getText());
+      checkedTextView.setChecked(getItem(position).isChecked());
     }
 
     @Override
     public void onClick(View view) {
-      if (clickListener != null) clickListener.onItemClick(view, getAdapterPosition());
+      if (clickListener != null) clickListener.onItemClick(getItem(getAdapterPosition()));
     }
 
     @Override
     public boolean onLongClick(View view) {
-      if (longClickListener != null) longClickListener.onItemLongClick(view, getAdapterPosition());
+      if (clickListener != null) clickListener.onItemLongClick(getItem(getAdapterPosition()));
       return true;
     }
   }

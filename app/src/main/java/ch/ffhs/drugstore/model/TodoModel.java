@@ -1,20 +1,16 @@
-package ch.ffhs.drugstore.view;
+package ch.ffhs.drugstore.model;
 
-public class Todo {
-  private String text;
+public class TodoModel {
+  private final String text;
   private boolean checked;
 
-  public Todo(String text, boolean checked) {
+  public TodoModel(String text, boolean checked) {
     this.text = text;
     this.checked = checked;
   }
 
   public String getText() {
     return text;
-  }
-
-  public void setText(String text) {
-    this.text = text;
   }
 
   public boolean isChecked() {

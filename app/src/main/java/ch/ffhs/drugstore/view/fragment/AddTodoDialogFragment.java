@@ -25,6 +25,9 @@ public class AddTodoDialogFragment extends DialogFragment {
   @Override
   public void onAttach(@NonNull Context context) {
     super.onAttach(context);
+    if (getParentFragment() instanceof ConfirmAddTodoListener) {
+      this.confirmAddTodoListener = (ConfirmAddTodoListener) getParentFragment();
+    }
     if (context instanceof ConfirmAddTodoListener) {
       this.confirmAddTodoListener = (ConfirmAddTodoListener) context;
     }
