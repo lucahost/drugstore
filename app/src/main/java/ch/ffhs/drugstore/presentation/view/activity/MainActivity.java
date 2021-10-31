@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.view.activity;
+package ch.ffhs.drugstore.presentation.view.activity;
 
 import android.os.Bundle;
 
@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import ch.ffhs.drugstore.databinding.ActivityMainBinding;
-import ch.ffhs.drugstore.view.fragment.TodoListFragment;
-import ch.ffhs.drugstore.viewmodel.TodoListViewModel;
+import ch.ffhs.drugstore.presentation.view.fragment.TodoListFragment;
+import ch.ffhs.drugstore.presentation.viewmodel.TodoListViewModel;
 
 public class MainActivity extends AppCompatActivity {
 

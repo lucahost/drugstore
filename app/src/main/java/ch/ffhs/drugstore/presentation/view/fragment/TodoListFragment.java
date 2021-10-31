@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.view.fragment;
+package ch.ffhs.drugstore.presentation.view.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import ch.ffhs.drugstore.data.entity.Todo;
 import ch.ffhs.drugstore.databinding.TodoListBinding;
-import ch.ffhs.drugstore.model.TodoModel;
-import ch.ffhs.drugstore.view.adapter.TodoListAdapter;
-import ch.ffhs.drugstore.viewmodel.TodoListViewModel;
+import ch.ffhs.drugstore.presentation.view.adapter.TodoListAdapter;
+import ch.ffhs.drugstore.presentation.viewmodel.TodoListViewModel;
 
 public class TodoListFragment extends Fragment
     implements TodoListAdapter.OnTodoClickListener, AddTodoDialogFragment.ConfirmAddTodoListener {
@@ -53,7 +53,7 @@ public class TodoListFragment extends Fragment
   }
 
   @Override
-  public void onItemClick(TodoModel todo) {
+  public void onItemClick(Todo todo) {
     viewModel.checkTodo(todo);
     String checkMessage = todo.isChecked() ? "Checked " : "Unchecked ";
     Toast.makeText(
@@ -62,7 +62,7 @@ public class TodoListFragment extends Fragment
   }
 
   @Override
-  public void onItemLongClick(TodoModel todo) {
+  public void onItemLongClick(Todo todo) {
     viewModel.deleteTodo(todo);
     Toast.makeText(context(), String.format("Removed %s", todo.getText()), Toast.LENGTH_SHORT)
         .show();

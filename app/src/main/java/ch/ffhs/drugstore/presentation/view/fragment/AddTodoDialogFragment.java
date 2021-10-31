@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.view.fragment;
+package ch.ffhs.drugstore.presentation.view.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

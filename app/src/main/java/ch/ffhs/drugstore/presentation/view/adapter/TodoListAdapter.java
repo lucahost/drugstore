@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.view.adapter;
+package ch.ffhs.drugstore.presentation.view.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,21 +10,21 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import ch.ffhs.drugstore.data.entity.Todo;
 import ch.ffhs.drugstore.databinding.TodoItemBinding;
-import ch.ffhs.drugstore.model.TodoModel;
 
-public class TodoListAdapter extends ListAdapter<TodoModel, TodoListAdapter.TodoHolder> {
+public class TodoListAdapter extends ListAdapter<Todo, TodoListAdapter.TodoHolder> {
 
-  private static final DiffUtil.ItemCallback<TodoModel> DIFF_CALLBACK =
-      new DiffUtil.ItemCallback<TodoModel>() {
+  private static final DiffUtil.ItemCallback<Todo> DIFF_CALLBACK =
+      new DiffUtil.ItemCallback<Todo>() {
         @Override
-        public boolean areItemsTheSame(@NonNull TodoModel oldItem, @NonNull TodoModel newItem) {
-          // Todo compare by id's
+        public boolean areItemsTheSame(@NonNull Todo oldItem, @NonNull Todo newItem) {
+          // Todo: fix this
           return false;
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull TodoModel oldItem, @NonNull TodoModel newItem) {
+        public boolean areContentsTheSame(@NonNull Todo oldItem, @NonNull Todo newItem) {
           return oldItem.getText().equals(newItem.getText())
               && oldItem.isChecked() == newItem.isChecked();
         }
@@ -57,9 +57,9 @@ public class TodoListAdapter extends ListAdapter<TodoModel, TodoListAdapter.Todo
 
   // parent activity will implement this method to respond to click events
   public interface OnTodoClickListener {
-    void onItemClick(TodoModel todo);
+    void onItemClick(Todo todo);
 
-    void onItemLongClick(TodoModel todo);
+    void onItemLongClick(Todo todo);
   }
 
   /** Provide a reference to the type of views that you are using (custom ViewHolder). */
