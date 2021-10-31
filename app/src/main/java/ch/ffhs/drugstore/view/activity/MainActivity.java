@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import java.util.ArrayList;
 
 import ch.ffhs.drugstore.databinding.ActivityMainBinding;
+import ch.ffhs.drugstore.view.Todo;
 import ch.ffhs.drugstore.view.adapter.TodoListAdapter;
 import ch.ffhs.drugstore.view.fragment.AddTodoDialogFragment;
 
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity
         AddTodoDialogFragment.ConfirmAddTodoListener {
 
   TodoListAdapter adapter;
-  ArrayList<String> todos;
+  ArrayList<Todo> todos;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +30,10 @@ public class MainActivity extends AppCompatActivity
 
     // data to populate the RecyclerView with
     todos = new ArrayList<>();
-    todos.add("Do this");
-    todos.add("And that");
-    todos.add("Never forget this");
-    todos.add("Maybe also this");
+    todos.add(new Todo("Do this", false));
+    todos.add(new Todo("And that", false));
+    todos.add(new Todo("Never forget this", false));
+    todos.add(new Todo("Maybe also this", false));
 
     binding.fab.setOnClickListener(
         view ->
@@ -49,9 +50,13 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void onItemClick(View view, int position) {
+    Todo todo = adapter.getItem(position);
+    todo.toggle();
+    adapter.notifyItemChanged(position);
+    String checkMessage = todo.isChecked() ? "Checked " : "Unchecked ";
     Toast.makeText(
             this,
-            "You clicked " + adapter.getItem(position) + " on row number " + position,
+            String.format("%s \"%s\"", checkMessage, adapter.getItem(position).getText()),
             Toast.LENGTH_SHORT)
         .show();
   }
@@ -60,7 +65,7 @@ public class MainActivity extends AppCompatActivity
   public void onItemLongClick(View view, int position) {
     Toast.makeText(
             this,
-            "Removed " + adapter.getItem(position) + " on row number " + position,
+            String.format("Removed %s", adapter.getItem(position).getText()),
             Toast.LENGTH_SHORT)
         .show();
     todos.remove(position);
@@ -70,6 +75,6 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void onConfirmAddTodo(String text) {
     Toast.makeText(this, "Added " + text, Toast.LENGTH_SHORT).show();
-    todos.add(text);
+    todos.add(new Todo(text, false));
   }
 }

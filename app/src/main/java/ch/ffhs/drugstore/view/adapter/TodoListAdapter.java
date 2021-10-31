@@ -3,7 +3,7 @@ package ch.ffhs.drugstore.view.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.CheckedTextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,10 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ch.ffhs.drugstore.databinding.TodoItemBinding;
+import ch.ffhs.drugstore.view.Todo;
 
 public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHolder> {
 
-  private final List<String> todos;
+  private final List<Todo> todos;
   private ItemClickListener clickListener;
   private ItemLongClickListener longClickListener;
 
@@ -23,7 +24,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
    *
    * @param data List<String> containing the data to populate views to be used by RecyclerView.
    */
-  public TodoListAdapter(List<String> data) {
+  public TodoListAdapter(List<Todo> data) {
     todos = data;
   }
 
@@ -39,8 +40,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
   // Replace the contents of a view (invoked by the layout manager)
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
-    String todo = todos.get(position);
-    holder.textView.setText(todo);
+    holder.bind(position);
   }
 
   // total number of rows
@@ -50,7 +50,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
   }
 
   // convenience method for getting data at click position
-  public String getItem(int id) {
+  public Todo getItem(int id) {
     return todos.get(id);
   }
 
@@ -75,13 +75,18 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
   /** Provide a reference to the type of views that you are using (custom ViewHolder). */
   public class ViewHolder extends RecyclerView.ViewHolder
       implements View.OnClickListener, View.OnLongClickListener {
-    private final TextView textView;
+    private final CheckedTextView checkedTextView;
 
     ViewHolder(TodoItemBinding binding) {
       super(binding.getRoot());
-      textView = binding.todoId;
+      checkedTextView = binding.todo;
       itemView.setOnClickListener(this);
       itemView.setOnLongClickListener(this);
+    }
+
+    void bind(int position) {
+      checkedTextView.setText(todos.get(position).getText());
+      checkedTextView.setChecked(todos.get(position).isChecked());
     }
 
     @Override
