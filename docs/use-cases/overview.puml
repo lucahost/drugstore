@@ -1,19 +1,77 @@
 ﻿@startuml usecase-overview
 left to right direction
-rectangle Drugstore {
-    usecase "Medikament in Apotheke aufnehmen" as UC01
-    usecase "Medikament aus Apotheke löschen" as UC02
-    usecase "Medikament Abgabe erfassen" as UC03
-    usecase "Bestandeskontrolle erfassen" as UC04
-    usecase "Exportieren der Bestandeskontrolle" as UC04a
-    usecase "Backup der Daten" as UC05
-}
-:User: --> (UC01)
-:User: --> (UC02)
-:User: --> (UC03)
-:User: --> (UC04)
-:User: --> (UC05)
+node Drugstore {
 
-UC04 ..> UC04a
+    node System {
+        usecase "Benutzer Registrierung" as UC11
+        usecase "Benutzer Login" as UC12
+        usecase "Externe Sicherung der Datenbank" as UC13
+        usecase "Wiederherstellung aus externer Sicherung" as UC14
+    }
+
+    node Medikamentenverwaltung {
+        usecase "Medikament erfassen" as UC21
+        usecase "Medikament in Apotheke aufnehmen" as UC22
+        usecase "Medikament aus Apotheke austragen" as UC23
+        usecase "Favoriten" as UC24
+    }
+
+    node Medikamentabgabe {
+        usecase "Medikmanetabgabe erfassen" as UC31
+        usecase "Medikamente filtern" as UC32
+        usecase "Medikamente suchen" as UC33
+        usecase "Patient suchen" as UC34
+        usecase "Abgabe Verlauf anzeigen" as UC35
+        usecase "Abgabe Verlauf filtern" as UC36
+    }
+
+    node Bestandeskontrolle {
+        usecase "Bestandeskontrolle starten" as UC41
+        usecase "Bestandeskontrolle signieren" as UC42
+        usecase "Exportieren der Bestandeskontrolle" as UC43
+        usecase "Abgabe Verlauf anzeigen" as UC46
+        usecase "Abgabe Verlauf filtern" as UC47
+    }
+}
+cloud "Klinikinformationssystem" {
+    usecase "Login Provider" as LoginProvider
+    usecase "Patienten Schnittstelle" as PatientInterface
+}
+cloud "Externe Medikanenten DB" {
+    usecase "Medikament Importieren" as DrugImport
+}
+
+
+
+:User: -> UC11
+:User: -> UC12
+:User: -> UC13
+:User: -> UC14
+
+:User: ---> UC21
+:User: ---> UC22
+:User: ---> UC23
+:User: ---> UC24
+
+:User: ---> UC31
+:User: ---> UC35
+
+:User: -> UC41
+:User: -> UC46
+
+UC24 .> UC31
+
+UC31 ..> UC32
+UC32 ..> UC33
+UC31 ..> UC34
+UC35 ..> UC36
+
+UC41 --> UC42
+UC42 ..> UC43
+UC46 ..> UC47
+
+UC12 <...> LoginProvider
+UC21 <....> DrugImport
+UC34 <...> PatientInterface
 
 @enduml
