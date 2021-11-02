@@ -1,5 +1,0 @@
-﻿@startuml uc-01
-
-:User: --> (Use)
-
-@enduml

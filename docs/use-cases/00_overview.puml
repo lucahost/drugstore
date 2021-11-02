@@ -29,8 +29,8 @@ node Drugstore {
         usecase "Bestandeskontrolle starten" as UC41
         usecase "Bestandeskontrolle signieren" as UC42
         usecase "Exportieren der Bestandeskontrolle" as UC43
-        usecase "Abgabe Verlauf anzeigen" as UC46
-        usecase "Abgabe Verlauf filtern" as UC47
+        usecase "Bestandeskontrolle Verlauf anzeigen" as UC44
+        usecase "Bestandeskontrolle Verlauf filtern" as UC45
     }
 }
 cloud "Klinikinformationssystem" {
@@ -57,7 +57,7 @@ cloud "Externe Medikanenten DB" {
 :User: ---> UC35
 
 :User: -> UC41
-:User: -> UC46
+:User: -> UC44
 
 UC24 .> UC31
 
@@ -68,7 +68,7 @@ UC35 ..> UC36
 
 UC41 --> UC42
 UC42 ..> UC43
-UC46 ..> UC47
+UC44 ..> UC45
 
 UC12 <...> LoginProvider
 UC21 <....> DrugImport

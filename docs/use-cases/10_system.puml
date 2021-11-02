@@ -1,0 +1,25 @@
+﻿@startuml usecase-overview
+left to right direction
+node Drugstore {
+
+    node System {
+        usecase "Benutzer Registrierung" as UC11
+        usecase "Benutzer Login" as UC12
+        usecase "Externe Sicherung der Datenbank" as UC13
+        usecase "Wiederherstellung aus externer Sicherung" as UC14
+    }
+}
+
+cloud "Klinikinformationssystem" {
+    usecase "Login Provider" as LoginProvider
+    usecase "Patienten Schnittstelle" as PatientInterface
+}
+
+:User: --> UC11
+:User: --> UC12
+:User: --> UC13
+:User: --> UC14
+
+UC12 <...> LoginProvider
+
+@enduml

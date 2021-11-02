@@ -1,0 +1,28 @@
+﻿@startuml usecase-overview
+left to right direction
+node Drugstore {
+
+    node Medikamentenverwaltung {
+        usecase "Medikament erfassen" as UC21
+        usecase "Medikament in Apotheke aufnehmen" as UC22
+        usecase "Medikament aus Apotheke austragen" as UC23
+        usecase "Favoriten" as UC24
+    }
+
+    node Medikamentabgabe {
+        usecase "Medikmanetabgabe erfassen" as UC31
+    }
+}
+cloud "Externe Medikanenten DB" {
+    usecase "Medikament Importieren" as DrugImport
+}
+
+:User: --> UC21
+:User: --> UC22
+:User: --> UC23
+:User: --> UC24
+
+UC24 ...> UC31
+UC21 <....> DrugImport
+
+@enduml

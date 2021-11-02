@@ -1,0 +1,35 @@
+﻿@startuml usecase-overview
+left to right direction
+node Drugstore {
+
+    node Medikamentenverwaltung {
+        usecase "Favoriten" as UC24
+    }
+
+    node Medikamentabgabe {
+        usecase "Medikmanetabgabe erfassen" as UC31
+        usecase "Medikamente filtern" as UC32
+        usecase "Medikamente suchen" as UC33
+        usecase "Patient suchen" as UC34
+        usecase "Abgabe Verlauf anzeigen" as UC35
+        usecase "Abgabe Verlauf filtern" as UC36
+    }
+}
+cloud "Klinikinformationssystem" {
+    usecase "Patienten Schnittstelle" as PatientInterface
+}
+
+:User: --> UC31
+:User: --> UC35
+
+UC24 .> UC31
+
+UC31 ..> UC32
+UC32 ..> UC33
+UC31 ..> UC34
+UC35 ..> UC36
+
+
+UC34 <...> PatientInterface
+
+@enduml
