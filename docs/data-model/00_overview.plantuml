@@ -1,12 +1,15 @@
 ﻿@startuml data-model-overview
 
-database drugs
-database stock
-database transaction
+database drugstore {
+  object drugs
+  object stock
+  object transaction
+  object user
 
-drugs ..> transaction
+}
+
+drugs ||..|{ transaction
 stock ..> transaction
-
 
 note left of transaction
   contains histories of:
