@@ -1,34 +1,41 @@
 @startuml class-diagram
-skinparam monochrome true
 
 actor "User" as user
 
 node "Drugstore App" {
     package Presentation {
-      component View
-      component Presenter
+      component View {
+        component Activity
+        component Fragment
+        component Adapter
+      }
+      component ViewModel
       component Model
-      View <-down-> Presenter
-      Presenter -left-> Model
+      Activity -down-> Fragment
+      Fragment  -down-> Adapter
+      View  -down-> ViewModel
+      ViewModel -down-> Model
     }
 
     package Domain {
       component "Use Case" as uc
-      component "Business Object" as bo
-      uc -left-> bo
+      component Service
+      uc -down-> Service
     }
 
     package Data {
       component Repository
-      component Provider
       component Entity
-      Repository -left-> Entity
-      Repository -down-> Provider
+      component DAO
+      database Database
+      Repository --> DAO
+      DAO -down-> Database
+      DAO -right-> Entity
     }
 }
 
 user -down-> View
-Presenter <-down-> uc
-uc -down-> Repository
+ViewModel -down-> uc
+Service -down-> Repository
 
 @enduml

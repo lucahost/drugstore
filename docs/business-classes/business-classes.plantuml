@@ -3,34 +3,36 @@
 Erster Wurf, kein korrektes UML
 
 @startuml
-skinparam monochrome true
 
-object Mitarbeiter
+object Fachkraft
 object Abgabe
-object Patient
+object Patientenschaft
 object Bestandeskontrolle
 object Abteilungsapotheke
 object Substanz
 
-Mitarbeiter -right- Abgabe: > erfasst
-Abgabe -right- Patient: > geht an
+Fachkraft -right- Abgabe: > erfasst
+Abgabe -right- Patientenschaft: > geht an
 Abgabe -down- Substanz: > enthält
 
 Abteilungsapotheke -right- Substanz: enthält
-Mitarbeiter -down- Bestandeskontrolle: > erstellt/\n> signiert/\n> versendet
+Fachkraft -down- Bestandeskontrolle: > kontrolliert/\n> signiert/\n> exportiert
 
 Bestandeskontrolle -- Abteilungsapotheke: > verwendet
 Bestandeskontrolle -- Substanz: > enthält
 
-Mitarbeiter : Name
+Fachkraft -- Abteilungsapotheke: > verwaltet
+Fachkraft -- Substanz: > erstellt/\n> bearbeitet/\n> entfernt
+
+Fachkraft : Name
 Abgabe : Dosis
-Patient : Name
+Patientenschaft : Name
 Bestandeskontrolle : Substanzanzahl
 Abteilungsapotheke : Bestand
 Substanz : Name
-Substanz : Einheit
 Substanz : Dosierung
-Substanz : Art
-Substanz : Ablaufdatum
+Substanz : Kategorie
+Substanz : Ausgabe-Einheit
+Substanz : Toleranz
 
 @enduml
