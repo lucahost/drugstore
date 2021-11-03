@@ -1,0 +1,17 @@
+﻿@startuml data-model-overview
+
+database drugs
+database stock
+database transaction
+
+drugs ..> transaction
+stock ..> transaction
+
+
+note left of transaction
+  contains histories of:
+  - dispensation
+  - stock-control
+end note
+
+@enduml
