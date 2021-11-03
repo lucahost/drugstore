@@ -10,11 +10,9 @@ node "Drugstore App" {
         component Adapter
       }
       component ViewModel
-      component Model
       Activity -down-> Fragment
       Fragment  -down-> Adapter
       View  -down-> ViewModel
-      ViewModel -down-> Model
     }
 
     package Domain {

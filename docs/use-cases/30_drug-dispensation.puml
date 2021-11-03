@@ -7,7 +7,7 @@ node Drugstore {
     }
 
     node Medikamentabgabe {
-        usecase "Medikmanetabgabe erfassen" as UC31
+        usecase "Medikamentabgabe erfassen" as UC31
         usecase "Medikamente filtern" as UC32
         usecase "Medikamente suchen" as UC33
         usecase "Patient suchen" as UC34
