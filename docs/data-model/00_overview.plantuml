@@ -1,20 +1,129 @@
 ﻿@startuml data-model-overview
 
 database drugstore {
-  object drugs
-  object stock
-  object transaction
-  object user
+
+  entity UnitGroup {
+    * UnitGroupId : number <<generated>>
+    --
+    * Title : varchar
+  }
+
+  entity Unit {
+    * UnitId : numbe <<generated>>
+    --
+    * UnitGroupId : number <<FK>>
+    --
+    * Title : varchar
+    * ShortName : varchar
+  }
+
+  entity DrugType {
+    * DrugTypeId : number <<generated>>
+    --
+    * UnitId : number <<FK>>
+    ParentDrugType : number <<FK>>
+    --
+    * Title : varchar
+  }
+
+
+  entity Substance {
+    * SubstanceId : number <<generated>>
+    --
+    * Title : varchar
+  }
+
+  entity Drug {
+    * DrugId : number <<generated>>
+    --
+    * SubstanceId : number <<FK>>
+    * DrugTypeId : number <<FK>>
+    --
+    * Title : varchar
+    * Dosage : varchar
+    Tolerance : number
+    IsFavorite : boolean
+    InStock : number
+  }
+
+  entity Transaction {
+    * TransactionId : number <<generated>>
+    --
+    * DrugId : number <<FK>>
+    * UserId : number <<FK>>
+    --
+    * Amount : number
+    * DateTime : timestamp
+  }
+
+  ' Stock-Control creates a new signature
+  entity Signature {
+    * SignatureId : number <<generated>>
+    --
+    * UserId : number <<FK>>
+    --
+    * DateTime : timestamp
+  }
+
+  ' Need a better name for this one
+  ' Items at stock when signature is created
+  entity SignatureDrug {
+    * ID_SignatureId : number <<FK>>
+    * ID_DrugId : number <<FK>>
+    --
+    * Amount : number
+    * Checked : boolean
+  }
+
+  entity User {
+    * UserId : number
+    --
+    * ShortName : varchar
+    FirstName : varchar
+    LastName : varchar
+    EMail : varchar
+    ExternalId : varchar
+  }
 
 }
 
-drugs ||..|{ transaction
-stock ..> transaction
+' One UnitGroup can have one or many Units
+UnitGroup ||..|{ Unit
 
-note left of transaction
-  contains histories of:
-  - dispensation
-  - stock-control
-end note
+' One DrugType has one Unit
+' One Unit has zero or many DrugTypes
+DrugType ||..o{ Unit
+
+
+' One Drug has zero or one Substance
+' One Substance has zero or many Drugs
+Substance |o..o{ Drug
+
+
+' One Drug has one DrugType
+' One DrugType can occur in zero or many Drugs
+Drug ||..o{ DrugType
+
+' One Drugs can be in zero or many transactions
+' One Transaction has one Drug
+Drug ||..o{ Transaction
+
+' One User can have zero or many transactions
+' One Transaction has one User
+User }o..|| Transaction
+
+
+' One User as zero or many Signatures
+' One Signaure has one User
+User }o..|| Signature
+
+' One Signature has one or many SignatureDrug
+' One SigantureDrug has one Signature
+Signature ||..|{ SignatureDrug
+
+' One Drug has zero or many SignatureDrug
+' One SignatureDrug has one Drug
+Drug ||..|{ SignatureDrug
+
 
 @enduml

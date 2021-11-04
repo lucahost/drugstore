@@ -1,0 +1,43 @@
+﻿@startuml Schnittstellen
+
+top to bottom direction
+
+package MobileDevice {
+    component Drugstore
+    database Filesystem {
+        database DrugstoreDB
+    }
+}
+cloud Klinikinformationssystem {
+    database Patienten
+    database Mitarbeiter
+}
+cloud Internet {
+    database Medikamente
+}
+component Signatur
+
+Drugstore <..> Mitarbeiter
+Drugstore <.. Patienten 
+Drugstore ..> Medikamente
+Drugstore <.> Filesystem
+DrugstoreDB .> Signatur
+
+left to right direction
+
+note right of Signatur 
+    PDF Export:
+    E-Mail oder Netzwerk
+end note
+
+note right of Mitarbeiter
+    Login / Registration:
+    SAML SSO
+end note
+
+note left of Medikamente
+    Import:
+    JSON oder XML
+end note
+
+@enduml

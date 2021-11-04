@@ -1,0 +1,15 @@
+﻿
+@startuml 'Bestandes Kontrolle'
+
+actor       User
+control     StockControl
+database    Database        as DB
+
+User -> StockControl    : Startet Bestandes Kontrolle
+StockControl -> DB      : Frage SOLL Bestand ab
+DB -> StockControl
+StockControl -> User
+User -> StockControl    : Signiert Bestandes Kontrolle
+StockControl -> DB      : Speichert Transaktion
+
+@enduml
