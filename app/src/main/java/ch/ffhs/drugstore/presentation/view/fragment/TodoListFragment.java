@@ -12,25 +12,34 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import javax.inject.Inject;
+
 import ch.ffhs.drugstore.data.entity.Todo;
 import ch.ffhs.drugstore.databinding.TodoListBinding;
 import ch.ffhs.drugstore.presentation.view.adapter.TodoListAdapter;
 import ch.ffhs.drugstore.presentation.viewmodel.TodoListViewModel;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class TodoListFragment extends Fragment
     implements TodoListAdapter.OnTodoClickListener, AddTodoDialogFragment.ConfirmAddTodoListener {
+
+  @Inject TodoListAdapter adapter;
+  @Inject AddTodoDialogFragment addTodoDialogFragment;
   TodoListBinding binding;
-  TodoListAdapter adapter;
   TodoListViewModel viewModel;
+
+  @Inject
+  public TodoListFragment() {
+    // TODO document why this constructor is empty
+  }
 
   @Override
   public View onCreateView(
       @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     binding = TodoListBinding.inflate(getLayoutInflater());
-    adapter = new TodoListAdapter();
     binding.fab.setOnClickListener(
-        view ->
-            new AddTodoDialogFragment().show(getChildFragmentManager(), AddTodoDialogFragment.TAG));
+        view -> addTodoDialogFragment.show(getChildFragmentManager(), AddTodoDialogFragment.TAG));
     setupRecyclerView();
     return binding.getRoot();
   }

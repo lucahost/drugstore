@@ -13,14 +13,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import javax.inject.Inject;
+
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.AddTodoFragmentBinding;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class AddTodoDialogFragment extends DialogFragment {
 
   public static final String TAG = "AddTodoDialog";
 
   private ConfirmAddTodoListener confirmAddTodoListener;
+
+  @Inject
+  public AddTodoDialogFragment() {
+    /* TODO document why this constructor is empty */
+  }
 
   @Override
   public void onAttach(@NonNull Context context) {

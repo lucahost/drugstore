@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import javax.inject.Inject;
+
 import ch.ffhs.drugstore.data.entity.Todo;
 import ch.ffhs.drugstore.databinding.TodoItemBinding;
 
@@ -31,6 +33,7 @@ public class TodoListAdapter extends ListAdapter<Todo, TodoListAdapter.TodoHolde
       };
   private OnTodoClickListener clickListener;
 
+  @Inject
   public TodoListAdapter() {
     super(DIFF_CALLBACK);
   }

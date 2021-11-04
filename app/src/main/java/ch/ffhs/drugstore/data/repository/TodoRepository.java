@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import ch.ffhs.drugstore.data.dao.TodoDao;
 import ch.ffhs.drugstore.data.database.TodoDatabase;
 import ch.ffhs.drugstore.data.entity.Todo;
@@ -18,6 +20,7 @@ public class TodoRepository {
   // dependency. This adds complexity and much more code, and this sample is not about testing.
   // See the BasicSample in the android-architecture-components repository at
   // https://github.com/googlesamples
+  @Inject
   public TodoRepository(Application application) {
     TodoDatabase db = TodoDatabase.getDatabase(application);
     todoDao = db.todoDao();
