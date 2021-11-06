@@ -2,7 +2,9 @@
 
 actor "User" as user
 
-node "Drugstore App" {
+interface "External Services" as e #lightgrey
+
+node "Drugstore" {
     package Presentation {
       component View {
         component Activity
@@ -25,15 +27,19 @@ node "Drugstore App" {
       component Repository
       component Entity
       component DAO
+      component Provider
       database Database
+      Repository --> Provider
       Repository --> DAO
       DAO -down-> Database
-      DAO -right-> Entity
+      DAO --> Entity
+      Provider --> Entity
     }
 }
 
 user -down-> View
 ViewModel -down-> uc
 Service -down-> Repository
+Provider .down.> e
 
 @enduml

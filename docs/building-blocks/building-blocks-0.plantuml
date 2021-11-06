@@ -2,8 +2,15 @@
 
 actor "User" as user
 
-[Drugstore App] as drugstore
+interface Klinikinformationssystem as ki #lightgrey
+interface "Medikamenten DB" as mdb #lightgrey
+interface "Compliance\nService" as cs #lightgrey
+[Drugstore] as drugstore
 
 user -right-> drugstore
+
+drugstore .down.> ki
+drugstore .up.> mdb
+drugstore .right.> cs
 
 @enduml

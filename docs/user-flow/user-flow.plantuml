@@ -1,0 +1,50 @@
+@startuml
+hide empty description
+
+[*] -->scr1: App\ngestartet
+
+state "Ladeseite\n(SCR-1)" as scr1
+state "Medikamenten-\nAbgabe\n(SCR-2)" as scr2
+state "Medikament \nausgeben\n(ACT-2.1)" as act21 #lightskyblue
+state "Verwaltung" as mgmt #lightgrey
+state "Medikamente\n(SCR-3)" as scr3
+state "Medikamente\n(SCR-3)" as scr3
+state "Medikament \nerfassen\n(ACT-3.1)" as act31 #lightskyblue
+state "Medikament \nOptionen\n(ACT-3.2)" as act32 #lightskyblue
+state "Medikament \nhinzufügen\n(ACT-3.2.1)" as act321 #lightskyblue
+state "Medikament \naustragen\n(ACT-3.2.2)" as act322 #lightskyblue
+state "Medikament \nbearbeiten\n(ACT-3.2.3)" as act323 #lightskyblue
+state "Medikament \nentfernen\n(ACT-3.2.4)" as act324 #lightskyblue
+state "Inventar\n(SCR-4)" as scr4
+state "Signieren\n(ACT-4.1)" as act41 #lightskyblue
+state "Signaturen\n(SCR-5)" as scr5
+state "Signatur-\nDetails\n(SCR-6)" as scr6
+state "Abgaben\n(SCR-7)" as scr7
+
+scr1 --> scr2 : App\ngeladen
+scr2 --> act21 : Medikament\nanklicken
+scr2 -right-> mgmt
+mgmt -left-> scr2 : Tab-Navigation
+
+mgmt -down-> scr3 : Drawer-\nNavigation
+scr3 -up-> mgmt
+
+scr3 --> act31 : CTA\nanklicken
+scr3 --> act32 : Context\nMenü\nanklicken
+act32 --> act321
+act32 --> act322
+act32 --> act323
+act32 --> act324
+
+mgmt -down-> scr4 : Drawer-\nNavigation
+scr4 -up-> mgmt
+scr4 --> act41 : CTA\nanklicken
+
+mgmt -down-> scr5 : Drawer-\nNavigation
+scr5 -up-> mgmt
+scr5 --> scr6 : Element\nanklicken
+
+mgmt -down-> scr7 : Drawer-\nNavigation
+scr7 -up-> mgmt
+
+@enduml

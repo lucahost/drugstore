@@ -2,7 +2,9 @@
 
 actor "User" as user
 
-node "Drugstore App" {
+interface "External Services" as e #lightgrey
+
+node "Drugstore" as drugstore {
     component "Presentation" as ui
     component Domain
     component Data
@@ -11,5 +13,6 @@ node "Drugstore App" {
 }
 
 user -right-> ui
+Data .right.> e
 
 @enduml
