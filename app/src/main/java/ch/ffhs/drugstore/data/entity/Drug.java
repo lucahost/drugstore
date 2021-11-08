@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Drug {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public long drugId;
 
     public String title;

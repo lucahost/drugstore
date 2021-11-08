@@ -5,6 +5,6 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Signature {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public long signatureId;
 }
