@@ -10,7 +10,7 @@ node Drugstore {
     }
 
     node Medikamentabgabe {
-        usecase "Medikmanetabgabe erfassen" as UC31
+        usecase "Abgabe erfassen" as UC31
     }
 }
 cloud "Externe Medikanenten DB" {
