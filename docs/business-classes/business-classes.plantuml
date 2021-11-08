@@ -24,9 +24,13 @@ Bestandeskontrolle -- Substanz: > enthält
 Fachkraft -- Abteilungsapotheke: > verwaltet
 Fachkraft -- Substanz: > erstellt/\n> bearbeitet/\n> entfernt
 
-Fachkraft : Name
+Fachkraft : Kürzel
+Fachkraft : Vorname
+Fachkraft : Nachname
+Abgabe : Zeitpunkt
 Abgabe : Dosis
 Patientenschaft : Name
+Bestandeskontrolle : Zeitpunkt
 Bestandeskontrolle : Substanzanzahl
 Abteilungsapotheke : Bestand
 Substanz : Name
@@ -34,5 +38,6 @@ Substanz : Dosierung
 Substanz : Kategorie
 Substanz : Ausgabe-Einheit
 Substanz : Toleranz
+Substanz : Favorit
 
 @enduml
