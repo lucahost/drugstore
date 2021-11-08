@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import ch.ffhs.drugstore.data.dao.DrugDao;
 import ch.ffhs.drugstore.data.database.DrugstoreDatabase;
 import ch.ffhs.drugstore.data.entity.Drug;
