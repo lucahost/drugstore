@@ -6,4 +6,7 @@ import androidx.room.Entity;
 public class SignatureDrug {
     public long signatureId;
     public long drugId;
+
+    public double expectedAmount;
+    public double actualAmount;
 }

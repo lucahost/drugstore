@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey;
 public class Drug {
     @PrimaryKey(autoGenerate = true)
     public long drugId;
-
     public String title;
     public String dosage;
     public double tolerance;
