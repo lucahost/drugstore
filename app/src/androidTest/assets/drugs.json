@@ -1,0 +1,52 @@
+[
+  {
+    "drugId": "d-101",
+    "substanceId": 1,
+    "drugTypeId": 10001,
+    "title": "Actiq m Applik LuTbl 200mcg Blist 3Stk",
+    "dosage": "200mcg",
+    "tolerance": 0,
+    "isFavorite": false,
+    "inStock": 15
+  },
+  {
+    "drugId": "d-102",
+    "substanceId": 1,
+    "drugTypeId": 10001,
+    "title": "Actiq m Applik LuTbl 400mcg Blist 3Stk",
+    "dosage": "400mcg",
+    "tolerance": 0,
+    "isFavorite": false,
+    "inStock": 5
+  },
+  {
+    "drugId": "d-103",
+    "substanceId": 2,
+    "drugTypeId": 10001,
+    "title": "Concerta RTbl 18mg Fl",
+    "dosage": "18mg",
+    "tolerance": 0,
+    "isFavorite": false,
+    "inStock": 5
+  },
+  {
+    "drugId": "d-104",
+    "substanceId": 2,
+    "drugTypeId": 10001,
+    "title": "Concerta RTbl 36mg Fl",
+    "dosage": "36mg",
+    "tolerance": 0,
+    "isFavorite": false,
+    "inStock": 30
+  },
+  {
+    "drugId": "d-105",
+    "substanceId": 2,
+    "drugTypeId": 10001,
+    "title": "Concerta RTbl 54mg Fl",
+    "dosage": "54mg",
+    "tolerance": 0,
+    "isFavorite": false,
+    "inStock": 30
+  }
+]

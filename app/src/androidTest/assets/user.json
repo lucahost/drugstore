@@ -1,0 +1,18 @@
+[
+  {
+    "userId": "u-101",
+    "shortName": "jdoe",
+    "firstName": "Jon",
+    "lastName": "Doe",
+    "eMail": "jon.doe@mail.com",
+    "externalId": "ext-1001"
+  },
+  {
+    "userId": "u-102",
+    "shortName": "jadoe",
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "eMail": "jane.doe@mail.com",
+    "externalId": "ext-1002"
+  }
+]
