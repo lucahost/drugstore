@@ -3,35 +3,32 @@ package ch.ffhs.drugstore.presentation.view.activity;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 
-import javax.inject.Inject;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.ActivityMainBinding;
-import ch.ffhs.drugstore.presentation.view.fragment.TodoListFragment;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
-
-  @Inject TodoListFragment todoListFragment;
+  BottomNavigationView bottomNavigationView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
-
-    if (savedInstanceState == null) {
-      addFragment(binding.fragmentContainerView.getId(), todoListFragment);
-    }
+    bottomNavigationView = binding.bottomNavigation;
+    setUpNavigation();
   }
 
-  private void addFragment(int fragmentContainerId, Fragment fragment) {
-    getSupportFragmentManager()
-        .beginTransaction()
-        .setReorderingAllowed(true)
-        .add(fragmentContainerId, fragment, null)
-        .commit();
+  public void setUpNavigation(){
+    NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+            .findFragmentById(R.id.nav_host_fragment);
+    NavigationUI.setupWithNavController(bottomNavigationView,
+            navHostFragment.getNavController());
   }
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/dispensary">
+    <fragment
+        android:id="@+id/dispensary"
+        android:name="ch.ffhs.drugstore.presentation.view.fragment.DispensaryFragment"
+        android:label="fragment_dispensary"
+        tools:layout="@layout/fragment_dispensary" />
+    <fragment
+        android:id="@+id/management"
+        android:name="ch.ffhs.drugstore.presentation.view.fragment.ManagementFragment"
+        android:label="fragment_management"
+        tools:layout="@layout/fragment_management" />
+</navigation>

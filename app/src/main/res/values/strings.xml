@@ -4,4 +4,9 @@
     <string name="cancel">Cancel</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="add">Add</string>
+    <string name="menu_management">Verwaltung</string>
+    <string name="menu_dispensary">Abgabe</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_dispensary_fragment">Hello dispensary fragment</string>
+    <string name="hello_management_fragment">Hello management fragment</string>
 </resources>
