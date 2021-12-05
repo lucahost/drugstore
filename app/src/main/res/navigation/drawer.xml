@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer"
+    app:startDestination="@id/drugs">
+    <fragment
+        android:id="@+id/drugs"
+        android:name="ch.ffhs.drugstore.presentation.view.fragment.DrugsFragment"
+        android:label="fragment_drugs"
+        tools:layout="@layout/fragment_drugs" />
+    <fragment
+        android:id="@+id/inventory"
+        android:name="ch.ffhs.drugstore.presentation.view.fragment.InventoryFragment"
+        android:label="fragment_inventory"
+        tools:layout="@layout/fragment_inventory" />
+    <fragment
+        android:id="@+id/signature"
+        android:name="ch.ffhs.drugstore.presentation.view.fragment.SignatureFragment"
+        android:label="fragment_signature"
+        tools:layout="@layout/fragment_signature" />
+    <fragment
+        android:id="@+id/history"
+        android:name="ch.ffhs.drugstore.presentation.view.fragment.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
+</navigation>

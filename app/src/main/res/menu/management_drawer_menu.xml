@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/drugs"
+        android:icon="@drawable/ic_noun_medicine_4183488"
+        android:title="@string/drugs" />
+    <item
+        android:id="@+id/inventory"
+        android:icon="@drawable/ic_noun_clipboard_2942032"
+        android:title="@string/inventory" />
+    <item
+        android:id="@+id/signature"
+        android:icon="@drawable/ic_eye_24"
+        android:title="@string/signatures" />
+    <item
+        android:id="@+id/history"
+        android:icon="@drawable/ic_history_24"
+        android:title="@string/history" />
+</menu>

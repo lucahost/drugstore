@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
+import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
@@ -15,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
+
   BottomNavigationView bottomNavigationView;
 
   @Override
@@ -27,10 +29,11 @@ public class MainActivity extends AppCompatActivity {
     setUpNavigation();
   }
 
-  public void setUpNavigation(){
-    NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
-            .findFragmentById(R.id.nav_host_fragment);
-    NavigationUI.setupWithNavController(bottomNavigationView,
-            navHostFragment.getNavController());
+  public void setUpNavigation() {
+    NavHostFragment navHostFragment =
+        (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+    assert navHostFragment != null;
+    NavController navController = navHostFragment.getNavController();
+    NavigationUI.setupWithNavController(bottomNavigationView, navController);
   }
 }
