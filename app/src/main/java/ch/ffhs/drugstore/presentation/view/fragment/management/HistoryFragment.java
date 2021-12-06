@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.presentation.view.fragment;
+package ch.ffhs.drugstore.presentation.view.fragment.management;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,15 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import javax.inject.Inject;
-
 import ch.ffhs.drugstore.R;
 
 /**
- * A simple {@link Fragment} subclass. Use the {@link DispensaryFragment#newInstance} factory method
- * to create an instance of this fragment.
+ * A simple {@link Fragment} subclass. Use the {@link HistoryFragment#newInstance} factory method to
+ * create an instance of this fragment.
  */
-public class DispensaryFragment extends Fragment {
+public class HistoryFragment extends Fragment {
 
   // TODO: Rename parameter arguments, choose names that match
   // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,8 +24,7 @@ public class DispensaryFragment extends Fragment {
   private String mParam1;
   private String mParam2;
 
-  @Inject
-  public DispensaryFragment() {
+  public HistoryFragment() {
     // Required empty public constructor
   }
 
@@ -37,11 +34,11 @@ public class DispensaryFragment extends Fragment {
    *
    * @param param1 Parameter 1.
    * @param param2 Parameter 2.
-   * @return A new instance of fragment DispensaryFragment.
+   * @return A new instance of fragment HistoryFragment.
    */
   // TODO: Rename and change types and number of parameters
-  public static DispensaryFragment newInstance(String param1, String param2) {
-    DispensaryFragment fragment = new DispensaryFragment();
+  public static HistoryFragment newInstance(String param1, String param2) {
+    HistoryFragment fragment = new HistoryFragment();
     Bundle args = new Bundle();
     args.putString(ARG_PARAM1, param1);
     args.putString(ARG_PARAM2, param2);
@@ -62,6 +59,6 @@ public class DispensaryFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_dispensary, container, false);
+    return inflater.inflate(R.layout.fragment_history, container, false);
   }
 }

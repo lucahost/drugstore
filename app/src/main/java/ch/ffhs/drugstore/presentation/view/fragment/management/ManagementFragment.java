@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.presentation.view.fragment;
+package ch.ffhs.drugstore.presentation.view.fragment.management;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

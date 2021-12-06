@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.presentation.view.fragment;
+package ch.ffhs.drugstore.presentation.view.fragment.management;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,10 +10,10 @@ import androidx.fragment.app.Fragment;
 import ch.ffhs.drugstore.R;
 
 /**
- * A simple {@link Fragment} subclass. Use the {@link InventoryFragment#newInstance} factory method
- * to create an instance of this fragment.
+ * A simple {@link Fragment} subclass. Use the {@link DrugsFragment#newInstance} factory method to
+ * create an instance of this fragment.
  */
-public class InventoryFragment extends Fragment {
+public class DrugsFragment extends Fragment {
 
   // TODO: Rename parameter arguments, choose names that match
   // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +24,7 @@ public class InventoryFragment extends Fragment {
   private String mParam1;
   private String mParam2;
 
-  public InventoryFragment() {
+  public DrugsFragment() {
     // Required empty public constructor
   }
 
@@ -34,11 +34,11 @@ public class InventoryFragment extends Fragment {
    *
    * @param param1 Parameter 1.
    * @param param2 Parameter 2.
-   * @return A new instance of fragment InventoryFragment.
+   * @return A new instance of fragment DrugsFragment.
    */
   // TODO: Rename and change types and number of parameters
-  public static InventoryFragment newInstance(String param1, String param2) {
-    InventoryFragment fragment = new InventoryFragment();
+  public static DrugsFragment newInstance(String param1, String param2) {
+    DrugsFragment fragment = new DrugsFragment();
     Bundle args = new Bundle();
     args.putString(ARG_PARAM1, param1);
     args.putString(ARG_PARAM2, param2);
@@ -59,6 +59,6 @@ public class InventoryFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_inventory, container, false);
+    return inflater.inflate(R.layout.fragment_drugs, container, false);
   }
 }

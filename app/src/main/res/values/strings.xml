@@ -17,4 +17,6 @@
     <string name="hello_inventory_fragment">Hello inventory fragment</string>
     <string name="hello_history_fragment">Hello history fragment</string>
     <string name="hello_signature_fragment">Hello signature fragment</string>
+    <string name="search_title">Suche</string>
+    <string name="search_hint">Search Hint</string>
 </resources>
