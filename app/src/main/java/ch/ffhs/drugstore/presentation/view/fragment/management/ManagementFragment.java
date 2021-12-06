@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
@@ -20,6 +22,7 @@ import ch.ffhs.drugstore.databinding.FragmentManagementBinding;
 public class ManagementFragment extends Fragment {
 
   FragmentManagementBinding binding;
+  NavigationView managementNavigation;
 
   @Inject
   public ManagementFragment() {
@@ -28,15 +31,28 @@ public class ManagementFragment extends Fragment {
 
   @Override
   public View onCreateView(
-      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+      @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     binding = FragmentManagementBinding.inflate(inflater, container, false);
-    NavigationView managementNavigation = binding.managementNavigation;
+    managementNavigation = binding.managementNavigation;
+    setUpNavigation();
+    setUpContentDrawerMargin();
+    return binding.getRoot();
+  }
+
+  public void setUpNavigation() {
     NavHostFragment navHostFragment =
-        (NavHostFragment)
-            getChildFragmentManager().findFragmentById(R.id.management_nav_host_fragment);
+            (NavHostFragment)
+                    getChildFragmentManager().findFragmentById(R.id.management_nav_host_fragment);
     assert navHostFragment != null;
     NavController navController = navHostFragment.getNavController();
     NavigationUI.setupWithNavController(managementNavigation, navController);
-    return binding.getRoot();
+  }
+
+  private void setUpContentDrawerMargin() {
+    int drawerSize = (int)getResources().getDimension(R.dimen.drawerSize);
+    FragmentContainerView containerView = binding.managementNavHostFragment;
+    ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) containerView.getLayoutParams();
+    layoutParams.setMarginStart(drawerSize);
+    containerView.setLayoutParams(layoutParams);
   }
 }

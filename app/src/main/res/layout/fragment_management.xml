@@ -24,12 +24,12 @@
 
     <!--this the navigation view which draws and shows the navigation drawer-->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/drawerSize"
         android:layout_height="match_parent">
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/management_navigation"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/drawerSize"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:layout_constraintStart_toStartOf="parent"
