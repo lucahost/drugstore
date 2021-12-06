@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dispensary"
+        android:icon="@drawable/ic_baseline_apps_24"
+        android:title="@string/menu_dispensary" />
+    <item
+        android:id="@+id/management"
+        android:icon="@drawable/ic_baseline_check_circle_outline_24"
+        android:title="@string/menu_management" />
+</menu>

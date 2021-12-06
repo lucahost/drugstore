@@ -4,4 +4,19 @@
     <string name="cancel">Cancel</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="add">Add</string>
+    <string name="menu_management">Verwaltung</string>
+    <string name="menu_dispensary">Abgabe</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_dispensary_fragment">Hello dispensary fragment</string>
+    <string name="hello_management_fragment">Hello management fragment</string>
+    <string name="drugs">Medikamente</string>
+    <string name="inventory">Inventar</string>
+    <string name="signatures">Signaturen</string>
+    <string name="history">Abgaben</string>
+    <string name="hello_drugs_fragment">Hello drugs fragment</string>
+    <string name="hello_inventory_fragment">Hello inventory fragment</string>
+    <string name="hello_history_fragment">Hello history fragment</string>
+    <string name="hello_signature_fragment">Hello signature fragment</string>
+    <string name="search_title">Suche</string>
+    <string name="search_hint">Search Hint</string>
 </resources>

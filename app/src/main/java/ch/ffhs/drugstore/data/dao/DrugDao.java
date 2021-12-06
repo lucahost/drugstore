@@ -27,6 +27,6 @@ public interface DrugDao {
     @Query("DELETE FROM drug")
     void deleteAll();
 
-    @Query("SELECT *, `rowid` FROM drug")
+    @Query("SELECT *, drugId FROM drug")
     LiveData<List<Drug>> getAll();
 }
