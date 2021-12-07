@@ -3,7 +3,7 @@
     <string name="dialog_add_todo">Add Todo</string>
     <string name="cancel">Cancel</string>
     <string name="title_activity_test">TestActivity</string>
-    <string name="add">Add</string>
+    <string name="add">Erfassen</string>
     <string name="menu_management">Verwaltung</string>
     <string name="menu_dispensary">Abgabe</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -19,4 +19,5 @@
     <string name="hello_signature_fragment">Hello signature fragment</string>
     <string name="search_title">Suche</string>
     <string name="search_hint">Search Hint</string>
+    <string name="sign">Signieren</string>
 </resources>
