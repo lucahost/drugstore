@@ -23,9 +23,12 @@ import ch.ffhs.drugstore.presentation.viewmodel.DrugsViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class DrugsFragment extends Fragment implements DrugListAdapter.OnItemClickListener {
+public class DrugsFragment extends Fragment
+    implements DrugListAdapter.OnItemClickListener,
+        CreateDrugDialogFragment.ConfirmCreateDrugListener {
 
   @Inject DrugListAdapter adapter;
+  @Inject CreateDrugDialogFragment createDrugDialogFragment;
   FragmentDrugsBinding binding;
   DrugsViewModel viewModel;
 
@@ -38,6 +41,9 @@ public class DrugsFragment extends Fragment implements DrugListAdapter.OnItemCli
   public View onCreateView(
       @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     binding = FragmentDrugsBinding.inflate(getLayoutInflater());
+    binding.extendedFab.setOnClickListener(
+        view ->
+            createDrugDialogFragment.show(getChildFragmentManager(), CreateDrugDialogFragment.TAG));
     setupRecyclerView();
     return binding.getRoot();
   }
@@ -63,14 +69,15 @@ public class DrugsFragment extends Fragment implements DrugListAdapter.OnItemCli
     // TODO
   }
 
-  @Override
-  public void onItemLongClick(Drug drug) {
-    Toast.makeText(context(), "Zu Favoriten hinzugefügt", Toast.LENGTH_SHORT).show();
-  }
-
   private void setupRecyclerView() {
     binding.drugsList.setLayoutManager(new LinearLayoutManager(context()));
     adapter.setClickListener(this);
     binding.drugsList.setAdapter(this.adapter);
+  }
+
+  @Override
+  public void onConfirmCreateDrug(
+      String name, String dosage, String category, String dispenseUnit, String tolerance) {
+    Toast.makeText(context(), "Erfolgreich erfasst", Toast.LENGTH_SHORT).show();
   }
 }

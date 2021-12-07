@@ -23,5 +23,9 @@
     <string name="sign">Signieren</string>
     <string name="employee">Fachkraft</string>
     <string name="patient">Patient</string>
-    <string name="dosage">Dosis</string>
+    <string name="dosage">Dosierung</string>
+    <string name="name">Name</string>
+    <string name="category">Kategorie</string>
+    <string name="dispense_unit">Ausgabe-Einheit</string>
+    <string name="tolerance">Toleranz</string>
 </resources>

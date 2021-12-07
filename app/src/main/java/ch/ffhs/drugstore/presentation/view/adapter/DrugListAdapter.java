@@ -57,13 +57,10 @@ public class DrugListAdapter extends ListAdapter<Drug, DrugListAdapter.DrugHolde
 
   public interface OnItemClickListener {
     void onItemClick(Drug drug);
-
-    void onItemLongClick(Drug drug);
   }
 
   /** Provide a reference to the type of views that you are using (custom ViewHolder). */
-  public class DrugHolder extends RecyclerView.ViewHolder
-      implements View.OnClickListener, View.OnLongClickListener {
+  public class DrugHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private final TextView title;
     private final TextView secondary;
 
@@ -81,12 +78,6 @@ public class DrugListAdapter extends ListAdapter<Drug, DrugListAdapter.DrugHolde
     @Override
     public void onClick(View view) {
       if (clickListener != null) clickListener.onItemClick(getItem(getAdapterPosition()));
-    }
-
-    @Override
-    public boolean onLongClick(View view) {
-      if (clickListener != null) clickListener.onItemLongClick(getItem(getAdapterPosition()));
-      return true;
     }
   }
 }

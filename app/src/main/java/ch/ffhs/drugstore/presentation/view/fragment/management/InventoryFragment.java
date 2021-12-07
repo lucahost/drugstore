@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -23,9 +24,11 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class InventoryFragment extends Fragment
-    implements InventoryListAdapter.OnItemClickListener {
+    implements InventoryListAdapter.OnItemClickListener,
+        SignInventoryDialogFragment.ConfirmSignInventoryListener {
 
   @Inject InventoryListAdapter adapter;
+  @Inject SignInventoryDialogFragment signInventoryDialogFragment;
   FragmentInventoryBinding binding;
   InventoryViewModel viewModel;
 
@@ -38,6 +41,10 @@ public class InventoryFragment extends Fragment
   public View onCreateView(
       @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     binding = FragmentInventoryBinding.inflate(getLayoutInflater());
+    binding.extendedFab.setOnClickListener(
+        view ->
+            signInventoryDialogFragment.show(
+                getChildFragmentManager(), SignInventoryDialogFragment.TAG));
     setupRecyclerView();
     return binding.getRoot();
   }
@@ -63,14 +70,14 @@ public class InventoryFragment extends Fragment
     // TODO
   }
 
-  @Override
-  public void onItemLongClick(InventoryDrug inventoryDrug) {
-    // TODO
-  }
-
   private void setupRecyclerView() {
     binding.inventoryList.setLayoutManager(new LinearLayoutManager(context()));
     adapter.setClickListener(this);
     binding.inventoryList.setAdapter(this.adapter);
+  }
+
+  @Override
+  public void onConfirmSignInventory(String employee) {
+    Toast.makeText(context(), "Erfolgreich signiert", Toast.LENGTH_SHORT).show();
   }
 }

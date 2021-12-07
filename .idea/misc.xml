@@ -22,6 +22,8 @@
         <entry key="app/src/main/res/layout/add_todo.xml" value="0.4935242819699446" />
         <entry key="app/src/main/res/layout/add_todo_fragment.xml" value="0.375" />
         <entry key="app/src/main/res/layout/content_management.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dialog_create_drug.xml" value="0.1393110435663627" />
+        <entry key="app/src/main/res/layout/dialog_sign_inventory.xml" value="0.1393110435663627" />
         <entry key="app/src/main/res/layout/dispensary_item.xml" value="0.11820652173913043" />
         <entry key="app/src/main/res/layout/dispense_drug_fragment.xml" value="0.1393110435663627" />
         <entry key="app/src/main/res/layout/drug_item.xml" value="0.1393110435663627" />

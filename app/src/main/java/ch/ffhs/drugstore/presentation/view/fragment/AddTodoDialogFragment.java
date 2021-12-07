@@ -16,7 +16,7 @@ import androidx.fragment.app.DialogFragment;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
-import ch.ffhs.drugstore.databinding.AddTodoFragmentBinding;
+import ch.ffhs.drugstore.databinding.DialogAddTodoBinding;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -45,14 +45,14 @@ public class AddTodoDialogFragment extends DialogFragment {
   @Override
   public View onCreateView(
       @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    AddTodoFragmentBinding binding = AddTodoFragmentBinding.inflate(inflater, container, false);
+    DialogAddTodoBinding binding = DialogAddTodoBinding.inflate(inflater, container, false);
     return binding.getRoot();
   }
 
   @NonNull
   @Override
   public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-    View addTodoView = View.inflate(getActivity(), R.layout.add_todo_fragment, null);
+    View addTodoView = View.inflate(getActivity(), R.layout.dialog_add_todo, null);
     return new AlertDialog.Builder(requireContext())
         .setView(addTodoView)
         .setMessage(getString(R.string.dialog_add_todo))

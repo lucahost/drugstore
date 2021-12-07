@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.presentation.view.fragment.dispensary;
+package ch.ffhs.drugstore.presentation.view.fragment.management;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -17,54 +17,51 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
-import ch.ffhs.drugstore.databinding.DialogDispenseDrugBinding;
+import ch.ffhs.drugstore.databinding.DialogSignInventoryBinding;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class DispenseDrugDialogFragment extends DialogFragment {
+public class SignInventoryDialogFragment extends DialogFragment {
 
   public static final String TAG = "DispenseDrugDialog";
-
-  private ConfirmDispenseDrugListener confirmDispenseDrugListener;
-  DialogDispenseDrugBinding binding;
+  DialogSignInventoryBinding binding;
+  private ConfirmSignInventoryListener confirmSignInventoryListener;
 
   @Inject
-  public DispenseDrugDialogFragment() {
+  public SignInventoryDialogFragment() {
     /* TODO document why this constructor is empty */
   }
 
   @Override
   public void onAttach(@NonNull Context context) {
     super.onAttach(context);
-    if (getParentFragment() instanceof ConfirmDispenseDrugListener) {
-      this.confirmDispenseDrugListener = (ConfirmDispenseDrugListener) getParentFragment();
+    if (getParentFragment() instanceof ConfirmSignInventoryListener) {
+      this.confirmSignInventoryListener = (ConfirmSignInventoryListener) getParentFragment();
     }
-    if (context instanceof ConfirmDispenseDrugListener) {
-      this.confirmDispenseDrugListener = (ConfirmDispenseDrugListener) context;
+    if (context instanceof ConfirmSignInventoryListener) {
+      this.confirmSignInventoryListener = (ConfirmSignInventoryListener) context;
     }
   }
 
   @Override
   public View onCreateView(
       @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    binding = DialogDispenseDrugBinding.inflate(inflater, container, false);
+    binding = DialogSignInventoryBinding.inflate(inflater, container, false);
     return binding.getRoot();
   }
 
   @NonNull
   @Override
   public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-    View addView = View.inflate(getActivity(), R.layout.dialog_dispense_drug, null);
+    View addView = View.inflate(getActivity(), R.layout.dialog_sign_inventory, null);
     return new AlertDialog.Builder(requireContext())
         .setView(addView)
         .setTitle(getString(R.string.dispense))
         .setPositiveButton(
             getString(R.string.dispense),
             (dialog, id) ->
-                this.confirmDispenseDrugListener.onConfirmDispenseDrug(
-                    Objects.requireNonNull(binding.employeeText.getText()).toString(),
-                    Objects.requireNonNull(binding.patientText.getText()).toString(),
-                    Objects.requireNonNull(binding.dosageText.getText()).toString()))
+                this.confirmSignInventoryListener.onConfirmSignInventory(
+                    Objects.requireNonNull(binding.employeeText.getText()).toString()))
         .setNegativeButton(getString(R.string.cancel), (dialog, id) -> {})
         .create();
   }
@@ -72,10 +69,10 @@ public class DispenseDrugDialogFragment extends DialogFragment {
   @Override
   public void onDetach() {
     super.onDetach();
-    this.confirmDispenseDrugListener = null;
+    this.confirmSignInventoryListener = null;
   }
 
-  public interface ConfirmDispenseDrugListener {
-    void onConfirmDispenseDrug(String employee, String patient, String dosage);
+  public interface ConfirmSignInventoryListener {
+    void onConfirmSignInventory(String employee);
   }
 }

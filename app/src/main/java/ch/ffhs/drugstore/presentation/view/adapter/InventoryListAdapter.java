@@ -61,13 +61,10 @@ public class InventoryListAdapter
 
   public interface OnItemClickListener {
     void onItemClick(InventoryDrug inventoryDrug);
-
-    void onItemLongClick(InventoryDrug inventoryDrug);
   }
 
   /** Provide a reference to the type of views that you are using (custom ViewHolder). */
-  public class InventoryItemHolder extends RecyclerView.ViewHolder
-      implements View.OnClickListener, View.OnLongClickListener {
+  public class InventoryItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private final CheckedTextView title;
     private final TextView secondary;
 
@@ -86,12 +83,6 @@ public class InventoryListAdapter
     @Override
     public void onClick(View view) {
       if (clickListener != null) clickListener.onItemClick(getItem(getAdapterPosition()));
-    }
-
-    @Override
-    public boolean onLongClick(View view) {
-      if (clickListener != null) clickListener.onItemLongClick(getItem(getAdapterPosition()));
-      return true;
     }
   }
 }
