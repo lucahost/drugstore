@@ -10,22 +10,22 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.entity.Drug;
-import ch.ffhs.drugstore.domain.usecase.dispensary.GetAllDispensaryItems;
+import ch.ffhs.drugstore.domain.usecase.management.GetDrugs;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
-public class DispensaryViewModel extends AndroidViewModel {
-  @Inject GetAllDispensaryItems getAllDispensaryItems;
+public class DrugsViewModel extends AndroidViewModel {
+  @Inject GetDrugs getDrugs;
   private LiveData<List<Drug>> items;
 
   @Inject
-  public DispensaryViewModel(Application application) {
+  public DrugsViewModel(Application application) {
     super(application);
   }
 
   public LiveData<List<Drug>> getItems() {
     if (items == null) {
-      items = getAllDispensaryItems.execute(null);
+      items = getDrugs.execute(null);
     }
     return items;
   }

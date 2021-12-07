@@ -19,16 +19,16 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.databinding.FragmentDispensaryBinding;
-import ch.ffhs.drugstore.presentation.view.adapter.DrugListAdapter;
+import ch.ffhs.drugstore.presentation.view.adapter.DispensaryListAdapter;
 import ch.ffhs.drugstore.presentation.viewmodel.DispensaryViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class DispensaryFragment extends Fragment
-    implements DrugListAdapter.OnItemClickListener,
+    implements DispensaryListAdapter.OnItemClickListener,
         DispenseDrugDialogFragment.ConfirmDispenseDrugListener {
 
-  @Inject DrugListAdapter adapter;
+  @Inject DispensaryListAdapter adapter;
   @Inject DispenseDrugDialogFragment dispenseDrugDialogFragment;
   FragmentDispensaryBinding binding;
   DispensaryViewModel viewModel;
@@ -55,7 +55,7 @@ public class DispensaryFragment extends Fragment
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     viewModel = new ViewModelProvider(requireActivity()).get(DispensaryViewModel.class);
-    viewModel.getDrugs().observe(getViewLifecycleOwner(), adapter::submitList);
+    viewModel.getItems().observe(getViewLifecycleOwner(), adapter::submitList);
   }
 
   public Context context() {
@@ -73,10 +73,10 @@ public class DispensaryFragment extends Fragment
   }
 
   private void setupRecyclerView() {
-    binding.drugs.setLayoutManager(
+    binding.dispensaryList.setLayoutManager(
         new GridLayoutManager(context(), 2, RecyclerView.VERTICAL, false));
     adapter.setClickListener(this);
-    binding.drugs.setAdapter(this.adapter);
+    binding.dispensaryList.setAdapter(this.adapter);
   }
 
   @Override

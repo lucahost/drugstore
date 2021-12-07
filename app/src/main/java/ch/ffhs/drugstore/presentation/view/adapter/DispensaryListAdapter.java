@@ -10,12 +10,15 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
+
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.entity.Drug;
-import ch.ffhs.drugstore.databinding.DrugItemBinding;
+import ch.ffhs.drugstore.databinding.DispensaryItemBinding;
 
-public class DrugListAdapter extends ListAdapter<Drug, DrugListAdapter.DrugHolder> {
+public class DispensaryListAdapter
+    extends ListAdapter<Drug, DispensaryListAdapter.DispensaryItemHolder> {
   private static final DiffUtil.ItemCallback<Drug> DIFF_CALLBACK =
       new DiffUtil.ItemCallback<Drug>() {
         @Override
@@ -30,23 +33,23 @@ public class DrugListAdapter extends ListAdapter<Drug, DrugListAdapter.DrugHolde
         }
       };
 
-  private DrugListAdapter.OnItemClickListener clickListener;
+  private DispensaryListAdapter.OnItemClickListener clickListener;
 
   @Inject
-  public DrugListAdapter() {
+  public DispensaryListAdapter() {
     super(DIFF_CALLBACK);
   }
 
   @NonNull
   @Override
-  public DrugHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    DrugItemBinding binding =
-        DrugItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-    return new DrugListAdapter.DrugHolder(binding);
+  public DispensaryItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    DispensaryItemBinding binding =
+        DispensaryItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+    return new DispensaryItemHolder(binding);
   }
 
   @Override
-  public void onBindViewHolder(@NonNull DrugHolder holder, int position) {
+  public void onBindViewHolder(@NonNull DispensaryItemHolder holder, int position) {
     holder.bind(position);
   }
 
@@ -62,20 +65,25 @@ public class DrugListAdapter extends ListAdapter<Drug, DrugListAdapter.DrugHolde
   }
 
   /** Provide a reference to the type of views that you are using (custom ViewHolder). */
-  public class DrugHolder extends RecyclerView.ViewHolder
+  public class DispensaryItemHolder extends RecyclerView.ViewHolder
       implements View.OnClickListener, View.OnLongClickListener {
-    private final TextView title;
-    private final TextView secondary;
+    private final MaterialCardView card;
+    private final TextView drugTitle;
+    private final TextView drugSecondary;
 
-    DrugHolder(DrugItemBinding binding) {
+    DispensaryItemHolder(DispensaryItemBinding binding) {
       super(binding.getRoot());
-      title = binding.title;
-      secondary = binding.secondary;
+      drugTitle = binding.drugTitle;
+      drugSecondary = binding.drugSecondary;
+      card = binding.card;
     }
 
     void bind(int position) {
-      title.setText(getItem(position).getTitle());
-      secondary.setText(getItem(position).getDosage());
+      drugTitle.setText(getItem(position).getTitle());
+      drugSecondary.setText(getItem(position).getDosage());
+      card.setChecked(getItem(position).isFavorite());
+      card.setOnClickListener(this);
+      card.setOnLongClickListener(this);
     }
 
     @Override
