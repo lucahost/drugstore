@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
@@ -35,7 +34,6 @@ public class ManagementFragment extends Fragment {
     binding = FragmentManagementBinding.inflate(inflater, container, false);
     managementNavigation = binding.managementNavigation;
     setUpNavigation();
-    setUpContentDrawerMargin();
     return binding.getRoot();
   }
 
@@ -46,13 +44,5 @@ public class ManagementFragment extends Fragment {
     assert navHostFragment != null;
     NavController navController = navHostFragment.getNavController();
     NavigationUI.setupWithNavController(managementNavigation, navController);
-  }
-
-  private void setUpContentDrawerMargin() {
-    int drawerSize = (int)getResources().getDimension(R.dimen.drawerSize);
-    FragmentContainerView containerView = binding.managementNavHostFragment;
-    ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) containerView.getLayoutParams();
-    layoutParams.setMarginStart(drawerSize);
-    containerView.setLayoutParams(layoutParams);
   }
 }
