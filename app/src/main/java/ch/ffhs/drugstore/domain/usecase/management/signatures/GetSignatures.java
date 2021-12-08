@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.domain.usecase.management;
+package ch.ffhs.drugstore.domain.usecase.management.signatures;
 
 import androidx.lifecycle.LiveData;
 

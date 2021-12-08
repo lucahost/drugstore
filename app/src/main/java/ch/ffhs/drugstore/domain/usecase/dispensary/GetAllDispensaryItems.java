@@ -8,14 +8,13 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.domain.service.DispensaryService;
-import ch.ffhs.drugstore.domain.service.TodoService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
 
 public class GetAllDispensaryItems implements UseCase<LiveData<List<Drug>>, Void> {
   @Inject DispensaryService dispensaryService;
 
   @Inject
-  public GetAllDispensaryItems(TodoService todoService) {
+  public GetAllDispensaryItems(DispensaryService dispensaryService) {
     this.dispensaryService = dispensaryService;
   }
 

@@ -10,12 +10,16 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.entity.Drug;
+import ch.ffhs.drugstore.domain.usecase.dispensary.AddToFavorites;
+import ch.ffhs.drugstore.domain.usecase.dispensary.DispenseDrug;
 import ch.ffhs.drugstore.domain.usecase.dispensary.GetAllDispensaryItems;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
 public class DispensaryViewModel extends AndroidViewModel {
   @Inject GetAllDispensaryItems getAllDispensaryItems;
+  @Inject AddToFavorites addToFavorites;
+  @Inject DispenseDrug dispenseDrug;
   private LiveData<List<Drug>> items;
 
   @Inject
@@ -28,5 +32,13 @@ public class DispensaryViewModel extends AndroidViewModel {
       items = getAllDispensaryItems.execute(null);
     }
     return items;
+  }
+
+  public void addToFavorites() {
+    addToFavorites.execute(null);
+  }
+
+  public void dispenseDrug() {
+    dispenseDrug.execute(null);
   }
 }

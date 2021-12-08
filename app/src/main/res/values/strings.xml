@@ -32,4 +32,6 @@
     <string name="content">Inhalt</string>
     <string name="count">Anzahl</string>
     <string name="unit">Einheit</string>
+    <string name="create_drug">Medikament erfassen</string>
+    <string name="create">Erfassen</string>
 </resources>

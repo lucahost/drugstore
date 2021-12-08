@@ -10,7 +10,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.entity.Signature;
-import ch.ffhs.drugstore.domain.usecase.management.GetSignatures;
+import ch.ffhs.drugstore.domain.usecase.management.signatures.GetSignatures;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel

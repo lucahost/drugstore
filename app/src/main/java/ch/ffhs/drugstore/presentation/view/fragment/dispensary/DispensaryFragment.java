@@ -69,6 +69,7 @@ public class DispensaryFragment extends Fragment
 
   @Override
   public void onItemLongClick(Drug drug) {
+    viewModel.addToFavorites();
     Toast.makeText(context(), "Zu Favoriten hinzugefügt", Toast.LENGTH_SHORT).show();
   }
 
@@ -82,6 +83,7 @@ public class DispensaryFragment extends Fragment
   @Override
   public void onConfirmDispenseDrug(String employee, String patient, String dosage) {
     dispenseDrugDialogFragment.dismiss();
+    viewModel.dispenseDrug();
     Toast.makeText(context(), "Ausgegeben", Toast.LENGTH_SHORT).show();
   }
 }

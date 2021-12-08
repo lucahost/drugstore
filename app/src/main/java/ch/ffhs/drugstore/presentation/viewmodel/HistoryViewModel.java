@@ -10,7 +10,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.entity.Transaction;
-import ch.ffhs.drugstore.domain.usecase.management.GetHistory;
+import ch.ffhs.drugstore.domain.usecase.management.history.GetHistory;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel

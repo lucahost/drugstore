@@ -67,7 +67,8 @@ public class InventoryFragment extends Fragment
 
   @Override
   public void onItemClick(InventoryDrug inventoryDrug) {
-    // TODO
+    viewModel.toggleInventoryItem();
+    Toast.makeText(context(), "Checked", Toast.LENGTH_SHORT).show();
   }
 
   private void setupRecyclerView() {
@@ -78,6 +79,7 @@ public class InventoryFragment extends Fragment
 
   @Override
   public void onConfirmSignInventory(String employee) {
+    viewModel.signInventory();
     Toast.makeText(context(), "Erfolgreich signiert", Toast.LENGTH_SHORT).show();
   }
 }

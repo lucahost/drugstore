@@ -56,9 +56,9 @@ public class CreateDrugDialogFragment extends DialogFragment {
     View addView = View.inflate(getActivity(), R.layout.dialog_create_drug, null);
     return new AlertDialog.Builder(requireContext())
         .setView(addView)
-        .setTitle(getString(R.string.dispense))
+        .setTitle(getString(R.string.create_drug))
         .setPositiveButton(
-            getString(R.string.dispense),
+            getString(R.string.create),
             (dialog, id) ->
                 this.confirmCreateDrugListener.onConfirmCreateDrug(
                     Objects.requireNonNull(binding.nameText.getText()).toString(),

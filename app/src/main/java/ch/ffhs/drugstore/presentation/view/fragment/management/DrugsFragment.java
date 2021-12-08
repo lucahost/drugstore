@@ -118,27 +118,32 @@ public class DrugsFragment extends Fragment
   @Override
   public void onConfirmCreateDrug(
       String name, String dosage, String category, String dispenseUnit, String tolerance) {
+    viewModel.createDrug();
     Toast.makeText(context(), "Erfolgreich erfasst", Toast.LENGTH_SHORT).show();
   }
 
   @Override
   public void onConfirmAddDrug(String content, String unit, String count) {
+    viewModel.addDrug();
     Toast.makeText(context(), "Erfolgreich hinzugefügt", Toast.LENGTH_SHORT).show();
   }
 
   @Override
   public void onConfirmDeleteDrug(int drugId) {
+    viewModel.deleteDrug();
     Toast.makeText(context(), "Erfolgreich gelöscht", Toast.LENGTH_SHORT).show();
   }
 
   @Override
   public void onConfirmEditDrug(
       String name, String dosage, String category, String dispenseUnit, String tolerance) {
+    viewModel.editDrug();
     Toast.makeText(context(), "Erfolgreich bearbeitet", Toast.LENGTH_SHORT).show();
   }
 
   @Override
   public void onConfirmRemoveDrug() {
+    viewModel.removeDrug();
     Toast.makeText(context(), "Erfolgreich ausgetragen", Toast.LENGTH_SHORT).show();
   }
 }

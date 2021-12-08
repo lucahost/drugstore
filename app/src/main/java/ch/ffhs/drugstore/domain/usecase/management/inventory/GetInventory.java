@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.domain.usecase.management;
+package ch.ffhs.drugstore.domain.usecase.management.inventory;
 
 import androidx.lifecycle.LiveData;
 
@@ -14,7 +14,7 @@ public class GetInventory implements UseCase<LiveData<List<InventoryDrug>>, Void
   @Inject InventoryService inventoryService;
 
   @Inject
-  public GetInventory(InventoryService historyService) {
+  public GetInventory(InventoryService inventoryService) {
     this.inventoryService = inventoryService;
   }
 
