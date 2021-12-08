@@ -6,12 +6,12 @@
     app:startDestination="@id/dispensary">
     <fragment
         android:id="@+id/dispensary"
-        android:name="ch.ffhs.drugstore.presentation.view.fragment.dispensary.DispensaryFragment"
+        android:name="ch.ffhs.drugstore.presentation.dispensary.view.DispensaryFragment"
         android:label="fragment_dispensary"
         tools:layout="@layout/fragment_dispensary" />
     <fragment
         android:id="@+id/management"
-        android:name="ch.ffhs.drugstore.presentation.view.fragment.management.ManagementFragment"
+        android:name="ch.ffhs.drugstore.presentation.management.ManagementFragment"
         android:label="fragment_management"
         tools:layout="@layout/fragment_management" />
 </navigation>

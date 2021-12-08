@@ -6,22 +6,22 @@
     app:startDestination="@id/drugs">
     <fragment
         android:id="@+id/drugs"
-        android:name="ch.ffhs.drugstore.presentation.view.fragment.management.DrugsFragment"
+        android:name="ch.ffhs.drugstore.presentation.management.drugs.view.DrugsFragment"
         android:label="fragment_drugs"
         tools:layout="@layout/fragment_drugs" />
     <fragment
         android:id="@+id/inventory"
-        android:name="ch.ffhs.drugstore.presentation.view.fragment.management.InventoryFragment"
+        android:name="ch.ffhs.drugstore.presentation.management.inventory.view.InventoryFragment"
         android:label="fragment_inventory"
         tools:layout="@layout/fragment_inventory" />
     <fragment
         android:id="@+id/signature"
-        android:name="ch.ffhs.drugstore.presentation.view.fragment.management.SignatureFragment"
+        android:name="ch.ffhs.drugstore.presentation.management.signature.view.SignatureFragment"
         android:label="fragment_signature"
         tools:layout="@layout/fragment_signature" />
     <fragment
         android:id="@+id/history"
-        android:name="ch.ffhs.drugstore.presentation.view.fragment.management.HistoryFragment"
+        android:name="ch.ffhs.drugstore.presentation.management.history.view.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
 </navigation>
