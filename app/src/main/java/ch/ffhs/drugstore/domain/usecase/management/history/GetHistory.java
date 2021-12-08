@@ -6,11 +6,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import ch.ffhs.drugstore.data.dto.TransactionDto;
 import ch.ffhs.drugstore.data.entity.Transaction;
 import ch.ffhs.drugstore.domain.service.HistoryService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
 
-public class GetHistory implements UseCase<LiveData<List<Transaction>>, Void> {
+public class GetHistory implements UseCase<LiveData<List<TransactionDto>>, Void> {
   @Inject HistoryService historyService;
 
   @Inject
@@ -19,7 +20,7 @@ public class GetHistory implements UseCase<LiveData<List<Transaction>>, Void> {
   }
 
   @Override
-  public LiveData<List<Transaction>> execute(Void unused) {
+  public LiveData<List<TransactionDto>> execute(Void unused) {
     return historyService.getHistory();
   }
 }

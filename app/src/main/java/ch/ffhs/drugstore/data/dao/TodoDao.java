@@ -14,18 +14,18 @@ import ch.ffhs.drugstore.data.entity.Todo;
 @Dao
 public interface TodoDao {
 
-  @Insert
-  void insert(Todo todo);
+    @Insert
+    void insert(Todo todo);
 
-  @Update
-  void update(Todo todo);
+    @Update
+    void update(Todo todo);
 
-  @Delete
-  void delete(Todo todo);
+    @Delete
+    void delete(Todo todo);
 
-  @Query("DELETE FROM todo_table")
-  void deleteAll();
+    @Query("DELETE FROM todo_table")
+    void deleteAll();
 
-  @Query("SELECT *, `rowid` FROM todo_table")
-  LiveData<List<Todo>> getAll();
+    @Query("SELECT *, `rowid` FROM todo_table")
+    LiveData<List<Todo>> getAll();
 }

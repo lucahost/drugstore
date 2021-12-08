@@ -1,34 +1,21 @@
-package ch.ffhs.drugstore.data.entity;
+package ch.ffhs.drugstore.data.dto;
 
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Index;
+public class SignatureDrugDto {
+    private int signatureId;
+    private int drugId;
+    private DrugDto drug;
+    private double expectedAmount;
+    private double actualAmount;
+    private boolean approved;
 
-@Entity(tableName = "signatureDrugs",
-        primaryKeys = {"signatureId", "drugId"},
-        foreignKeys = {
-                @ForeignKey(entity = Drug.class, parentColumns = "drugId", childColumns = "drugId"),
-                @ForeignKey(entity = Signature.class, parentColumns = "signatureId",
-                        childColumns = "signatureId")
-        },
-        indices = {
-                @Index(value = {"signatureId", "drugId"}, unique = true),
-                @Index(value = "drugId"),
-                @Index(value = "signatureId")
-        }
-)
-public class SignatureDrug {
+    public SignatureDrugDto() {
+    }
 
-    public int signatureId;
-    public int drugId;
-    public double expectedAmount;
-    public double actualAmount;
-    public boolean approved;
-
-    public SignatureDrug(int signatureId, int drugId, double expectedAmount, double actualAmount,
-            boolean approved) {
+    public SignatureDrugDto(int signatureId, int drugId, DrugDto drug,
+            double expectedAmount, double actualAmount, boolean approved) {
         this.signatureId = signatureId;
         this.drugId = drugId;
+        this.drug = drug;
         this.expectedAmount = expectedAmount;
         this.actualAmount = actualAmount;
         this.approved = approved;
@@ -48,6 +35,14 @@ public class SignatureDrug {
 
     public void setDrugId(int drugId) {
         this.drugId = drugId;
+    }
+
+    public DrugDto getDrug() {
+        return drug;
+    }
+
+    public void setDrug(DrugDto drug) {
+        this.drug = drug;
     }
 
     public double getExpectedAmount() {

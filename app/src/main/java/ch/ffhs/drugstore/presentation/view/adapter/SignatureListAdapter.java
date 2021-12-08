@@ -12,21 +12,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import javax.inject.Inject;
 
+import ch.ffhs.drugstore.data.dto.SignatureDto;
 import ch.ffhs.drugstore.data.entity.Signature;
 import ch.ffhs.drugstore.databinding.SignatureItemBinding;
 
 public class SignatureListAdapter
-    extends ListAdapter<Signature, SignatureListAdapter.SignatureItemHolder> {
-  private static final DiffUtil.ItemCallback<Signature> DIFF_CALLBACK =
-      new DiffUtil.ItemCallback<Signature>() {
+    extends ListAdapter<SignatureDto, SignatureListAdapter.SignatureItemHolder> {
+  private static final DiffUtil.ItemCallback<SignatureDto> DIFF_CALLBACK =
+      new DiffUtil.ItemCallback<SignatureDto>() {
         @Override
-        public boolean areItemsTheSame(@NonNull Signature oldItem, @NonNull Signature newItem) {
+        public boolean areItemsTheSame(@NonNull SignatureDto oldItem, @NonNull SignatureDto newItem) {
           return oldItem.getSignatureId() == newItem.getSignatureId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull Signature oldItem, @NonNull Signature newItem) {
-          return oldItem.getUserId() == newItem.getUserId()
+        public boolean areContentsTheSame(@NonNull SignatureDto oldItem, @NonNull SignatureDto newItem) {
+          return oldItem.getUser().getUserId() == newItem.getUser().getUserId()
               && oldItem.getSignatureId() == newItem.getSignatureId()
               && oldItem.getCreatedAt().equals(newItem.getCreatedAt());
         }
@@ -58,9 +59,9 @@ public class SignatureListAdapter
   }
 
   public interface OnItemClickListener {
-    void onItemClick(Signature signature);
+    void onItemClick(SignatureDto signature);
 
-    void onItemLongClick(Signature signature);
+    void onItemLongClick(SignatureDto signature);
   }
 
   /** Provide a reference to the type of views that you are using (custom ViewHolder). */

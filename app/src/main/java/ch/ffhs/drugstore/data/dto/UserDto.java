@@ -1,34 +1,40 @@
-package ch.ffhs.drugstore.data.entity;
+package ch.ffhs.drugstore.data.dto;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+public class UserDto {
+    private int userId;
+    private String shortName;
+    private String firstName;
+    private String lastName;
+    private String emailAddress;
+    private String externalId;
 
-@Entity(tableName = "users")
-public class User {
-    @PrimaryKey(autoGenerate = true)
-    public long userId;
-    public String firstName;
-    public String lastName;
-    public String shortName;
-    public String emailAddress;
-    public String externalId;
+    public UserDto() {
+    }
 
-    public User(long userId, String firstName, String lastName, String shortName,
+    public UserDto(int userId, String shortName, String firstName, String lastName,
             String emailAddress, String externalId) {
         this.userId = userId;
+        this.shortName = shortName;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.shortName = shortName;
         this.emailAddress = emailAddress;
         this.externalId = externalId;
     }
 
-    public long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 
     public String getFirstName() {
@@ -45,14 +51,6 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getShortName() {
-        return shortName;
-    }
-
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
     }
 
     public String getEmailAddress() {

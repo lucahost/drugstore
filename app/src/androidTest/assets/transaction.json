@@ -1,9 +1,10 @@
 [
   {
-    "transationId": "t-101",
-    "drugId": "",
-    "userId": "u-101",
+    "transactionId": 100001,
+    "drugId": 10001,
+    "userId": 10001,
     "amount": 5,
-    "dateTime": "2021-12-04T17:41:02+00:00"
+    "createdAt": "2021-12-04T17:41:02+00:00",
+    "patient": "Patient 1"
   }
 ]

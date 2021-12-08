@@ -6,11 +6,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.entity.InventoryDrug;
+import ch.ffhs.drugstore.data.dto.DrugDto;
 import ch.ffhs.drugstore.domain.service.InventoryService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
 
-public class GetInventory implements UseCase<LiveData<List<InventoryDrug>>, Void> {
+public class GetInventory implements UseCase<LiveData<List<DrugDto>>, Void> {
   @Inject InventoryService inventoryService;
 
   @Inject
@@ -19,7 +19,7 @@ public class GetInventory implements UseCase<LiveData<List<InventoryDrug>>, Void
   }
 
   @Override
-  public LiveData<List<InventoryDrug>> execute(Void unused) {
+  public LiveData<List<DrugDto>> execute(Void unused) {
     return inventoryService.getInventory();
   }
 }

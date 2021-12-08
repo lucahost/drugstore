@@ -16,7 +16,7 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.entity.InventoryDrug;
+import ch.ffhs.drugstore.data.dto.DrugDto;
 import ch.ffhs.drugstore.databinding.FragmentInventoryBinding;
 import ch.ffhs.drugstore.presentation.view.adapter.InventoryListAdapter;
 import ch.ffhs.drugstore.presentation.viewmodel.InventoryViewModel;
@@ -66,7 +66,7 @@ public class InventoryFragment extends Fragment
   }
 
   @Override
-  public void onItemClick(InventoryDrug inventoryDrug) {
+  public void onItemClick(DrugDto inventoryDrug) {
     viewModel.toggleInventoryItem();
     Toast.makeText(context(), "Checked", Toast.LENGTH_SHORT).show();
   }

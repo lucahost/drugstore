@@ -14,20 +14,21 @@ import com.google.android.material.card.MaterialCardView;
 
 import javax.inject.Inject;
 
+import ch.ffhs.drugstore.data.dto.DrugDto;
 import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.databinding.DispensaryItemBinding;
 
 public class DispensaryListAdapter
-    extends ListAdapter<Drug, DispensaryListAdapter.DispensaryItemHolder> {
-  private static final DiffUtil.ItemCallback<Drug> DIFF_CALLBACK =
-      new DiffUtil.ItemCallback<Drug>() {
+    extends ListAdapter<DrugDto, DispensaryListAdapter.DispensaryItemHolder> {
+  private static final DiffUtil.ItemCallback<DrugDto> DIFF_CALLBACK =
+      new DiffUtil.ItemCallback<DrugDto>() {
         @Override
-        public boolean areItemsTheSame(@NonNull Drug oldItem, @NonNull Drug newItem) {
+        public boolean areItemsTheSame(@NonNull DrugDto oldItem, @NonNull DrugDto newItem) {
           return oldItem.getDrugId() == newItem.getDrugId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull Drug oldItem, @NonNull Drug newItem) {
+        public boolean areContentsTheSame(@NonNull DrugDto oldItem, @NonNull DrugDto newItem) {
           return oldItem.getTitle().equals(newItem.getTitle())
               && oldItem.getDosage().equals(newItem.getDosage());
         }
@@ -59,9 +60,9 @@ public class DispensaryListAdapter
   }
 
   public interface OnItemClickListener {
-    void onItemClick(Drug drug);
+    void onItemClick(DrugDto drug);
 
-    void onItemLongClick(Drug drug);
+    void onItemLongClick(DrugDto drug);
   }
 
   /** Provide a reference to the type of views that you are using (custom ViewHolder). */

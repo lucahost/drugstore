@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import ch.ffhs.drugstore.data.dto.TransactionDto;
 import ch.ffhs.drugstore.data.entity.Transaction;
 import ch.ffhs.drugstore.domain.usecase.management.history.GetHistory;
 import dagger.hilt.android.lifecycle.HiltViewModel;
@@ -16,14 +17,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class HistoryViewModel extends AndroidViewModel {
   @Inject GetHistory getHistory;
-  private LiveData<List<Transaction>> items;
+  private LiveData<List<TransactionDto>> items;
 
   @Inject
   public HistoryViewModel(Application application) {
     super(application);
   }
 
-  public LiveData<List<Transaction>> getItems() {
+  public LiveData<List<TransactionDto>> getItems() {
     if (items == null) {
       items = getHistory.execute(null);
     }

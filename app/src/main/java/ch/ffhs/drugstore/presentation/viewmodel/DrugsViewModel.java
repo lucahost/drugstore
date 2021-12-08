@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import ch.ffhs.drugstore.data.dto.DrugDto;
 import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.AddDrug;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.CreateDrug;
@@ -26,14 +27,14 @@ public class DrugsViewModel extends AndroidViewModel {
   @Inject EditDrug editDrug;
   @Inject DeleteDrug deleteDrug;
   @Inject RemoveDrug removeDrug;
-  private LiveData<List<Drug>> items;
+  private LiveData<List<DrugDto>> items;
 
   @Inject
   public DrugsViewModel(Application application) {
     super(application);
   }
 
-  public LiveData<List<Drug>> getItems() {
+  public LiveData<List<DrugDto>> getItems() {
     if (items == null) {
       items = getDrugs.execute(null);
     }

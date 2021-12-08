@@ -1,7 +1,7 @@
 [
   {
-    "signatureId": "s-101",
-    "userId": "u-101",
-    "dateTime": "2021-12-04T17:41:02+00:00"
+    "signatureId": 1000001,
+    "userId": 10001,
+    "createdAt": "2021-12-04T17:41:02+00:00"
   }
 ]

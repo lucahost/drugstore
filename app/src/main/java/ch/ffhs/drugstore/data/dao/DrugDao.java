@@ -5,10 +5,12 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.RewriteQueriesToDropUnusedColumns;
 import androidx.room.Update;
 
 import java.util.List;
 
+import ch.ffhs.drugstore.data.dto.DrugDto;
 import ch.ffhs.drugstore.data.entity.Drug;
 
 
@@ -24,9 +26,21 @@ public interface DrugDao {
     @Delete
     void delete(Drug drug);
 
-    @Query("DELETE FROM drug")
+    @Query("DELETE FROM drugs")
     void deleteAll();
 
-    @Query("SELECT *, drugId FROM drug")
-    LiveData<List<Drug>> getAll();
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT *, drugTypes.title as drugType, substances.title as substance FROM drugs " +
+            "JOIN drugTypes on drugs.drugTypeId = drugTypes.drugTypeId " +
+            "JOIN substances on drugs.substanceId = substances.substanceId")
+    LiveData<List<DrugDto>> getAllDrugs();
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT *, drugTypes.title as drugType, substances.title as substance FROM drugs " +
+            "JOIN drugTypes on drugs.drugTypeId = drugTypes.drugTypeId " +
+            "JOIN substances on drugs.substanceId = substances.substanceId " +
+            "WHERE stockAmount > 0"
+    )
+    LiveData<List<DrugDto>> getOnStockDrugs();
+
 }

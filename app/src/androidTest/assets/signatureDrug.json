@@ -1,8 +1,9 @@
 [
   {
-    "signatureId": "s-101",
-    "drugId": "d-101",
-    "amount": "1",
-    "checked": true
+    "signatureId": 100001,
+    "drugId": 10001,
+    "expectedAmount": 1,
+    "actualAmount": 1,
+    "approved": true
   }
 ]

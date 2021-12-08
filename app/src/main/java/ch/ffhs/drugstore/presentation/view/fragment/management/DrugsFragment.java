@@ -19,6 +19,7 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
+import ch.ffhs.drugstore.data.dto.DrugDto;
 import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.databinding.FragmentDrugsBinding;
 import ch.ffhs.drugstore.presentation.view.adapter.DrugListAdapter;
@@ -76,11 +77,11 @@ public class DrugsFragment extends Fragment
   }
 
   @Override
-  public void onItemClick(View view, Drug drug) {
+  public void onItemClick(View view, DrugDto drug) {
     showPopup(view, drug);
   }
 
-  private void showPopup(View v, Drug drug) {
+  private void showPopup(View v, DrugDto drug) {
     PopupMenu popup = new PopupMenu(Objects.requireNonNull(getContext()), v);
     popup.setOnMenuItemClickListener(getMenuItemClickListener(drug));
     MenuInflater inflater = popup.getMenuInflater();
@@ -89,7 +90,7 @@ public class DrugsFragment extends Fragment
   }
 
   @NonNull
-  private PopupMenu.OnMenuItemClickListener getMenuItemClickListener(Drug drug) {
+  private PopupMenu.OnMenuItemClickListener getMenuItemClickListener(DrugDto drug) {
     return item -> {
       int itemId = item.getItemId();
       if (itemId == R.id.drug_item_add) {

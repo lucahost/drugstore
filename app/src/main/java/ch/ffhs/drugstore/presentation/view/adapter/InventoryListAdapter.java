@@ -13,24 +13,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.entity.InventoryDrug;
+import ch.ffhs.drugstore.data.dto.DrugDto;
 import ch.ffhs.drugstore.databinding.InventoryItemBinding;
 
 public class InventoryListAdapter
-    extends ListAdapter<InventoryDrug, InventoryListAdapter.InventoryItemHolder> {
-  private static final DiffUtil.ItemCallback<InventoryDrug> DIFF_CALLBACK =
-      new DiffUtil.ItemCallback<InventoryDrug>() {
+    extends ListAdapter<DrugDto, InventoryListAdapter.InventoryItemHolder> {
+  private static final DiffUtil.ItemCallback<DrugDto> DIFF_CALLBACK =
+      new DiffUtil.ItemCallback<DrugDto>() {
         @Override
         public boolean areItemsTheSame(
-            @NonNull InventoryDrug oldItem, @NonNull InventoryDrug newItem) {
-          return oldItem.getInventoryDrugId() == newItem.getInventoryDrugId();
+            @NonNull DrugDto oldItem, @NonNull DrugDto newItem) {
+          return oldItem.getDrugId() == newItem.getDrugId();
         }
 
         @Override
         public boolean areContentsTheSame(
-            @NonNull InventoryDrug oldItem, @NonNull InventoryDrug newItem) {
+            @NonNull DrugDto oldItem, @NonNull DrugDto newItem) {
           return oldItem.getDrugId() == newItem.getDrugId()
-              && oldItem.getAmount() == newItem.getAmount();
+              && oldItem.getStockAmount() == newItem.getStockAmount();
         }
       };
 
@@ -60,7 +60,7 @@ public class InventoryListAdapter
   }
 
   public interface OnItemClickListener {
-    void onItemClick(InventoryDrug inventoryDrug);
+    void onItemClick(DrugDto drugDto);
   }
 
   /** Provide a reference to the type of views that you are using (custom ViewHolder). */
@@ -75,10 +75,9 @@ public class InventoryListAdapter
     }
 
     void bind(int position) {
-      title.setChecked(getItem(position).isApproved());
       title.setOnClickListener(this);
       title.setText(String.format("Drug Id: %d", getItem(position).getDrugId()));
-      secondary.setText(String.format("Amount: %d", getItem(position).getAmount()));
+      secondary.setText(String.format("Amount: %d", getItem(position).getStockAmount()));
     }
 
     @Override

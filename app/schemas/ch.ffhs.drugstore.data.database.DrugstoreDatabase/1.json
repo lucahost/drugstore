@@ -1,0 +1,545 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "f8be803b8e8d22aceef67715e2ef1c02",
+    "entities": [
+      {
+        "tableName": "drugs",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`drugId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `drugTypeId` INTEGER NOT NULL, `substanceId` INTEGER NOT NULL, `dosage` TEXT, `tolerance` REAL NOT NULL, `stockAmount` REAL NOT NULL, `isFavorite` INTEGER NOT NULL, FOREIGN KEY(`drugTypeId`) REFERENCES `drugTypes`(`drugTypeId`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`substanceId`) REFERENCES `substances`(`substanceId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "drugId",
+            "columnName": "drugId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "drugTypeId",
+            "columnName": "drugTypeId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "substanceId",
+            "columnName": "substanceId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dosage",
+            "columnName": "dosage",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "tolerance",
+            "columnName": "tolerance",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stockAmount",
+            "columnName": "stockAmount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isFavorite",
+            "columnName": "isFavorite",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "drugId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_drugs_drugTypeId",
+            "unique": false,
+            "columnNames": [
+              "drugTypeId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_drugs_drugTypeId` ON `${TABLE_NAME}` (`drugTypeId`)"
+          },
+          {
+            "name": "index_drugs_substanceId",
+            "unique": false,
+            "columnNames": [
+              "substanceId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_drugs_substanceId` ON `${TABLE_NAME}` (`substanceId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "drugTypes",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "drugTypeId"
+            ],
+            "referencedColumns": [
+              "drugTypeId"
+            ]
+          },
+          {
+            "table": "substances",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "substanceId"
+            ],
+            "referencedColumns": [
+              "substanceId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "drugTypes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`drugTypeId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `parentDrugTypeId` INTEGER NOT NULL, `unitId` INTEGER NOT NULL, `title` TEXT, FOREIGN KEY(`unitId`) REFERENCES `units`(`unitId`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`parentDrugTypeId`) REFERENCES `drugTypes`(`drugTypeId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "drugTypeId",
+            "columnName": "drugTypeId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "parentDrugTypeId",
+            "columnName": "parentDrugTypeId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unitId",
+            "columnName": "unitId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "drugTypeId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_drugTypes_unitId",
+            "unique": false,
+            "columnNames": [
+              "unitId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_drugTypes_unitId` ON `${TABLE_NAME}` (`unitId`)"
+          },
+          {
+            "name": "index_drugTypes_parentDrugTypeId",
+            "unique": false,
+            "columnNames": [
+              "parentDrugTypeId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_drugTypes_parentDrugTypeId` ON `${TABLE_NAME}` (`parentDrugTypeId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "units",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "unitId"
+            ],
+            "referencedColumns": [
+              "unitId"
+            ]
+          },
+          {
+            "table": "drugTypes",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "parentDrugTypeId"
+            ],
+            "referencedColumns": [
+              "drugTypeId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "substances",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`substanceId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "substanceId",
+            "columnName": "substanceId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "substanceId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "signatures",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`signatureId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `userId` INTEGER NOT NULL, `createdAt` INTEGER DEFAULT (datetime('now')), FOREIGN KEY(`userId`) REFERENCES `users`(`userId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "signatureId",
+            "columnName": "signatureId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": false,
+            "defaultValue": "(datetime('now'))"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "signatureId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_signatures_userId",
+            "unique": false,
+            "columnNames": [
+              "userId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_signatures_userId` ON `${TABLE_NAME}` (`userId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "users",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "userId"
+            ],
+            "referencedColumns": [
+              "userId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "signatureDrugs",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`signatureId` INTEGER NOT NULL, `drugId` INTEGER NOT NULL, `expectedAmount` REAL NOT NULL, `actualAmount` REAL NOT NULL, `approved` INTEGER NOT NULL, PRIMARY KEY(`signatureId`, `drugId`), FOREIGN KEY(`drugId`) REFERENCES `drugs`(`drugId`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`signatureId`) REFERENCES `signatures`(`signatureId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "signatureId",
+            "columnName": "signatureId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "drugId",
+            "columnName": "drugId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "expectedAmount",
+            "columnName": "expectedAmount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "actualAmount",
+            "columnName": "actualAmount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "approved",
+            "columnName": "approved",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "signatureId",
+            "drugId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_signatureDrugs_signatureId_drugId",
+            "unique": true,
+            "columnNames": [
+              "signatureId",
+              "drugId"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_signatureDrugs_signatureId_drugId` ON `${TABLE_NAME}` (`signatureId`, `drugId`)"
+          },
+          {
+            "name": "index_signatureDrugs_drugId",
+            "unique": false,
+            "columnNames": [
+              "drugId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_signatureDrugs_drugId` ON `${TABLE_NAME}` (`drugId`)"
+          },
+          {
+            "name": "index_signatureDrugs_signatureId",
+            "unique": false,
+            "columnNames": [
+              "signatureId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_signatureDrugs_signatureId` ON `${TABLE_NAME}` (`signatureId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "drugs",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "drugId"
+            ],
+            "referencedColumns": [
+              "drugId"
+            ]
+          },
+          {
+            "table": "signatures",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "signatureId"
+            ],
+            "referencedColumns": [
+              "signatureId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "transactions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`transactionId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `userId` INTEGER NOT NULL, `drugId` INTEGER NOT NULL, `createdAt` INTEGER DEFAULT (datetime('now')), `amount` REAL NOT NULL, `patient` TEXT, FOREIGN KEY(`userId`) REFERENCES `users`(`userId`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`drugId`) REFERENCES `drugs`(`drugId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "transactionId",
+            "columnName": "transactionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "drugId",
+            "columnName": "drugId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": false,
+            "defaultValue": "(datetime('now'))"
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "amount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "patient",
+            "columnName": "patient",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "transactionId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_transactions_userId",
+            "unique": false,
+            "columnNames": [
+              "userId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_transactions_userId` ON `${TABLE_NAME}` (`userId`)"
+          },
+          {
+            "name": "index_transactions_drugId",
+            "unique": false,
+            "columnNames": [
+              "drugId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_transactions_drugId` ON `${TABLE_NAME}` (`drugId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "users",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "userId"
+            ],
+            "referencedColumns": [
+              "userId"
+            ]
+          },
+          {
+            "table": "drugs",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "drugId"
+            ],
+            "referencedColumns": [
+              "drugId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "units",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`unitId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "unitId",
+            "columnName": "unitId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "unitId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "users",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `firstName` TEXT, `lastName` TEXT, `shortName` TEXT, `emailAddress` TEXT, `externalId` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firstName",
+            "columnName": "firstName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lastName",
+            "columnName": "lastName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "shortName",
+            "columnName": "shortName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "emailAddress",
+            "columnName": "emailAddress",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "externalId",
+            "columnName": "externalId",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "userId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f8be803b8e8d22aceef67715e2ef1c02')"
+    ]
+  }
+}

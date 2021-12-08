@@ -15,54 +15,55 @@ import ch.ffhs.drugstore.data.dao.TodoDao;
 import ch.ffhs.drugstore.data.entity.Todo;
 
 @Database(
-    entities = {Todo.class},
-    version = 1,
-    exportSchema = false)
+        entities = {Todo.class},
+        version = 1,
+        exportSchema = false)
 public abstract class TodoDatabase extends RoomDatabase {
-  private static final int NUMBER_OF_THREADS = 4;
-  public static final ExecutorService databaseWriteExecutor =
-      Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-  // marking the instance as volatile to ensure atomic access to the variable
-  private static volatile TodoDatabase INSTANCE;
-  /**
-   * Override the onCreate method to populate the database. For this sample, we clear the database
-   * every time it is created.
-   */
-  private static final RoomDatabase.Callback sRoomDatabaseCallback =
-      new RoomDatabase.Callback() {
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-          super.onCreate(db);
+    private static final int NUMBER_OF_THREADS = 4;
+    public static final ExecutorService databaseWriteExecutor =
+            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    // marking the instance as volatile to ensure atomic access to the variable
+    private static volatile TodoDatabase INSTANCE;
+    /**
+     * Override the onCreate method to populate the database. For this sample, we clear the database
+     * every time it is created.
+     */
+    private static final RoomDatabase.Callback sRoomDatabaseCallback =
+            new RoomDatabase.Callback() {
+                @Override
+                public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                    super.onCreate(db);
 
-          databaseWriteExecutor.execute(
-              () -> {
-                // Populate the database in the background.
-                // If you want to start with more words, just add them.
-                TodoDao dao = INSTANCE.todoDao();
-                dao.deleteAll();
+                    databaseWriteExecutor.execute(
+                            () -> {
+                                // Populate the database in the background.
+                                // If you want to start with more words, just add them.
+                                TodoDao dao = INSTANCE.todoDao();
+                                dao.deleteAll();
 
-                Todo todo = new Todo("Do this");
-                dao.insert(todo);
-                todo = new Todo("And that");
-                dao.insert(todo);
-              });
-        }
-      };
+                                Todo todo = new Todo("Do this");
+                                dao.insert(todo);
+                                todo = new Todo("And that");
+                                dao.insert(todo);
+                            });
+                }
+            };
 
-  public static TodoDatabase getDatabase(final Context context) {
-    if (INSTANCE == null) {
-      synchronized (TodoDatabase.class) {
+    public static TodoDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-          INSTANCE =
-              Room.databaseBuilder(
-                      context.getApplicationContext(), TodoDatabase.class, "todo_database")
-                  .addCallback(sRoomDatabaseCallback)
-                  .build();
+            synchronized (TodoDatabase.class) {
+                if (INSTANCE == null) {
+                    INSTANCE =
+                            Room.databaseBuilder(
+                                    context.getApplicationContext(), TodoDatabase.class,
+                                    "todo_database")
+                                    .addCallback(sRoomDatabaseCallback)
+                                    .build();
+                }
+            }
         }
-      }
+        return INSTANCE;
     }
-    return INSTANCE;
-  }
 
-  public abstract TodoDao todoDao();
+    public abstract TodoDao todoDao();
 }

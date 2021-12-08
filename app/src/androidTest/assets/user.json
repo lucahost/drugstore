@@ -1,18 +1,18 @@
 [
   {
-    "userId": "u-101",
+    "userId": 10001,
     "shortName": "jdoe",
     "firstName": "Jon",
     "lastName": "Doe",
-    "eMail": "jon.doe@mail.com",
+    "emailAddress": "jon.doe@mail.com",
     "externalId": "ext-1001"
   },
   {
-    "userId": "u-102",
+    "userId": 10002,
     "shortName": "jadoe",
     "firstName": "Jane",
     "lastName": "Doe",
-    "eMail": "jane.doe@mail.com",
+    "emailAddress": "jane.doe@mail.com",
     "externalId": "ext-1002"
   }
 ]

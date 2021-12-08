@@ -15,6 +15,7 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
+import ch.ffhs.drugstore.data.dto.TransactionDto;
 import ch.ffhs.drugstore.data.entity.Transaction;
 import ch.ffhs.drugstore.databinding.FragmentHistoryBinding;
 import ch.ffhs.drugstore.presentation.view.adapter.HistoryListAdapter;
@@ -58,12 +59,12 @@ public class HistoryFragment extends Fragment implements HistoryListAdapter.OnIt
   }
 
   @Override
-  public void onItemClick(Transaction transaction) {
+  public void onItemClick(TransactionDto transaction) {
     // TODO
   }
 
   @Override
-  public void onItemLongClick(Transaction transaction) {
+  public void onItemLongClick(TransactionDto transaction) {
     // TODO
   }
 

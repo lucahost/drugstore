@@ -17,6 +17,7 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
+import ch.ffhs.drugstore.data.dto.DrugDto;
 import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.databinding.FragmentDispensaryBinding;
 import ch.ffhs.drugstore.presentation.view.adapter.DispensaryListAdapter;
@@ -63,12 +64,12 @@ public class DispensaryFragment extends Fragment
   }
 
   @Override
-  public void onItemClick(Drug drug) {
+  public void onItemClick(DrugDto drug) {
     dispenseDrugDialogFragment.show(getChildFragmentManager(), DispenseDrugDialogFragment.TAG);
   }
 
   @Override
-  public void onItemLongClick(Drug drug) {
+  public void onItemLongClick(DrugDto drug) {
     viewModel.addToFavorites();
     Toast.makeText(context(), "Zu Favoriten hinzugefügt", Toast.LENGTH_SHORT).show();
   }

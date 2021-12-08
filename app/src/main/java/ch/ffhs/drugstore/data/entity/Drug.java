@@ -1,27 +1,44 @@
 package ch.ffhs.drugstore.data.entity;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "drugs",
+        foreignKeys = {
+                @ForeignKey(entity = DrugType.class, parentColumns = "drugTypeId", childColumns =
+                        "drugTypeId"),
+                @ForeignKey(entity = Substance.class, parentColumns = "substanceId",
+                        childColumns = "substanceId")
+        },
+        indices = {
+                @Index(value = "drugTypeId"),
+                @Index(value = "substanceId")
+        }
+)
 public class Drug {
-
-    public enum DrugType {
-        INJECTION, PILL, ORAL, ORAL_LIQUID, PLASTER
-    }
-
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int drugId;
     private String title;
-    private DrugType type;
+    private int drugTypeId;
+    private int substanceId;
     private String dosage;
+    private double tolerance;
+    private double stockAmount;
     private boolean isFavorite;
 
-    public Drug(int drugId, String title, DrugType type, String dosage, boolean isFavorite) {
+
+    public Drug(int drugId, String title, int drugTypeId, int substanceId, String dosage,
+            double tolerance,
+            double stockAmount, boolean isFavorite) {
         this.drugId = drugId;
         this.title = title;
-        this.type = type;
+        this.drugTypeId = drugTypeId;
+        this.substanceId = substanceId;
         this.dosage = dosage;
+        this.tolerance = tolerance;
+        this.stockAmount = stockAmount;
         this.isFavorite = isFavorite;
     }
 
@@ -41,12 +58,20 @@ public class Drug {
         this.drugId = drugId;
     }
 
-    public DrugType getType() {
-        return type;
+    public int getDrugTypeId() {
+        return drugTypeId;
     }
 
-    public void setType(DrugType type) {
-        this.type = type;
+    public void setDrugTypeId(int drugTypeId) {
+        this.drugTypeId = drugTypeId;
+    }
+
+    public int getSubstanceId() {
+        return substanceId;
+    }
+
+    public void setSubstanceId(int substanceId) {
+        this.substanceId = substanceId;
     }
 
     public String getDosage() {
@@ -55,6 +80,22 @@ public class Drug {
 
     public void setDosage(String dosage) {
         this.dosage = dosage;
+    }
+
+    public double getTolerance() {
+        return tolerance;
+    }
+
+    public void setTolerance(double tolerance) {
+        this.tolerance = tolerance;
+    }
+
+    public double getStockAmount() {
+        return stockAmount;
+    }
+
+    public void setStockAmount(double stockAmount) {
+        this.stockAmount = stockAmount;
     }
 
     public boolean isFavorite() {

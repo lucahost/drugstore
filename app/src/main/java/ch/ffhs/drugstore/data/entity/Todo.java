@@ -9,42 +9,42 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "todo_table")
 public class Todo {
 
-  @PrimaryKey(autoGenerate = true)
-  @ColumnInfo(name = "rowid")
-  private int id;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "rowid")
+    private int id;
 
-  private String text;
-  private boolean checked;
+    private String text;
+    private boolean checked;
 
-  public Todo(String text) {
-    this.text = text;
-  }
+    public Todo(String text) {
+        this.text = text;
+    }
 
-  public int getId() {
-    return id;
-  }
+    public int getId() {
+        return id;
+    }
 
-  public void setId(int id) {
-    this.id = id;
-  }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-  public String getText() {
-    return text;
-  }
+    public String getText() {
+        return text;
+    }
 
-  public void setText(String text) {
-    this.text = text;
-  }
+    public void setText(String text) {
+        this.text = text;
+    }
 
-  public boolean isChecked() {
-    return checked;
-  }
+    public boolean isChecked() {
+        return checked;
+    }
 
-  public void setChecked(boolean checked) {
-    this.checked = checked;
-  }
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
 
-  public void toggle() {
-    this.checked = !this.checked;
-  }
+    public void toggle() {
+        this.checked = !this.checked;
+    }
 }
