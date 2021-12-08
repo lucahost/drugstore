@@ -77,7 +77,7 @@ public class InventoryListAdapter
     void bind(int position) {
       title.setOnClickListener(this);
       title.setText(String.format("Drug Id: %d", getItem(position).getDrugId()));
-      secondary.setText(String.format("Amount: %d", getItem(position).getStockAmount()));
+      secondary.setText(String.format("Amount: %.2f", getItem(position).getStockAmount()));
     }
 
     @Override

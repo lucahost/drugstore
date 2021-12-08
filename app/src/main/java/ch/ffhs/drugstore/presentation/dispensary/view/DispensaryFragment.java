@@ -66,7 +66,7 @@ public class DispensaryFragment extends Fragment
   }
 
   @Override
-  public void onItemClick(Drug drug) {
+  public void onItemClick(DrugDto drug) {
     dialogService.show(getChildFragmentManager(), DialogService.Dialog.DISPENSE_DRUG);
   }
 
