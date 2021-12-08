@@ -2,22 +2,15 @@
     <string name="app_name">Drugstore</string>
     <string name="dialog_add_todo">Add Todo</string>
     <string name="dispense">Ausgeben</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel">Abbrechen</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="add">Erfassen</string>
     <string name="menu_management">Verwaltung</string>
     <string name="menu_dispensary">Abgabe</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_dispensary_fragment">Hello dispensary fragment</string>
-    <string name="hello_management_fragment">Hello management fragment</string>
     <string name="drugs">Medikamente</string>
     <string name="inventory">Inventar</string>
     <string name="signatures">Signaturen</string>
     <string name="history">Abgaben</string>
-    <string name="hello_drugs_fragment">Hello drugs fragment</string>
-    <string name="hello_inventory_fragment">Hello inventory fragment</string>
-    <string name="hello_history_fragment">Hello history fragment</string>
-    <string name="hello_signature_fragment">Hello signature fragment</string>
     <string name="search_title">Suche</string>
     <string name="search_hint">Search Hint</string>
     <string name="sign">Signieren</string>
@@ -28,4 +21,15 @@
     <string name="category">Kategorie</string>
     <string name="dispense_unit">Ausgabe-Einheit</string>
     <string name="tolerance">Toleranz</string>
+    <string name="remove">Austragen</string>
+    <string name="edit">Bearbeiten</string>
+    <string name="delete">Löschen</string>
+    <string name="add_drug">Medikament hinzufügen</string>
+    <string name="delete_drug">Medikament löschen</string>
+    <string name="edit_drug">Medikament bearbeiten</string>
+    <string name="save">Speichern</string>
+    <string name="remove_drug">Medikament austragen</string>
+    <string name="content">Inhalt</string>
+    <string name="count">Anzahl</string>
+    <string name="unit">Einheit</string>
 </resources>

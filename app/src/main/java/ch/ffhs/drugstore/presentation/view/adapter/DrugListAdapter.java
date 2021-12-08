@@ -3,6 +3,7 @@ package ch.ffhs.drugstore.presentation.view.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -56,28 +57,32 @@ public class DrugListAdapter extends ListAdapter<Drug, DrugListAdapter.DrugHolde
   }
 
   public interface OnItemClickListener {
-    void onItemClick(Drug drug);
+    void onItemClick(View view, Drug drug);
   }
 
   /** Provide a reference to the type of views that you are using (custom ViewHolder). */
   public class DrugHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private final TextView title;
     private final TextView secondary;
+    private final ImageButton itemAction;
 
     DrugHolder(DrugItemBinding binding) {
       super(binding.getRoot());
       title = binding.title;
       secondary = binding.secondary;
+      itemAction = binding.itemAction;
     }
 
     void bind(int position) {
       title.setText(getItem(position).getTitle());
       secondary.setText(getItem(position).getDosage());
+      itemAction.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-      if (clickListener != null) clickListener.onItemClick(getItem(getAdapterPosition()));
+      if (clickListener != null)
+        clickListener.onItemClick(itemAction, getItem(getAdapterPosition()));
     }
   }
 }
