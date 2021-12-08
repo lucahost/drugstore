@@ -6,11 +6,14 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.RewriteQueriesToDropUnusedColumns;
+import androidx.room.RoomWarnings;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import java.util.List;
 
 import ch.ffhs.drugstore.data.dto.SignatureDto;
+import ch.ffhs.drugstore.data.dto.SignatureWithDrugs;
 import ch.ffhs.drugstore.data.entity.Signature;
 
 @Dao
@@ -29,10 +32,15 @@ public interface SignatureDao {
     void deleteAll();
 
     @RewriteQueriesToDropUnusedColumns
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query("SELECT * FROM signatures")
+    LiveData<List<SignatureDto>> getSignatures();
+
+    @RewriteQueriesToDropUnusedColumns
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Transaction
     @Query("SELECT * FROM signatures " +
-            "LEFT JOIN signatureDrugs on signatures.signatureId = signatureDrugs.signatureId " +
-            "JOIN drugs on signatureDrugs.drugId = drugs.drugId " +
             "JOIN users on signatures.userId = users.userId "
     )
-    LiveData<List<SignatureDto>> getAllSignatures();
+    LiveData<List<SignatureWithDrugs>> getAllSignatures();
 }

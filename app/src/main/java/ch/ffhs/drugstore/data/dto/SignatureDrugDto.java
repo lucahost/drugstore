@@ -8,9 +8,6 @@ public class SignatureDrugDto {
     private double actualAmount;
     private boolean approved;
 
-    public SignatureDrugDto() {
-    }
-
     public SignatureDrugDto(int signatureId, int drugId, DrugDto drug,
             double expectedAmount, double actualAmount, boolean approved) {
         this.signatureId = signatureId;

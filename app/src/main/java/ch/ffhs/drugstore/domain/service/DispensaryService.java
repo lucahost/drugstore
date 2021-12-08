@@ -22,6 +22,6 @@ public class DispensaryService {
     }
 
     public LiveData<List<DrugDto>> getAllDrugs() {
-        return drugRepository.getAllDrugs();
+        return drugRepository.getOnStockDrugs();
     }
 }

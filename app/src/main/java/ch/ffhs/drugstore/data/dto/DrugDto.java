@@ -1,7 +1,5 @@
 package ch.ffhs.drugstore.data.dto;
 
-import androidx.room.Ignore;
-
 public class DrugDto {
     private int drugId;
     private String title;
@@ -11,9 +9,6 @@ public class DrugDto {
     private double tolerance;
     private double stockAmount;
     private boolean isFavorite;
-
-    public DrugDto() {
-    }
 
     public DrugDto(int drugId, String title, String drugType, String substance, String dosage,
             double tolerance,

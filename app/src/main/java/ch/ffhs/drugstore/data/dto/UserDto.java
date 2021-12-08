@@ -8,9 +8,6 @@ public class UserDto {
     private String emailAddress;
     private String externalId;
 
-    public UserDto() {
-    }
-
     public UserDto(int userId, String shortName, String firstName, String lastName,
             String emailAddress, String externalId) {
         this.userId = userId;

@@ -16,6 +16,7 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.dto.SignatureDto;
+import ch.ffhs.drugstore.data.dto.SignatureWithDrugs;
 import ch.ffhs.drugstore.data.entity.Signature;
 import ch.ffhs.drugstore.databinding.FragmentSignatureBinding;
 import ch.ffhs.drugstore.presentation.view.adapter.SignatureListAdapter;
@@ -61,12 +62,12 @@ public class SignatureFragment extends Fragment
     }
 
     @Override
-    public void onItemClick(SignatureDto signature) {
+    public void onItemClick(SignatureWithDrugs signature) {
         // TODO
     }
 
     @Override
-    public void onItemLongClick(SignatureDto signature) {
+    public void onItemLongClick(SignatureWithDrugs signature) {
         // TODO
     }
 

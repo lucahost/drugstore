@@ -11,10 +11,12 @@ import javax.inject.Inject;
 import ch.ffhs.drugstore.data.dao.SignatureDao;
 import ch.ffhs.drugstore.data.database.DrugstoreDatabase;
 import ch.ffhs.drugstore.data.dto.SignatureDto;
+import ch.ffhs.drugstore.data.dto.SignatureWithDrugs;
 import ch.ffhs.drugstore.data.entity.Signature;
 
 public class SignatureRepository {
     private final SignatureDao signatureDao;
+    private final LiveData<List<SignatureWithDrugs>> allSignaturesWithDrugs;
     private final LiveData<List<SignatureDto>> allSignatures;
 
     // Note that in order to unit test the WordRepository, you have to remove the Application
@@ -25,11 +27,14 @@ public class SignatureRepository {
     public SignatureRepository(Application application) {
         DrugstoreDatabase db = DrugstoreDatabase.getDatabase(application);
         signatureDao = db.signatureDao();
-        allSignatures = signatureDao.getAllSignatures();
+        allSignaturesWithDrugs = signatureDao.getAllSignatures();
+        allSignatures = signatureDao.getSignatures();
     }
 
-    // Room executes all queries on a separate thread.
-    // Observed LiveData will notify the observer when the data has changed.
+    public LiveData<List<SignatureWithDrugs>> getSignatures() {
+        return allSignaturesWithDrugs;
+    }
+
     public LiveData<List<SignatureDto>> getAllSignatures() {
         return allSignatures;
     }

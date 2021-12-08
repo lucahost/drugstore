@@ -14,9 +14,6 @@ public class TransactionDto {
     private double amount;
     private String patient;
 
-    public TransactionDto() {
-    }
-
     public TransactionDto(int transactionId, DrugDto drug, UserDto user, Date createdAt,
             double amount,
             String patient) {
