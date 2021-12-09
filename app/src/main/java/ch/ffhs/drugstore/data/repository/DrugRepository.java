@@ -36,35 +36,19 @@ public class DrugRepository {
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
-    public LiveData<List<DrugDto>> getOnStockDrugs(boolean favorites) {
-        if (favorites) {
-            return drugDao.getOnStockFavoriteDrugs();
-        } else {
-            return drugDao.getOnStockDrugs();
-        }
-    }
-
     public LiveData<List<DrugDto>> getOnStockDrugs(boolean favorites, String searchTerm) {
         if (favorites) {
-            return drugDao.getOnStockFavoriteDrugsBySearchTerm(searchTerm);
+            return drugDao.getOnStockFavoriteDrugs(searchTerm);
         } else {
-            return drugDao.getOnStockDrugsBySearchTerm(searchTerm);
-        }
-    }
-
-    public LiveData<List<DrugDto>> getOnStockDrugs(boolean favorites, List<String> drugTypes) {
-        if (favorites) {
-            return drugDao.getOnStockFavoriteDrugsByDrugTypes(drugTypes);
-        } else {
-            return drugDao.getOnStockDrugsByDrugTypes(drugTypes);
+            return drugDao.getOnStockDrugs(searchTerm);
         }
     }
 
     public LiveData<List<DrugDto>> getOnStockDrugs(boolean favorites, List<String> drugTypes, String searchTerm) {
         if (favorites) {
-            return drugDao.getOnStockFavoriteDrugsByDrugTypesAndSearchTerm(drugTypes, searchTerm);
+            return drugDao.getOnStockFavoriteDrugsByDrugTypes(drugTypes, searchTerm);
         } else {
-            return drugDao.getOnStockDrugsByDrugTypeAndSearchTerm(drugTypes, searchTerm);
+            return drugDao.getOnStockDrugsByDrugTypes(drugTypes, searchTerm);
         }
     }
 

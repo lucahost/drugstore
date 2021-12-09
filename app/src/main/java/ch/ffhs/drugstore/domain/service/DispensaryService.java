@@ -22,21 +22,13 @@ public class DispensaryService {
 
     public LiveData<List<DrugDto>> getAllDrugs(FilterState<DispensaryFilters> filterState) {
         boolean favorites = filterState.isFavorites();
-        boolean drugTypeFilter = !filterState.getFiltersAsStrings().isEmpty();
-        boolean searchTermFilter = !filterState.getSearchFilter().isEmpty();
+        List<String> filters = filterState.getFiltersAsStrings();
+        String searchTerm = filterState.getSearchFilter();
 
-        if (drugTypeFilter) {
-            if (searchTermFilter) {
-                return drugRepository.getOnStockDrugs(favorites, filterState.getFiltersAsStrings(), filterState.getSearchFilter());
-            } else {
-                return drugRepository.getOnStockDrugs(favorites, filterState.getFiltersAsStrings());
-            }
+        if (filters.isEmpty()) {
+            return drugRepository.getOnStockDrugs(favorites, searchTerm);
         } else {
-            if (searchTermFilter) {
-                return drugRepository.getOnStockDrugs(favorites, filterState.getSearchFilter());
-            } else {
-                return drugRepository.getOnStockDrugs(favorites);
-            }
+            return drugRepository.getOnStockDrugs(favorites, filterState.getFiltersAsStrings(), searchTerm);
         }
     }
 }
