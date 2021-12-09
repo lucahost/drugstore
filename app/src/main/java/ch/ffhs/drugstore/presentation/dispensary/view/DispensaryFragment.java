@@ -2,10 +2,12 @@ package ch.ffhs.drugstore.presentation.dispensary.view;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -59,14 +61,25 @@ public class DispensaryFragment extends Fragment
     super.onViewCreated(view, savedInstanceState);
     viewModel = new ViewModelProvider(requireActivity()).get(DispensaryViewModel.class);
     viewModel.getItems().observe(getViewLifecycleOwner(), adapter::submitList);
-    viewModel.getFilterState().observe(getViewLifecycleOwner(), this::setupFilterChips);
+    viewModel.getFilterState().observe(getViewLifecycleOwner(), this::setupFilter);
   }
 
   public Context context() {
     return Objects.requireNonNull(this.getActivity()).getApplicationContext();
   }
 
-  private void setupFilterChips(FilterState<DispensaryFilters> filterState) {
+  private void setupFilter(FilterState<DispensaryFilters> filterState) {
+    setupFilterChips(filterState);
+    setupSearchBar(filterState);
+  }
+
+  private void setupSearchBar(@NonNull FilterState<DispensaryFilters> filterState) {
+    binding.searchTextField.setText(filterState.getSearchFilter());
+    binding.searchTextField.getText();
+    binding.searchTextField.setOnEditorActionListener(this::onSearch);
+  }
+
+  private void setupFilterChips(@NonNull FilterState<DispensaryFilters> filterState) {
     binding.filterFavorite.setChecked(filterState.isFavorites());
     binding.filterFavorite.setOnCheckedChangeListener((compoundButton, b)
             -> onChipFilterClick(compoundButton, b, DispensaryFilters.FAVORITE));
@@ -86,6 +99,15 @@ public class DispensaryFragment extends Fragment
     binding.filterPlaster.setChecked(filterState.getFilters().contains(DispensaryFilters.PLASTER));
     binding.filterPlaster.setOnCheckedChangeListener((compoundButton, b)
             -> onChipFilterClick(compoundButton, b, DispensaryFilters.PLASTER));
+  }
+
+
+  private boolean onSearch(@NonNull TextView textView, int i, KeyEvent keyEvent) {
+    FilterState<DispensaryFilters> currentFilters = viewModel.getFilterState().getValue();
+    assert currentFilters != null;
+    currentFilters.setSearchFilter(textView.getText().toString());
+    viewModel.filter(currentFilters);
+    return true;
   }
 
   public void onChipFilterClick(CompoundButton buttonView, boolean isChecked, DispensaryFilters filter) {

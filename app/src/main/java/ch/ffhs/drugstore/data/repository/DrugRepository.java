@@ -44,11 +44,27 @@ public class DrugRepository {
         }
     }
 
+    public LiveData<List<DrugDto>> getOnStockDrugs(boolean favorites, String searchTerm) {
+        if (favorites) {
+            return drugDao.getOnStockFavoriteDrugsBySearchTerm(searchTerm);
+        } else {
+            return drugDao.getOnStockDrugsBySearchTerm(searchTerm);
+        }
+    }
+
     public LiveData<List<DrugDto>> getOnStockDrugs(boolean favorites, List<String> drugTypes) {
         if (favorites) {
             return drugDao.getOnStockFavoriteDrugsByDrugTypes(drugTypes);
         } else {
-            return drugDao.getdOnStockDrugsByDrugTypes(drugTypes);
+            return drugDao.getOnStockDrugsByDrugTypes(drugTypes);
+        }
+    }
+
+    public LiveData<List<DrugDto>> getOnStockDrugs(boolean favorites, List<String> drugTypes, String searchTerm) {
+        if (favorites) {
+            return drugDao.getOnStockFavoriteDrugsByDrugTypesAndSearchTerm(drugTypes, searchTerm);
+        } else {
+            return drugDao.getOnStockDrugsByDrugTypeAndSearchTerm(drugTypes, searchTerm);
         }
     }
 

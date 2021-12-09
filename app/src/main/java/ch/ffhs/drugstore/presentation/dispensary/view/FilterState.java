@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilterState<T> {
-    private String searchFilter;
+    private String searchFilter = "";
     private boolean favorites;
     private List<T> filters = new ArrayList<>();
 
@@ -18,10 +18,6 @@ public class FilterState<T> {
 
     public boolean isFavorites() {
         return favorites;
-    }
-
-    public void setFavorites(boolean favorites) {
-        this.favorites = favorites;
     }
 
     public void toggleFavorites() {
@@ -38,10 +34,6 @@ public class FilterState<T> {
             filterStrings.add(filter.toString());
         }
         return filterStrings;
-    }
-
-    public void setFilters(List<T> filters) {
-        this.filters = filters;
     }
 
     public FilterState<T> toggleFilter(T filter) {
