@@ -25,7 +25,7 @@ public class DispensaryViewModel extends AndroidViewModel {
   @Inject GetAllDispensaryItems getAllDispensaryItems;
   @Inject AddToFavorites addToFavorites;
   @Inject DispenseDrug dispenseDrug;
-  private LiveData<List<DrugDto>> items;
+  private final LiveData<List<DrugDto>> items;
   private final MutableLiveData<FilterState<DispensaryFilters>> filterState = new MutableLiveData<>();
 
   @Inject
@@ -37,14 +37,11 @@ public class DispensaryViewModel extends AndroidViewModel {
   }
 
   public LiveData<List<DrugDto>> getItems() {
-    if (items == null) {
-      items = getAllDispensaryItems.execute(Objects.requireNonNull(filterState.getValue()));
-    }
     return items;
   }
 
-  public FilterState<DispensaryFilters> getFilterState() {
-    return filterState.getValue();
+  public LiveData<FilterState<DispensaryFilters>> getFilterState() {
+    return filterState;
   }
 
   public void filter(FilterState<DispensaryFilters> filters) {
