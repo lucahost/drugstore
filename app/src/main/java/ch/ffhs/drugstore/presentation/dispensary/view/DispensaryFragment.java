@@ -74,6 +74,7 @@ public class DispensaryFragment extends Fragment
   }
 
   private void setupSearchBar(@NonNull FilterState<DispensaryFilters> filterState) {
+    binding.outlinedTextField.setEndIconOnClickListener(this::onSearchBarEndIconClick);
     binding.searchTextField.setText(filterState.getSearchFilter());
     binding.searchTextField.getText();
     binding.searchTextField.setOnEditorActionListener(this::onSearch);
@@ -110,7 +111,14 @@ public class DispensaryFragment extends Fragment
     return true;
   }
 
-  public void onChipFilterClick(CompoundButton buttonView, boolean isChecked, DispensaryFilters filter) {
+  private void onSearchBarEndIconClick(View view) {
+    FilterState<DispensaryFilters> currentFilters = viewModel.getFilterState().getValue();
+    assert currentFilters != null;
+    currentFilters.setSearchFilter("");
+    viewModel.filter(currentFilters);
+  }
+
+  private void onChipFilterClick(CompoundButton buttonView, boolean isChecked, DispensaryFilters filter) {
     buttonView.setChecked(isChecked);
     FilterState<DispensaryFilters> currentFilters = viewModel.getFilterState().getValue();
     assert currentFilters != null;

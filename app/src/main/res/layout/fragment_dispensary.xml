@@ -17,6 +17,9 @@
         android:paddingBottom="8dp"
         app:startIconDrawable="@drawable/ic_search"
         app:startIconTint="@android:color/darker_gray"
+        app:endIconMode="clear_text"
+        app:endIconDrawable="@drawable/ic_baseline_clear_24"
+        app:endIconTint="@android:color/darker_gray"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
