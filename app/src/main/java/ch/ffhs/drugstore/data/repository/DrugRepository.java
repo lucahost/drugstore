@@ -36,8 +36,20 @@ public class DrugRepository {
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
-    public LiveData<List<DrugDto>> getOnStockDrugs() {
-        return drugDao.getOnStockDrugs();
+    public LiveData<List<DrugDto>> getOnStockDrugs(boolean favorites, String searchTerm) {
+        if (favorites) {
+            return drugDao.getOnStockFavoriteDrugs(searchTerm);
+        } else {
+            return drugDao.getOnStockDrugs(searchTerm);
+        }
+    }
+
+    public LiveData<List<DrugDto>> getOnStockDrugs(boolean favorites, List<String> drugTypes, String searchTerm) {
+        if (favorites) {
+            return drugDao.getOnStockFavoriteDrugsByDrugTypes(drugTypes, searchTerm);
+        } else {
+            return drugDao.getOnStockDrugsByDrugTypes(drugTypes, searchTerm);
+        }
     }
 
     // You must call this on a non-UI thread or your app will throw an exception. Room ensures

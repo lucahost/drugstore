@@ -12,7 +12,7 @@
     <string name="signatures">Signaturen</string>
     <string name="history">Abgaben</string>
     <string name="search_title">Suche</string>
-    <string name="search_hint">Search Hint</string>
+    <string name="search_hint">Suchbegriff eingeben</string>
     <string name="sign">Signieren</string>
     <string name="employee">Fachkraft</string>
     <string name="patient">Patient</string>
@@ -34,4 +34,9 @@
     <string name="unit">Einheit</string>
     <string name="create_drug">Medikament erfassen</string>
     <string name="create">Erfassen</string>
+    <string name="favorite">Favorite</string>
+    <string name="injection">Injektion</string>
+    <string name="oral">Oral</string>
+    <string name="oral_liquig">Oral flüssig</string>
+    <string name="plaster">Pflaster</string>
 </resources>

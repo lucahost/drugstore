@@ -17,10 +17,14 @@
         android:paddingBottom="8dp"
         app:startIconDrawable="@drawable/ic_search"
         app:startIconTint="@android:color/darker_gray"
+        app:endIconMode="clear_text"
+        app:endIconDrawable="@drawable/ic_baseline_clear_24"
+        app:endIconTint="@android:color/darker_gray"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/searchTextField"
+            android:hint="@string/search_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -29,37 +33,44 @@
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="5dp"
         app:singleLine="true">
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip5"
             style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:id="@+id/filter_favorite"
+            android:text="@string/favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Intravenös"
-            android:checked="true" />
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip6"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Oral"
             android:checked="false" />
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip7"
             style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:id="@+id/filter_injection"
+            android:text="@string/injection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Oral flüssig"
             android:checked="false" />
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip8"
             style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:id="@+id/filter_oral"
+            android:text="@string/oral"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pflaster"
+            android:checked="false" />
+        <com.google.android.material.chip.Chip
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:id="@+id/filter_oral_liquid"
+            android:text="@string/oral_liquig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false" />
+        <com.google.android.material.chip.Chip
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:id="@+id/filter_plaster"
+            android:text="@string/plaster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:checked="false" />
     </com.google.android.material.chip.ChipGroup>
 

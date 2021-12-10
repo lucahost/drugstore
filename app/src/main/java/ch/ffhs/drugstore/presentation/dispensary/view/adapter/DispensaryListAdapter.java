@@ -15,7 +15,6 @@ import com.google.android.material.card.MaterialCardView;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.dto.DrugDto;
-import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.databinding.DispensaryItemBinding;
 
 public class DispensaryListAdapter
@@ -80,7 +79,7 @@ public class DispensaryListAdapter
     }
 
     void bind(int position) {
-      drugTitle.setText(getItem(position).getTitle());
+      drugTitle.setText(String.format("%s (%s)", getItem(position).getTitle(), getItem(position).getDrugType()));
       drugSecondary.setText(getItem(position).getDosage());
       card.setChecked(getItem(position).isFavorite());
       card.setOnClickListener(this);

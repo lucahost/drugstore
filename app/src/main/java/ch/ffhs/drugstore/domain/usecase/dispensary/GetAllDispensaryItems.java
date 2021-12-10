@@ -7,11 +7,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.dto.DrugDto;
-import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.domain.service.DispensaryService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
+import ch.ffhs.drugstore.presentation.dispensary.view.DispensaryFilters;
+import ch.ffhs.drugstore.presentation.dispensary.view.FilterState;
 
-public class GetAllDispensaryItems implements UseCase<LiveData<List<DrugDto>>, Void> {
+public class GetAllDispensaryItems implements UseCase<LiveData<List<DrugDto>>, FilterState<DispensaryFilters>> {
   @Inject DispensaryService dispensaryService;
 
   @Inject
@@ -20,7 +21,7 @@ public class GetAllDispensaryItems implements UseCase<LiveData<List<DrugDto>>, V
   }
 
   @Override
-  public LiveData<List<DrugDto>> execute(Void unused) {
-    return dispensaryService.getAllDrugs();
+  public LiveData<List<DrugDto>> execute(FilterState<DispensaryFilters> filterState) {
+    return dispensaryService.getAllDrugs(filterState);
   }
 }

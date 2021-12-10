@@ -42,8 +42,34 @@ public interface DrugDao {
     @Query("SELECT *, drugTypes.title as drugType, substances.title as substance FROM drugs " +
             "LEFT JOIN drugTypes on drugs.drugTypeId = drugTypes.drugTypeId " +
             "LEFT JOIN substances on drugs.substanceId = substances.substanceId " +
-            "WHERE stockAmount > 0"
+            "WHERE stockAmount > 0 AND drugs.title LIKE '%' || :searchTerm || '%'"
     )
-    LiveData<List<DrugDto>> getOnStockDrugs();
+    LiveData<List<DrugDto>> getOnStockDrugs(String searchTerm);
 
+    @RewriteQueriesToDropUnusedColumns
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query("SELECT *, drugTypes.title as drugType, substances.title as substance FROM drugs " +
+            "LEFT JOIN drugTypes on drugs.drugTypeId = drugTypes.drugTypeId " +
+            "LEFT JOIN substances on drugs.substanceId = substances.substanceId " +
+            "WHERE stockAmount > 0 AND isFavorite = 1 AND drugs.title LIKE '%' || :searchTerm || '%'"
+    )
+    LiveData<List<DrugDto>> getOnStockFavoriteDrugs(String searchTerm);
+
+    @RewriteQueriesToDropUnusedColumns
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query("SELECT *, drugTypes.title as drugType, substances.title as substance FROM drugs " +
+            "LEFT JOIN drugTypes on drugs.drugTypeId = drugTypes.drugTypeId " +
+            "LEFT JOIN substances on drugs.substanceId = substances.substanceId " +
+            "WHERE stockAmount > 0 AND drugTypes.title IN (:drugTypes) AND drugs.title LIKE '%' || :searchTerm || '%'"
+    )
+    LiveData<List<DrugDto>> getOnStockDrugsByDrugTypes(List<String> drugTypes, String searchTerm);
+
+    @RewriteQueriesToDropUnusedColumns
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query("SELECT *, drugTypes.title as drugType, substances.title as substance FROM drugs " +
+            "LEFT JOIN drugTypes on drugs.drugTypeId = drugTypes.drugTypeId " +
+            "LEFT JOIN substances on drugs.substanceId = substances.substanceId " +
+            "WHERE stockAmount > 0 AND isFavorite = 1 AND drugTypes.title IN (:drugTypes) AND drugs.title LIKE '%' || :searchTerm || '%'"
+    )
+    LiveData<List<DrugDto>> getOnStockFavoriteDrugsByDrugTypes(List<String> drugTypes, String searchTerm);
 }
