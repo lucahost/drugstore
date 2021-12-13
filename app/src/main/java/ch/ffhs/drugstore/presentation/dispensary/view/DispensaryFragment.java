@@ -2,20 +2,21 @@ package ch.ffhs.drugstore.presentation.dispensary.view;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -32,7 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class DispensaryFragment extends Fragment
         implements DispensaryListAdapter.OnItemClickListener,
-        DispenseDrugDialogFragment.ConfirmDispenseDrugListener {
+        DispenseDrugDialogFragment.ConfirmDispenseDrugListener, SearchView.OnQueryTextListener {
 
     @Inject DispensaryListAdapter adapter;
     @Inject DialogService dialogService;
@@ -61,24 +62,35 @@ public class DispensaryFragment extends Fragment
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(DispensaryViewModel.class);
-        viewModel.getItems().observe(getViewLifecycleOwner(), adapter::submitList);
-        viewModel.getFilterState().observe(getViewLifecycleOwner(), this::setupFilter);
+        viewModel.getItems().observe(getViewLifecycleOwner(), this::observeItems);
+        viewModel.getFilterState().observe(getViewLifecycleOwner(), this::setupFilterChips);
+        setupSearchBar();
+    }
+
+    private void observeItems(List<DrugDto> drugDtos) {
+        adapter.submitList(drugDtos);
+        if (!drugDtos.isEmpty()) {
+            binding.dispensaryList.setVisibility(View.VISIBLE);
+            binding.noItems.setVisibility(View.GONE);
+        } else {
+            binding.dispensaryList.setVisibility(View.GONE);
+            binding.noItems.setVisibility(View.VISIBLE);
+        }
     }
 
     public Context context() {
         return Objects.requireNonNull(this.getActivity()).getApplicationContext();
     }
 
-    private void setupFilter(FilterState<DispensaryFilters> filterState) {
-        setupFilterChips(filterState);
-        setupSearchBar(filterState);
-    }
-
-    private void setupSearchBar(@NonNull FilterState<DispensaryFilters> filterState) {
-        binding.outlinedTextField.setEndIconOnClickListener(this::onSearchBarEndIconClick);
-        binding.searchTextField.setText(filterState.getSearchFilter());
-        binding.searchTextField.getText();
-        binding.searchTextField.setOnEditorActionListener(this::onSearch);
+    private void setupSearchBar() {
+        binding.searchView.setOnQueryTextListener(this);
+        binding.searchView.onActionViewExpanded();
+        binding.searchView.clearFocus();
+        ImageView clearButton = binding.searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
+        clearButton.setOnClickListener(v -> {
+            binding.searchView.setQuery("", false);
+            binding.searchView.clearFocus();
+        });
     }
 
     private void setupFilterChips(@NonNull FilterState<DispensaryFilters> filterState) {
@@ -106,20 +118,22 @@ public class DispensaryFragment extends Fragment
                 -> onChipFilterClick(compoundButton, b, DispensaryFilters.PLASTER));
     }
 
-
-    private boolean onSearch(@NonNull TextView textView, int i, KeyEvent keyEvent) {
-        FilterState<DispensaryFilters> currentFilters = viewModel.getFilterState().getValue();
-        assert currentFilters != null;
-        currentFilters.setSearchFilter(textView.getText().toString());
-        viewModel.filter(currentFilters);
-        return true;
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return search(query);
     }
 
-    private void onSearchBarEndIconClick(View view) {
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return search(newText);
+    }
+
+    private boolean search(String searchTerm) {
         FilterState<DispensaryFilters> currentFilters = viewModel.getFilterState().getValue();
         assert currentFilters != null;
-        currentFilters.setSearchFilter("");
+        currentFilters.setSearchFilter(searchTerm);
         viewModel.filter(currentFilters);
+        return true;
     }
 
     private void onChipFilterClick(CompoundButton buttonView, boolean isChecked,
@@ -155,10 +169,10 @@ public class DispensaryFragment extends Fragment
         binding.dispensaryList.setAdapter(this.adapter);
     }
 
-  @Override
-  public void onConfirmDispenseDrug(String employee, String patient, String dosage) {
-    dialogService.dismiss(DialogService.Dialog.DISPENSE_DRUG);
-    viewModel.dispenseDrug();
-    Toast.makeText(context(), "Ausgegeben", Toast.LENGTH_SHORT).show();
-  }
+    @Override
+    public void onConfirmDispenseDrug(String employee, String patient, String dosage) {
+        dialogService.dismiss(DialogService.Dialog.DISPENSE_DRUG);
+        viewModel.dispenseDrug();
+        Toast.makeText(context(), "Ausgegeben", Toast.LENGTH_SHORT).show();
+    }
 }

@@ -9,27 +9,12 @@
     android:padding="16dp"
     tools:context=".presentation.dispensary.view.DispensaryFragment">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/outlinedTextField"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="5dp"
-        android:paddingBottom="8dp"
-        app:startIconDrawable="@drawable/ic_search"
-        app:startIconTint="@android:color/darker_gray"
-        app:endIconMode="clear_text"
-        app:endIconDrawable="@drawable/ic_baseline_clear_24"
-        app:endIconTint="@android:color/darker_gray"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/searchTextField"
-            android:hint="@string/search_hint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        android:hint="@string/search_hint"
+        android:paddingBottom="5dp"/>
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
@@ -80,4 +65,12 @@
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/no_items"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/no_items"/>
 </LinearLayout>
