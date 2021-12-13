@@ -17,6 +17,7 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
+import ch.ffhs.drugstore.databinding.DialogRemoveDrugBinding;
 import ch.ffhs.drugstore.databinding.DialogSignInventoryBinding;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -53,9 +54,9 @@ public class SignInventoryDialogFragment extends DialogFragment {
   @NonNull
   @Override
   public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-    View addView = View.inflate(getActivity(), R.layout.dialog_sign_inventory, null);
+    binding = DialogSignInventoryBinding.inflate(getLayoutInflater());
     return new AlertDialog.Builder(requireContext())
-        .setView(addView)
+        .setView(binding.getRoot())
         .setTitle(getString(R.string.sign))
         .setPositiveButton(
             getString(R.string.sign),

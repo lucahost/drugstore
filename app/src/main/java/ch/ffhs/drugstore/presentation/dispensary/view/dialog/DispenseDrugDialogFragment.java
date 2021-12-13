@@ -18,64 +18,97 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.DialogDispenseDrugBinding;
+import ch.ffhs.drugstore.databinding.DialogSignInventoryBinding;
+import dagger.assisted.Assisted;
+import dagger.assisted.AssistedInject;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class DispenseDrugDialogFragment extends DialogFragment {
 
-  public static final String TAG = "DispenseDrugDialog";
+    public static final String TAG = "DispenseDrugDialog";
+    public static final String ARG_DRUG_ID = "drugId";
+    public static final String ARG_DRUG_TITLE = "drugTitle";
+    public static final String ARG_DRUG_DOSAGE = "drugDosage";
 
-  private ConfirmDispenseDrugListener confirmDispenseDrugListener;
-  DialogDispenseDrugBinding binding;
+    private ConfirmDispenseDrugListener confirmDispenseDrugListener;
+    private DialogDispenseDrugBinding binding;
+    private int drugId;
+    private String drugTitle;
+    private String drugDosage;
 
-  @Inject
-  public DispenseDrugDialogFragment() {
-    /* TODO document why this constructor is empty */
-  }
-
-  @Override
-  public void onAttach(@NonNull Context context) {
-    super.onAttach(context);
-    if (getParentFragment() instanceof ConfirmDispenseDrugListener) {
-      this.confirmDispenseDrugListener = (ConfirmDispenseDrugListener) getParentFragment();
+    public DispenseDrugDialogFragment() {
+        // Required empty public constructor
     }
-    if (context instanceof ConfirmDispenseDrugListener) {
-      this.confirmDispenseDrugListener = (ConfirmDispenseDrugListener) context;
+
+    @AssistedInject
+    public DispenseDrugDialogFragment(
+            @Assisted("dispenseDrugDialogFragmentArgs") DispenseDrugDialogFragmentArgs args) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARG_DRUG_ID, args.getDrugId());
+        bundle.putString(ARG_DRUG_TITLE, args.getDrugTitle());
+        bundle.putString(ARG_DRUG_DOSAGE, args.getDrugDosage());
+        setArguments(bundle);
     }
-  }
 
-  @Override
-  public View onCreateView(
-      @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    binding = DialogDispenseDrugBinding.inflate(inflater, container, false);
-    return binding.getRoot();
-  }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            drugId = getArguments().getInt(ARG_DRUG_ID);
+            drugTitle = getArguments().getString(ARG_DRUG_TITLE);
+            drugDosage = getArguments().getString(ARG_DRUG_DOSAGE);
+        }
+    }
 
-  @NonNull
-  @Override
-  public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-    View addView = View.inflate(getActivity(), R.layout.dialog_dispense_drug, null);
-    return new AlertDialog.Builder(requireContext())
-        .setView(addView)
-        .setTitle(getString(R.string.dispense))
-        .setPositiveButton(
-            getString(R.string.dispense),
-            (dialog, id) ->
-                this.confirmDispenseDrugListener.onConfirmDispenseDrug(
-                    Objects.requireNonNull(binding.employeeText.getText()).toString(),
-                    Objects.requireNonNull(binding.patientText.getText()).toString(),
-                    Objects.requireNonNull(binding.dosageText.getText()).toString()))
-        .setNegativeButton(getString(R.string.cancel), (dialog, id) -> {})
-        .create();
-  }
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (getParentFragment() instanceof ConfirmDispenseDrugListener) {
+            this.confirmDispenseDrugListener = (ConfirmDispenseDrugListener) getParentFragment();
+        }
+        if (context instanceof ConfirmDispenseDrugListener) {
+            this.confirmDispenseDrugListener = (ConfirmDispenseDrugListener) context;
+        }
+    }
 
-  @Override
-  public void onDetach() {
-    super.onDetach();
-    this.confirmDispenseDrugListener = null;
-  }
+    @Override
+    public View onCreateView(
+            @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = DialogDispenseDrugBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
 
-  public interface ConfirmDispenseDrugListener {
-    void onConfirmDispenseDrug(String employee, String patient, String dosage);
-  }
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        binding = DialogDispenseDrugBinding.inflate(getLayoutInflater());
+        binding.drugDosageText.setText(drugDosage);
+        return new AlertDialog.Builder(requireContext())
+                .setView(binding.getRoot())
+                .setTitle(drugTitle)
+                .setPositiveButton(
+                        getString(R.string.dispense),
+                        (dialog, id) ->
+                                this.confirmDispenseDrugListener.onConfirmDispenseDrug(
+                                        Objects.requireNonNull(
+                                                binding.employeeText.getText()).toString(),
+                                        Objects.requireNonNull(
+                                                binding.patientText.getText()).toString(),
+                                        Objects.requireNonNull(
+                                                binding.dosageText.getText()).toString()))
+                .setNegativeButton(getString(R.string.cancel), (dialog, id) -> {
+                })
+                .create();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        this.confirmDispenseDrugListener = null;
+    }
+
+    public interface ConfirmDispenseDrugListener {
+        void onConfirmDispenseDrug(String employee, String patient, String dosage);
+    }
 }

@@ -79,7 +79,7 @@ public class DispensaryListAdapter
     }
 
     void bind(int position) {
-      drugTitle.setText(String.format("%s (%s)", getItem(position).getTitle(), getItem(position).getDrugType()));
+      drugTitle.setText(String.format("%s - %s (%s)", getItem(position).getDrugId(), getItem(position).getTitle(), getItem(position).getDrugType()));
       drugSecondary.setText(getItem(position).getDosage());
       card.setChecked(getItem(position).isFavorite());
       card.setOnClickListener(this);

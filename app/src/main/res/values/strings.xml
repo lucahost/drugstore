@@ -4,7 +4,7 @@
     <string name="dispense">Ausgeben</string>
     <string name="cancel">Abbrechen</string>
     <string name="title_activity_test">TestActivity</string>
-    <string name="add">Erfassen</string>
+    <string name="add">Hinzufügen</string>
     <string name="menu_management">Verwaltung</string>
     <string name="menu_dispensary">Abgabe</string>
     <string name="drugs">Medikamente</string>
@@ -12,7 +12,7 @@
     <string name="signatures">Signaturen</string>
     <string name="history">Abgaben</string>
     <string name="search_title">Suche</string>
-    <string name="search_hint">Suchbegriff eingeben</string>
+    <string name="search_hint">Medikament suchen</string>
     <string name="sign">Signieren</string>
     <string name="employee">Fachkraft</string>
     <string name="patient">Patient</string>
@@ -25,7 +25,7 @@
     <string name="edit">Bearbeiten</string>
     <string name="delete">Löschen</string>
     <string name="add_drug">Medikament hinzufügen</string>
-    <string name="delete_drug">Medikament löschen</string>
+    <string name="delete_drug">%s löschen?</string>
     <string name="edit_drug">Medikament bearbeiten</string>
     <string name="save">Speichern</string>
     <string name="remove_drug">Medikament austragen</string>
@@ -39,4 +39,6 @@
     <string name="oral">Oral</string>
     <string name="oral_liquig">Oral flüssig</string>
     <string name="plaster">Pflaster</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

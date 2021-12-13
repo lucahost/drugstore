@@ -17,6 +17,7 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
+import ch.ffhs.drugstore.databinding.DialogAddDrugBinding;
 import ch.ffhs.drugstore.databinding.DialogCreateDrugBinding;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -53,9 +54,9 @@ public class CreateDrugDialogFragment extends DialogFragment {
   @NonNull
   @Override
   public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-    View addView = View.inflate(getActivity(), R.layout.dialog_create_drug, null);
+    binding = DialogCreateDrugBinding.inflate(getLayoutInflater());
     return new AlertDialog.Builder(requireContext())
-        .setView(addView)
+        .setView(binding.getRoot())
         .setTitle(getString(R.string.create_drug))
         .setPositiveButton(
             getString(R.string.create),

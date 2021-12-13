@@ -25,10 +25,14 @@ import ch.ffhs.drugstore.databinding.FragmentDrugsBinding;
 import ch.ffhs.drugstore.presentation.management.drugs.view.adapter.DrugListAdapter;
 import ch.ffhs.drugstore.presentation.DialogService;
 import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.AddDrugDialogFragment;
+import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.AddDrugDialogFragmentArgs;
 import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.CreateDrugDialogFragment;
 import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.DeleteDrugDialogFragment;
+import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.DeleteDrugDialogFragmentArgs;
 import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.EditDrugDialogFragment;
+import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.EditDrugDialogFragmentArgs;
 import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.RemoveDrugDialogFragment;
+import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.RemoveDrugDialogFragmentArgs;
 import ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -56,7 +60,7 @@ public class DrugsFragment extends Fragment
       @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     binding = FragmentDrugsBinding.inflate(getLayoutInflater());
     binding.extendedFab.setOnClickListener(
-        view -> dialogService.show(getChildFragmentManager(), DialogService.Dialog.CREATE_DRUG));
+        view -> dialogService.showCreateDrugDialog(getChildFragmentManager()));
     setupRecyclerView();
     return binding.getRoot();
   }
@@ -95,16 +99,22 @@ public class DrugsFragment extends Fragment
     return item -> {
       int itemId = item.getItemId();
       if (itemId == R.id.drug_item_add) {
-        dialogService.show(getChildFragmentManager(), DialogService.Dialog.ADD_DRUG);
+        AddDrugDialogFragmentArgs args = new AddDrugDialogFragmentArgs(drug.getDrugId(), drug.getTitle(), drug.getDosage());
+        dialogService.showAddDrugDialog(getChildFragmentManager(), args);
         return true;
       } else if (itemId == R.id.drug_item_remove) {
-        dialogService.show(getChildFragmentManager(), DialogService.Dialog.REMOVE_DRUG);
+        RemoveDrugDialogFragmentArgs args = new RemoveDrugDialogFragmentArgs(drug.getDrugId(), drug.getTitle());
+        dialogService.showRemoveDrugDialog(getChildFragmentManager(), args);
         return true;
       } else if (itemId == R.id.drug_item_edit) {
-        dialogService.show(getChildFragmentManager(), DialogService.Dialog.EDIT_DRUG);
+        EditDrugDialogFragmentArgs args = new EditDrugDialogFragmentArgs(
+                drug.getDrugId(), drug.getTitle(), drug.getDosage(), drug.getDrugType(), drug.getTolerance()
+        );
+        dialogService.showEditDrugDialog(getChildFragmentManager(), args);
         return true;
       } else if (itemId == R.id.drug_item_delete) {
-        dialogService.show(getChildFragmentManager(), DialogService.Dialog.DELETE_DRUG);
+        DeleteDrugDialogFragmentArgs args = new DeleteDrugDialogFragmentArgs(drug.getDrugId(), drug.getTitle());
+        dialogService.showDeleteDrugDialog(getChildFragmentManager(), args);
         return true;
       }
       return false;

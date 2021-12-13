@@ -15,19 +15,31 @@ import androidx.fragment.app.DialogFragment;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
+import ch.ffhs.drugstore.databinding.DialogDeleteDrugBinding;
 import ch.ffhs.drugstore.databinding.DialogRemoveDrugBinding;
+import dagger.assisted.Assisted;
+import dagger.assisted.AssistedInject;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class RemoveDrugDialogFragment extends DialogFragment {
 
   public static final String TAG = "RemoveDrug";
+  public static final String ARG_DRUG_ID = "drugId";
+  public static final String ARG_DRUG_TITLE = "drugTitle";
   DialogRemoveDrugBinding binding;
   private ConfirmRemoveDrugListener confirmRemoveDrugListener;
 
-  @Inject
   public RemoveDrugDialogFragment() {
     /* TODO document why this constructor is empty */
+  }
+
+  @AssistedInject
+  public RemoveDrugDialogFragment(@Assisted("removeDrugDialogFragmentArgs") RemoveDrugDialogFragmentArgs args) {
+    Bundle bundle = new Bundle();
+    bundle.putInt(ARG_DRUG_ID, args.getDrugId());
+    bundle.putString(ARG_DRUG_TITLE, args.getDrugTitle());
+    setArguments(bundle);
   }
 
   @Override
@@ -51,9 +63,9 @@ public class RemoveDrugDialogFragment extends DialogFragment {
   @NonNull
   @Override
   public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-    View addView = View.inflate(getActivity(), R.layout.dialog_remove_drug, null);
+    binding = DialogRemoveDrugBinding.inflate(getLayoutInflater());
     return new AlertDialog.Builder(requireContext())
-        .setView(addView)
+        .setView(binding.getRoot())
         .setTitle(getString(R.string.remove_drug))
         .setPositiveButton(
             getString(R.string.remove),

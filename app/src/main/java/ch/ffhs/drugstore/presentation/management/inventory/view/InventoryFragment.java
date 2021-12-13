@@ -44,7 +44,7 @@ public class InventoryFragment extends Fragment
       @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     binding = FragmentInventoryBinding.inflate(getLayoutInflater());
     binding.extendedFab.setOnClickListener(
-        view -> dialogService.show(getChildFragmentManager(), DialogService.Dialog.SIGN_INVENTORY));
+        view -> dialogService.showSignInventoryDialog(getChildFragmentManager()));
     setupRecyclerView();
     return binding.getRoot();
   }

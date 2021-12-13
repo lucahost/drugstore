@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_gravity="bottom|end"
-        android:contentDescription="@string/add"
-        android:text="@string/add"
+        android:contentDescription="@string/create"
+        android:text="@string/create"
         app:icon="@drawable/plus"/>
 </FrameLayout>

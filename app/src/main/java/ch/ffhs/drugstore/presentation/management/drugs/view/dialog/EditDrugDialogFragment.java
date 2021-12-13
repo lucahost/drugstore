@@ -18,18 +18,41 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.DialogEditDrugBinding;
+import dagger.assisted.Assisted;
+import dagger.assisted.AssistedInject;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class EditDrugDialogFragment extends DialogFragment {
 
   public static final String TAG = "EditDrug";
+  public static final String ARG_DRUG_ID = "drugId";
+  public static final String ARG_DRUG_TITLE = "drugTitle";
+  public static final String ARG_DRUG_DOSAGE = "dosage";
+  public static final String ARG_DRUG_TYPE = "drugType";
+  public static final String ARG_DRUG_TOLERANCE = "tolerance";
+  private int drugId;
+  private String drugTitle;
+  private String dosage;
+  private String drugType;
+  private double tolerance;
   DialogEditDrugBinding binding;
   private ConfirmEditDrugListener confirmEditDrugListener;
 
-  @Inject
   public EditDrugDialogFragment() {
     /* TODO document why this constructor is empty */
+  }
+
+  @AssistedInject
+  public EditDrugDialogFragment(
+          @Assisted("editDrugDialogFragmentArgs") EditDrugDialogFragmentArgs args) {
+    Bundle bundle = new Bundle();
+    bundle.putInt(ARG_DRUG_ID, args.getDrugId());
+    bundle.putString(ARG_DRUG_TITLE, args.getDrugTitle());
+    bundle.putString(ARG_DRUG_DOSAGE, args.getDosage());
+    bundle.putString(ARG_DRUG_TYPE, args.getDrugType());
+    bundle.putDouble(ARG_DRUG_TOLERANCE, args.getTolerance());
+    setArguments(bundle);
   }
 
   @Override
@@ -44,18 +67,28 @@ public class EditDrugDialogFragment extends DialogFragment {
   }
 
   @Override
-  public View onCreateView(
-      @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    binding = DialogEditDrugBinding.inflate(inflater, container, false);
-    return binding.getRoot();
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    if (getArguments() != null) {
+      drugId = getArguments().getInt(ARG_DRUG_ID);
+      drugTitle = getArguments().getString(ARG_DRUG_TITLE);
+      dosage = getArguments().getString(ARG_DRUG_DOSAGE);
+      drugType = getArguments().getString(ARG_DRUG_TYPE);
+      tolerance = getArguments().getDouble(ARG_DRUG_TOLERANCE);
+    }
   }
 
   @NonNull
   @Override
   public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-    View addView = View.inflate(getActivity(), R.layout.dialog_edit_drug, null);
+    binding = DialogEditDrugBinding.inflate(getLayoutInflater());
+    binding.editDrugNameText.setText(drugTitle);
+    binding.editDrugDosageText.setText(dosage);
+    binding.editDrugCategoryText.setText(drugType);
+    binding.editDrugDispenseUnitText.setText("TODO");
+    binding.editDrugToleranceText.setText(Double.toString(tolerance));
     return new AlertDialog.Builder(requireContext())
-        .setView(addView)
+        .setView(binding.getRoot())
         .setTitle(getString(R.string.edit_drug))
         .setPositiveButton(
             getString(R.string.save),

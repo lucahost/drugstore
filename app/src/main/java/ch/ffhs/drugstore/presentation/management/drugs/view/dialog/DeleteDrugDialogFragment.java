@@ -15,19 +15,33 @@ import androidx.fragment.app.DialogFragment;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
+import ch.ffhs.drugstore.databinding.DialogCreateDrugBinding;
 import ch.ffhs.drugstore.databinding.DialogDeleteDrugBinding;
+import dagger.assisted.Assisted;
+import dagger.assisted.AssistedInject;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class DeleteDrugDialogFragment extends DialogFragment {
 
   public static final String TAG = "DeleteDrug";
+  public static final String ARG_DRUG_ID = "drugId";
+  public static final String ARG_DRUG_TITLE = "drugTitle";
+  private int drugId;
+  private String drugTitle;
   DialogDeleteDrugBinding binding;
   private ConfirmDeleteDrugListener confirmDeleteDrugListener;
 
-  @Inject
   public DeleteDrugDialogFragment() {
     /* TODO document why this constructor is empty */
+  }
+
+  @AssistedInject
+  public DeleteDrugDialogFragment(@Assisted("deleteDrugDialogFragmentArgs") DeleteDrugDialogFragmentArgs args) {
+    Bundle bundle = new Bundle();
+    bundle.putInt(ARG_DRUG_ID, args.getDrugId());
+    bundle.putString(ARG_DRUG_TITLE, args.getDrugTitle());
+    setArguments(bundle);
   }
 
   @Override
@@ -42,6 +56,15 @@ public class DeleteDrugDialogFragment extends DialogFragment {
   }
 
   @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    if (getArguments() != null) {
+      drugId = getArguments().getInt(ARG_DRUG_ID);
+      drugTitle = getArguments().getString(ARG_DRUG_TITLE);
+    }
+  }
+
+  @Override
   public View onCreateView(
       @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     binding = DialogDeleteDrugBinding.inflate(inflater, container, false);
@@ -51,13 +74,13 @@ public class DeleteDrugDialogFragment extends DialogFragment {
   @NonNull
   @Override
   public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-    View addView = View.inflate(getActivity(), R.layout.dialog_delete_drug, null);
+    binding = DialogDeleteDrugBinding.inflate(getLayoutInflater());
     return new AlertDialog.Builder(requireContext())
-        .setView(addView)
-        .setTitle(getString(R.string.delete_drug))
+        .setView(binding.getRoot())
+        .setTitle(getString(R.string.delete_drug, drugTitle))
         .setPositiveButton(
             getString(R.string.delete),
-            (dialog, id) -> this.confirmDeleteDrugListener.onConfirmDeleteDrug(1))
+            (dialog, id) -> this.confirmDeleteDrugListener.onConfirmDeleteDrug(drugId))
         .setNegativeButton(getString(R.string.cancel), (dialog, id) -> {})
         .create();
   }
