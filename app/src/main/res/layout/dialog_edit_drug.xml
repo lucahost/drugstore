@@ -1,73 +1,78 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="120dp">
 
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/name"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_drug_name_text"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:hint="@string/name">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/dosage"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_drug_name_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_drug_dosage_text"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:hint="@string/dosage">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/category"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_drug_dosage_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_drug_category_text"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/category_menu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:hint="@string/category"
+            android:labelFor="@id/edit_drug_category_text">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/dispense_unit"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <AutoCompleteTextView
+                android:id="@+id/edit_drug_category_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_drug_dispense_unit_text"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dispense_unit_menu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:hint="@string/dispense_unit"
+            android:labelFor="@id/edit_drug_dispense_unit_text">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/tolerance"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <AutoCompleteTextView
+                android:id="@+id/edit_drug_dispense_unit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_drug_tolerance_text"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:hint="@string/tolerance">
 
-</LinearLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_drug_tolerance_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+</ScrollView>

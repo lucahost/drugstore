@@ -10,11 +10,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.dto.DrugDto;
-import ch.ffhs.drugstore.data.entity.Drug;
+import ch.ffhs.drugstore.data.dto.DrugTypeDto;
+import ch.ffhs.drugstore.data.dto.UnitDto;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.AddDrug;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.CreateDrug;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.DeleteDrug;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.EditDrug;
+import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugTypes;
+import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugUnits;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugs;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.RemoveDrug;
 import dagger.hilt.android.lifecycle.HiltViewModel;
@@ -27,18 +30,36 @@ public class DrugsViewModel extends AndroidViewModel {
   @Inject EditDrug editDrug;
   @Inject DeleteDrug deleteDrug;
   @Inject RemoveDrug removeDrug;
-  private LiveData<List<DrugDto>> items;
+  @Inject GetDrugTypes getDrugTypes;
+  @Inject GetDrugUnits getDrugUnits;
+  private LiveData<List<DrugDto>> drugs;
+  private LiveData<List<DrugTypeDto>> drugTypes;
+  private LiveData<List<UnitDto>> drugUnits;
 
   @Inject
   public DrugsViewModel(Application application) {
     super(application);
   }
 
-  public LiveData<List<DrugDto>> getItems() {
-    if (items == null) {
-      items = getDrugs.execute(null);
+  public LiveData<List<DrugDto>> getDrugs() {
+    if (drugs == null) {
+      drugs = getDrugs.execute(null);
     }
-    return items;
+    return drugs;
+  }
+
+  public LiveData<List<DrugTypeDto>> getDrugTypes() {
+    if (drugTypes == null) {
+      drugTypes = getDrugTypes.execute(null);
+    }
+    return drugTypes;
+  }
+
+  public LiveData<List<UnitDto>> getDrugUnits() {
+    if (drugUnits == null) {
+      drugUnits = getDrugUnits.execute(null);
+    }
+    return drugUnits;
   }
 
   public void addDrug() {

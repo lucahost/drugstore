@@ -20,7 +20,6 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.data.dto.DrugDto;
-import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.databinding.FragmentDrugsBinding;
 import ch.ffhs.drugstore.presentation.management.drugs.view.adapter.DrugListAdapter;
 import ch.ffhs.drugstore.presentation.DialogService;
@@ -74,7 +73,7 @@ public class DrugsFragment extends Fragment
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     viewModel = new ViewModelProvider(requireActivity()).get(DrugsViewModel.class);
-    viewModel.getItems().observe(getViewLifecycleOwner(), adapter::submitList);
+    viewModel.getDrugs().observe(getViewLifecycleOwner(), adapter::submitList);
   }
 
   public Context context() {
