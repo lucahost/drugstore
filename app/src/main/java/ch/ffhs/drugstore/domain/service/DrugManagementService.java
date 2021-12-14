@@ -1,20 +1,22 @@
 package ch.ffhs.drugstore.domain.service;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.dto.DrugDto;
-import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.data.repository.DrugRepository;
+import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 
 public class DrugManagementService {
     @Inject
     DrugRepository drugRepository;
+
+    @Inject
+    DrugstoreMapper mapper;
 
     @Inject
     public DrugManagementService() {
@@ -23,5 +25,14 @@ public class DrugManagementService {
 
     public LiveData<List<DrugDto>> getAllDrugs() {
         return drugRepository.getAllDrugs();
+    }
+
+    public DrugDto getDrugById(int drugId) {
+        return drugRepository.getDrugById(drugId);
+    }
+
+    public void addDrug(CreateDrugDto createDrugDto) {
+        DrugDto drugDto = mapper.createDrugDtoToDrugDto(createDrugDto);
+        drugRepository.addDrug(drugDto);
     }
 }

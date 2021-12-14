@@ -10,33 +10,34 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.dao.SignatureDao;
 import ch.ffhs.drugstore.data.database.DrugstoreDatabase;
-import ch.ffhs.drugstore.data.dto.SignatureDto;
-import ch.ffhs.drugstore.data.dto.SignatureWithDrugs;
 import ch.ffhs.drugstore.data.entity.Signature;
+import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs;
+import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
+import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 
 public class SignatureRepository {
     private final SignatureDao signatureDao;
-    private final LiveData<List<SignatureWithDrugs>> allSignaturesWithDrugs;
-    private final LiveData<List<SignatureDto>> allSignatures;
+    private final LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> allSignaturesWithDrugs;
+    private final DrugstoreMapper mapper;
 
     // Note that in order to unit test the WordRepository, you have to remove the Application
     // dependency. This adds complexity and much more code, and this sample is not about testing.
     // See the BasicSample in the android-architecture-components repository at
     // https://github.com/googlesamples
     @Inject
-    public SignatureRepository(Application application) {
+    public SignatureRepository(Application application, DrugstoreMapper mapper) {
         DrugstoreDatabase db = DrugstoreDatabase.getDatabase(application);
+        this.mapper = mapper;
         signatureDao = db.signatureDao();
         allSignaturesWithDrugs = signatureDao.getAllSignatures();
-        allSignatures = signatureDao.getSignatures();
     }
 
-    public LiveData<List<SignatureWithDrugs>> getSignatures() {
+    public LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> getSignatures() {
         return allSignaturesWithDrugs;
     }
 
-    public LiveData<List<SignatureDto>> getAllSignatures() {
-        return allSignatures;
+    public SignatureDto getSignatureBySignatureId(int signatureId) {
+        return mapper.signatureToSignatureDto(signatureDao.getSignatureBySignatureId(signatureId));
     }
 
     // You must call this on a non-UI thread or your app will throw an exception. Room ensures

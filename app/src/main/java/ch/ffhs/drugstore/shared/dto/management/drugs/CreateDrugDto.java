@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.domain.dto.management.drugs;
+package ch.ffhs.drugstore.shared.dto.management.drugs;
 
 public class CreateDrugDto {
     private String title;

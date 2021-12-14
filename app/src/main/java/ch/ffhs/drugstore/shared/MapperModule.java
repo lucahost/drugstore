@@ -1,7 +1,8 @@
-package ch.ffhs.drugstore.shared.mappers;
+package ch.ffhs.drugstore.shared;
 
 import javax.inject.Singleton;
 
+import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
@@ -14,6 +15,7 @@ public class MapperModule {
     @Provides
     @Singleton
     DrugstoreMapper provideDtoMapper() {
-        return DrugstoreMapper.INSTANCE;
+        //return DrugstoreMapper.INSTANCE;
+        return null;
     }
 }

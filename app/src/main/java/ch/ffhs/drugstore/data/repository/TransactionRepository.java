@@ -10,7 +10,7 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.dao.TransactionDao;
 import ch.ffhs.drugstore.data.database.DrugstoreDatabase;
-import ch.ffhs.drugstore.data.dto.TransactionDto;
+import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import ch.ffhs.drugstore.data.entity.Transaction;
 
 public class TransactionRepository {

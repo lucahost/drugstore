@@ -20,7 +20,6 @@ database drugstore {
   entity DrugType {
     * DrugTypeId : number <<generated>>
     --
-    * UnitId : number <<FK>>
     ParentDrugType : number <<FK>>
     --
     * Title : varchar
@@ -38,6 +37,7 @@ database drugstore {
     --
     * SubstanceId : number <<FK>>
     * DrugTypeId : number <<FK>>
+    * UnitId : number <<FK>>
     --
     * Title : varchar
     * Dosage : varchar
@@ -92,7 +92,7 @@ UnitGroup ||..|{ Unit
 
 ' One DrugType has one Unit
 ' One Unit has zero or many DrugTypes
-DrugType ||..o{ Unit
+Drug ||..o{ Unit
 
 
 ' One Drug has zero or one Substance

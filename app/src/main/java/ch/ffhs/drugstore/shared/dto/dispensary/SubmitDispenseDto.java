@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.domain.dto.dispensary;
+package ch.ffhs.drugstore.shared.dto.dispensary;
 
 public class SubmitDispenseDto {
     private int drugId;

@@ -6,11 +6,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.dto.SignatureWithDrugs;
+import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs;
 import ch.ffhs.drugstore.domain.service.SignatureService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
 
-public class GetSignatures implements UseCase<LiveData<List<SignatureWithDrugs>>, Void> {
+public class GetSignatures implements UseCase<LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>>, Void> {
     @Inject
     SignatureService signatureService;
 
@@ -20,7 +20,7 @@ public class GetSignatures implements UseCase<LiveData<List<SignatureWithDrugs>>
     }
 
     @Override
-    public LiveData<List<SignatureWithDrugs>> execute(Void unused) {
+    public LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> execute(Void unused) {
         return signatureService.getSignatures();
     }
 }

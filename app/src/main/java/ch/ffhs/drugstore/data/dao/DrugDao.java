@@ -7,12 +7,14 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.RewriteQueriesToDropUnusedColumns;
 import androidx.room.RoomWarnings;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import java.util.List;
 
-import ch.ffhs.drugstore.data.dto.DrugDto;
 import ch.ffhs.drugstore.data.entity.Drug;
+import ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
 
 @Dao
@@ -30,18 +32,20 @@ public interface DrugDao {
     @Query("DELETE FROM drugs")
     void deleteAll();
 
-    @RewriteQueriesToDropUnusedColumns
-    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-    @Query("SELECT *, drugTypes.title as drugType, substances.title as substance FROM drugs " +
-            "LEFT JOIN drugTypes on drugs.drugTypeId = drugTypes.drugTypeId " +
-            "LEFT JOIN substances on drugs.substanceId = substances.substanceId")
-    LiveData<List<DrugDto>> getAllDrugs();
+    @Transaction
+    @Query("SELECT * FROM drugs WHERE drugId = :drugId")
+    DrugWithUnitAndDrugTypeAndSubstance getDrugById(int drugId);
+
+    @Transaction
+    @Query("SELECT * FROM drugs")
+    LiveData<List<DrugWithUnitAndDrugTypeAndSubstance>> getAllDrugs();
 
     @RewriteQueriesToDropUnusedColumns
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT *, drugTypes.title as drugType, substances.title as substance FROM drugs " +
             "LEFT JOIN drugTypes on drugs.drugTypeId = drugTypes.drugTypeId " +
             "LEFT JOIN substances on drugs.substanceId = substances.substanceId " +
+            "LEFT JOIN units on drugs.unitId = units.unitId " +
             "WHERE stockAmount > 0 AND drugs.title LIKE '%' || :searchTerm || '%'"
     )
     LiveData<List<DrugDto>> getOnStockDrugs(String searchTerm);
@@ -51,7 +55,9 @@ public interface DrugDao {
     @Query("SELECT *, drugTypes.title as drugType, substances.title as substance FROM drugs " +
             "LEFT JOIN drugTypes on drugs.drugTypeId = drugTypes.drugTypeId " +
             "LEFT JOIN substances on drugs.substanceId = substances.substanceId " +
-            "WHERE stockAmount > 0 AND isFavorite = 1 AND drugs.title LIKE '%' || :searchTerm || '%'"
+            "LEFT JOIN units on drugs.unitId = units.unitId " +
+            "WHERE stockAmount > 0 AND isFavorite = 1 AND drugs.title LIKE '%' || :searchTerm || "
+            + "'%'"
     )
     LiveData<List<DrugDto>> getOnStockFavoriteDrugs(String searchTerm);
 
@@ -60,7 +66,9 @@ public interface DrugDao {
     @Query("SELECT *, drugTypes.title as drugType, substances.title as substance FROM drugs " +
             "LEFT JOIN drugTypes on drugs.drugTypeId = drugTypes.drugTypeId " +
             "LEFT JOIN substances on drugs.substanceId = substances.substanceId " +
-            "WHERE stockAmount > 0 AND drugTypes.title IN (:drugTypes) AND drugs.title LIKE '%' || :searchTerm || '%'"
+            "LEFT JOIN units on drugs.unitId = units.unitId " +
+            "WHERE stockAmount > 0 AND drugTypes.title IN (:drugTypes) AND drugs.title LIKE '%' " +
+            "|| :searchTerm || '%'"
     )
     LiveData<List<DrugDto>> getOnStockDrugsByDrugTypes(List<String> drugTypes, String searchTerm);
 
@@ -69,7 +77,10 @@ public interface DrugDao {
     @Query("SELECT *, drugTypes.title as drugType, substances.title as substance FROM drugs " +
             "LEFT JOIN drugTypes on drugs.drugTypeId = drugTypes.drugTypeId " +
             "LEFT JOIN substances on drugs.substanceId = substances.substanceId " +
-            "WHERE stockAmount > 0 AND isFavorite = 1 AND drugTypes.title IN (:drugTypes) AND drugs.title LIKE '%' || :searchTerm || '%'"
+            "LEFT JOIN units on drugs.unitId = units.unitId " +
+            "WHERE stockAmount > 0 AND isFavorite = 1 AND drugTypes.title IN (:drugTypes) AND " +
+            "drugs.title LIKE '%' || :searchTerm || '%'"
     )
-    LiveData<List<DrugDto>> getOnStockFavoriteDrugsByDrugTypes(List<String> drugTypes, String searchTerm);
+    LiveData<List<DrugDto>> getOnStockFavoriteDrugsByDrugTypes(List<String> drugTypes,
+            String searchTerm);
 }

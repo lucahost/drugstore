@@ -12,8 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.dto.TransactionDto;
-import ch.ffhs.drugstore.data.entity.Transaction;
+import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import ch.ffhs.drugstore.databinding.HistoryItemBinding;
 
 public class HistoryListAdapter

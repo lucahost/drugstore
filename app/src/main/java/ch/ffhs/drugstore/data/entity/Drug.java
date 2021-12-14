@@ -1,5 +1,6 @@
 package ch.ffhs.drugstore.data.entity;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
@@ -10,32 +11,35 @@ import androidx.room.PrimaryKey;
                 @ForeignKey(entity = DrugType.class, parentColumns = "drugTypeId", childColumns =
                         "drugTypeId"),
                 @ForeignKey(entity = Substance.class, parentColumns = "substanceId",
-                        childColumns = "substanceId")
+                        childColumns = "substanceId"),
+                @ForeignKey(entity = Unit.class, parentColumns = "unitId",
+                        childColumns = "unitId")
         },
         indices = {
                 @Index(value = "drugTypeId"),
-                @Index(value = "substanceId")
+                @Index(value = "substanceId"),
+                @Index(value = "unitId")
         }
 )
 public class Drug {
     @PrimaryKey(autoGenerate = true)
     private int drugId;
     private String title;
-    private int drugTypeId;
-    private int substanceId;
+    private Integer drugTypeId;
+    private Integer substanceId;
+    private Integer unitId;
     private String dosage;
     private double tolerance;
     private double stockAmount;
     private boolean isFavorite;
 
-
-    public Drug(int drugId, String title, int drugTypeId, int substanceId, String dosage,
-            double tolerance,
-            double stockAmount, boolean isFavorite) {
+    public Drug(int drugId, String title, Integer drugTypeId, Integer substanceId, Integer unitId,
+            String dosage, double tolerance, double stockAmount, boolean isFavorite) {
         this.drugId = drugId;
         this.title = title;
         this.drugTypeId = drugTypeId;
         this.substanceId = substanceId;
+        this.unitId = unitId;
         this.dosage = dosage;
         this.tolerance = tolerance;
         this.stockAmount = stockAmount;
@@ -58,20 +62,28 @@ public class Drug {
         this.drugId = drugId;
     }
 
-    public int getDrugTypeId() {
+    public Integer getDrugTypeId() {
         return drugTypeId;
     }
 
-    public void setDrugTypeId(int drugTypeId) {
+    public void setDrugTypeId(Integer drugTypeId) {
         this.drugTypeId = drugTypeId;
     }
 
-    public int getSubstanceId() {
+    public Integer getSubstanceId() {
         return substanceId;
     }
 
-    public void setSubstanceId(int substanceId) {
+    public void setSubstanceId(Integer substanceId) {
         this.substanceId = substanceId;
+    }
+
+    public Integer getUnitId() {
+        return unitId;
+    }
+
+    public void setUnitId(Integer unitId) {
+        this.unitId = unitId;
     }
 
     public String getDosage() {

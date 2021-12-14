@@ -1,8 +1,11 @@
-package ch.ffhs.drugstore.data.dto;
+package ch.ffhs.drugstore.shared.dto.management.history;
 
 import androidx.room.Embedded;
 
 import java.util.Date;
+
+import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
 public class TransactionDto {
     private int transactionId;

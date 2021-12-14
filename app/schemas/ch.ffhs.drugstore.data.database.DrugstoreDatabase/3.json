@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "5881fd25cc13a6fab414d38073c90801",
+    "identityHash": "9e62bd10b116f855fdc37b75243fdcb4",
     "entities": [
       {
         "tableName": "drugs",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`drugId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `drugTypeId` INTEGER NOT NULL, `substanceId` INTEGER NOT NULL, `unitId` INTEGER NOT NULL, `dosage` TEXT, `tolerance` REAL NOT NULL, `stockAmount` REAL NOT NULL, `isFavorite` INTEGER NOT NULL, FOREIGN KEY(`drugTypeId`) REFERENCES `drugTypes`(`drugTypeId`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`substanceId`) REFERENCES `substances`(`substanceId`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`unitId`) REFERENCES `units`(`unitId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`drugId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `drugTypeId` INTEGER, `substanceId` INTEGER, `unitId` INTEGER, `dosage` TEXT, `tolerance` REAL NOT NULL, `stockAmount` REAL NOT NULL, `isFavorite` INTEGER NOT NULL, FOREIGN KEY(`drugTypeId`) REFERENCES `drugTypes`(`drugTypeId`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`substanceId`) REFERENCES `substances`(`substanceId`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`unitId`) REFERENCES `units`(`unitId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "drugId",
@@ -24,19 +24,19 @@
             "fieldPath": "drugTypeId",
             "columnName": "drugTypeId",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "substanceId",
             "columnName": "substanceId",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "unitId",
             "columnName": "unitId",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "dosage",
@@ -539,7 +539,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5881fd25cc13a6fab414d38073c90801')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9e62bd10b116f855fdc37b75243fdcb4')"
     ]
   }
 }

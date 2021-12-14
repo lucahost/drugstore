@@ -9,8 +9,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.dto.DrugDto;
-import ch.ffhs.drugstore.data.entity.Drug;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.AddDrug;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.CreateDrug;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.DeleteDrug;

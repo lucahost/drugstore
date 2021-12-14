@@ -91,12 +91,13 @@ public class DispenseDrugDialogFragment extends DialogFragment {
                         getString(R.string.dispense),
                         (dialog, id) ->
                                 this.confirmDispenseDrugListener.onConfirmDispenseDrug(
+                                        drugId,
                                         Objects.requireNonNull(
                                                 binding.employeeText.getText()).toString(),
                                         Objects.requireNonNull(
                                                 binding.patientText.getText()).toString(),
                                         Objects.requireNonNull(
-                                                binding.dosageText.getText()).toString()))
+                                                binding.amountText.getText()).toString()))
                 .setNegativeButton(getString(R.string.cancel), (dialog, id) -> {
                 })
                 .create();
@@ -109,6 +110,6 @@ public class DispenseDrugDialogFragment extends DialogFragment {
     }
 
     public interface ConfirmDispenseDrugListener {
-        void onConfirmDispenseDrug(String employee, String patient, String dosage);
+        void onConfirmDispenseDrug(int drugId, String employee, String patient, String dosage);
     }
 }

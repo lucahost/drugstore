@@ -1,6 +1,8 @@
-package ch.ffhs.drugstore.data.dto;
+package ch.ffhs.drugstore.shared.dto.management.signature;
 
 import java.util.Date;
+
+import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
 
 public class SignatureDto {
     private int signatureId;

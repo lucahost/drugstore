@@ -15,8 +15,7 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.dto.TransactionDto;
-import ch.ffhs.drugstore.data.entity.Transaction;
+import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import ch.ffhs.drugstore.databinding.FragmentHistoryBinding;
 import ch.ffhs.drugstore.presentation.management.history.view.adapter.HistoryListAdapter;
 import ch.ffhs.drugstore.presentation.management.history.viewmodel.HistoryViewModel;

@@ -16,7 +16,7 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.dto.DrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.databinding.FragmentInventoryBinding;
 import ch.ffhs.drugstore.presentation.management.inventory.view.adapter.InventoryListAdapter;
 import ch.ffhs.drugstore.presentation.DialogService;

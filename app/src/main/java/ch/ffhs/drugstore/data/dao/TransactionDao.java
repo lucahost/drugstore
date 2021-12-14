@@ -11,7 +11,7 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import ch.ffhs.drugstore.data.dto.TransactionDto;
+import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import ch.ffhs.drugstore.data.entity.Transaction;
 
 @Dao

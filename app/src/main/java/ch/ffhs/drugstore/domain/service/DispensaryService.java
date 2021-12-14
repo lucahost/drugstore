@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.dto.DrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.data.repository.DrugRepository;
 import ch.ffhs.drugstore.presentation.dispensary.view.DispensaryFilters;
 import ch.ffhs.drugstore.presentation.dispensary.view.FilterState;
@@ -30,5 +30,9 @@ public class DispensaryService {
         } else {
             return drugRepository.getOnStockDrugs(favorites, filterState.getFiltersAsStrings(), searchTerm);
         }
+    }
+
+    public void updateDrugAmount(int drugId, double amount) {
+        drugRepository.updateDrugAmount(drugId, amount);
     }
 }
