@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/name"
-        android:enabled="false"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:enabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/drug_name_text"
@@ -26,8 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/dosage"
-        android:enabled="false"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:enabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/drug_dosage_text"
@@ -40,8 +38,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:hint="@string/content">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/drug_content_text"
@@ -53,8 +50,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/dispense_unit"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:hint="@string/dispense_unit">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/drug_unit_text"
@@ -66,8 +62,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/count"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:hint="@string/count">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/drug_count_text"

@@ -107,7 +107,7 @@ public class DrugsFragment extends Fragment
         return true;
       } else if (itemId == R.id.drug_item_edit) {
         EditDrugDialogFragmentArgs args = new EditDrugDialogFragmentArgs(
-                drug.getDrugId(), drug.getTitle(), drug.getDosage(), drug.getDrugType(), drug.getTolerance()
+                drug.getDrugId(), drug.getTitle(), drug.getDosage(), drug.getDrugType(), drug.getTolerance(), drug.isFavorite()
         );
         dialogService.showEditDrugDialog(getChildFragmentManager(), args);
         return true;
@@ -128,7 +128,7 @@ public class DrugsFragment extends Fragment
 
   @Override
   public void onConfirmCreateDrug(
-      String name, String dosage, String category, String dispenseUnit, String tolerance) {
+      String name, String dosage, int drugTypeId, int unitId, String tolerance, boolean isFavorite) {
     dialogService.dismiss(DialogService.Dialog.CREATE_DRUG);
     viewModel.createDrug();
     Toast.makeText(context(), "Erfolgreich erfasst", Toast.LENGTH_SHORT).show();
@@ -150,7 +150,7 @@ public class DrugsFragment extends Fragment
 
   @Override
   public void onConfirmEditDrug(
-      String name, String dosage, String category, String dispenseUnit, String tolerance) {
+      String name, String dosage, int drugTypeId, int unitId, String tolerance, boolean isFavorite) {
     dialogService.dismiss(DialogService.Dialog.EDIT_DRUG);
     viewModel.editDrug();
     Toast.makeText(context(), "Erfolgreich bearbeitet", Toast.LENGTH_SHORT).show();

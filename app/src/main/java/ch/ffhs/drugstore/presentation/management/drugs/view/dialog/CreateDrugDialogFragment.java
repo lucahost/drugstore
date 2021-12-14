@@ -5,31 +5,20 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
-import ch.ffhs.drugstore.data.dto.DrugTypeDto;
-import ch.ffhs.drugstore.data.dto.UnitDto;
-import ch.ffhs.drugstore.data.entity.Unit;
 import ch.ffhs.drugstore.databinding.DialogCreateDrugBinding;
 import ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -41,8 +30,6 @@ public class CreateDrugDialogFragment extends DialogFragment {
     DialogCreateDrugBinding binding;
     private ConfirmCreateDrugListener confirmCreateDrugListener;
     DrugsViewModel viewModel;
-    ArrayAdapter<String> drugUnitListAdapter;
-    ArrayAdapter<String> drugTypeListAdapter;
 
     @Inject
     public CreateDrugDialogFragment() {
@@ -72,8 +59,8 @@ public class CreateDrugDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(requireActivity()).get(DrugsViewModel.class);
         binding = DialogCreateDrugBinding.inflate(getLayoutInflater());
-        setDrugUnitDropdownOptions();
-        setDrugTypeDropdownOptions();
+        setDrugTypeRadioButtons();
+        setDrugUnitRadioButtons();
         return new AlertDialog.Builder(requireContext())
                 .setView(binding.getRoot())
                 .setTitle(getString(R.string.create_drug))
@@ -85,41 +72,39 @@ public class CreateDrugDialogFragment extends DialogFragment {
                                                 binding.nameText.getText()).toString(),
                                         Objects.requireNonNull(
                                                 binding.dosageText.getText()).toString(),
+                                        binding.drugTypeRadioGroup.getCheckedRadioButtonId(),
+                                        binding.dispenseUnitRadioGroup.getCheckedRadioButtonId(),
                                         Objects.requireNonNull(
-                                                binding.categoryText.getText()).toString(),
-                                        Objects.requireNonNull(
-                                                binding.dispenseUnitText.getText()).toString(),
-                                        Objects.requireNonNull(
-                                                binding.toleranceText.getText()).toString()))
+                                                binding.toleranceText.getText()).toString(),
+                                        binding.isFavoriteCheckbox.isChecked()
+                                        ))
                 .setNegativeButton(getString(R.string.cancel), (dialog, id) -> {
                 })
                 .create();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void setDrugUnitDropdownOptions() {
-        drugUnitListAdapter = new ArrayAdapter<>(requireContext(), R.layout.dropdown_list_item);
-        assert getParentFragment() != null;
-        viewModel.getDrugUnits().observe(getParentFragment(),
+    private void setDrugTypeRadioButtons() {
+        viewModel.getDrugTypes().observe(this,
                 list -> list.forEach(item -> {
-                    if (drugUnitListAdapter.getPosition(item.getTitle()) < 0) {
-                        drugUnitListAdapter.add(item.getTitle());
-                    }
+                    RadioButton radio = new RadioButton(getContext());
+                    radio.setId(item.getDrugTypeId());
+                    radio.setText(item.getTitle());
+                    radio.setChecked(false);
+                    binding.drugTypeRadioGroup.addView(radio);
                 }));
-        binding.dispenseUnitText.setAdapter(drugUnitListAdapter);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void setDrugTypeDropdownOptions() {
-        drugTypeListAdapter = new ArrayAdapter<>(requireContext(), R.layout.dropdown_list_item);
-        assert getParentFragment() != null;
-        viewModel.getDrugTypes().observe(getParentFragment(),
+    private void setDrugUnitRadioButtons() {
+        viewModel.getDrugUnits().observe(this,
                 list -> list.forEach(item -> {
-                    if (drugTypeListAdapter.getPosition(item.getTitle()) < 0) {
-                        drugTypeListAdapter.add(item.getTitle());
-                    }
+                    RadioButton radio = new RadioButton(getContext());
+                    radio.setId(item.getUnitId());
+                    radio.setText(item.getTitle());
+                    radio.setChecked(false);
+                    binding.dispenseUnitRadioGroup.addView(radio);
                 }));
-        binding.categoryText.setAdapter(drugTypeListAdapter);
     }
 
     @Override
@@ -130,6 +115,6 @@ public class CreateDrugDialogFragment extends DialogFragment {
 
     public interface ConfirmCreateDrugListener {
         void onConfirmCreateDrug(
-                String name, String dosage, String category, String dispenseUnit, String tolerance);
+                String name, String dosage, int drugTypeId, int unitId, String tolerance, boolean isFavorite);
     }
 }

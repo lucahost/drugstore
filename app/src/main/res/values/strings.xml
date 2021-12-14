@@ -40,4 +40,5 @@
     <string name="oral_liquig">Oral flüssig</string>
     <string name="plaster">Pflaster</string>
     <string name="no_items">Keine Einträge</string>
+    <string name="marked_as_favorite">Als Favorit setzen</string>
 </resources>
