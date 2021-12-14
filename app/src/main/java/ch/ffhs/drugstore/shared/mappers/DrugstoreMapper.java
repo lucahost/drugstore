@@ -1,8 +1,13 @@
 package ch.ffhs.drugstore.shared.mappers;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -14,22 +19,32 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
 
-@Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        suppressTimestampInGenerated = true)
 public interface DrugstoreMapper {
 
     DrugstoreMapper INSTANCE = Mappers.getMapper(DrugstoreMapper.class);
 
-    List<DrugDto> drugDtoList(List<DrugWithUnitAndDrugTypeAndSubstance> drugEntityList);
+    @Mappings({
+            @Mapping(target = ".", source = "drug"),
+            @Mapping(target = "unit", source = "unit.title"),
+            @Mapping(target = "drugType", source = "drugType.title"),
+            @Mapping(target = "substance", source = "substance.title")
+    })
+    DrugDto drugToDrugWithUnitAndDrugTypesAndSubstanceDto(
+            DrugWithUnitAndDrugTypeAndSubstance drugEntity);
 
-    @Mapping(target = "unit", ignore = true)
-    @Mapping(target = "drugType", ignore = true)
-    @Mapping(target = "substance", ignore = true)
-    DrugDto drugToDrugDto(DrugWithUnitAndDrugTypeAndSubstance drugEntity);
+    @Mappings({
+            @Mapping(target = "unit.title", source = "unit"),
+            @Mapping(target = "drugType.title", source = "drugType"),
+            @Mapping(target = "substance.title", source = "substance")
+    })
+    DrugWithUnitAndDrugTypeAndSubstance drugDtoToDrugWithUnitAndDrugTypeAndSubstance(
+            DrugDto drugDto);
 
     DrugDto createDrugDtoToDrugDto(CreateDrugDto createDrugDto);
 
     Drug drugDtoToDrug(DrugDto drugDto);
-
 
     List<DrugDto> drugListToDrugDtoList(List<DrugWithUnitAndDrugTypeAndSubstance> drugEntity);
 

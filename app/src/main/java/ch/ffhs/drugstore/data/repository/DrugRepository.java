@@ -3,7 +3,7 @@ package ch.ffhs.drugstore.data.repository;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 import java.util.List;
 
@@ -42,27 +42,32 @@ public class DrugRepository {
     }
 
     public LiveData<List<DrugDto>> getAllDrugs() {
-        return new MutableLiveData<>(mapper.drugDtoList(allDrugs.getValue()));
+        return Transformations.map(allDrugs, mapper::drugListToDrugDtoList);
     }
 
     public DrugDto getDrugById(int drugId) {
-        return mapper.drugToDrugDto(drugDao.getDrugById(drugId));
+        return mapper.drugToDrugWithUnitAndDrugTypesAndSubstanceDto(drugDao.getDrugById(drugId));
     }
 
     public LiveData<List<DrugDto>> getOnStockDrugs(boolean favorites, String searchTerm) {
         if (favorites) {
-            return drugDao.getOnStockFavoriteDrugs(searchTerm);
+            return Transformations.map(drugDao.getOnStockFavoriteDrugs(searchTerm),
+                    mapper::drugListToDrugDtoList);
         } else {
-            return drugDao.getOnStockDrugs(searchTerm);
+            return Transformations.map(drugDao.getOnStockDrugs(searchTerm),
+                    mapper::drugListToDrugDtoList);
         }
     }
 
     public LiveData<List<DrugDto>> getOnStockDrugs(boolean favorites, List<Integer> drugTypeIds,
             String searchTerm) {
         if (favorites) {
-            return drugDao.getOnStockFavoriteDrugsByDrugTypes(drugTypeIds, searchTerm);
+            return Transformations.map(
+                    drugDao.getOnStockFavoriteDrugsByDrugTypes(drugTypeIds, searchTerm),
+                    mapper::drugListToDrugDtoList);
         } else {
-            return drugDao.getOnStockDrugsByDrugTypes(drugTypeIds, searchTerm);
+            return Transformations.map(drugDao.getOnStockDrugsByDrugTypes(drugTypeIds, searchTerm),
+                    mapper::drugListToDrugDtoList);
         }
     }
 
