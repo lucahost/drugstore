@@ -13,10 +13,11 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.dto.DrugDto;
+import ch.ffhs.drugstore.data.dto.DrugTypeDto;
 import ch.ffhs.drugstore.domain.usecase.dispensary.AddToFavorites;
 import ch.ffhs.drugstore.domain.usecase.dispensary.DispenseDrug;
 import ch.ffhs.drugstore.domain.usecase.dispensary.GetAllDispensaryItems;
-import ch.ffhs.drugstore.presentation.dispensary.view.DispensaryFilters;
+import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugTypes;
 import ch.ffhs.drugstore.presentation.dispensary.view.FilterState;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
@@ -25,8 +26,10 @@ public class DispensaryViewModel extends AndroidViewModel {
   @Inject GetAllDispensaryItems getAllDispensaryItems;
   @Inject AddToFavorites addToFavorites;
   @Inject DispenseDrug dispenseDrug;
+  @Inject GetDrugTypes getDrugTypes;
   private final LiveData<List<DrugDto>> items;
-  private final MutableLiveData<FilterState<DispensaryFilters>> filterState = new MutableLiveData<>();
+  private LiveData<List<DrugTypeDto>> drugTypes;
+  private final MutableLiveData<FilterState<Integer>> filterState = new MutableLiveData<>();
 
   @Inject
   public DispensaryViewModel(Application application) {
@@ -40,11 +43,18 @@ public class DispensaryViewModel extends AndroidViewModel {
     return items;
   }
 
-  public LiveData<FilterState<DispensaryFilters>> getFilterState() {
+  public LiveData<FilterState<Integer>> getFilterState() {
     return filterState;
   }
 
-  public void filter(FilterState<DispensaryFilters> filters) {
+  public LiveData<List<DrugTypeDto>> getDrugTypes() {
+    if (drugTypes == null) {
+      drugTypes = getDrugTypes.execute(null);
+    }
+    return drugTypes;
+  }
+
+  public void filter(FilterState<Integer> filters) {
     filterState.postValue(filters);
   }
 

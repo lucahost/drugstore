@@ -29,34 +29,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false" />
-        <com.google.android.material.chip.Chip
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:id="@+id/filter_injection"
-            android:text="@string/injection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false" />
-        <com.google.android.material.chip.Chip
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:id="@+id/filter_oral"
-            android:text="@string/oral"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false" />
-        <com.google.android.material.chip.Chip
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:id="@+id/filter_oral_liquid"
-            android:text="@string/oral_liquig"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false" />
-        <com.google.android.material.chip.Chip
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:id="@+id/filter_plaster"
-            android:text="@string/plaster"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false" />
     </com.google.android.material.chip.ChipGroup>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -44,11 +44,11 @@ public class DrugRepository {
         }
     }
 
-    public LiveData<List<DrugDto>> getOnStockDrugs(boolean favorites, List<String> drugTypes, String searchTerm) {
+    public LiveData<List<DrugDto>> getOnStockDrugs(boolean favorites, List<Integer> drugTypeIds, String searchTerm) {
         if (favorites) {
-            return drugDao.getOnStockFavoriteDrugsByDrugTypes(drugTypes, searchTerm);
+            return drugDao.getOnStockFavoriteDrugsByDrugTypes(drugTypeIds, searchTerm);
         } else {
-            return drugDao.getOnStockDrugsByDrugTypes(drugTypes, searchTerm);
+            return drugDao.getOnStockDrugsByDrugTypes(drugTypeIds, searchTerm);
         }
     }
 

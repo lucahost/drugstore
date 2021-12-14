@@ -60,16 +60,16 @@ public interface DrugDao {
     @Query("SELECT *, drugTypes.title as drugType, substances.title as substance FROM drugs " +
             "LEFT JOIN drugTypes on drugs.drugTypeId = drugTypes.drugTypeId " +
             "LEFT JOIN substances on drugs.substanceId = substances.substanceId " +
-            "WHERE stockAmount > 0 AND drugTypes.title IN (:drugTypes) AND drugs.title LIKE '%' || :searchTerm || '%'"
+            "WHERE stockAmount > 0 AND drugTypes.drugTypeId IN (:drugTypeIds) AND drugs.title LIKE '%' || :searchTerm || '%'"
     )
-    LiveData<List<DrugDto>> getOnStockDrugsByDrugTypes(List<String> drugTypes, String searchTerm);
+    LiveData<List<DrugDto>> getOnStockDrugsByDrugTypes(List<Integer> drugTypeIds, String searchTerm);
 
     @RewriteQueriesToDropUnusedColumns
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT *, drugTypes.title as drugType, substances.title as substance FROM drugs " +
             "LEFT JOIN drugTypes on drugs.drugTypeId = drugTypes.drugTypeId " +
             "LEFT JOIN substances on drugs.substanceId = substances.substanceId " +
-            "WHERE stockAmount > 0 AND isFavorite = 1 AND drugTypes.title IN (:drugTypes) AND drugs.title LIKE '%' || :searchTerm || '%'"
+            "WHERE stockAmount > 0 AND isFavorite = 1 AND drugTypes.drugTypeId IN (:drugTypeIds) AND drugs.title LIKE '%' || :searchTerm || '%'"
     )
-    LiveData<List<DrugDto>> getOnStockFavoriteDrugsByDrugTypes(List<String> drugTypes, String searchTerm);
+    LiveData<List<DrugDto>> getOnStockFavoriteDrugsByDrugTypes(List<Integer> drugTypeIds, String searchTerm);
 }

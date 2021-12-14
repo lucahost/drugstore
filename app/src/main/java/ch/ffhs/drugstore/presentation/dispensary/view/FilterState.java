@@ -6,7 +6,7 @@ import java.util.List;
 public class FilterState<T> {
     private String searchFilter = "";
     private boolean favorites;
-    private List<T> filters = new ArrayList<>();
+    private final List<T> filters = new ArrayList<>();
 
     public String getSearchFilter() {
         return searchFilter;
@@ -28,20 +28,11 @@ public class FilterState<T> {
         return filters;
     }
 
-    public List<String> getFiltersAsStrings() {
-        List<String> filterStrings = new ArrayList<>();
-        for (T filter : filters) {
-            filterStrings.add(filter.toString());
-        }
-        return filterStrings;
-    }
-
-    public FilterState<T> toggleFilter(T filter) {
+    public void toggleFilter(T filter) {
         if (filters.contains(filter)) {
             filters.remove(filter);
         } else {
             filters.add(filter);
         }
-        return this;
     }
 }
