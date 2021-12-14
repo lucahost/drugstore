@@ -46,7 +46,6 @@ import ch.ffhs.drugstore.data.entity.User;
                 @AutoMigration(from = 1, to = 2),
                 @AutoMigration(from = 2, to = 3, spec =
                         DrugstoreDatabase.DropUnitColumnMigration.class),
-
         },
         exportSchema = true)
 @TypeConverters({DateConverter.class})

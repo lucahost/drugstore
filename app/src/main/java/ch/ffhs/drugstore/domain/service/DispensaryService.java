@@ -11,12 +11,11 @@ import ch.ffhs.drugstore.presentation.dispensary.view.FilterState;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
 public class DispensaryService {
-    @Inject
-    DrugRepository drugRepository;
+    private final DrugRepository drugRepository;
 
     @Inject
-    public DispensaryService() {
-        // TODO document why this constructor is empty
+    public DispensaryService(DrugRepository drugRepository) {
+        this.drugRepository = drugRepository;
     }
 
     public LiveData<List<DrugDto>> getAllDrugs(FilterState<Integer> filterState) {

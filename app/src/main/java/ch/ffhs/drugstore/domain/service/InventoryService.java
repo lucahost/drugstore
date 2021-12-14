@@ -10,12 +10,11 @@ import ch.ffhs.drugstore.data.repository.DrugRepository;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
 public class InventoryService {
-    @Inject
-    DrugRepository drugRepository;
+    private final DrugRepository drugRepository;
 
     @Inject
-    public InventoryService() {
-        // TODO document why this constructor is empty
+    public InventoryService(DrugRepository drugRepository) {
+        this.drugRepository = drugRepository;
     }
 
     public LiveData<List<DrugDto>> getInventory() {

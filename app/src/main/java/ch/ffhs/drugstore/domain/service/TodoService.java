@@ -10,26 +10,26 @@ import ch.ffhs.drugstore.data.entity.Todo;
 import ch.ffhs.drugstore.data.repository.TodoRepository;
 
 public class TodoService {
-  @Inject TodoRepository todoRepository;
+    private final TodoRepository todoRepository;
 
-  @Inject
-  public TodoService() {
-    // TODO document why this constructor is empty
-  }
+    @Inject
+    public TodoService(TodoRepository todoRepository) {
+        this.todoRepository = todoRepository;
+    }
 
-  public LiveData<List<Todo>> getAllTodos() {
-    return todoRepository.getAllTodos();
-  }
+    public LiveData<List<Todo>> getAllTodos() {
+        return todoRepository.getAllTodos();
+    }
 
-  public void insert(Todo todo) {
-    todoRepository.insert(todo);
-  }
+    public void insert(Todo todo) {
+        todoRepository.insert(todo);
+    }
 
-  public void update(Todo todo) {
-    todoRepository.update(todo);
-  }
+    public void update(Todo todo) {
+        todoRepository.update(todo);
+    }
 
-  public void delete(Todo todo) {
-    todoRepository.delete(todo);
-  }
+    public void delete(Todo todo) {
+        todoRepository.delete(todo);
+    }
 }
