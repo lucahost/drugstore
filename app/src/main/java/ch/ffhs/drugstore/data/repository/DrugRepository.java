@@ -3,6 +3,7 @@ package ch.ffhs.drugstore.data.repository;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
@@ -10,32 +11,44 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.dao.DrugDao;
 import ch.ffhs.drugstore.data.database.DrugstoreDatabase;
-import ch.ffhs.drugstore.data.dto.DrugDto;
 import ch.ffhs.drugstore.data.entity.Drug;
+import ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 
 public class DrugRepository {
     private final DrugDao drugDao;
-    private final LiveData<List<DrugDto>> allDrugs;
+    private final LiveData<List<DrugWithUnitAndDrugTypeAndSubstance>> allDrugs;
+    private final DrugstoreMapper mapper;
 
-    // Note that in order to unit test the WordRepository, you have to remove the Application
-    // dependency. This adds complexity and much more code, and this sample is not about testing.
-    // See the BasicSample in the android-architecture-components repository at
-    // https://github.com/googlesamples
     @Inject
     public DrugRepository(Application application) {
         DrugstoreDatabase db = DrugstoreDatabase.getDatabase(application);
+        this.mapper = DrugstoreMapper.INSTANCE;
         drugDao = db.drugDao();
         allDrugs = drugDao.getAllDrugs();
     }
 
-    // Room executes all queries on a separate thread.
-    // Observed LiveData will notify the observer when the data has changed.
-    public LiveData<List<DrugDto>> getAllDrugs() {
-        return allDrugs;
+    public void addDrug(DrugDto drugDto) {
+        Drug drug = mapper.drugDtoToDrug(drugDto);
+        this.insert(drug);
     }
 
-    // Room executes all queries on a separate thread.
-    // Observed LiveData will notify the observer when the data has changed.
+    public void updateDrugAmount(int drugId, double drugAmount) {
+        Drug drug = drugDao.getDrugById(drugId).getDrug();
+        double newAmount = drug.getStockAmount() - drugAmount;
+        drug.setStockAmount(newAmount);
+        drugDao.update(drug);
+    }
+
+    public LiveData<List<DrugDto>> getAllDrugs() {
+        return new MutableLiveData<>(mapper.drugDtoList(allDrugs.getValue()));
+    }
+
+    public DrugDto getDrugById(int drugId) {
+        return mapper.drugToDrugDto(drugDao.getDrugById(drugId));
+    }
+
     public LiveData<List<DrugDto>> getOnStockDrugs(boolean favorites, String searchTerm) {
         if (favorites) {
             return drugDao.getOnStockFavoriteDrugs(searchTerm);
@@ -44,7 +57,8 @@ public class DrugRepository {
         }
     }
 
-    public LiveData<List<DrugDto>> getOnStockDrugs(boolean favorites, List<Integer> drugTypeIds, String searchTerm) {
+    public LiveData<List<DrugDto>> getOnStockDrugs(boolean favorites, List<Integer> drugTypeIds,
+            String searchTerm) {
         if (favorites) {
             return drugDao.getOnStockFavoriteDrugsByDrugTypes(drugTypeIds, searchTerm);
         } else {
@@ -52,8 +66,6 @@ public class DrugRepository {
         }
     }
 
-    // You must call this on a non-UI thread or your app will throw an exception. Room ensures
-    // that you're not doing any long running operations on the main thread, blocking the UI.
     public void insert(Drug drug) {
         DrugstoreDatabase.databaseWriteExecutor.execute(() -> drugDao.insert(drug));
     }

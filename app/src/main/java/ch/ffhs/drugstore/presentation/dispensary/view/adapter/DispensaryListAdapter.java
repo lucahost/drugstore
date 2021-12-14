@@ -14,8 +14,8 @@ import com.google.android.material.card.MaterialCardView;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.dto.DrugDto;
 import ch.ffhs.drugstore.databinding.DispensaryItemBinding;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
 public class DispensaryListAdapter
     extends ListAdapter<DrugDto, DispensaryListAdapter.DispensaryItemHolder> {

@@ -6,10 +6,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.dto.DrugDto;
 import ch.ffhs.drugstore.domain.service.DispensaryService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
 import ch.ffhs.drugstore.presentation.dispensary.view.FilterState;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
 public class GetAllDispensaryItems implements UseCase<LiveData<List<DrugDto>>, FilterState<Integer>> {
   @Inject DispensaryService dispensaryService;

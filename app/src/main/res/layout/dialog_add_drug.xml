@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/add_drug"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -10,29 +9,27 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/name"
-        android:enabled="false">
+        android:enabled="false"
+        android:hint="@string/name">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/drug_name_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
-            />
+            android:enabled="false" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/dosage"
-        android:enabled="false">
+        android:enabled="false"
+        android:hint="@string/dosage">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/drug_dosage_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
-            />
+            android:enabled="false" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -43,8 +40,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/drug_content_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -55,8 +51,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/drug_unit_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -67,8 +62,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/drug_count_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>

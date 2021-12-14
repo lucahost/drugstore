@@ -9,11 +9,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.dao.DrugDao;
-import ch.ffhs.drugstore.data.dto.DrugDto;
 import ch.ffhs.drugstore.domain.usecase.management.inventory.GetInventory;
 import ch.ffhs.drugstore.domain.usecase.management.inventory.SignInventory;
 import ch.ffhs.drugstore.domain.usecase.management.inventory.ToggleInventoryItem;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel

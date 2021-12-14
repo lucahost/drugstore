@@ -1,15 +1,13 @@
 package ch.ffhs.drugstore.domain.service;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.dto.DrugDto;
 import ch.ffhs.drugstore.data.repository.DrugRepository;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
 public class InventoryService {
     @Inject

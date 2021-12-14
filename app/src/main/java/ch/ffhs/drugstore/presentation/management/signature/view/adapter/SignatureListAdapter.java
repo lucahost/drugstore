@@ -12,23 +12,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.dto.SignatureDto;
-import ch.ffhs.drugstore.data.dto.SignatureWithDrugs;
+import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs;
 import ch.ffhs.drugstore.databinding.SignatureItemBinding;
 
 public class SignatureListAdapter
-        extends ListAdapter<SignatureWithDrugs, SignatureListAdapter.SignatureItemHolder> {
-    private static final DiffUtil.ItemCallback<SignatureWithDrugs> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<SignatureWithDrugs>() {
+        extends ListAdapter<SignatureWithUserAndSignatureDrugsAndDrugs, SignatureListAdapter.SignatureItemHolder> {
+    private static final DiffUtil.ItemCallback<SignatureWithUserAndSignatureDrugsAndDrugs> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<SignatureWithUserAndSignatureDrugsAndDrugs>() {
                 @Override
-                public boolean areItemsTheSame(@NonNull SignatureWithDrugs oldItem,
-                        @NonNull SignatureWithDrugs newItem) {
+                public boolean areItemsTheSame(@NonNull SignatureWithUserAndSignatureDrugsAndDrugs oldItem,
+                        @NonNull SignatureWithUserAndSignatureDrugsAndDrugs newItem) {
                     return oldItem.signature.getSignatureId() == newItem.signature.getSignatureId();
                 }
 
                 @Override
-                public boolean areContentsTheSame(@NonNull SignatureWithDrugs oldItem,
-                        @NonNull SignatureWithDrugs newItem) {
+                public boolean areContentsTheSame(@NonNull SignatureWithUserAndSignatureDrugsAndDrugs oldItem,
+                        @NonNull SignatureWithUserAndSignatureDrugsAndDrugs newItem) {
                     return oldItem.signature.getUserId() == newItem.signature.getUserId()
                             && oldItem.signature.getSignatureId()
                             == newItem.signature.getSignatureId()
@@ -64,9 +63,9 @@ public class SignatureListAdapter
     }
 
     public interface OnItemClickListener {
-        void onItemClick(SignatureWithDrugs signature);
+        void onItemClick(SignatureWithUserAndSignatureDrugsAndDrugs signature);
 
-        void onItemLongClick(SignatureWithDrugs signature);
+        void onItemLongClick(SignatureWithUserAndSignatureDrugsAndDrugs signature);
     }
 
     /**

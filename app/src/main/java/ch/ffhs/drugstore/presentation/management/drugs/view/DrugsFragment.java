@@ -19,10 +19,9 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
-import ch.ffhs.drugstore.data.dto.DrugDto;
 import ch.ffhs.drugstore.databinding.FragmentDrugsBinding;
-import ch.ffhs.drugstore.presentation.management.drugs.view.adapter.DrugListAdapter;
 import ch.ffhs.drugstore.presentation.DialogService;
+import ch.ffhs.drugstore.presentation.management.drugs.view.adapter.DrugListAdapter;
 import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.AddDrugDialogFragment;
 import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.AddDrugDialogFragmentArgs;
 import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.CreateDrugDialogFragment;
@@ -33,6 +32,7 @@ import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.EditDrugDialo
 import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.RemoveDrugDialogFragment;
 import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.RemoveDrugDialogFragmentArgs;
 import ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint

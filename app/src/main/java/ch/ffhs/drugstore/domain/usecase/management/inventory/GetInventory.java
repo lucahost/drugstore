@@ -6,9 +6,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.dto.DrugDto;
 import ch.ffhs.drugstore.domain.service.InventoryService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
 public class GetInventory implements UseCase<LiveData<List<DrugDto>>, Void> {
   @Inject InventoryService inventoryService;

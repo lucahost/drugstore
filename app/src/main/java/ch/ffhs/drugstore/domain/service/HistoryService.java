@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.dto.TransactionDto;
 import ch.ffhs.drugstore.data.repository.TransactionRepository;
+import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 
 public class HistoryService {
     @Inject

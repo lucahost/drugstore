@@ -14,11 +14,8 @@ import androidx.fragment.app.DialogFragment;
 
 import java.util.Objects;
 
-import javax.inject.Inject;
-
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.DialogDispenseDrugBinding;
-import ch.ffhs.drugstore.databinding.DialogSignInventoryBinding;
 import dagger.assisted.Assisted;
 import dagger.assisted.AssistedInject;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -91,12 +88,13 @@ public class DispenseDrugDialogFragment extends DialogFragment {
                         getString(R.string.dispense),
                         (dialog, id) ->
                                 this.confirmDispenseDrugListener.onConfirmDispenseDrug(
+                                        drugId,
                                         Objects.requireNonNull(
                                                 binding.employeeText.getText()).toString(),
                                         Objects.requireNonNull(
                                                 binding.patientText.getText()).toString(),
                                         Objects.requireNonNull(
-                                                binding.dosageText.getText()).toString()))
+                                                binding.amountText.getText()).toString()))
                 .setNegativeButton(getString(R.string.cancel), (dialog, id) -> {
                 })
                 .create();
@@ -109,6 +107,6 @@ public class DispenseDrugDialogFragment extends DialogFragment {
     }
 
     public interface ConfirmDispenseDrugListener {
-        void onConfirmDispenseDrug(String employee, String patient, String dosage);
+        void onConfirmDispenseDrug(int drugId, String employee, String patient, String dosage);
     }
 }

@@ -1,5 +1,6 @@
 package ch.ffhs.drugstore.presentation.dispensary.view;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,7 +22,7 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.dto.DrugDto;
+import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.data.dto.DrugTypeDto;
 import ch.ffhs.drugstore.databinding.FilterChipBinding;
 import ch.ffhs.drugstore.databinding.FragmentDispensaryBinding;
@@ -30,6 +31,7 @@ import ch.ffhs.drugstore.presentation.dispensary.view.adapter.DispensaryListAdap
 import ch.ffhs.drugstore.presentation.dispensary.view.dialog.DispenseDrugDialogFragment;
 import ch.ffhs.drugstore.presentation.dispensary.view.dialog.DispenseDrugDialogFragmentArgs;
 import ch.ffhs.drugstore.presentation.dispensary.viewmodel.DispensaryViewModel;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -37,8 +39,10 @@ public class DispensaryFragment extends Fragment
         implements DispensaryListAdapter.OnItemClickListener,
         DispenseDrugDialogFragment.ConfirmDispenseDrugListener, SearchView.OnQueryTextListener {
 
-    @Inject DispensaryListAdapter adapter;
-    @Inject DialogService dialogService;
+    @Inject
+    DispensaryListAdapter adapter;
+    @Inject
+    DialogService dialogService;
     FragmentDispensaryBinding binding;
     DispensaryViewModel viewModel;
 
@@ -88,7 +92,8 @@ public class DispensaryFragment extends Fragment
         binding.searchView.setOnQueryTextListener(this);
         binding.searchView.onActionViewExpanded();
         binding.searchView.clearFocus();
-        ImageView clearButton = binding.searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
+        ImageView clearButton = binding.searchView.findViewById(
+                androidx.appcompat.R.id.search_close_btn);
         clearButton.setOnClickListener(v -> {
             binding.searchView.setQuery("", false);
             binding.searchView.clearFocus();
@@ -157,7 +162,7 @@ public class DispensaryFragment extends Fragment
     @Override
     public void onItemLongClick(DrugDto drug) {
         viewModel.addToFavorites();
-        Toast.makeText(context(), "Zu Favoriten hinzugefügt", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context(), R.string.added_to_favorites, Toast.LENGTH_SHORT).show();
     }
 
     private void setupRecyclerView() {
@@ -168,9 +173,18 @@ public class DispensaryFragment extends Fragment
     }
 
     @Override
-    public void onConfirmDispenseDrug(String employee, String patient, String dosage) {
+    public void onConfirmDispenseDrug(int drugId, String employee, String patient, String dosage) {
         dialogService.dismiss(DialogService.Dialog.DISPENSE_DRUG);
-        viewModel.dispenseDrug();
-        Toast.makeText(context(), "Ausgegeben", Toast.LENGTH_SHORT).show();
+        try {
+            viewModel.dispenseDrug(drugId, employee, patient, dosage);
+        } catch (Exception ex) {
+            new AlertDialog.Builder(context())
+                    .setTitle(R.string.error_dispense_drug)
+                    .setMessage(ex.getMessage())
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
+        Toast.makeText(context(), R.string.dispense, Toast.LENGTH_SHORT).show();
     }
 }

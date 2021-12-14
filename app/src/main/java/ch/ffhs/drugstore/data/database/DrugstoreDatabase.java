@@ -5,9 +5,11 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.room.AutoMigration;
 import androidx.room.Database;
+import androidx.room.DeleteColumn;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import androidx.room.migration.AutoMigrationSpec;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.ExecutorService;
@@ -39,9 +41,12 @@ import ch.ffhs.drugstore.data.entity.User;
                 Unit.class,
                 User.class
         },
-        version = 2,
+        version = 3,
         autoMigrations = {
-                @AutoMigration(from = 1, to = 2)
+                @AutoMigration(from = 1, to = 2),
+                @AutoMigration(from = 2, to = 3, spec =
+                        DrugstoreDatabase.DropUnitColumnMigration.class),
+
         },
         exportSchema = true)
 @TypeConverters({DateConverter.class})
@@ -72,7 +77,7 @@ public abstract class DrugstoreDatabase extends RoomDatabase {
                                     context.getApplicationContext(), DrugstoreDatabase.class,
                                     "drugstore_db")
                                     .addCallback(sRoomDatabaseCallback)
-                                    .createFromAsset("database/database.db")
+                                    // .createFromAsset("database/database.db")
                                     .build();
                 }
             }
@@ -89,4 +94,8 @@ public abstract class DrugstoreDatabase extends RoomDatabase {
     public abstract TransactionDao transactionDao();
 
     public abstract SignatureDao signatureDao();
+
+    @DeleteColumn(tableName = "drugTypes", columnName = "unitId")
+    static class DropUnitColumnMigration implements AutoMigrationSpec {
+    }
 }

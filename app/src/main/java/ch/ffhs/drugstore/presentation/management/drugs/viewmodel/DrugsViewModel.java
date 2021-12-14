@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.dto.DrugDto;
 import ch.ffhs.drugstore.data.dto.DrugTypeDto;
 import ch.ffhs.drugstore.data.dto.UnitDto;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.AddDrug;
@@ -20,6 +19,7 @@ import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugTypes;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugUnits;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugs;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.RemoveDrug;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel

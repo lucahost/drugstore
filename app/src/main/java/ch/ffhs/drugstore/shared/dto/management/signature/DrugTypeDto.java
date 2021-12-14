@@ -1,7 +1,5 @@
 package ch.ffhs.drugstore.data.dto;
 
-import androidx.annotation.NonNull;
-
 public class DrugTypeDto {
     private int drugTypeId;
     private String title;

@@ -16,7 +16,7 @@
     <string name="sign">Signieren</string>
     <string name="employee">Fachkraft</string>
     <string name="patient">Patient</string>
-    <string name="dosage">Dosierung</string>
+    <string name="amount">Anzahl</string>
     <string name="name">Name</string>
     <string name="category">Kategorie</string>
     <string name="dispense_unit">Ausgabe-Einheit</string>
@@ -41,4 +41,8 @@
     <string name="plaster">Pflaster</string>
     <string name="no_items">Keine Einträge</string>
     <string name="marked_as_favorite">Als Favorit setzen</string>
+    <string name="added_to_favorites">Zu Favoriten hinzugefügt</string>
+    <string name="not_enough_stock_amount">Anzahl an Lager zu gering</string>
+    <string name="dosage">Dosierung</string>
+    <string name="error_dispense_drug">Error while dispensing drug</string>
 </resources>

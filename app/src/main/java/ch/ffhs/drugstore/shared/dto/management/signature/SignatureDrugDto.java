@@ -1,4 +1,6 @@
-package ch.ffhs.drugstore.data.dto;
+package ch.ffhs.drugstore.shared.dto.management.signature;
+
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
 public class SignatureDrugDto {
     private int signatureId;
