@@ -10,7 +10,7 @@ public class DateConverterTest {
 
     @Test
     public void fromTimestamp() {
-        long valid_timestamp = 1639508611;
+        long valid_timestamp = 61597649011000L;
         Date expected_date = new Date(2021, 11, 14, 19, 3, 31);
         assertEquals(expected_date, DateConverter.fromTimestamp(valid_timestamp));
     }
@@ -18,7 +18,7 @@ public class DateConverterTest {
     @Test
     public void dateToTimestamp() {
         Date expected_date = new Date(2021, 11, 14, 19, 3, 31);
-        long valid_timestamp = 1639508611;
-        assertEquals(java.util.Optional.of(valid_timestamp), DateConverter.dateToTimestamp(expected_date));
+        long valid_timestamp = 61597649011000L;
+        assertEquals(Long.valueOf(valid_timestamp), DateConverter.dateToTimestamp(expected_date));
     }
 }
