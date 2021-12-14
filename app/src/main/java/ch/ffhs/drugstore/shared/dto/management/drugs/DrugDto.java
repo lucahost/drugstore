@@ -5,18 +5,28 @@ public class DrugDto {
     private String title;
     private String drugType;
     private String substance;
+    private String unit;
     private String dosage;
     private double tolerance;
     private double stockAmount;
     private boolean isFavorite;
 
-    public DrugDto(int drugId, String title, String drugType, String substance, String dosage,
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public DrugDto(int drugId, String title, String drugType, String substance, String unit, String dosage,
             double tolerance,
             double stockAmount, boolean isFavorite) {
         this.drugId = drugId;
         this.title = title;
         this.drugType = drugType;
         this.substance = substance;
+        this.unit = unit;
         this.dosage = dosage;
         this.tolerance = tolerance;
         this.stockAmount = stockAmount;
