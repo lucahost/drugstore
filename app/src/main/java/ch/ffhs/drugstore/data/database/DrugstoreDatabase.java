@@ -77,7 +77,8 @@ public abstract class DrugstoreDatabase extends RoomDatabase {
                                     context.getApplicationContext(), DrugstoreDatabase.class,
                                     "drugstore_db")
                                     .addCallback(sRoomDatabaseCallback)
-                                    // .createFromAsset("database/database.db")
+                                    //.fallbackToDestructiveMigration()
+                                    .createFromAsset("database/database_v3.db")
                                     .build();
                 }
             }
