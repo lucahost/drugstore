@@ -12,15 +12,14 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 
 public class DrugManagementService {
+    private final DrugstoreMapper mapper;
     @Inject
     DrugRepository drugRepository;
 
     @Inject
-    DrugstoreMapper mapper;
-
-    @Inject
     public DrugManagementService() {
         // TODO document why this constructor is empty
+        mapper = DrugstoreMapper.INSTANCE;
     }
 
     public LiveData<List<DrugDto>> getAllDrugs() {

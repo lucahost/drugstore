@@ -75,7 +75,7 @@ dependencies {
 
     // Object Mapping
     implementation 'org.mapstruct:mapstruct:1.5.0.Beta2'
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.0.Beta2'
+    kapt 'org.mapstruct:mapstruct-processor:1.5.0.Beta2'
 
 
     // Navigation
@@ -92,4 +92,10 @@ dependencies {
     // Splash Screen
     implementation 'androidx.core:core-splashscreen:1.0.0-alpha02'
 
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs = [
+            '-Amapstruct.suppressGeneratorTimestamp=true'
+    ]
 }

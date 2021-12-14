@@ -25,9 +25,9 @@ public class SignatureRepository {
     // See the BasicSample in the android-architecture-components repository at
     // https://github.com/googlesamples
     @Inject
-    public SignatureRepository(Application application, DrugstoreMapper mapper) {
+    public SignatureRepository(Application application) {
         DrugstoreDatabase db = DrugstoreDatabase.getDatabase(application);
-        this.mapper = mapper;
+        this.mapper = DrugstoreMapper.INSTANCE;
         signatureDao = db.signatureDao();
         allSignaturesWithDrugs = signatureDao.getAllSignatures();
     }

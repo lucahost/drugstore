@@ -3,6 +3,7 @@ package ch.ffhs.drugstore.data.repository;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
@@ -18,12 +19,12 @@ import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 public class DrugRepository {
     private final DrugDao drugDao;
     private final LiveData<List<DrugWithUnitAndDrugTypeAndSubstance>> allDrugs;
-    @Inject DrugstoreMapper mapper;
+    private final DrugstoreMapper mapper;
 
     @Inject
-    public DrugRepository(Application application, DrugstoreMapper mapper) {
+    public DrugRepository(Application application) {
         DrugstoreDatabase db = DrugstoreDatabase.getDatabase(application);
-        this.mapper = mapper;
+        this.mapper = DrugstoreMapper.INSTANCE;
         drugDao = db.drugDao();
         allDrugs = drugDao.getAllDrugs();
     }
@@ -33,7 +34,7 @@ public class DrugRepository {
         this.insert(drug);
     }
 
-    public void updateDrugAmount(int drugId, double drugAmount){
+    public void updateDrugAmount(int drugId, double drugAmount) {
         Drug drug = drugDao.getDrugById(drugId).getDrug();
         double newAmount = drug.getStockAmount() - drugAmount;
         drug.setStockAmount(newAmount);
@@ -41,7 +42,7 @@ public class DrugRepository {
     }
 
     public LiveData<List<DrugDto>> getAllDrugs() {
-        return mapper.drugLiveDataListToDrugDtoLiveDataList(allDrugs);
+        return new MutableLiveData<>(mapper.drugDtoList(allDrugs.getValue()));
     }
 
     public DrugDto getDrugById(int drugId) {
