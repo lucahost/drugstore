@@ -3,11 +3,11 @@ package ch.ffhs.drugstore.domain.usecase.dispensary;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
-import ch.ffhs.drugstore.domain.service.DrugManagementService;
-import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
-import ch.ffhs.drugstore.shared.dto.dispensary.SubmitDispenseDto;
 import ch.ffhs.drugstore.domain.service.DispensaryService;
+import ch.ffhs.drugstore.domain.service.DrugManagementService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
+import ch.ffhs.drugstore.shared.dto.dispensary.SubmitDispenseDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
 public class DispenseDrug implements UseCase<Void, SubmitDispenseDto> {
     @Inject

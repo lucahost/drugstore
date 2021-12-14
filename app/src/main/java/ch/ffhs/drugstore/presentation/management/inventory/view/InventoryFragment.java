@@ -16,12 +16,12 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.databinding.FragmentInventoryBinding;
-import ch.ffhs.drugstore.presentation.management.inventory.view.adapter.InventoryListAdapter;
 import ch.ffhs.drugstore.presentation.DialogService;
+import ch.ffhs.drugstore.presentation.management.inventory.view.adapter.InventoryListAdapter;
 import ch.ffhs.drugstore.presentation.management.inventory.view.dialog.SignInventoryDialogFragment;
 import ch.ffhs.drugstore.presentation.management.inventory.viewmodel.InventoryViewModel;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint

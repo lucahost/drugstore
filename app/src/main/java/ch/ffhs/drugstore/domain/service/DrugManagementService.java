@@ -7,6 +7,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.repository.DrugRepository;
+import ch.ffhs.drugstore.data.repository.DrugTypeRepository;
+import ch.ffhs.drugstore.data.repository.UnitRepository;
 import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
@@ -14,15 +16,28 @@ import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 public class DrugManagementService {
     private final DrugstoreMapper mapper;
     private final DrugRepository drugRepository;
+    private final DrugTypeRepository drugTypeRepository;
+    private final UnitRepository unitRepository;
 
     @Inject
-    public DrugManagementService(DrugRepository drugRepository) {
+    public DrugManagementService(DrugRepository drugRepository,
+            DrugTypeRepository drugTypeRepository, UnitRepository unitRepository) {
         this.drugRepository = drugRepository;
+        this.drugTypeRepository = drugTypeRepository;
+        this.unitRepository = unitRepository;
         mapper = DrugstoreMapper.INSTANCE;
     }
 
     public LiveData<List<DrugDto>> getAllDrugs() {
         return drugRepository.getAllDrugs();
+    }
+
+    public LiveData<List<ch.ffhs.drugstore.data.dto.DrugTypeDto>> getAllDrugTypes() {
+        return drugTypeRepository.getAllDrugTypes();
+    }
+
+    public LiveData<List<ch.ffhs.drugstore.data.dto.UnitDto>> getAllUnits() {
+        return unitRepository.getAllUnits();
     }
 
     public DrugDto getDrugById(int drugId) {

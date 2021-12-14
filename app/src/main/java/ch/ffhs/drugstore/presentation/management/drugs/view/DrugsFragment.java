@@ -19,10 +19,9 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
-import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.databinding.FragmentDrugsBinding;
-import ch.ffhs.drugstore.presentation.management.drugs.view.adapter.DrugListAdapter;
 import ch.ffhs.drugstore.presentation.DialogService;
+import ch.ffhs.drugstore.presentation.management.drugs.view.adapter.DrugListAdapter;
 import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.AddDrugDialogFragment;
 import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.AddDrugDialogFragmentArgs;
 import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.CreateDrugDialogFragment;
@@ -33,6 +32,7 @@ import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.EditDrugDialo
 import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.RemoveDrugDialogFragment;
 import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.RemoveDrugDialogFragmentArgs;
 import ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -73,7 +73,7 @@ public class DrugsFragment extends Fragment
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     viewModel = new ViewModelProvider(requireActivity()).get(DrugsViewModel.class);
-    viewModel.getItems().observe(getViewLifecycleOwner(), adapter::submitList);
+    viewModel.getDrugs().observe(getViewLifecycleOwner(), adapter::submitList);
   }
 
   public Context context() {
@@ -107,7 +107,7 @@ public class DrugsFragment extends Fragment
         return true;
       } else if (itemId == R.id.drug_item_edit) {
         EditDrugDialogFragmentArgs args = new EditDrugDialogFragmentArgs(
-                drug.getDrugId(), drug.getTitle(), drug.getDosage(), drug.getDrugType(), drug.getTolerance()
+                drug.getDrugId(), drug.getTitle(), drug.getDosage(), drug.getDrugType(), drug.getTolerance(), drug.isFavorite()
         );
         dialogService.showEditDrugDialog(getChildFragmentManager(), args);
         return true;
@@ -128,7 +128,7 @@ public class DrugsFragment extends Fragment
 
   @Override
   public void onConfirmCreateDrug(
-      String name, String dosage, String category, String dispenseUnit, String tolerance) {
+      String name, String dosage, int drugTypeId, int unitId, String tolerance, boolean isFavorite) {
     dialogService.dismiss(DialogService.Dialog.CREATE_DRUG);
     viewModel.createDrug();
     Toast.makeText(context(), "Erfolgreich erfasst", Toast.LENGTH_SHORT).show();
@@ -150,7 +150,7 @@ public class DrugsFragment extends Fragment
 
   @Override
   public void onConfirmEditDrug(
-      String name, String dosage, String category, String dispenseUnit, String tolerance) {
+      String name, String dosage, int drugTypeId, int unitId, String tolerance, boolean isFavorite) {
     dialogService.dismiss(DialogService.Dialog.EDIT_DRUG);
     viewModel.editDrug();
     Toast.makeText(context(), "Erfolgreich bearbeitet", Toast.LENGTH_SHORT).show();

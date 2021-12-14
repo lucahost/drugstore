@@ -6,10 +6,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.data.repository.DrugRepository;
-import ch.ffhs.drugstore.presentation.dispensary.view.DispensaryFilters;
 import ch.ffhs.drugstore.presentation.dispensary.view.FilterState;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
 public class DispensaryService {
     private final DrugRepository drugRepository;
@@ -19,16 +18,15 @@ public class DispensaryService {
         this.drugRepository = drugRepository;
     }
 
-    public LiveData<List<DrugDto>> getAllDrugs(FilterState<DispensaryFilters> filterState) {
+    public LiveData<List<DrugDto>> getAllDrugs(FilterState<Integer> filterState) {
         boolean favorites = filterState.isFavorites();
-        List<String> filters = filterState.getFiltersAsStrings();
+        List<Integer> filters = filterState.getFilters();
         String searchTerm = filterState.getSearchFilter();
 
         if (filters.isEmpty()) {
             return drugRepository.getOnStockDrugs(favorites, searchTerm);
         } else {
-            return drugRepository.getOnStockDrugs(favorites, filterState.getFiltersAsStrings(),
-                    searchTerm);
+            return drugRepository.getOnStockDrugs(favorites, filters, searchTerm);
         }
     }
 

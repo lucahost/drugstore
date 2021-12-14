@@ -23,6 +23,8 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
+import ch.ffhs.drugstore.data.dto.DrugTypeDto;
+import ch.ffhs.drugstore.databinding.FilterChipBinding;
 import ch.ffhs.drugstore.databinding.FragmentDispensaryBinding;
 import ch.ffhs.drugstore.presentation.DialogService;
 import ch.ffhs.drugstore.presentation.dispensary.view.adapter.DispensaryListAdapter;
@@ -67,7 +69,7 @@ public class DispensaryFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(DispensaryViewModel.class);
         viewModel.getItems().observe(getViewLifecycleOwner(), this::observeItems);
-        viewModel.getFilterState().observe(getViewLifecycleOwner(), this::setupFilterChips);
+        viewModel.getDrugTypes().observe(getViewLifecycleOwner(), this::setupFilterChips);
         setupSearchBar();
     }
 
@@ -98,29 +100,24 @@ public class DispensaryFragment extends Fragment
         });
     }
 
-    private void setupFilterChips(@NonNull FilterState<DispensaryFilters> filterState) {
+    private void setupFilterChips(@NonNull List<DrugTypeDto> drugTypeDtos) {
+        // Get initial filter state
+        FilterState<Integer> filterState = Objects.requireNonNull(viewModel.getFilterState().getValue());
+        // Setup favorite filter
         binding.filterFavorite.setChecked(filterState.isFavorites());
-        binding.filterFavorite.setOnCheckedChangeListener((compoundButton, b)
-                -> onChipFilterClick(compoundButton, b, DispensaryFilters.FAVORITE));
-
-        binding.filterInjection.setChecked(
-                filterState.getFilters().contains(DispensaryFilters.INJECTION));
-        binding.filterInjection.setOnCheckedChangeListener((compoundButton, b)
-                -> onChipFilterClick(compoundButton, b, DispensaryFilters.INJECTION));
-
-        binding.filterOral.setChecked(filterState.getFilters().contains(DispensaryFilters.ORAL));
-        binding.filterOral.setOnCheckedChangeListener((compoundButton, b)
-                -> onChipFilterClick(compoundButton, b, DispensaryFilters.ORAL));
-
-        binding.filterOralLiquid.setChecked(
-                filterState.getFilters().contains(DispensaryFilters.ORAL_LIQUID));
-        binding.filterOralLiquid.setOnCheckedChangeListener((compoundButton, b)
-                -> onChipFilterClick(compoundButton, b, DispensaryFilters.ORAL_LIQUID));
-
-        binding.filterPlaster.setChecked(
-                filterState.getFilters().contains(DispensaryFilters.PLASTER));
-        binding.filterPlaster.setOnCheckedChangeListener((compoundButton, b)
-                -> onChipFilterClick(compoundButton, b, DispensaryFilters.PLASTER));
+        binding.filterFavorite.setOnCheckedChangeListener(this::onFavoriteChipFilterClick);
+        // Setup dynamic drug type filters
+        for (DrugTypeDto drugTypeDto : drugTypeDtos) {
+            if (binding.chipGroup.findViewById(drugTypeDto.getDrugTypeId()) == null) {
+                boolean checked = filterState.getFilters().contains(drugTypeDto.getDrugTypeId());
+                FilterChipBinding filterChipBinding = FilterChipBinding.inflate(getLayoutInflater());
+                filterChipBinding.filterChip.setId(drugTypeDto.getDrugTypeId());
+                filterChipBinding.filterChip.setText(drugTypeDto.getTitle());
+                filterChipBinding.filterChip.setChecked(checked);
+                filterChipBinding.filterChip.setOnCheckedChangeListener(this::onDrugTypeChipFilterClick);
+                binding.chipGroup.addView(filterChipBinding.filterChip);
+            }
+        }
     }
 
     @Override
@@ -134,23 +131,24 @@ public class DispensaryFragment extends Fragment
     }
 
     private boolean search(String searchTerm) {
-        FilterState<DispensaryFilters> currentFilters = viewModel.getFilterState().getValue();
+        FilterState<Integer> currentFilters = viewModel.getFilterState().getValue();
         assert currentFilters != null;
         currentFilters.setSearchFilter(searchTerm);
         viewModel.filter(currentFilters);
         return true;
     }
 
-    private void onChipFilterClick(CompoundButton buttonView, boolean isChecked,
-            DispensaryFilters filter) {
-        buttonView.setChecked(isChecked);
-        FilterState<DispensaryFilters> currentFilters = viewModel.getFilterState().getValue();
+    private void onFavoriteChipFilterClick(CompoundButton buttonView, boolean isChecked) {
+        FilterState<Integer> currentFilters = viewModel.getFilterState().getValue();
         assert currentFilters != null;
-        if (filter.equals(DispensaryFilters.FAVORITE)) {
-            currentFilters.toggleFavorites();
-        } else {
-            currentFilters.toggleFilter(filter);
-        }
+        currentFilters.toggleFavorites();
+        viewModel.filter(currentFilters);
+    }
+
+    private void onDrugTypeChipFilterClick(CompoundButton buttonView, boolean isChecked) {
+        FilterState<Integer> currentFilters = viewModel.getFilterState().getValue();
+        assert currentFilters != null;
+        currentFilters.toggleFilter(buttonView.getId());
         viewModel.filter(currentFilters);
     }
 

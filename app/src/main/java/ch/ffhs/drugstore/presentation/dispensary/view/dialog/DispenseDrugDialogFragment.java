@@ -14,11 +14,8 @@ import androidx.fragment.app.DialogFragment;
 
 import java.util.Objects;
 
-import javax.inject.Inject;
-
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.DialogDispenseDrugBinding;
-import ch.ffhs.drugstore.databinding.DialogSignInventoryBinding;
 import dagger.assisted.Assisted;
 import dagger.assisted.AssistedInject;
 import dagger.hilt.android.AndroidEntryPoint;

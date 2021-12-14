@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.databinding.InventoryItemBinding;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
 public class InventoryListAdapter
     extends ListAdapter<DrugDto, InventoryListAdapter.InventoryItemHolder> {
