@@ -10,12 +10,11 @@ import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import ch.ffhs.drugstore.data.repository.TransactionRepository;
 
 public class HistoryService {
-    @Inject
-    TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
 
     @Inject
-    public HistoryService() {
-        // TODO document why this constructor is empty
+    public HistoryService(TransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
     }
 
     public LiveData<List<TransactionDto>> getHistory() {

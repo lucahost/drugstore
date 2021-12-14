@@ -13,12 +13,11 @@ import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 
 public class DrugManagementService {
     private final DrugstoreMapper mapper;
-    @Inject
-    DrugRepository drugRepository;
+    private final DrugRepository drugRepository;
 
     @Inject
-    public DrugManagementService() {
-        // TODO document why this constructor is empty
+    public DrugManagementService(DrugRepository drugRepository) {
+        this.drugRepository = drugRepository;
         mapper = DrugstoreMapper.INSTANCE;
     }
 

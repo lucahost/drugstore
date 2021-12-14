@@ -12,12 +12,11 @@ import ch.ffhs.drugstore.presentation.dispensary.view.DispensaryFilters;
 import ch.ffhs.drugstore.presentation.dispensary.view.FilterState;
 
 public class DispensaryService {
-    @Inject
-    DrugRepository drugRepository;
+    private final DrugRepository drugRepository;
 
     @Inject
-    public DispensaryService() {
-        // TODO document why this constructor is empty
+    public DispensaryService(DrugRepository drugRepository) {
+        this.drugRepository = drugRepository;
     }
 
     public LiveData<List<DrugDto>> getAllDrugs(FilterState<DispensaryFilters> filterState) {
@@ -28,7 +27,8 @@ public class DispensaryService {
         if (filters.isEmpty()) {
             return drugRepository.getOnStockDrugs(favorites, searchTerm);
         } else {
-            return drugRepository.getOnStockDrugs(favorites, filterState.getFiltersAsStrings(), searchTerm);
+            return drugRepository.getOnStockDrugs(favorites, filterState.getFiltersAsStrings(),
+                    searchTerm);
         }
     }
 

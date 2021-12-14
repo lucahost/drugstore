@@ -10,12 +10,11 @@ import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrug
 import ch.ffhs.drugstore.data.repository.SignatureRepository;
 
 public class SignatureService {
-    @Inject
-    SignatureRepository signatureRepository;
+    private final SignatureRepository signatureRepository;
 
     @Inject
-    public SignatureService() {
-        // TODO document why this constructor is empty
+    public SignatureService(SignatureRepository signatureRepository) {
+        this.signatureRepository = signatureRepository;
     }
 
     public LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> getSignatures() {
