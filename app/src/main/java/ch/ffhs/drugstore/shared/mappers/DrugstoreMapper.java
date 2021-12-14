@@ -1,8 +1,5 @@
 package ch.ffhs.drugstore.shared.mappers;
 
-import androidx.lifecycle.LiveData;
-
-import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;

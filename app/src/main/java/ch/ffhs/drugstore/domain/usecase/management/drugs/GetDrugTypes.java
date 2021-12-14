@@ -6,20 +6,20 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import ch.ffhs.drugstore.data.dto.DrugTypeDto;
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
-import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
-public class GetDrugs implements UseCase<LiveData<List<DrugDto>>, Void> {
+public class GetDrugTypes implements UseCase<LiveData<List<DrugTypeDto>>, Void> {
   @Inject DrugManagementService drugManagementService;
 
   @Inject
-  public GetDrugs(DrugManagementService drugManagementService) {
+  public GetDrugTypes(DrugManagementService drugManagementService) {
     this.drugManagementService = drugManagementService;
   }
 
   @Override
-  public LiveData<List<DrugDto>> execute(Void unused) {
-    return drugManagementService.getAllDrugs();
+  public LiveData<List<DrugTypeDto>> execute(Void params) {
+    return drugManagementService.getAllDrugTypes();
   }
 }

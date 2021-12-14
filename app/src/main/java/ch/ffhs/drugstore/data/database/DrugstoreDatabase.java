@@ -17,8 +17,10 @@ import java.util.concurrent.Executors;
 
 import ch.ffhs.drugstore.data.converters.DateConverter;
 import ch.ffhs.drugstore.data.dao.DrugDao;
+import ch.ffhs.drugstore.data.dao.DrugTypeDao;
 import ch.ffhs.drugstore.data.dao.SignatureDao;
 import ch.ffhs.drugstore.data.dao.TransactionDao;
+import ch.ffhs.drugstore.data.dao.UnitDao;
 import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.data.entity.DrugType;
 import ch.ffhs.drugstore.data.entity.Signature;
@@ -74,8 +76,8 @@ public abstract class DrugstoreDatabase extends RoomDatabase {
                                     context.getApplicationContext(), DrugstoreDatabase.class,
                                     "drugstore_db")
                                     .addCallback(sRoomDatabaseCallback)
-                                    // .fallbackToDestructiveMigration()
-                                    .createFromAsset("database/database.db")
+                                    //.fallbackToDestructiveMigration()
+                                    .createFromAsset("database/database_v3.db")
                                     .build();
                 }
             }
@@ -84,6 +86,10 @@ public abstract class DrugstoreDatabase extends RoomDatabase {
     }
 
     public abstract DrugDao drugDao();
+
+    public abstract DrugTypeDao drugTypeDao();
+
+    public abstract UnitDao unitDao();
 
     public abstract TransactionDao transactionDao();
 
