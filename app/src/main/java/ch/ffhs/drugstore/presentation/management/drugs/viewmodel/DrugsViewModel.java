@@ -20,6 +20,7 @@ import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugUnits;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugs;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.RemoveDrug;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
@@ -62,7 +63,7 @@ public class DrugsViewModel extends AndroidViewModel {
     return drugUnits;
   }
 
-  public void addDrug() {
+  public void addDrug(int drugId, String amount) {
     addDrug.execute(null);
   }
 
@@ -70,15 +71,18 @@ public class DrugsViewModel extends AndroidViewModel {
     editDrug.execute(null);
   }
 
-  public void createDrug() {
-    createDrug.execute(null);
+  public void createDrug(String name, String dosage, int drugTypeId, int unitId, String sTolerance, boolean isFavorite)
+          throws Exception {
+    double tolerance = Double.parseDouble(sTolerance);
+    CreateDrugDto createDrugDto = new CreateDrugDto(name, dosage, drugTypeId, unitId, 1, tolerance, isFavorite);
+    createDrug.execute(createDrugDto);
   }
 
-  public void deleteDrug() {
-    deleteDrug.execute(null);
+  public void deleteDrug(int drugId) {
+    deleteDrug.execute(drugId);
   }
 
-  public void removeDrug() {
+  public void removeDrug(int drugId, String amount) {
     removeDrug.execute(null);
   }
 }

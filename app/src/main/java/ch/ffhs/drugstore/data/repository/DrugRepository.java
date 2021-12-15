@@ -29,9 +29,10 @@ public class DrugRepository {
         allDrugs = drugDao.getAllDrugs();
     }
 
-    public void addDrug(DrugDto drugDto) {
+    public Void createDrug(DrugDto drugDto) {
         Drug drug = mapper.drugDtoToDrug(drugDto);
         this.insert(drug);
+        return null;
     }
 
     public void updateDrugAmount(int drugId, double drugAmount) {
@@ -81,6 +82,10 @@ public class DrugRepository {
 
     public void delete(Drug drug) {
         DrugstoreDatabase.databaseWriteExecutor.execute(() -> drugDao.delete(drug));
+    }
+
+    public void deleteDrugById(int drugId) {
+        DrugstoreDatabase.databaseWriteExecutor.execute(() -> drugDao.deleteDrugById(drugId));
     }
 
     public void deleteAll() {

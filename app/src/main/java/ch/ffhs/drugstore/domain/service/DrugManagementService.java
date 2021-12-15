@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import ch.ffhs.drugstore.data.repository.DrugRepository;
 import ch.ffhs.drugstore.data.repository.DrugTypeRepository;
 import ch.ffhs.drugstore.data.repository.UnitRepository;
+import ch.ffhs.drugstore.shared.dto.management.drugs.AddDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
@@ -46,8 +47,17 @@ public class DrugManagementService {
         return drugRepository.getDrugById(drugId);
     }
 
-    public void addDrug(CreateDrugDto createDrugDto) {
+    public Void createDrug(CreateDrugDto createDrugDto) {
         DrugDto drugDto = mapper.createDrugDtoToDrugDto(createDrugDto);
-        drugRepository.addDrug(drugDto);
+        return drugRepository.createDrug(drugDto);
+    }
+
+    public Void addDrug(AddDrugDto addDrugDto) {
+        return null;
+    }
+
+    public Void deleteDrug(Integer drugId) {
+        drugRepository.deleteDrugById(drugId);
+        return null;
     }
 }

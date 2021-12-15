@@ -32,6 +32,9 @@ public interface DrugDao {
     @Query("DELETE FROM drugs")
     void deleteAll();
 
+    @Query("DELETE FROM drugs WHERE drugId = :drugId")
+    void deleteDrugById(int drugId);
+
     @Transaction
     @Query("SELECT * FROM drugs WHERE drugId = :drugId")
     DrugWithUnitAndDrugTypeAndSubstance getDrugById(int drugId);

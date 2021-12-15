@@ -1,5 +1,6 @@
 package ch.ffhs.drugstore.presentation.management.drugs.view;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -98,11 +99,12 @@ public class DrugsFragment extends Fragment
     return item -> {
       int itemId = item.getItemId();
       if (itemId == R.id.drug_item_add) {
-        AddDrugDialogFragmentArgs args = new AddDrugDialogFragmentArgs(drug.getDrugId(), drug.getTitle(), drug.getDosage());
+        AddDrugDialogFragmentArgs args = new AddDrugDialogFragmentArgs(drug.getDrugId(), drug.getTitle(), drug.getDosage(),
+                drug.getUnit());
         dialogService.showAddDrugDialog(getChildFragmentManager(), args);
         return true;
       } else if (itemId == R.id.drug_item_remove) {
-        RemoveDrugDialogFragmentArgs args = new RemoveDrugDialogFragmentArgs(drug.getDrugId(), drug.getTitle());
+        RemoveDrugDialogFragmentArgs args = new RemoveDrugDialogFragmentArgs(drug.getDrugId(), drug.getTitle(), drug.getDosage(), drug.getUnit());
         dialogService.showRemoveDrugDialog(getChildFragmentManager(), args);
         return true;
       } else if (itemId == R.id.drug_item_edit) {
@@ -130,21 +132,31 @@ public class DrugsFragment extends Fragment
   public void onConfirmCreateDrug(
       String name, String dosage, int drugTypeId, int unitId, String tolerance, boolean isFavorite) {
     dialogService.dismiss(DialogService.Dialog.CREATE_DRUG);
-    viewModel.createDrug();
+    try {
+      viewModel.createDrug(name, dosage, drugTypeId, unitId, tolerance, isFavorite);
+    } catch (Exception ex) {
+      new AlertDialog.Builder(getContext())
+              .setTitle(R.string.error_create_drug)
+              .setMessage(ex.getMessage())
+              .setNegativeButton(R.string.close, null)
+              .setIcon(android.R.drawable.ic_dialog_alert)
+              .show();
+      return;
+    }
     Toast.makeText(context(), "Erfolgreich erfasst", Toast.LENGTH_SHORT).show();
   }
 
   @Override
-  public void onConfirmAddDrug(String content, String unit, String count) {
+  public void onConfirmAddDrug(int drugId, String amount) {
     dialogService.dismiss(DialogService.Dialog.ADD_DRUG);
-    viewModel.addDrug();
+    viewModel.addDrug(drugId, amount);
     Toast.makeText(context(), "Erfolgreich hinzugefügt", Toast.LENGTH_SHORT).show();
   }
 
   @Override
   public void onConfirmDeleteDrug(int drugId) {
     dialogService.dismiss(DialogService.Dialog.DELETE_DRUG);
-    viewModel.deleteDrug();
+    viewModel.deleteDrug(drugId);
     Toast.makeText(context(), "Erfolgreich gelöscht", Toast.LENGTH_SHORT).show();
   }
 
@@ -157,9 +169,9 @@ public class DrugsFragment extends Fragment
   }
 
   @Override
-  public void onConfirmRemoveDrug() {
+  public void onConfirmRemoveDrug(int drugId, String amount) {
     dialogService.dismiss(DialogService.Dialog.REMOVE_DRUG);
-    viewModel.removeDrug();
+    viewModel.removeDrug(drugId, amount);
     Toast.makeText(context(), "Erfolgreich ausgetragen", Toast.LENGTH_SHORT).show();
   }
 }

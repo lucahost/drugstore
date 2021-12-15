@@ -44,6 +44,7 @@
     <string name="added_to_favorites">Zu Favoriten hinzugefügt</string>
     <string name="not_enough_stock_amount">Zu wenig an Lager</string>
     <string name="dosage">Dosierung</string>
-    <string name="error_dispense_drug">Error while dispensing drug</string>
-    <string name="close">schliessen</string>
+    <string name="error_dispense_drug">Beim Ausgeben trat ein Fehler auf</string>
+    <string name="close">Schliessen</string>
+    <string name="error_create_drug">Beim Erstellen trat ein Fehler auf</string>
 </resources>

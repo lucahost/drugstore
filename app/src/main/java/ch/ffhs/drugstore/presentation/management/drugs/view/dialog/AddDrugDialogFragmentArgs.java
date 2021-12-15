@@ -4,11 +4,14 @@ public class AddDrugDialogFragmentArgs {
     private final int drugId;
     private final String drugTitle;
     private final String dosage;
+    private final String unit;
 
-    public AddDrugDialogFragmentArgs(int drugId, String drugTitle, String dosage) {
+    public AddDrugDialogFragmentArgs(int drugId, String drugTitle, String dosage,
+            String unit) {
         this.drugId = drugId;
         this.drugTitle = drugTitle;
         this.dosage = dosage;
+        this.unit = unit;
     }
 
     public int getDrugId() {
@@ -21,5 +24,9 @@ public class AddDrugDialogFragmentArgs {
 
     public String getDosage() {
         return dosage;
+    }
+
+    public String getUnit() {
+        return unit;
     }
 }

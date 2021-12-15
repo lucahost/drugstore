@@ -30,9 +30,11 @@ public class AddDrugDialogFragment extends DialogFragment {
   public static final String ARG_DRUG_ID = "drugId";
   public static final String ARG_DRUG_TITLE = "drugTitle";
   public static final String ARG_DRUG_DOSAGE = "dosage";
+  public static final String ARG_DRUG_UNIT = "unit";
   private int drugId;
   private String drugTitle;
   private String dosage;
+  private String unit;
   DialogAddDrugBinding binding;
   private ConfirmAddDrugListener confirmAddDrugListener;
 
@@ -47,6 +49,7 @@ public class AddDrugDialogFragment extends DialogFragment {
     bundle.putInt(ARG_DRUG_ID, args.getDrugId());
     bundle.putString(ARG_DRUG_TITLE, args.getDrugTitle());
     bundle.putString(ARG_DRUG_DOSAGE, args.getDosage());
+    bundle.putString(ARG_DRUG_UNIT, args.getUnit());
     setArguments(bundle);
   }
 
@@ -68,6 +71,7 @@ public class AddDrugDialogFragment extends DialogFragment {
       drugId = getArguments().getInt(ARG_DRUG_ID);
       drugTitle = getArguments().getString(ARG_DRUG_TITLE);
       dosage = getArguments().getString(ARG_DRUG_DOSAGE);
+      unit = getArguments().getString(ARG_DRUG_UNIT);
     }
   }
 
@@ -77,16 +81,15 @@ public class AddDrugDialogFragment extends DialogFragment {
     binding = DialogAddDrugBinding.inflate(getLayoutInflater());
     binding.drugNameText.setText(drugTitle);
     binding.drugDosageText.setText(dosage);
+    binding.drugUnitText.setText(unit);
     return new AlertDialog.Builder(requireContext())
         .setView(binding.getRoot())
         .setTitle(getString(R.string.add_drug))
         .setPositiveButton(
             getString(R.string.add),
             (dialog, id) ->
-                this.confirmAddDrugListener.onConfirmAddDrug(
-                    Objects.requireNonNull(binding.drugContentText.getText()).toString(),
-                    Objects.requireNonNull(binding.drugUnitText.getText()).toString(),
-                    Objects.requireNonNull(binding.drugCountText.getText()).toString()))
+                this.confirmAddDrugListener.onConfirmAddDrug(drugId,
+                       binding.drugCountText.toString()))
         .setNegativeButton(getString(R.string.cancel), (dialog, id) -> {})
         .create();
   }
@@ -98,6 +101,6 @@ public class AddDrugDialogFragment extends DialogFragment {
   }
 
   public interface ConfirmAddDrugListener {
-    void onConfirmAddDrug(String content, String unit, String count);
+    void onConfirmAddDrug(int drugId, String amount);
   }
 }

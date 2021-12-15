@@ -3,10 +3,15 @@ package ch.ffhs.drugstore.presentation.management.drugs.view.dialog;
 public class RemoveDrugDialogFragmentArgs {
     private final int drugId;
     private final String drugTitle;
+    private final String dosage;
+    private final String unit;
 
-    public RemoveDrugDialogFragmentArgs(int drugId, String drugTitle) {
+    public RemoveDrugDialogFragmentArgs(int drugId, String drugTitle, String dosage,
+            String unit) {
         this.drugId = drugId;
         this.drugTitle = drugTitle;
+        this.dosage = dosage;
+        this.unit = unit;
     }
 
     public int getDrugId() {
@@ -15,5 +20,13 @@ public class RemoveDrugDialogFragmentArgs {
 
     public String getDrugTitle() {
         return drugTitle;
+    }
+
+    public String getDosage() {
+        return dosage;
+    }
+
+    public String getUnit() {
+        return unit;
     }
 }

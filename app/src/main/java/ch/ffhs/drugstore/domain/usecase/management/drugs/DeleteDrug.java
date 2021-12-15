@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
 
-public class DeleteDrug implements UseCase<Void, Void> {
+public class DeleteDrug implements UseCase<Void, Integer> {
   @Inject DrugManagementService drugManagementService;
 
   @Inject
@@ -14,7 +14,7 @@ public class DeleteDrug implements UseCase<Void, Void> {
   }
 
   @Override
-  public Void execute(Void unused) {
-    return null;
+  public Void execute(Integer drugId) {
+    return drugManagementService.deleteDrug(drugId);
   }
 }

@@ -4,9 +4,9 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
-import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.AddDrugDto;
 
-public class AddDrug implements UseCase<Void, CreateDrugDto> {
+public class AddDrug implements UseCase<Void, AddDrugDto> {
     @Inject
     DrugManagementService drugManagementService;
 
@@ -17,8 +17,7 @@ public class AddDrug implements UseCase<Void, CreateDrugDto> {
     }
 
     @Override
-    public Void execute(CreateDrugDto createDrugDto) {
-        drugManagementService.addDrug(createDrugDto);
-        return null;
+    public Void execute(AddDrugDto addDrugDto) {
+        return drugManagementService.addDrug(addDrugDto);
     }
 }
