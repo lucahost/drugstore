@@ -82,9 +82,8 @@ public class InventoryListAdapter
 
         void bind(int position) {
             title.setOnClickListener(this);
-            title.setText(String.format(Locale.getDefault(), "Drug Id: %d",
-                    getItem(position).getDrugId()));
-            secondary.setText(String.format(Locale.getDefault(), "Amount: %.2f %s",
+            title.setText(getItem(position).getTitle());
+            secondary.setText(String.format(Locale.getDefault(), "%.2f %s",
                     getItem(position).getStockAmount(),
                     getItem(position).getUnit()));
         }
