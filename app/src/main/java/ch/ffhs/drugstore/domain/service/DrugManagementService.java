@@ -11,16 +11,15 @@ import ch.ffhs.drugstore.data.repository.DrugRepository;
 import ch.ffhs.drugstore.data.repository.DrugTypeRepository;
 import ch.ffhs.drugstore.data.repository.SubstanceRepository;
 import ch.ffhs.drugstore.data.repository.UnitRepository;
-import ch.ffhs.drugstore.shared.dto.management.drugs.UpdateDrugAmountDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.EditDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.UpdateDrugAmountDto;
 import ch.ffhs.drugstore.shared.exceptions.DrugNotFoundException;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
-import ch.ffhs.drugstore.shared.exceptions.InsufficientAmountException;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 
 public class DrugManagementService {
@@ -59,11 +58,16 @@ public class DrugManagementService {
 
 
     public void editDrug(EditDrugDto editDrugDto) {
+        DrugDto originalDrug = drugRepository.getDrugById(editDrugDto.getDrugId());
         DrugDto drugDto = mapper.editDrugDtoToDrugDto(editDrugDto);
 
         SubstanceDto substance = substanceRepository.getOrCreateSubstanceByTitle(
                 drugDto.getSubstance());
         drugDto.setSubstance(String.valueOf(substance.getSubstanceId()));
+
+        // EditDrugDto does not contain stockAmount
+        // therefore we need to set it to the original value
+        drugDto.setStockAmount(originalDrug.getStockAmount());
 
         drugRepository.editDrug(drugDto);
     }
