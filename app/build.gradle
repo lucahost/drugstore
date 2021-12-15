@@ -41,6 +41,9 @@ android {
     }
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
+        coreLibraryDesugaringEnabled true
+
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -79,7 +82,6 @@ dependencies {
     implementation 'org.mapstruct:mapstruct:1.5.0.Beta2'
     kapt 'org.mapstruct:mapstruct-processor:1.5.0.Beta2'
 
-
     // Navigation
     def nav_version = "2.3.5"
     implementation "androidx.fragment:fragment-ktx:1.4.0"
@@ -97,6 +99,9 @@ dependencies {
     // Testing
     testImplementation 'androidx.test:core:1.4.0'
     testImplementation 'org.mockito:mockito-core:1.10.19'
+
+    // De-sugaring for java.time.*
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
 }
 

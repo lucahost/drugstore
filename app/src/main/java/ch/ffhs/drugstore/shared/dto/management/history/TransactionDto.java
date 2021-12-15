@@ -1,5 +1,6 @@
 package ch.ffhs.drugstore.shared.dto.management.history;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 import ch.ffhs.drugstore.shared.dto.dispensary.SubmitDispenseDto;
@@ -10,7 +11,7 @@ public class TransactionDto {
     private int transactionId;
     private DrugDto drug;
     private UserDto user;
-    private Date createdAt;
+    private ZonedDateTime createdAt;
     private double amount;
     private String patient;
 
@@ -18,7 +19,7 @@ public class TransactionDto {
 
     }
 
-    public TransactionDto(int transactionId, DrugDto drug, UserDto user, Date createdAt,
+    public TransactionDto(int transactionId, DrugDto drug, UserDto user, ZonedDateTime createdAt,
             double amount,
             String patient) {
         this.transactionId = transactionId;
@@ -61,11 +62,11 @@ public class TransactionDto {
         this.user = user;
     }
 
-    public Date getCreatedAt() {
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

@@ -6,6 +6,7 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Entity(tableName = "transactions",
@@ -24,11 +25,11 @@ public class Transaction {
     public int userId;
     public int drugId;
     @ColumnInfo(defaultValue = "(datetime('now'))")
-    public Date createdAt;
+    public ZonedDateTime createdAt;
     public double amount;
     public String patient;
 
-    public Transaction(int transactionId, int userId, int drugId, Date createdAt, double amount,
+    public Transaction(int transactionId, int userId, int drugId, ZonedDateTime createdAt, double amount,
             String patient) {
         this.transactionId = transactionId;
         this.userId = userId;
@@ -62,11 +63,11 @@ public class Transaction {
         this.drugId = drugId;
     }
 
-    public Date getCreatedAt() {
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

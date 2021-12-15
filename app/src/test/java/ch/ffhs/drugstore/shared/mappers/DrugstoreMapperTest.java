@@ -6,6 +6,7 @@ import androidx.room.ColumnInfo;
 
 import org.junit.Test;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -129,7 +130,7 @@ public class DrugstoreMapperTest {
         double tolerance = 0.0;
         double stockAmount = 1.0;
         boolean isFavorite = true;
-        Date createdAt = new Date();
+        ZonedDateTime createdAt = ZonedDateTime.now();
         double amount = 1.0;
         String patient = "Steve";
         TransactionWithDrugAndUser transaction = new TransactionWithDrugAndUser();
