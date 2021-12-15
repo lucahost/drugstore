@@ -84,13 +84,8 @@ public class DrugManagementService {
         if (drug == null) {
             throw new DrugNotFoundException(R.string.drug_not_found);
         }
-        if (updateDrugAmountDto.getAmount() < 0
-                && drug.getStockAmount() < updateDrugAmountDto.getAmount()) {
-            throw new InsufficientAmountException(R.string.not_enough_stock_amount);
-        }
 
-        double newAmount = drug.getStockAmount() + updateDrugAmountDto.getAmount();
-        drugRepository.updateDrugAmount(drug.getDrugId(), newAmount);
+        drugRepository.updateDrugAmount(drug.getDrugId(), updateDrugAmountDto.getAmount());
     }
 
     public void deleteDrug(Integer drugId) {

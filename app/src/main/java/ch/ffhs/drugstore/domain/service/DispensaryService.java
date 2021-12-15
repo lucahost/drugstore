@@ -30,10 +30,6 @@ public class DispensaryService {
         }
     }
 
-    public void updateDrugAmount(int drugId, double amount) {
-        drugRepository.updateDrugAmount(drugId, amount);
-    }
-
     public void toggleDrugIsFavorite(int drugId) {
         drugRepository.toggleDrugIsFavorite(drugId);
     }

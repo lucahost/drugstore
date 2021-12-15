@@ -39,9 +39,8 @@ public class DrugRepository {
         this.update(drug);
     }
 
-    public void updateDrugAmount(int drugId, double drugAmount) {
+    public void updateDrugAmount(int drugId, double newAmount) {
         Drug drug = drugDao.getDrugById(drugId).getDrug();
-        double newAmount = drug.getStockAmount() - drugAmount;
         drug.setStockAmount(newAmount);
         drugDao.update(drug);
     }
