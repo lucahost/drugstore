@@ -34,7 +34,6 @@ import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.RemoveDrugDia
 import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.RemoveDrugDialogFragmentArgs;
 import ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
-import ch.ffhs.drugstore.shared.exceptions.DrugNotFoundException;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -105,12 +104,13 @@ public class DrugsFragment extends Fragment
             if (itemId == R.id.drug_item_add) {
                 AddDrugDialogFragmentArgs args = new AddDrugDialogFragmentArgs(drug.getDrugId(),
                         drug.getTitle(), drug.getDosage(),
-                        drug.getUnit());
+                        drug.getUnit(), drug.getStockAmount());
                 dialogService.showAddDrugDialog(getChildFragmentManager(), args);
                 return true;
             } else if (itemId == R.id.drug_item_remove) {
                 RemoveDrugDialogFragmentArgs args = new RemoveDrugDialogFragmentArgs(
-                        drug.getDrugId(), drug.getTitle(), drug.getDosage(), drug.getUnit());
+                        drug.getDrugId(), drug.getTitle(), drug.getDosage(), drug.getUnit(),
+                        drug.getStockAmount());
                 dialogService.showRemoveDrugDialog(getChildFragmentManager(), args);
                 return true;
             } else if (itemId == R.id.drug_item_edit) {

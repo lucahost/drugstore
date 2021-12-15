@@ -12,8 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 
+import java.text.DecimalFormat;
+
 import javax.inject.Inject;
 
+import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.DispensaryItemBinding;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
@@ -90,7 +93,9 @@ public class DispensaryListAdapter
         void bind(int position) {
             drugTitle.setText(String.format("%s - %s (%s)", getItem(position).getDrugId(),
                     getItem(position).getTitle(), getItem(position).getDrugType()));
-            drugSecondary.setText(getItem(position).getDosage());
+            drugSecondary.setText(String.format("%s - %s %s", getItem(position).getDosage(),
+                    card.getContext().getResources().getString(R.string.remaining),
+                    new DecimalFormat("#.##").format(getItem(position).getStockAmount())));
             card.setChecked(getItem(position).isFavorite());
             card.setOnClickListener(this);
             card.setOnLongClickListener(this);
