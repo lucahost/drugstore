@@ -18,6 +18,7 @@ public class AddDrug implements UseCase<Void, AddDrugDto> {
 
     @Override
     public Void execute(AddDrugDto addDrugDto) {
-        return drugManagementService.addDrug(addDrugDto);
+        drugManagementService.addDrug(addDrugDto);
+        return null;
     }
 }

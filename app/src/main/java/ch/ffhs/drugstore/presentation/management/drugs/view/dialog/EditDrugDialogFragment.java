@@ -34,6 +34,8 @@ public class EditDrugDialogFragment extends DialogFragment {
     public static final String ARG_DRUG_UNIT = "drugUnit";
     public static final String ARG_DRUG_TOLERANCE = "tolerance";
     public static final String ARG_DRUG_FAVORITE = "isFavorite";
+    DialogEditDrugBinding binding;
+    DrugsViewModel viewModel;
     private int drugId;
     private String drugTitle;
     private String dosage;
@@ -41,9 +43,7 @@ public class EditDrugDialogFragment extends DialogFragment {
     private String drugUnit;
     private double tolerance;
     private boolean isFavorite;
-    DialogEditDrugBinding binding;
     private ConfirmEditDrugListener confirmEditDrugListener;
-    DrugsViewModel viewModel;
 
     public EditDrugDialogFragment() {
         /* TODO document why this constructor is empty */
@@ -107,6 +107,7 @@ public class EditDrugDialogFragment extends DialogFragment {
                         getString(R.string.save),
                         (dialog, id) ->
                                 this.confirmEditDrugListener.onConfirmEditDrug(
+                                        drugId,
                                         Objects.requireNonNull(
                                                 binding.editDrugNameText.getText()).toString(),
                                         Objects.requireNonNull(
@@ -160,6 +161,7 @@ public class EditDrugDialogFragment extends DialogFragment {
 
     public interface ConfirmEditDrugListener {
         void onConfirmEditDrug(
-                String name, String dosage, int drugTypeId, int unitId, String tolerance, boolean isFavorite);
+                int drugId, String name, String dosage, int drugTypeId, int unitId,
+                String tolerance, boolean isFavorite);
     }
 }

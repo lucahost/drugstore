@@ -29,10 +29,14 @@ public class DrugRepository {
         allDrugs = drugDao.getAllDrugs();
     }
 
-    public Void createDrug(DrugDto drugDto) {
+    public void createDrug(DrugDto drugDto) {
         Drug drug = mapper.drugDtoToDrug(drugDto);
         this.insert(drug);
-        return null;
+    }
+
+    public void editDrug(DrugDto drugDto) {
+        Drug drug = mapper.drugDtoToDrug(drugDto);
+        this.update(drug);
     }
 
     public void updateDrugAmount(int drugId, double drugAmount) {

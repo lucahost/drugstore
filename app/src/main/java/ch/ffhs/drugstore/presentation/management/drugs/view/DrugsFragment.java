@@ -162,10 +162,9 @@ public class DrugsFragment extends Fragment
   }
 
   @Override
-  public void onConfirmEditDrug(
-      String name, String dosage, int drugTypeId, int unitId, String tolerance, boolean isFavorite) {
+  public void onConfirmEditDrug(int drugId, String name, String dosage, int drugTypeId, int unitId, String tolerance, boolean isFavorite) {
     dialogService.dismiss(DialogService.Dialog.EDIT_DRUG);
-    viewModel.editDrug();
+    viewModel.editDrug(drugId, name, dosage, drugTypeId, unitId, tolerance, isFavorite);
     Toast.makeText(context(), "Erfolgreich bearbeitet", Toast.LENGTH_SHORT).show();
   }
 

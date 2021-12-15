@@ -14,6 +14,7 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.AddDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.EditDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
@@ -52,22 +53,32 @@ public class DrugManagementService {
         return drugRepository.getDrugById(drugId);
     }
 
-    public Void createDrug(CreateDrugDto createDrugDto) {
+
+    public void editDrug(EditDrugDto editDrugDto) {
+        DrugDto drugDto = mapper.editDrugDtoToDrugDto(editDrugDto);
+
+        SubstanceDto substance = substanceRepository.getOrCreateSubstanceByTitle(
+                drugDto.getSubstance());
+        drugDto.setSubstance(String.valueOf(substance.getSubstanceId()));
+
+        drugRepository.editDrug(drugDto);
+    }
+
+    public void createDrug(CreateDrugDto createDrugDto) {
         DrugDto drugDto = mapper.createDrugDtoToDrugDto(createDrugDto);
 
         SubstanceDto substance = substanceRepository.getOrCreateSubstanceByTitle(
                 drugDto.getSubstance());
         drugDto.setSubstance(String.valueOf(substance.getSubstanceId()));
 
-        return drugRepository.createDrug(drugDto);
+        drugRepository.createDrug(drugDto);
     }
 
-    public Void addDrug(AddDrugDto addDrugDto) {
-        return null;
+    public void addDrug(AddDrugDto addDrugDto) {
+        return;
     }
 
-    public Void deleteDrug(Integer drugId) {
+    public void deleteDrug(Integer drugId) {
         drugRepository.deleteDrugById(drugId);
-        return null;
     }
 }

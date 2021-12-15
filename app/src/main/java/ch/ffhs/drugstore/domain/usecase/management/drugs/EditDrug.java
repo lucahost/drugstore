@@ -4,8 +4,9 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
+import ch.ffhs.drugstore.shared.dto.management.drugs.EditDrugDto;
 
-public class EditDrug implements UseCase<Void, Void> {
+public class EditDrug implements UseCase<Void, EditDrugDto> {
   @Inject DrugManagementService drugManagementService;
 
   @Inject
@@ -14,7 +15,8 @@ public class EditDrug implements UseCase<Void, Void> {
   }
 
   @Override
-  public Void execute(Void unused) {
+  public Void execute(EditDrugDto editDrugDto) {
+    drugManagementService.editDrug(editDrugDto);
     return null;
   }
 }

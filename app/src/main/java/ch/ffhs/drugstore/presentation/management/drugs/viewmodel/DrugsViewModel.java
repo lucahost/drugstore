@@ -10,6 +10,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.EditDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.AddDrug;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.CreateDrug;
@@ -67,14 +68,16 @@ public class DrugsViewModel extends AndroidViewModel {
     addDrug.execute(null);
   }
 
-  public void editDrug() {
-    editDrug.execute(null);
+  public void editDrug(int drugId, String name, String dosage, int drugTypeId, int unitId, String sTolerance, boolean isFavorite) {
+    double tolerance = Double.parseDouble(sTolerance);
+    EditDrugDto editDrugDto = new EditDrugDto(drugId, name, dosage, drugTypeId, unitId, name, tolerance, isFavorite);
+    editDrug.execute(editDrugDto);
   }
 
   public void createDrug(String name, String dosage, int drugTypeId, int unitId, String sTolerance, boolean isFavorite)
           throws Exception {
     double tolerance = Double.parseDouble(sTolerance);
-    CreateDrugDto createDrugDto = new CreateDrugDto(name, dosage, drugTypeId, unitId, 1, tolerance, isFavorite);
+    CreateDrugDto createDrugDto = new CreateDrugDto(name, dosage, drugTypeId, unitId, name, tolerance, isFavorite);
     createDrug.execute(createDrugDto);
   }
 

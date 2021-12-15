@@ -16,6 +16,7 @@ public class CreateDrug implements UseCase<Void, CreateDrugDto> {
 
   @Override
   public Void execute(CreateDrugDto createDrugDto) throws Exception {
-    return drugManagementService.createDrug(createDrugDto);
+    drugManagementService.createDrug(createDrugDto);
+    return null;
   }
 }

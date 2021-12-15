@@ -19,6 +19,7 @@ import ch.ffhs.drugstore.data.relation.TransactionWithDrugAndUser;
 import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.EditDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
@@ -49,10 +50,17 @@ public interface DrugstoreMapper {
 
     @Mappings({
             @Mapping(target = "drugType", source = "drugTypeId"),
-            @Mapping(target = "substance", source = "substanceId"),
+            @Mapping(target = "substance", source = "substance"),
             @Mapping(target = "unit", source = "unitId"),
     })
     DrugDto createDrugDtoToDrugDto(CreateDrugDto createDrugDto);
+
+    @Mappings({
+            @Mapping(target = "drugType", source = "drugTypeId"),
+            @Mapping(target = "substance", source = "substance"),
+            @Mapping(target = "unit", source = "unitId"),
+    })
+    DrugDto editDrugDtoToDrugDto(EditDrugDto editDrugDto);
 
     @Mappings({
             @Mapping(target = "drugTypeId", source = "drugType"),
@@ -88,5 +96,6 @@ public interface DrugstoreMapper {
     List<DrugTypeDto> drugTypeListToDrugTypeDtoList(List<DrugTypeWithParentDrugType> drugTypes);
 
     List<SubstanceDto> substanceListToSubstanceDtoList(List<Substance> substances);
+
     SubstanceDto substanceToSubstanceDto(Substance substances);
 }
