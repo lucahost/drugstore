@@ -55,8 +55,7 @@ public interface DrugDao {
 
     @Transaction
     @Query("SELECT * FROM drugs " +
-            "INNER JOIN drugTypes dt on drugs.drugTypeId = dt.drugTypeId " +
-            "WHERE stockAmount > 0 AND dt.title IN (:drugTypeIds) AND drugs.title LIKE '%' " +
+            "WHERE stockAmount > 0 AND drugs.drugTypeId IN (:drugTypeIds) AND drugs.title LIKE '%' " +
             "|| :searchTerm || '%'"
     )
     LiveData<List<DrugWithUnitAndDrugTypeAndSubstance>> getOnStockDrugsByDrugTypes(
@@ -64,8 +63,7 @@ public interface DrugDao {
 
     @Transaction
     @Query("SELECT * FROM drugs " +
-            "INNER JOIN drugTypes dt on drugs.drugTypeId = dt.drugTypeId " +
-            "WHERE stockAmount > 0 AND isFavorite = 1 AND dt.drugTypeId IN (:drugTypes) AND " +
+            "WHERE stockAmount > 0 AND isFavorite = 1 AND drugs.drugTypeId IN (:drugTypes) AND " +
             "drugs.title LIKE '%' || :searchTerm || '%'"
     )
     LiveData<List<DrugWithUnitAndDrugTypeAndSubstance>> getOnStockFavoriteDrugsByDrugTypes(
