@@ -54,6 +54,8 @@ public interface DrugstoreMapper {
     SignatureDto signatureToSignatureDto(
             SignatureWithUserAndSignatureDrugsAndDrugs signatureEntity);
 
+    @Mapping(target = "userId", source = "user.userId")
+    @Mapping(target = "drugId", source = "drug.drugId")
     Transaction transactionDtoToTransaction(TransactionDto transactionDto);
 
     @Mapping(target = ".", source = "transaction")

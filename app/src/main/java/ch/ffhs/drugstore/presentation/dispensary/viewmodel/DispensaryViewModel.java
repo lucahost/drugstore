@@ -17,6 +17,7 @@ import ch.ffhs.drugstore.domain.usecase.dispensary.DispenseDrug;
 import ch.ffhs.drugstore.domain.usecase.dispensary.GetAllDispensaryItems;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugTypes;
 import ch.ffhs.drugstore.presentation.dispensary.view.FilterState;
+import ch.ffhs.drugstore.shared.exceptions.InsufficientAmountException;
 import ch.ffhs.drugstore.shared.dto.dispensary.SubmitDispenseDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
@@ -67,7 +68,7 @@ public class DispensaryViewModel extends AndroidViewModel {
     }
 
     public void dispenseDrug(int drugId, String employee, String patient, String sDosage)
-            throws Exception {
+            throws InsufficientAmountException {
         double dosage = Double.parseDouble(sDosage);
         SubmitDispenseDto submitDispenseDto = new SubmitDispenseDto(drugId, employee, patient,
                 dosage);
