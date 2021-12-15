@@ -11,6 +11,8 @@ import ch.ffhs.drugstore.data.repository.DrugTypeRepository;
 import ch.ffhs.drugstore.data.repository.UnitRepository;
 import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 
 public class DrugManagementService {
@@ -32,11 +34,11 @@ public class DrugManagementService {
         return drugRepository.getAllDrugs();
     }
 
-    public LiveData<List<ch.ffhs.drugstore.data.dto.DrugTypeDto>> getAllDrugTypes() {
+    public LiveData<List<DrugTypeDto>> getAllDrugTypes() {
         return drugTypeRepository.getAllDrugTypes();
     }
 
-    public LiveData<List<ch.ffhs.drugstore.data.dto.UnitDto>> getAllUnits() {
+    public LiveData<List<UnitDto>> getAllUnits() {
         return unitRepository.getAllUnits();
     }
 

@@ -6,14 +6,14 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "users")
 public class User {
     @PrimaryKey(autoGenerate = true)
-    public long userId;
+    public int userId;
     public String firstName;
     public String lastName;
     public String shortName;
     public String emailAddress;
     public String externalId;
 
-    public User(long userId, String firstName, String lastName, String shortName,
+    public User(int userId, String firstName, String lastName, String shortName,
             String emailAddress, String externalId) {
         this.userId = userId;
         this.firstName = firstName;
@@ -23,11 +23,11 @@ public class User {
         this.externalId = externalId;
     }
 
-    public long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

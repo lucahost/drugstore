@@ -21,6 +21,7 @@ import ch.ffhs.drugstore.data.dao.DrugTypeDao;
 import ch.ffhs.drugstore.data.dao.SignatureDao;
 import ch.ffhs.drugstore.data.dao.TransactionDao;
 import ch.ffhs.drugstore.data.dao.UnitDao;
+import ch.ffhs.drugstore.data.dao.UserDao;
 import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.data.entity.DrugType;
 import ch.ffhs.drugstore.data.entity.Signature;
@@ -77,6 +78,7 @@ public abstract class DrugstoreDatabase extends RoomDatabase {
                                     "drugstore_db")
                                     .addCallback(sRoomDatabaseCallback)
                                     //.fallbackToDestructiveMigration()
+                                    // TODO @Luca temporary fix for drugs.getById()
                                     .allowMainThreadQueries()
                                     .createFromAsset("database/database_v3.db")
                                     .build();
@@ -95,6 +97,8 @@ public abstract class DrugstoreDatabase extends RoomDatabase {
     public abstract TransactionDao transactionDao();
 
     public abstract SignatureDao signatureDao();
+
+    public abstract UserDao userDao();
 
     @DeleteColumn(tableName = "drugTypes", columnName = "unitId")
     static class DropUnitColumnMigration implements AutoMigrationSpec {

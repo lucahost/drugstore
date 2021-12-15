@@ -12,7 +12,6 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.dto.DrugTypeDto;
 import ch.ffhs.drugstore.domain.usecase.dispensary.AddToFavorites;
 import ch.ffhs.drugstore.domain.usecase.dispensary.DispenseDrug;
 import ch.ffhs.drugstore.domain.usecase.dispensary.GetAllDispensaryItems;
@@ -20,12 +19,13 @@ import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugTypes;
 import ch.ffhs.drugstore.presentation.dispensary.view.FilterState;
 import ch.ffhs.drugstore.shared.dto.dispensary.SubmitDispenseDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
 public class DispensaryViewModel extends AndroidViewModel {
     private final LiveData<List<DrugDto>> items;
-    private LiveData<List<ch.ffhs.drugstore.data.dto.DrugTypeDto>> drugTypes;
+    private LiveData<List<DrugTypeDto>> drugTypes;
     private final MutableLiveData<FilterState<Integer>> filterState = new MutableLiveData<>();
     @Inject
     GetAllDispensaryItems getAllDispensaryItems;

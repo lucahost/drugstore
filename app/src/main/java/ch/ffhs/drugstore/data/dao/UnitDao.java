@@ -6,7 +6,7 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import ch.ffhs.drugstore.data.dto.UnitDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 
 
 @Dao

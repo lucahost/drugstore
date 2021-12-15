@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.data.dto;
+package ch.ffhs.drugstore.shared.dto.management.drugs;
 
 public class UnitDto {
     private int unitId;

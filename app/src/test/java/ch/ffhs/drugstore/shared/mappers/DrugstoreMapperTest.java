@@ -41,7 +41,8 @@ public class DrugstoreMapperTest {
         drug.unit = new Unit(unitId, unitTitle);
 
         // when
-        DrugDto drugDto = DrugstoreMapper.INSTANCE.drugToDrugDto(drug);
+        DrugDto drugDto = DrugstoreMapper.INSTANCE.drugToDrugWithUnitAndDrugTypesAndSubstanceDto(
+                drug);
 
         //then
         assertNotNull(drugDto);

@@ -5,14 +5,12 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.RewriteQueriesToDropUnusedColumns;
-import androidx.room.RoomWarnings;
 import androidx.room.Update;
 
 import java.util.List;
 
 import ch.ffhs.drugstore.data.entity.Transaction;
-import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
+import ch.ffhs.drugstore.data.relation.TransactionWithDrugAndUser;
 
 @Dao
 public interface TransactionDao {
@@ -29,12 +27,7 @@ public interface TransactionDao {
     @Query("DELETE FROM transactions")
     void deleteAll();
 
-
-    @RewriteQueriesToDropUnusedColumns
-    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-    @Query("SELECT * FROM transactions " +
-            "JOIN drugs on transactions.drugId = drugs.drugId " +
-            "JOIN users on transactions.userId = users.userId "
-    )
-    LiveData<List<TransactionDto>> getAllTransactions();
+    @androidx.room.Transaction
+    @Query("SELECT * FROM transactions")
+    LiveData<List<TransactionWithDrugAndUser>> getAllTransactions();
 }

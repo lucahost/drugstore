@@ -23,7 +23,6 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
-import ch.ffhs.drugstore.data.dto.DrugTypeDto;
 import ch.ffhs.drugstore.databinding.FilterChipBinding;
 import ch.ffhs.drugstore.databinding.FragmentDispensaryBinding;
 import ch.ffhs.drugstore.presentation.DialogService;
@@ -32,6 +31,7 @@ import ch.ffhs.drugstore.presentation.dispensary.view.dialog.DispenseDrugDialogF
 import ch.ffhs.drugstore.presentation.dispensary.view.dialog.DispenseDrugDialogFragmentArgs;
 import ch.ffhs.drugstore.presentation.dispensary.viewmodel.DispensaryViewModel;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -102,7 +102,8 @@ public class DispensaryFragment extends Fragment
 
     private void setupFilterChips(@NonNull List<DrugTypeDto> drugTypeDtos) {
         // Get initial filter state
-        FilterState<Integer> filterState = Objects.requireNonNull(viewModel.getFilterState().getValue());
+        FilterState<Integer> filterState = Objects.requireNonNull(
+                viewModel.getFilterState().getValue());
         // Setup favorite filter
         binding.filterFavorite.setChecked(filterState.isFavorites());
         binding.filterFavorite.setOnCheckedChangeListener(this::onFavoriteChipFilterClick);
@@ -110,11 +111,13 @@ public class DispensaryFragment extends Fragment
         for (DrugTypeDto drugTypeDto : drugTypeDtos) {
             if (binding.chipGroup.findViewById(drugTypeDto.getDrugTypeId()) == null) {
                 boolean checked = filterState.getFilters().contains(drugTypeDto.getDrugTypeId());
-                FilterChipBinding filterChipBinding = FilterChipBinding.inflate(getLayoutInflater());
+                FilterChipBinding filterChipBinding = FilterChipBinding.inflate(
+                        getLayoutInflater());
                 filterChipBinding.filterChip.setId(drugTypeDto.getDrugTypeId());
                 filterChipBinding.filterChip.setText(drugTypeDto.getTitle());
                 filterChipBinding.filterChip.setChecked(checked);
-                filterChipBinding.filterChip.setOnCheckedChangeListener(this::onDrugTypeChipFilterClick);
+                filterChipBinding.filterChip.setOnCheckedChangeListener(
+                        this::onDrugTypeChipFilterClick);
                 binding.chipGroup.addView(filterChipBinding.filterChip);
             }
         }
@@ -173,17 +176,18 @@ public class DispensaryFragment extends Fragment
     }
 
     @Override
-    public void onConfirmDispenseDrug(int drugId, String employee, String patient, String dosage) {
+    public void onConfirmDispenseDrug(int drugId, String employee, String patient, String amount) {
         dialogService.dismiss(DialogService.Dialog.DISPENSE_DRUG);
         try {
-            viewModel.dispenseDrug(drugId, employee, patient, dosage);
+            viewModel.dispenseDrug(drugId, employee, patient, amount);
         } catch (Exception ex) {
-            new AlertDialog.Builder(context())
+            new AlertDialog.Builder(getContext())
                     .setTitle(R.string.error_dispense_drug)
                     .setMessage(ex.getMessage())
-                    .setNegativeButton(android.R.string.no, null)
+                    .setNegativeButton(R.string.close, null)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
+            return;
         }
         Toast.makeText(context(), R.string.dispense, Toast.LENGTH_SHORT).show();
     }

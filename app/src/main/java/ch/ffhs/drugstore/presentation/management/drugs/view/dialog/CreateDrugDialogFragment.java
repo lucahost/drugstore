@@ -47,12 +47,6 @@ public class CreateDrugDialogFragment extends DialogFragment {
         }
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(requireActivity()).get(DrugsViewModel.class);
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     @NonNull
     @Override

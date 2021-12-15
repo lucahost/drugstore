@@ -38,7 +38,6 @@ public class Transaction {
         this.patient = patient;
     }
 
-
     public int getTransactionId() {
         return transactionId;
     }

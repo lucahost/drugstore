@@ -10,7 +10,7 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.dao.UnitDao;
 import ch.ffhs.drugstore.data.database.DrugstoreDatabase;
-import ch.ffhs.drugstore.data.dto.UnitDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 
 public class UnitRepository {
     private final UnitDao unitDao;

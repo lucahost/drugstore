@@ -1,14 +1,18 @@
 package ch.ffhs.drugstore.shared.dto.management.user;
 
 public class UserDto {
-    private int userId;
+    private Integer userId;
     private String shortName;
     private String firstName;
     private String lastName;
     private String emailAddress;
     private String externalId;
 
-    public UserDto(int userId, String shortName, String firstName, String lastName,
+    public UserDto() {
+
+    }
+
+    public UserDto(Integer userId, String shortName, String firstName, String lastName,
             String emailAddress, String externalId) {
         this.userId = userId;
         this.shortName = shortName;
@@ -18,11 +22,11 @@ public class UserDto {
         this.externalId = externalId;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

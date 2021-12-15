@@ -5,30 +5,36 @@ import javax.inject.Inject;
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.domain.service.DispensaryService;
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
+import ch.ffhs.drugstore.domain.service.HistoryService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
 import ch.ffhs.drugstore.shared.dto.dispensary.SubmitDispenseDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 
 public class DispenseDrug implements UseCase<Void, SubmitDispenseDto> {
-    @Inject
     DispensaryService dispensaryService;
-
-    @Inject
     DrugManagementService drugManagementService;
+    HistoryService historyService;
 
     @Inject
-    public DispenseDrug(DispensaryService dispensaryService, DrugManagementService drugManagementService) {
+    public DispenseDrug(DispensaryService dispensaryService,
+            DrugManagementService drugManagementService,
+            HistoryService historyService) {
         this.dispensaryService = dispensaryService;
         this.drugManagementService = drugManagementService;
+        this.historyService = historyService;
     }
 
+    // TODO @Luca this should be transactional, if addTransaction fails, so should updateDrug
     @Override
     public Void execute(SubmitDispenseDto submitDispenseDto) throws Exception {
         DrugDto drug = drugManagementService.getDrugById(submitDispenseDto.getDrugId());
-        if(drug.getStockAmount() < submitDispenseDto.getAmount()) {
+        TransactionDto transaction = new TransactionDto(submitDispenseDto, drug);
+        if (drug.getStockAmount() < submitDispenseDto.getAmount()) {
             throw new Exception(String.valueOf(R.string.not_enough_stock_amount));
         }
-        dispensaryService.updateDrugAmount(drug.getDrugId(), submitDispenseDto.getAmount());
+        dispensaryService.updateDrugAmount(drug.getDrugId(), drug.getStockAmount() - submitDispenseDto.getAmount());
+        historyService.addTransaction(transaction);
         return null;
     }
 }

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 4,
-    "identityHash": "9e62bd10b116f855fdc37b75243fdcb4",
+    "identityHash": "6fa465eee1bfa7704cfccb32b2b94d4e",
     "entities": [
       {
         "tableName": "drugs",
@@ -487,13 +487,13 @@
       },
       {
         "tableName": "users",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `firstName` TEXT, `lastName` TEXT, `shortName` TEXT, `emailAddress` TEXT, `externalId` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userId` INTEGER PRIMARY KEY AUTOINCREMENT, `firstName` TEXT, `lastName` TEXT, `shortName` TEXT, `emailAddress` TEXT, `externalId` TEXT)",
         "fields": [
           {
             "fieldPath": "userId",
             "columnName": "userId",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "firstName",
@@ -539,7 +539,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9e62bd10b116f855fdc37b75243fdcb4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6fa465eee1bfa7704cfccb32b2b94d4e')"
     ]
   }
 }

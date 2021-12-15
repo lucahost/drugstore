@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.dto.UnitDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
 
