@@ -8,11 +8,13 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.repository.DrugRepository;
 import ch.ffhs.drugstore.data.repository.DrugTypeRepository;
+import ch.ffhs.drugstore.data.repository.SubstanceRepository;
 import ch.ffhs.drugstore.data.repository.UnitRepository;
 import ch.ffhs.drugstore.shared.dto.management.drugs.AddDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 
@@ -20,13 +22,16 @@ public class DrugManagementService {
     private final DrugstoreMapper mapper;
     private final DrugRepository drugRepository;
     private final DrugTypeRepository drugTypeRepository;
+    private final SubstanceRepository substanceRepository;
     private final UnitRepository unitRepository;
 
     @Inject
     public DrugManagementService(DrugRepository drugRepository,
-            DrugTypeRepository drugTypeRepository, UnitRepository unitRepository) {
+            DrugTypeRepository drugTypeRepository, SubstanceRepository substanceRepository,
+            UnitRepository unitRepository) {
         this.drugRepository = drugRepository;
         this.drugTypeRepository = drugTypeRepository;
+        this.substanceRepository = substanceRepository;
         this.unitRepository = unitRepository;
         mapper = DrugstoreMapper.INSTANCE;
     }
@@ -49,6 +54,11 @@ public class DrugManagementService {
 
     public Void createDrug(CreateDrugDto createDrugDto) {
         DrugDto drugDto = mapper.createDrugDtoToDrugDto(createDrugDto);
+
+        SubstanceDto substance = substanceRepository.getOrCreateSubstanceByTitle(
+                drugDto.getSubstance());
+        drugDto.setSubstance(String.valueOf(substance.getSubstanceId()));
+
         return drugRepository.createDrug(drugDto);
     }
 

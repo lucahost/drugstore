@@ -9,6 +9,7 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 import ch.ffhs.drugstore.data.entity.Drug;
+import ch.ffhs.drugstore.data.entity.Substance;
 import ch.ffhs.drugstore.data.entity.Transaction;
 import ch.ffhs.drugstore.data.entity.User;
 import ch.ffhs.drugstore.data.relation.DrugTypeWithParentDrugType;
@@ -18,6 +19,7 @@ import ch.ffhs.drugstore.data.relation.TransactionWithDrugAndUser;
 import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
 import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
@@ -45,8 +47,18 @@ public interface DrugstoreMapper {
     DrugWithUnitAndDrugTypeAndSubstance drugDtoToDrugWithUnitAndDrugTypeAndSubstance(
             DrugDto drugDto);
 
+    @Mappings({
+            @Mapping(target = "drugType", source = "drugTypeId"),
+            @Mapping(target = "substance", source = "substanceId"),
+            @Mapping(target = "unit", source = "unitId"),
+    })
     DrugDto createDrugDtoToDrugDto(CreateDrugDto createDrugDto);
 
+    @Mappings({
+            @Mapping(target = "drugTypeId", source = "drugType"),
+            @Mapping(target = "unitId", source = "unit"),
+            @Mapping(target = "substanceId", source = "substance"),
+    })
     Drug drugDtoToDrug(DrugDto drugDto);
 
     List<DrugDto> drugListToDrugDtoList(List<DrugWithUnitAndDrugTypeAndSubstance> drugEntity);
@@ -54,8 +66,10 @@ public interface DrugstoreMapper {
     SignatureDto signatureToSignatureDto(
             SignatureWithUserAndSignatureDrugsAndDrugs signatureEntity);
 
-    @Mapping(target = "userId", source = "user.userId")
-    @Mapping(target = "drugId", source = "drug.drugId")
+    @Mappings({
+            @Mapping(target = "userId", source = "user.userId"),
+            @Mapping(target = "drugId", source = "drug.drugId"),
+    })
     Transaction transactionDtoToTransaction(TransactionDto transactionDto);
 
     @Mapping(target = ".", source = "transaction")
@@ -73,5 +87,6 @@ public interface DrugstoreMapper {
 
     List<DrugTypeDto> drugTypeListToDrugTypeDtoList(List<DrugTypeWithParentDrugType> drugTypes);
 
-
+    List<SubstanceDto> substanceListToSubstanceDtoList(List<Substance> substances);
+    SubstanceDto substanceToSubstanceDto(Substance substances);
 }
