@@ -91,4 +91,8 @@ public class DrugRepository {
     public void deleteAll() {
         DrugstoreDatabase.databaseWriteExecutor.execute(drugDao::deleteAll);
     }
+
+    public void toggleDrugIsFavorite(int drugId) {
+        DrugstoreDatabase.databaseWriteExecutor.execute(() -> drugDao.toggleDrugIsFavorite(drugId));
+    }
 }

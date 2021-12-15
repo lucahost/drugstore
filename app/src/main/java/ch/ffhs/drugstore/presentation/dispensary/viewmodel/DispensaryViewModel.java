@@ -12,7 +12,7 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.domain.usecase.dispensary.AddToFavorites;
+import ch.ffhs.drugstore.domain.usecase.dispensary.ToggleDrugIsFavorite;
 import ch.ffhs.drugstore.domain.usecase.dispensary.DispenseDrug;
 import ch.ffhs.drugstore.domain.usecase.dispensary.GetAllDispensaryItems;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugTypes;
@@ -30,7 +30,7 @@ public class DispensaryViewModel extends AndroidViewModel {
     @Inject
     GetAllDispensaryItems getAllDispensaryItems;
     @Inject
-    AddToFavorites addToFavorites;
+    ToggleDrugIsFavorite toggleDrugIsFavorite;
     @Inject
     DispenseDrug dispenseDrug;
     @Inject GetDrugTypes getDrugTypes;
@@ -62,8 +62,8 @@ public class DispensaryViewModel extends AndroidViewModel {
     filterState.postValue(filters);
   }
 
-    public void addToFavorites() {
-        addToFavorites.execute(null);
+    public void toggleDrugIsFavorite(int drugId) {
+        toggleDrugIsFavorite.execute(drugId);
     }
 
     public void dispenseDrug(int drugId, String employee, String patient, String sDosage)

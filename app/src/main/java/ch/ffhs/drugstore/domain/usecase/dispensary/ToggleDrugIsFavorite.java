@@ -5,17 +5,18 @@ import javax.inject.Inject;
 import ch.ffhs.drugstore.domain.service.DispensaryService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
 
-public class AddToFavorites implements UseCase<Void, Void> {
+public class ToggleDrugIsFavorite implements UseCase<Void, Integer> {
     @Inject
     DispensaryService dispensaryService;
 
     @Inject
-    public AddToFavorites(DispensaryService dispensaryService) {
+    public ToggleDrugIsFavorite(DispensaryService dispensaryService) {
         this.dispensaryService = dispensaryService;
     }
 
     @Override
-    public Void execute(Void unused) {
+    public Void execute(Integer drugId) {
+        dispensaryService.toggleDrugIsFavorite(drugId);
         return null;
     }
 }

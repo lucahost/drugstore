@@ -42,6 +42,7 @@
     <string name="no_items">Keine Einträge</string>
     <string name="marked_as_favorite">Als Favorit setzen</string>
     <string name="added_to_favorites">Zu Favoriten hinzugefügt</string>
+    <string name="removed_from_favorites">Von Favoriten entfernt</string>
     <string name="not_enough_stock_amount">Zu wenig an Lager</string>
     <string name="dosage">Dosierung</string>
     <string name="error_dispense_drug">Beim Ausgeben trat ein Fehler auf</string>

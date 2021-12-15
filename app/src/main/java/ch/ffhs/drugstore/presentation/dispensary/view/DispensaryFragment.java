@@ -164,8 +164,10 @@ public class DispensaryFragment extends Fragment
 
     @Override
     public void onItemLongClick(DrugDto drug) {
-        viewModel.addToFavorites();
-        Toast.makeText(context(), R.string.added_to_favorites, Toast.LENGTH_SHORT).show();
+        viewModel.toggleDrugIsFavorite(drug.getDrugId());
+        Toast.makeText(context(),
+                drug.isFavorite() ? R.string.removed_from_favorites : R.string.added_to_favorites,
+                Toast.LENGTH_SHORT).show();
     }
 
     private void setupRecyclerView() {

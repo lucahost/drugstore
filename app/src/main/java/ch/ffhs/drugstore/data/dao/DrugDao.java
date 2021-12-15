@@ -72,4 +72,8 @@ public interface DrugDao {
     LiveData<List<DrugWithUnitAndDrugTypeAndSubstance>> getOnStockFavoriteDrugsByDrugTypes(
             List<Integer> drugTypes,
             String searchTerm);
+
+    @Transaction
+    @Query("UPDATE drugs SET isFavorite = ((isFavorite | 1) - (isFavorite & 1)) WHERE drugId = :drugId")
+    void toggleDrugIsFavorite(int drugId);
 }
