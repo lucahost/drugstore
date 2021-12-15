@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.databinding.HistoryItemBinding;
@@ -80,9 +82,11 @@ public class HistoryListAdapter
 
         void bind(int position) {
             title.setText(
-                    String.format("Transaction Id: %d", getItem(position).getTransactionId()));
+                    String.format(Locale.getDefault(), "Transaction Id: %d",
+                            getItem(position).getTransactionId()));
             secondary.setText(
-                    String.format("Created at: %s", getItem(position).getCreatedAt().toString()));
+                    String.format(Locale.getDefault(), "Created at: %s", getItem(
+                            position).getCreatedAt().toString()));
         }
 
         @Override

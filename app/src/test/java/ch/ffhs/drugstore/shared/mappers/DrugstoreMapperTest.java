@@ -2,14 +2,24 @@ package ch.ffhs.drugstore.shared.mappers;
 
 import static org.junit.Assert.*;
 
+import androidx.room.ColumnInfo;
+
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.data.entity.DrugType;
 import ch.ffhs.drugstore.data.entity.Substance;
+import ch.ffhs.drugstore.data.entity.Transaction;
 import ch.ffhs.drugstore.data.entity.Unit;
+import ch.ffhs.drugstore.data.entity.User;
 import ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance;
+import ch.ffhs.drugstore.data.relation.TransactionWithDrugAndUser;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 
 public class DrugstoreMapperTest {
 
@@ -70,5 +80,94 @@ public class DrugstoreMapperTest {
 
     @Test
     public void signatureToSignatureDto() {
+    }
+
+    @Test
+    public void drugToDrugWithUnitAndDrugTypesAndSubstanceDto() {
+    }
+
+    @Test
+    public void drugDtoToDrugWithUnitAndDrugTypeAndSubstance() {
+    }
+
+    @Test
+    public void testCreateDrugDtoToDrugDto() {
+    }
+
+    @Test
+    public void testDrugDtoToDrug() {
+    }
+
+    @Test
+    public void testDrugListToDrugDtoList() {
+    }
+
+    @Test
+    public void testSignatureToSignatureDto() {
+    }
+
+    @Test
+    public void transactionDtoToTransaction() {
+    }
+
+    @Test
+    public void transactionToTransactionDto() {
+        // given
+        int transactionId = 1;
+        int userId = 2;
+        String firstName = "a";
+        String lastName = "b";
+        String shortName = "c";
+        String emailAddress = "d";
+        String externalId = "e";
+        int drugId = 3;
+        String title = "Drug";
+        Integer drugTypeId = 101;
+        Integer substanceId = 202;
+        Integer unitId = 303;
+        String dosage = "100mg";
+        double tolerance = 0.0;
+        double stockAmount = 1.0;
+        boolean isFavorite = true;
+        Date createdAt = new Date();
+        double amount = 1.0;
+        String patient = "Steve";
+        TransactionWithDrugAndUser transaction = new TransactionWithDrugAndUser();
+        transaction.transaction = new Transaction(transactionId, userId, drugId, createdAt, amount, patient);
+        transaction.drug = new Drug(drugId, title, drugTypeId, substanceId, unitId, dosage, tolerance, stockAmount, isFavorite);
+        transaction.user = new User(userId, firstName, lastName, shortName, emailAddress, externalId);
+
+        // when
+        TransactionDto transactionDto = DrugstoreMapper.INSTANCE.transactionToTransactionDto(transaction);
+
+        //then
+        assertNotNull(transactionDto);
+        assertEquals(transactionId, transactionDto.getTransactionId());
+        assertEquals(drugId, transactionDto.getDrug().getDrugId());
+        assertEquals(userId, (int)transactionDto.getUser().getUserId());
+        assertEquals(createdAt, transactionDto.getCreatedAt());
+        assertEquals(amount, transactionDto.getAmount(),0);
+        assertEquals(patient, transactionDto.getPatient());
+
+    }
+
+    @Test
+    public void transactionListToTransactionDtoList() {
+    }
+
+    @Test
+    public void userListToUserDtoList() {
+    }
+
+    @Test
+    public void userToUserDto() {
+    }
+
+    @Test
+    public void drugTypeDtoFromDrugType() {
+    }
+
+    @Test
+    public void drugTypeListToDrugTypeDtoList() {
     }
 }

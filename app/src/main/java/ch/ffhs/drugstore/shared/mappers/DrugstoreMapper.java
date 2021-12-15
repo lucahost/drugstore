@@ -56,6 +56,9 @@ public interface DrugstoreMapper {
 
     Transaction transactionDtoToTransaction(TransactionDto transactionDto);
 
+    @Mapping(target = ".", source = "transaction")
+    TransactionDto transactionToTransactionDto(TransactionWithDrugAndUser transaction);
+
     List<TransactionDto> transactionListToTransactionDtoList(
             List<TransactionWithDrugAndUser> transaction);
 
