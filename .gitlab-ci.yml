@@ -33,3 +33,7 @@ debugTests:
   stage: test
   script:
     - ./gradlew -Pci --console=plain :app:testDebugUnitTest
+  artifacts:
+    when: always
+    reports:
+      junit: build/test-results/test/**/TEST-*.xml
