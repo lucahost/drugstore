@@ -47,4 +47,6 @@
     <string name="error_dispense_drug">Beim Ausgeben trat ein Fehler auf</string>
     <string name="close">Schliessen</string>
     <string name="error_create_drug">Beim Erstellen trat ein Fehler auf</string>
+    <string name="drug_not_found">Medikament wurde nicht gefunden</string>
+    <string name="error_update_drug_amount">Fehler beim aktualisieren des Bestandes</string>
 </resources>

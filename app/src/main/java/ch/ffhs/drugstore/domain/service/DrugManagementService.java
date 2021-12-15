@@ -6,17 +6,21 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.data.repository.DrugRepository;
 import ch.ffhs.drugstore.data.repository.DrugTypeRepository;
 import ch.ffhs.drugstore.data.repository.SubstanceRepository;
 import ch.ffhs.drugstore.data.repository.UnitRepository;
-import ch.ffhs.drugstore.shared.dto.management.drugs.AddDrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.UpdateDrugAmountDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.EditDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
+import ch.ffhs.drugstore.shared.exceptions.DrugNotFoundException;
+import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
+import ch.ffhs.drugstore.shared.exceptions.InsufficientAmountException;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 
 public class DrugManagementService {
@@ -74,8 +78,17 @@ public class DrugManagementService {
         drugRepository.createDrug(drugDto);
     }
 
-    public void addDrug(AddDrugDto addDrugDto) {
-        return;
+    public void updateDrugAmount(UpdateDrugAmountDto updateDrugAmountDto) throws DrugstoreException {
+        DrugDto drug = drugRepository.getDrugById(updateDrugAmountDto.getDrugId());
+        if (drug == null) {
+            throw new DrugNotFoundException(R.string.drug_not_found);
+        }
+        if (drug.getStockAmount() < updateDrugAmountDto.getAmount()) {
+            throw new InsufficientAmountException(R.string.not_enough_stock_amount);
+        }
+
+        double newAmount = drug.getStockAmount() + updateDrugAmountDto.getAmount();
+        drugRepository.updateDrugAmount(drug.getDrugId(), newAmount);
     }
 
     public void deleteDrug(Integer drugId) {

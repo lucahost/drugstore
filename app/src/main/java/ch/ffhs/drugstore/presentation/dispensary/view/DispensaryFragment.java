@@ -30,6 +30,7 @@ import ch.ffhs.drugstore.presentation.dispensary.view.adapter.DispensaryListAdap
 import ch.ffhs.drugstore.presentation.dispensary.view.dialog.DispenseDrugDialogFragment;
 import ch.ffhs.drugstore.presentation.dispensary.view.dialog.DispenseDrugDialogFragmentArgs;
 import ch.ffhs.drugstore.presentation.dispensary.viewmodel.DispensaryViewModel;
+import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import ch.ffhs.drugstore.shared.exceptions.InsufficientAmountException;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
@@ -183,7 +184,7 @@ public class DispensaryFragment extends Fragment
         dialogService.dismiss(DialogService.Dialog.DISPENSE_DRUG);
         try {
             viewModel.dispenseDrug(drugId, employee, patient, amount);
-        } catch (InsufficientAmountException ex) {
+        } catch (DrugstoreException ex) {
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.error_dispense_drug)
                     .setMessage(getString(ex.getCode()))
