@@ -168,6 +168,7 @@ public class DrugsFragment extends Fragment
                     .setNegativeButton(R.string.close, null)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
+            return;
         }
         Toast.makeText(context(), "Erfolgreich hinzugefügt", Toast.LENGTH_SHORT).show();
     }
@@ -190,7 +191,17 @@ public class DrugsFragment extends Fragment
     @Override
     public void onConfirmRemoveDrug(int drugId, String amount) {
         dialogService.dismiss(DialogService.Dialog.REMOVE_DRUG);
-        viewModel.removeDrug(drugId, amount);
+        try {
+            viewModel.updateDrugAmount(drugId, "-" + amount);
+        } catch (DrugstoreException ex) {
+            new AlertDialog.Builder(getContext())
+                    .setTitle(R.string.error_update_drug_amount)
+                    .setMessage(ex.getCode())
+                    .setNegativeButton(R.string.close, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+            return;
+        }
         Toast.makeText(context(), "Erfolgreich ausgetragen", Toast.LENGTH_SHORT).show();
     }
 }

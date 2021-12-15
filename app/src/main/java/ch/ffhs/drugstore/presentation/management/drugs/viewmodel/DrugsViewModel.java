@@ -20,7 +20,6 @@ import ch.ffhs.drugstore.domain.usecase.management.drugs.EditDrug;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugTypes;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugUnits;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugs;
-import ch.ffhs.drugstore.domain.usecase.management.drugs.RemoveDrug;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
@@ -38,8 +37,6 @@ public class DrugsViewModel extends AndroidViewModel {
     EditDrug editDrug;
     @Inject
     DeleteDrug deleteDrug;
-    @Inject
-    RemoveDrug removeDrug;
     @Inject
     GetDrugTypes getDrugTypes;
     @Inject
@@ -99,9 +96,5 @@ public class DrugsViewModel extends AndroidViewModel {
 
     public void deleteDrug(int drugId) {
         deleteDrug.execute(drugId);
-    }
-
-    public void removeDrug(int drugId, String amount) {
-        removeDrug.execute(null);
     }
 }

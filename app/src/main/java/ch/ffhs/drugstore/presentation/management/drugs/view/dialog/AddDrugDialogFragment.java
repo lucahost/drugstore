@@ -89,7 +89,7 @@ public class AddDrugDialogFragment extends DialogFragment {
             getString(R.string.add),
             (dialog, id) ->
                 this.confirmAddDrugListener.onConfirmAddDrug(drugId,
-                       binding.drugCountText.toString()))
+                       binding.drugCountText.getText().toString()))
         .setNegativeButton(getString(R.string.cancel), (dialog, id) -> {})
         .create();
   }

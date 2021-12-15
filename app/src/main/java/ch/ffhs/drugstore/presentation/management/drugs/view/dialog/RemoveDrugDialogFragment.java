@@ -86,7 +86,7 @@ public class RemoveDrugDialogFragment extends DialogFragment {
         .setPositiveButton(
             getString(R.string.remove),
             (dialog, id) -> this.confirmRemoveDrugListener.onConfirmRemoveDrug(
-                    drugId, binding.drugCountText.toString()
+                    drugId, "-" + binding.drugCountText.getText().toString()
             ))
         .setNegativeButton(getString(R.string.cancel), (dialog, id) -> {})
         .create();
