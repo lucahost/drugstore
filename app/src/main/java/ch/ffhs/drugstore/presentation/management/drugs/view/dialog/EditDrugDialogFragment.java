@@ -31,12 +31,14 @@ public class EditDrugDialogFragment extends DialogFragment {
     public static final String ARG_DRUG_TITLE = "drugTitle";
     public static final String ARG_DRUG_DOSAGE = "dosage";
     public static final String ARG_DRUG_TYPE = "drugType";
+    public static final String ARG_DRUG_UNIT = "drugUnit";
     public static final String ARG_DRUG_TOLERANCE = "tolerance";
     public static final String ARG_DRUG_FAVORITE = "isFavorite";
     private int drugId;
     private String drugTitle;
     private String dosage;
     private String drugType;
+    private String drugUnit;
     private double tolerance;
     private boolean isFavorite;
     DialogEditDrugBinding binding;
@@ -55,6 +57,7 @@ public class EditDrugDialogFragment extends DialogFragment {
         bundle.putString(ARG_DRUG_TITLE, args.getDrugTitle());
         bundle.putString(ARG_DRUG_DOSAGE, args.getDosage());
         bundle.putString(ARG_DRUG_TYPE, args.getDrugType());
+        bundle.putString(ARG_DRUG_UNIT, args.getDrugUnit());
         bundle.putDouble(ARG_DRUG_TOLERANCE, args.getTolerance());
         bundle.putBoolean(ARG_DRUG_FAVORITE, args.isFavorite());
         setArguments(bundle);
@@ -79,6 +82,7 @@ public class EditDrugDialogFragment extends DialogFragment {
             drugTitle = getArguments().getString(ARG_DRUG_TITLE);
             dosage = getArguments().getString(ARG_DRUG_DOSAGE);
             drugType = getArguments().getString(ARG_DRUG_TYPE);
+            drugUnit = getArguments().getString(ARG_DRUG_UNIT);
             tolerance = getArguments().getDouble(ARG_DRUG_TOLERANCE);
             isFavorite = getArguments().getBoolean(ARG_DRUG_FAVORITE);
         }
@@ -136,7 +140,7 @@ public class EditDrugDialogFragment extends DialogFragment {
                     RadioButton radio = new RadioButton(getContext());
                     radio.setId(item.getUnitId());
                     radio.setText(item.getTitle());
-                    // radio.setChecked(dispenseUnit.equals(item.getTitle()));
+                    radio.setChecked(drugUnit.equals(item.getTitle()));
                     binding.dispenseUnitRadioGroup.addView(radio);
                 }));
     }

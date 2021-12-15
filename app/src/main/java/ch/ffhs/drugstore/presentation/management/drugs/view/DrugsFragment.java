@@ -109,7 +109,8 @@ public class DrugsFragment extends Fragment
         return true;
       } else if (itemId == R.id.drug_item_edit) {
         EditDrugDialogFragmentArgs args = new EditDrugDialogFragmentArgs(
-                drug.getDrugId(), drug.getTitle(), drug.getDosage(), drug.getDrugType(), drug.getTolerance(), drug.isFavorite()
+                drug.getDrugId(), drug.getTitle(), drug.getDosage(), drug.getDrugType(), drug.getUnit(),
+                drug.getTolerance(), drug.isFavorite()
         );
         dialogService.showEditDrugDialog(getChildFragmentManager(), args);
         return true;
