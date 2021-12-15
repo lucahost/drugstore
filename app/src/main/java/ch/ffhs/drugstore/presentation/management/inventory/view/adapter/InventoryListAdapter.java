@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.databinding.InventoryItemBinding;
@@ -80,8 +82,10 @@ public class InventoryListAdapter
 
         void bind(int position) {
             title.setOnClickListener(this);
-            title.setText(String.format("Drug Id: %d", getItem(position).getDrugId()));
-            secondary.setText(String.format("Amount: %.2f %s", getItem(position).getStockAmount(),
+            title.setText(String.format(Locale.getDefault(), "Drug Id: %d",
+                    getItem(position).getDrugId()));
+            secondary.setText(String.format(Locale.getDefault(), "Amount: %.2f %s",
+                    getItem(position).getStockAmount(),
                     getItem(position).getUnit()));
         }
 
