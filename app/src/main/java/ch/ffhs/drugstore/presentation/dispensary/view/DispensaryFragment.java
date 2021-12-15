@@ -158,7 +158,7 @@ public class DispensaryFragment extends Fragment
     @Override
     public void onItemClick(DrugDto drug) {
         DispenseDrugDialogFragmentArgs args = new DispenseDrugDialogFragmentArgs(
-                drug.getDrugId(), drug.getTitle(), drug.getDosage());
+                drug.getDrugId(), drug.getTitle(), drug.getDosage(), drug.getUnit());
         dialogService.showDispenseDrugDialog(getChildFragmentManager(), args);
     }
 
