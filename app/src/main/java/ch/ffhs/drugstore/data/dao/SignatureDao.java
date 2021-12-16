@@ -29,7 +29,7 @@ public interface SignatureDao {
     void deleteAll();
 
     @Transaction
-    @Query("SELECT * FROM signatures")
+    @Query("SELECT * FROM signatures ORDER BY createdAt DESC")
     LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> getAllSignatures();
 
     @Transaction

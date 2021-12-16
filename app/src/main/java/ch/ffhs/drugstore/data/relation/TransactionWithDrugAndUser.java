@@ -16,7 +16,7 @@ public class TransactionWithDrugAndUser {
             entityColumn = "drugId",
             entity = Drug.class
     )
-    public Drug drug;
+    public DrugWithUnitAndDrugTypeAndSubstance drug;
 
     @Relation(
             parentColumn = "userId",
@@ -29,7 +29,7 @@ public class TransactionWithDrugAndUser {
         return transaction;
     }
 
-    public Drug getDrug() {
+    public DrugWithUnitAndDrugTypeAndSubstance getDrug() {
         return drug;
     }
 

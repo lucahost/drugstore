@@ -1,14 +1,19 @@
 package ch.ffhs.drugstore.presentation.management.signature.view.adapter;
 
+import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.chip.Chip;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -48,6 +53,7 @@ public class SignatureListAdapter
             };
 
     private SignatureListAdapter.OnItemClickListener clickListener;
+    private Context context;
 
     @Inject
     public SignatureListAdapter() {
@@ -60,9 +66,11 @@ public class SignatureListAdapter
         SignatureItemBinding binding =
                 SignatureItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent,
                         false);
+        context = binding.getRoot().getContext();
         return new SignatureItemHolder(binding);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull SignatureItemHolder holder, int position) {
         holder.bind(position);
@@ -84,23 +92,42 @@ public class SignatureListAdapter
             implements View.OnClickListener {
         private final TextView title;
         private final TextView secondary;
+        private final Chip chip;
 
         SignatureItemHolder(SignatureItemBinding binding) {
             super(binding.getRoot());
             title = binding.title;
             secondary = binding.secondary;
+            chip = binding.chip;
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.O)
         void bind(int position) {
-            title.setText(String.format(Locale.GERMAN, "%s: %d", R.string.signature_id,
-                    getItem(position).signature.getSignatureId()));
+            title.setText(getItemTitleText(position));
+            secondary.setText(getItemSecondaryText(position));
+            chip.setText(getItemChipText(position));
+            itemView.setOnClickListener(this);
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        @NonNull
+        private String getItemTitleText(int position) {
             ZonedDateTime createdAt = getItem(position).signature.getCreatedAt();
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(
                     FormatStyle.MEDIUM);
-            secondary.setText(
-                    String.format("%s: %s", R.string.created_at,
-                            createdAt.format(dateTimeFormatter)));
-            itemView.setOnClickListener(this);
+            return createdAt.format(dateTimeFormatter);
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        @NonNull
+        private String getItemSecondaryText(int position) {
+            return context.getString(R.string.drug_count,
+                    getItem(position).signatureDrugs.size());
+        }
+
+        @NonNull
+        private String getItemChipText(int position) {
+            return getItem(position).user.getShortName();
         }
 
         @Override

@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.Objects;
@@ -91,6 +92,7 @@ public class SignatureDetailFragment extends Fragment {
 
     private void setupRecyclerView() {
         binding.signatureDetailList.setLayoutManager(new LinearLayoutManager(context()));
+        binding.signatureDetailList.addItemDecoration(new DividerItemDecoration(context(), DividerItemDecoration.VERTICAL));
         binding.signatureDetailList.setAdapter(this.adapter);
     }
 }

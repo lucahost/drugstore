@@ -1,19 +1,22 @@
 package ch.ffhs.drugstore.presentation.management.history.view.adapter;
 
+import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.Chip;
+
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -39,7 +42,7 @@ public class HistoryListAdapter
                 }
             };
 
-    private HistoryListAdapter.OnItemClickListener clickListener;
+    private Context context;
 
     @Inject
     public HistoryListAdapter() {
@@ -51,60 +54,69 @@ public class HistoryListAdapter
     public HistoryItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         HistoryItemBinding binding =
                 HistoryItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        context = binding.getRoot().getContext();
         return new HistoryItemHolder(binding);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull HistoryItemHolder holder, int position) {
         holder.bind(position);
     }
 
-    // allows clicks events to be caught
-    public void setClickListener(OnItemClickListener itemClickListener) {
-        this.clickListener = itemClickListener;
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(TransactionDto transaction);
-
-        void onItemLongClick(TransactionDto transaction);
-    }
-
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder).
      */
-    public class HistoryItemHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener, View.OnLongClickListener {
+    public class HistoryItemHolder extends RecyclerView.ViewHolder {
         private final TextView title;
         private final TextView secondary;
+        private final TextView tertiary;
+        private final Chip chip;
 
         HistoryItemHolder(HistoryItemBinding binding) {
             super(binding.getRoot());
             title = binding.title;
             secondary = binding.secondary;
+            tertiary = binding.tertiary;
+            chip = binding.chip;
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.O)
         void bind(int position) {
-            title.setText(
-                    String.format(Locale.getDefault(), "%s: %d", R.string.transaction_id,
-                            getItem(position).getTransactionId()));
+            title.setText(getItemTitleText(position));
+            secondary.setText(getItemSecondaryText(position));
+            tertiary.setText(getItemTertiaryText(position));
+            chip.setText(getItemChipText(position));
+        }
+
+        @NonNull
+        private String getItemTitleText(int position) {
+            return context.getString(R.string.drug_title_and_dosage,
+                    getItem(position).getDrug().getTitle(),
+                    getItem(position).getDrug().getDosage());
+        }
+
+        @NonNull
+        private String getItemSecondaryText(int position) {
+            return context.getString(R.string.from_to,
+                    getItem(position).getUser().getShortName(),
+                    getItem(position).getPatient());
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        @NonNull
+        private String getItemTertiaryText(int position) {
             ZonedDateTime createdAt = getItem(position).getCreatedAt();
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(
                     FormatStyle.MEDIUM);
-            secondary.setText(
-                    String.format(Locale.getDefault(), "%s: %s", R.string.created_at,
-                            createdAt.format(dateTimeFormatter)));
+            return createdAt.format(dateTimeFormatter);
         }
 
-        @Override
-        public void onClick(View view) {
-            if (clickListener != null) clickListener.onItemClick(getItem(getAdapterPosition()));
-        }
-
-        @Override
-        public boolean onLongClick(View view) {
-            if (clickListener != null) clickListener.onItemLongClick(getItem(getAdapterPosition()));
-            return true;
+        @NonNull
+        private String getItemChipText(int position) {
+            return context.getString(R.string.drug_amount_and_unit,
+                    getItem(position).getAmount(),
+                    getItem(position).getDrug().getUnit());
         }
     }
 }

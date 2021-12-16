@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.Objects;
@@ -18,11 +19,10 @@ import javax.inject.Inject;
 import ch.ffhs.drugstore.databinding.FragmentHistoryBinding;
 import ch.ffhs.drugstore.presentation.management.history.view.adapter.HistoryListAdapter;
 import ch.ffhs.drugstore.presentation.management.history.viewmodel.HistoryViewModel;
-import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class HistoryFragment extends Fragment implements HistoryListAdapter.OnItemClickListener {
+public class HistoryFragment extends Fragment {
 
   @Inject HistoryListAdapter adapter;
   FragmentHistoryBinding binding;
@@ -57,19 +57,9 @@ public class HistoryFragment extends Fragment implements HistoryListAdapter.OnIt
     return Objects.requireNonNull(this.getActivity()).getApplicationContext();
   }
 
-  @Override
-  public void onItemClick(TransactionDto transaction) {
-    // TODO
-  }
-
-  @Override
-  public void onItemLongClick(TransactionDto transaction) {
-    // TODO
-  }
-
   private void setupRecyclerView() {
     binding.historyList.setLayoutManager(new LinearLayoutManager(context()));
-    adapter.setClickListener(this);
+    binding.historyList.addItemDecoration(new DividerItemDecoration(context(), DividerItemDecoration.VERTICAL));
     binding.historyList.setAdapter(this.adapter);
   }
 }

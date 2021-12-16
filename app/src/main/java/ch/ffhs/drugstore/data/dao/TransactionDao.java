@@ -28,6 +28,6 @@ public interface TransactionDao {
     void deleteAll();
 
     @androidx.room.Transaction
-    @Query("SELECT * FROM transactions")
+    @Query("SELECT * FROM transactions ORDER BY createdAt DESC")
     LiveData<List<TransactionWithDrugAndUser>> getAllTransactions();
 }

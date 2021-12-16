@@ -13,7 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Objects;
 
@@ -132,7 +134,9 @@ public class DrugsFragment extends Fragment
     }
 
     private void setupRecyclerView() {
-        binding.drugsList.setLayoutManager(new LinearLayoutManager(context()));
+        binding.drugsList.setLayoutManager(
+                new GridLayoutManager(context(), 2, RecyclerView.VERTICAL, false));
+        binding.drugsList.addItemDecoration(new DividerItemDecoration(context(), DividerItemDecoration.VERTICAL));
         adapter.setClickListener(this);
         binding.drugsList.setAdapter(this.adapter);
     }

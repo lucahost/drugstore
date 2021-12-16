@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import java.text.DecimalFormat;
+import java.util.Locale;
 
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.DialogRemoveDrugBinding;
@@ -79,8 +79,8 @@ public class RemoveDrugDialogFragment extends DialogFragment {
         binding = DialogRemoveDrugBinding.inflate(getLayoutInflater());
         binding.drugNameText.setText(drugTitle);
         binding.drugDosageText.setText(dosage);
-        binding.drugUnitText.setText(unit);
-        binding.drugStockAmountText.setText(new DecimalFormat("#.##").format(stockAmount));
+        String drugStockAmount = String.format(Locale.getDefault(), "%.2f %s", stockAmount, unit);
+        binding.drugStockAmountText.setText(drugStockAmount);
         return new AlertDialog.Builder(requireContext())
                 .setView(binding.getRoot())
                 .setTitle(getString(R.string.remove_drug))
