@@ -10,23 +10,33 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+
 import javax.inject.Inject;
 
+import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs;
 import ch.ffhs.drugstore.databinding.SignatureItemBinding;
 
 public class SignatureListAdapter
-        extends ListAdapter<SignatureWithUserAndSignatureDrugsAndDrugs, SignatureListAdapter.SignatureItemHolder> {
-    private static final DiffUtil.ItemCallback<SignatureWithUserAndSignatureDrugsAndDrugs> DIFF_CALLBACK =
+        extends
+        ListAdapter<SignatureWithUserAndSignatureDrugsAndDrugs,
+                SignatureListAdapter.SignatureItemHolder> {
+    private static final DiffUtil.ItemCallback<SignatureWithUserAndSignatureDrugsAndDrugs>
+            DIFF_CALLBACK =
             new DiffUtil.ItemCallback<SignatureWithUserAndSignatureDrugsAndDrugs>() {
                 @Override
-                public boolean areItemsTheSame(@NonNull SignatureWithUserAndSignatureDrugsAndDrugs oldItem,
+                public boolean areItemsTheSame(
+                        @NonNull SignatureWithUserAndSignatureDrugsAndDrugs oldItem,
                         @NonNull SignatureWithUserAndSignatureDrugsAndDrugs newItem) {
                     return oldItem.signature.getSignatureId() == newItem.signature.getSignatureId();
                 }
 
                 @Override
-                public boolean areContentsTheSame(@NonNull SignatureWithUserAndSignatureDrugsAndDrugs oldItem,
+                public boolean areContentsTheSame(
+                        @NonNull SignatureWithUserAndSignatureDrugsAndDrugs oldItem,
                         @NonNull SignatureWithUserAndSignatureDrugsAndDrugs newItem) {
                     return oldItem.signature.getUserId() == newItem.signature.getUserId()
                             && oldItem.signature.getSignatureId()
@@ -83,11 +93,13 @@ public class SignatureListAdapter
         }
 
         void bind(int position) {
-            title.setText(String.format("Signature Id: %d",
+            title.setText(String.format("%s: %d", R.string.signature_id,
                     getItem(position).signature.getSignatureId()));
+            ZonedDateTime createdAt = getItem(position).signature.getCreatedAt();
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(
+                    FormatStyle.MEDIUM);
             secondary.setText(
-                    String.format("Created at: %s", getItem(
-                            position).signature.getCreatedAt().toString()));
+                    String.format("%s: %s", R.string.created_at, createdAt.format(dateTimeFormatter)));
         }
 
         @Override

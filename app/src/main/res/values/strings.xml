@@ -50,4 +50,7 @@
     <string name="drug_not_found">Medikament wurde nicht gefunden</string>
     <string name="error_update_drug_amount">Fehler beim aktualisieren des Bestandes</string>
     <string name="remaining">Noch</string>
+    <string name="created_at">Created at</string>
+    <string name="signature_id">Signature Id</string>
+    <string name="transaction_id">Transaction Id</string>
 </resources>
