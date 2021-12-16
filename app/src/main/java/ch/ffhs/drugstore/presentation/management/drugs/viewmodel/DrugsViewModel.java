@@ -1,5 +1,7 @@
 package ch.ffhs.drugstore.presentation.management.drugs.viewmodel;
 
+import static ch.ffhs.drugstore.shared.extensions.DoubleExtension.tryParseDouble;
+
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
@@ -23,6 +25,7 @@ import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugs;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
+import ch.ffhs.drugstore.shared.extensions.DoubleExtension;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
@@ -72,14 +75,14 @@ public class DrugsViewModel extends AndroidViewModel {
     }
 
     public void updateDrugAmount(int drugId, String sAmount) throws DrugstoreException {
-        double amount = Double.parseDouble(sAmount);
+        double amount = tryParseDouble(sAmount);
         UpdateDrugAmountDto updateDrugAmountDto = new UpdateDrugAmountDto(drugId, amount);
         updateDrugAmount.execute(updateDrugAmountDto);
     }
 
     public void editDrug(int drugId, String name, String dosage, int drugTypeId, int unitId,
             String sTolerance, boolean isFavorite) {
-        double tolerance = Double.parseDouble(sTolerance);
+        double tolerance = tryParseDouble(sTolerance);
         EditDrugDto editDrugDto = new EditDrugDto(drugId, name, dosage, drugTypeId, unitId, name,
                 tolerance, isFavorite);
         editDrug.execute(editDrugDto);
@@ -88,7 +91,7 @@ public class DrugsViewModel extends AndroidViewModel {
     public void createDrug(String name, String dosage, int drugTypeId, int unitId,
             String sTolerance, boolean isFavorite)
             throws Exception {
-        double tolerance = Double.parseDouble(sTolerance);
+        double tolerance = tryParseDouble(sTolerance);
         CreateDrugDto createDrugDto = new CreateDrugDto(name, dosage, drugTypeId, unitId, name,
                 tolerance, isFavorite);
         createDrug.execute(createDrugDto);

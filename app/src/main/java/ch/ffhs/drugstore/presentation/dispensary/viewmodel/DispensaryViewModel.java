@@ -1,5 +1,7 @@
 package ch.ffhs.drugstore.presentation.dispensary.viewmodel;
 
+import static ch.ffhs.drugstore.shared.extensions.DoubleExtension.tryParseDouble;
+
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
@@ -70,7 +72,7 @@ public class DispensaryViewModel extends AndroidViewModel {
 
     public void dispenseDrug(int drugId, String employee, String patient, String sDosage)
             throws DrugstoreException {
-        double dosage = Double.parseDouble(sDosage);
+        double dosage = tryParseDouble(sDosage);
         SubmitDispenseDto submitDispenseDto = new SubmitDispenseDto(drugId, employee, patient,
                 dosage);
         dispenseDrug.execute(submitDispenseDto);
