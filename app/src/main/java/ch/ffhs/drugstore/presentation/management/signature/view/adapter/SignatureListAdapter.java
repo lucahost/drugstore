@@ -73,16 +73,14 @@ public class SignatureListAdapter
     }
 
     public interface OnItemClickListener {
-        void onItemClick(SignatureWithUserAndSignatureDrugsAndDrugs signature);
-
-        void onItemLongClick(SignatureWithUserAndSignatureDrugsAndDrugs signature);
+        void onItemClick(View view, SignatureWithUserAndSignatureDrugsAndDrugs signature);
     }
 
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder).
      */
     public class SignatureItemHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener, View.OnLongClickListener {
+            implements View.OnClickListener {
         private final TextView title;
         private final TextView secondary;
 
@@ -100,17 +98,12 @@ public class SignatureListAdapter
                     FormatStyle.MEDIUM);
             secondary.setText(
                     String.format("%s: %s", R.string.created_at, createdAt.format(dateTimeFormatter)));
+            itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            if (clickListener != null) clickListener.onItemClick(getItem(getAdapterPosition()));
-        }
-
-        @Override
-        public boolean onLongClick(View view) {
-            if (clickListener != null) clickListener.onItemLongClick(getItem(getAdapterPosition()));
-            return true;
+            if (clickListener != null) clickListener.onItemClick(view, getItem(getAdapterPosition()));
         }
     }
 }

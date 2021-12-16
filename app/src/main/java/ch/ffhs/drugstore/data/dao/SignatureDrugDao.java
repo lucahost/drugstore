@@ -11,6 +11,7 @@ import androidx.room.Update;
 import java.util.List;
 
 import ch.ffhs.drugstore.data.entity.SignatureDrug;
+import ch.ffhs.drugstore.data.relation.SignatureDrugWithDrug;
 
 @Dao
 public interface SignatureDrugDao {
@@ -33,4 +34,8 @@ public interface SignatureDrugDao {
     @Transaction
     @Query("SELECT * FROM signatureDrugs WHERE signatureId = :signatureId")
     LiveData<List<SignatureDrug>> getSignatureDrugsBySignatureId(int signatureId);
+
+    @Transaction
+    @Query("SELECT * FROM signatureDrugs WHERE signatureId = :signatureId")
+    LiveData<List<SignatureDrugWithDrug>> getSignatureDrugsWithDrugBySignatureId(int signatureId);
 }
