@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 4,
-    "identityHash": "6fa465eee1bfa7704cfccb32b2b94d4e",
+    "identityHash": "c0b5b26a155c37a7d066bf109c3e1bdd",
     "entities": [
       {
         "tableName": "drugs",
@@ -216,7 +216,7 @@
       },
       {
         "tableName": "signatures",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`signatureId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `userId` INTEGER NOT NULL, `createdAt` INTEGER DEFAULT (datetime('now')), FOREIGN KEY(`userId`) REFERENCES `users`(`userId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`signatureId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `userId` INTEGER NOT NULL, `createdAt` INTEGER, FOREIGN KEY(`userId`) REFERENCES `users`(`userId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "signatureId",
@@ -234,8 +234,7 @@
             "fieldPath": "createdAt",
             "columnName": "createdAt",
             "affinity": "INTEGER",
-            "notNull": false,
-            "defaultValue": "(datetime('now'))"
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -368,7 +367,7 @@
       },
       {
         "tableName": "transactions",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`transactionId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `userId` INTEGER NOT NULL, `drugId` INTEGER NOT NULL, `createdAt` INTEGER DEFAULT (datetime('now')), `amount` REAL NOT NULL, `patient` TEXT, FOREIGN KEY(`userId`) REFERENCES `users`(`userId`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`drugId`) REFERENCES `drugs`(`drugId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`transactionId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `userId` INTEGER NOT NULL, `drugId` INTEGER NOT NULL, `createdAt` INTEGER, `amount` REAL NOT NULL, `patient` TEXT, FOREIGN KEY(`userId`) REFERENCES `users`(`userId`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`drugId`) REFERENCES `drugs`(`drugId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "transactionId",
@@ -392,8 +391,7 @@
             "fieldPath": "createdAt",
             "columnName": "createdAt",
             "affinity": "INTEGER",
-            "notNull": false,
-            "defaultValue": "(datetime('now'))"
+            "notNull": false
           },
           {
             "fieldPath": "amount",
@@ -487,13 +485,13 @@
       },
       {
         "tableName": "users",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userId` INTEGER PRIMARY KEY AUTOINCREMENT, `firstName` TEXT, `lastName` TEXT, `shortName` TEXT, `emailAddress` TEXT, `externalId` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `firstName` TEXT, `lastName` TEXT, `shortName` TEXT, `emailAddress` TEXT, `externalId` TEXT)",
         "fields": [
           {
             "fieldPath": "userId",
             "columnName": "userId",
             "affinity": "INTEGER",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "firstName",
@@ -539,7 +537,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6fa465eee1bfa7704cfccb32b2b94d4e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c0b5b26a155c37a7d066bf109c3e1bdd')"
     ]
   }
 }

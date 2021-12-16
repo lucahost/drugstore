@@ -20,7 +20,6 @@ public class Signature {
     @PrimaryKey(autoGenerate = true)
     public long signatureId;
     public long userId;
-    @ColumnInfo(defaultValue = "(datetime('now'))")
     public ZonedDateTime createdAt;
 
     public Signature(long signatureId, long userId, ZonedDateTime createdAt) {

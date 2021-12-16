@@ -24,7 +24,6 @@ public class Transaction {
     public int transactionId;
     public int userId;
     public int drugId;
-    @ColumnInfo(defaultValue = "(datetime('now'))")
     public ZonedDateTime createdAt;
     public double amount;
     public String patient;

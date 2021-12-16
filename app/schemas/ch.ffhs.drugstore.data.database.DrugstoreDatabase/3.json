@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "9e62bd10b116f855fdc37b75243fdcb4",
+    "identityHash": "6d44003d88739b04656c00a3c85b263e",
     "entities": [
       {
         "tableName": "drugs",
@@ -368,7 +368,7 @@
       },
       {
         "tableName": "transactions",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`transactionId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `userId` INTEGER NOT NULL, `drugId` INTEGER NOT NULL, `createdAt` INTEGER DEFAULT (datetime('now')), `amount` REAL NOT NULL, `patient` TEXT, FOREIGN KEY(`userId`) REFERENCES `users`(`userId`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`drugId`) REFERENCES `drugs`(`drugId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`transactionId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `userId` INTEGER NOT NULL, `drugId` INTEGER NOT NULL, `createdAt` INTEGER, `amount` REAL NOT NULL, `patient` TEXT, FOREIGN KEY(`userId`) REFERENCES `users`(`userId`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`drugId`) REFERENCES `drugs`(`drugId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "transactionId",
@@ -392,8 +392,7 @@
             "fieldPath": "createdAt",
             "columnName": "createdAt",
             "affinity": "INTEGER",
-            "notNull": false,
-            "defaultValue": "(datetime('now'))"
+            "notNull": false
           },
           {
             "fieldPath": "amount",
@@ -539,7 +538,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9e62bd10b116f855fdc37b75243fdcb4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6d44003d88739b04656c00a3c85b263e')"
     ]
   }
 }

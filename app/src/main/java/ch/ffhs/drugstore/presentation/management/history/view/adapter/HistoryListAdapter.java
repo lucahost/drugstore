@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.ZonedDateTime;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -84,9 +85,9 @@ public class HistoryListAdapter
             title.setText(
                     String.format(Locale.getDefault(), "Transaction Id: %d",
                             getItem(position).getTransactionId()));
+            ZonedDateTime createdAt = getItem(position).getCreatedAt();
             secondary.setText(
-                    String.format(Locale.getDefault(), "Created at: %s", getItem(
-                            position).getCreatedAt().toString()));
+                    String.format(Locale.getDefault(), "Created at: %s", createdAt.toString()));
         }
 
         @Override
