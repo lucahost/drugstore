@@ -4,18 +4,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import javax.inject.Inject;
-
 import ch.ffhs.drugstore.R;
-import ch.ffhs.drugstore.databinding.DialogCreateDrugBinding;
 import ch.ffhs.drugstore.databinding.DialogDeleteDrugBinding;
 import dagger.assisted.Assisted;
 import dagger.assisted.AssistedInject;
@@ -62,13 +56,6 @@ public class DeleteDrugDialogFragment extends DialogFragment {
       drugId = getArguments().getInt(ARG_DRUG_ID);
       drugTitle = getArguments().getString(ARG_DRUG_TITLE);
     }
-  }
-
-  @Override
-  public View onCreateView(
-      @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    binding = DialogDeleteDrugBinding.inflate(inflater, container, false);
-    return binding.getRoot();
   }
 
   @NonNull

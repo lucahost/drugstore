@@ -43,9 +43,7 @@ public class DialogService {
 
   public void showDispenseDrugDialog(FragmentManager fragmentManager, DispenseDrugDialogFragmentArgs args) {
 
-    if (dispenseDrugDialogFragment == null) {
-      dispenseDrugDialogFragment = dispenseDrugDialogFragmentFactory.create(args);
-    }
+    dispenseDrugDialogFragment = dispenseDrugDialogFragmentFactory.create(args);
     if (!dispenseDrugDialogFragment.isAdded()) {
       dispenseDrugDialogFragment.show(fragmentManager, DispenseDrugDialogFragment.TAG);
     }
@@ -53,9 +51,7 @@ public class DialogService {
 
   public void showAddDrugDialog(FragmentManager fragmentManager, AddDrugDialogFragmentArgs args) {
 
-    if (addDrugDialogFragment == null) {
-      addDrugDialogFragment = addDrugDialogFragmentFactory.create(args);
-    }
+    addDrugDialogFragment = addDrugDialogFragmentFactory.create(args);
     if (!addDrugDialogFragment.isAdded()) {
       addDrugDialogFragment.show(fragmentManager, AddDrugDialogFragment.TAG);
     }
@@ -63,9 +59,7 @@ public class DialogService {
 
   public void showEditDrugDialog(FragmentManager fragmentManager, EditDrugDialogFragmentArgs args) {
 
-    if (editDrugDialogFragment == null) {
-      editDrugDialogFragment = editDrugDialogFragmentFactory.create(args);
-    }
+    editDrugDialogFragment = editDrugDialogFragmentFactory.create(args);
     if (!editDrugDialogFragment.isAdded()) {
       editDrugDialogFragment.show(fragmentManager, EditDrugDialogFragment.TAG);
     }
@@ -73,19 +67,14 @@ public class DialogService {
 
   public void showRemoveDrugDialog(FragmentManager fragmentManager, RemoveDrugDialogFragmentArgs args) {
 
-    if (removeDrugDialogFragment == null) {
-      removeDrugDialogFragment = removeDrugDialogFragmentFactory.create(args);
-    }
+    removeDrugDialogFragment = removeDrugDialogFragmentFactory.create(args);
     if (!removeDrugDialogFragment.isAdded()) {
       removeDrugDialogFragment.show(fragmentManager, RemoveDrugDialogFragment.TAG);
     }
   }
 
   public void showDeleteDrugDialog(FragmentManager fragmentManager, DeleteDrugDialogFragmentArgs args) {
-
-    if (deleteDrugDialogFragment == null) {
-      deleteDrugDialogFragment = deleteDrugDialogFragmentFactory.create(args);
-    }
+    deleteDrugDialogFragment = deleteDrugDialogFragmentFactory.create(args);
     if (!deleteDrugDialogFragment.isAdded()) {
       deleteDrugDialogFragment.show(fragmentManager, DeleteDrugDialogFragment.TAG);
     }

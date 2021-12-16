@@ -1,12 +1,11 @@
 package ch.ffhs.drugstore.data.entity;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 @Entity(tableName = "signatures",
         foreignKeys = {
@@ -19,10 +18,9 @@ public class Signature {
     @PrimaryKey(autoGenerate = true)
     public long signatureId;
     public long userId;
-    @ColumnInfo(defaultValue = "(datetime('now'))")
-    public Date createdAt;
+    public ZonedDateTime createdAt;
 
-    public Signature(long signatureId, long userId, Date createdAt) {
+    public Signature(long signatureId, long userId, ZonedDateTime createdAt) {
         this.signatureId = signatureId;
         this.userId = userId;
         this.createdAt = createdAt;
@@ -44,11 +42,11 @@ public class Signature {
         this.userId = userId;
     }
 
-    public Date getCreatedAt() {
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 }

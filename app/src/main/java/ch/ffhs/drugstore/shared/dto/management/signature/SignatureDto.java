@@ -1,15 +1,15 @@
 package ch.ffhs.drugstore.shared.dto.management.signature;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
 
 public class SignatureDto {
     private int signatureId;
     private UserDto user;
-    private Date createdAt;
+    private ZonedDateTime createdAt;
 
-    public SignatureDto(int signatureId, UserDto user, Date createdAt) {
+    public SignatureDto(int signatureId, UserDto user, ZonedDateTime createdAt) {
         this.signatureId = signatureId;
         this.user = user;
         this.createdAt = createdAt;
@@ -31,11 +31,11 @@ public class SignatureDto {
         this.user = user;
     }
 
-    public Date getCreatedAt() {
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 }

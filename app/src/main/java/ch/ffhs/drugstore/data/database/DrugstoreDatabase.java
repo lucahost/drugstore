@@ -17,8 +17,13 @@ import java.util.concurrent.Executors;
 
 import ch.ffhs.drugstore.data.converters.DateConverter;
 import ch.ffhs.drugstore.data.dao.DrugDao;
+import ch.ffhs.drugstore.data.dao.DrugTypeDao;
 import ch.ffhs.drugstore.data.dao.SignatureDao;
+import ch.ffhs.drugstore.data.dao.SignatureDrugDao;
+import ch.ffhs.drugstore.data.dao.SubstanceDao;
 import ch.ffhs.drugstore.data.dao.TransactionDao;
+import ch.ffhs.drugstore.data.dao.UnitDao;
+import ch.ffhs.drugstore.data.dao.UserDao;
 import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.data.entity.DrugType;
 import ch.ffhs.drugstore.data.entity.Signature;
@@ -39,13 +44,13 @@ import ch.ffhs.drugstore.data.entity.User;
                 Unit.class,
                 User.class
         },
-        version = 3,
+        version = 4,
         autoMigrations = {
                 @AutoMigration(from = 1, to = 2),
                 @AutoMigration(from = 2, to = 3, spec =
                         DrugstoreDatabase.DropUnitColumnMigration.class),
-        },
-        exportSchema = true)
+                @AutoMigration(from = 3, to = 4)
+        })
 @TypeConverters({DateConverter.class})
 public abstract class DrugstoreDatabase extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 4;
@@ -74,8 +79,10 @@ public abstract class DrugstoreDatabase extends RoomDatabase {
                                     context.getApplicationContext(), DrugstoreDatabase.class,
                                     "drugstore_db")
                                     .addCallback(sRoomDatabaseCallback)
-                                    // .fallbackToDestructiveMigration()
-                                    .createFromAsset("database/database.db")
+                                    //.fallbackToDestructiveMigration()
+                                    // TODO @Luca temporary fix for drugs.getById()
+                                    .allowMainThreadQueries()
+                                    .createFromAsset("database/database_v3.db")
                                     .build();
                 }
             }
@@ -85,9 +92,19 @@ public abstract class DrugstoreDatabase extends RoomDatabase {
 
     public abstract DrugDao drugDao();
 
+    public abstract DrugTypeDao drugTypeDao();
+
+    public abstract UnitDao unitDao();
+
     public abstract TransactionDao transactionDao();
 
     public abstract SignatureDao signatureDao();
+
+    public abstract SignatureDrugDao signatureDrugDao();
+
+    public abstract SubstanceDao substanceDao();
+
+    public abstract UserDao userDao();
 
     @DeleteColumn(tableName = "drugTypes", columnName = "unitId")
     static class DropUnitColumnMigration implements AutoMigrationSpec {

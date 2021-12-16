@@ -2,14 +2,14 @@ package ch.ffhs.drugstore.shared.dto.dispensary;
 
 public class SubmitDispenseDto {
     private int drugId;
-    private String userId;
+    private String userShortname;
     private String patient;
     private double amount;
 
 
-    public SubmitDispenseDto(int drugId, String userId, String patient, double amount) {
+    public SubmitDispenseDto(int drugId, String userShortname, String patient, double amount) {
         this.drugId = drugId;
-        this.userId = userId;
+        this.userShortname = userShortname;
         this.patient = patient;
         this.amount = amount;
     }
@@ -38,11 +38,11 @@ public class SubmitDispenseDto {
         this.amount = amount;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserShortname() {
+        return userShortname;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserShortname(String userShortname) {
+        this.userShortname = userShortname;
     }
 }

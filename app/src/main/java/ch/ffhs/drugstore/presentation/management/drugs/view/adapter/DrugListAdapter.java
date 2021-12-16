@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.databinding.DrugItemBinding;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
 public class DrugListAdapter extends ListAdapter<DrugDto, DrugListAdapter.DrugHolder> {
   private static final DiffUtil.ItemCallback<DrugDto> DIFF_CALLBACK =

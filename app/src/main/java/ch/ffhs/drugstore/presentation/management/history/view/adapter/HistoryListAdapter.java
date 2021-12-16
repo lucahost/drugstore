@@ -10,10 +10,16 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
+
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
+import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.HistoryItemBinding;
+import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 
 public class HistoryListAdapter
         extends ListAdapter<TransactionDto, HistoryListAdapter.HistoryItemHolder> {
@@ -80,9 +86,14 @@ public class HistoryListAdapter
 
         void bind(int position) {
             title.setText(
-                    String.format("Transaction Id: %d", getItem(position).getTransactionId()));
+                    String.format(Locale.getDefault(), "%s: %d", R.string.transaction_id,
+                            getItem(position).getTransactionId()));
+            ZonedDateTime createdAt = getItem(position).getCreatedAt();
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(
+                    FormatStyle.MEDIUM);
             secondary.setText(
-                    String.format("Created at: %s", getItem(position).getCreatedAt().toString()));
+                    String.format(Locale.getDefault(), "%s: %s", R.string.created_at,
+                            createdAt.format(dateTimeFormatter)));
         }
 
         @Override

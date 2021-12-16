@@ -7,7 +7,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs;
+import ch.ffhs.drugstore.data.repository.SignatureDrugRepository;
 import ch.ffhs.drugstore.data.repository.SignatureRepository;
+import ch.ffhs.drugstore.data.repository.UserRepository;
+import ch.ffhs.drugstore.shared.dto.management.signature.CreateSignatureDto;
+import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
+import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
+import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
+
 /**
  * This class represents a service to return a signature
  *
@@ -16,21 +23,32 @@ import ch.ffhs.drugstore.data.repository.SignatureRepository;
  */
 public class SignatureService {
     private final SignatureRepository signatureRepository;
+    private final UserRepository userRepository;
+    private final SignatureDrugRepository signatureDrugRepository;
 
-    /**
-     *
-     * @param signatureRepository
-     */
     @Inject
-    public SignatureService(SignatureRepository signatureRepository) {
+    public SignatureService(SignatureRepository signatureRepository, SignatureDrugRepository signatureDrugRepository,
+            UserRepository userRepository) {
         this.signatureRepository = signatureRepository;
+        this.signatureDrugRepository = signatureDrugRepository;
+        this.userRepository = userRepository;
     }
 
-    /**
-     *
-     * @return
-     */
     public LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> getSignatures() {
         return signatureRepository.getSignatures();
+    }
+
+    public void createSignature(CreateSignatureDto createSignatureDto) {
+        String userShortname = createSignatureDto.getUserShortName();
+        UserDto user = userRepository.getOrCreateUserByShortName(userShortname);
+
+        SignatureDto signatureDto = new SignatureDto(0, user, createSignatureDto.getCreatedAt());
+
+        signatureRepository.createSignatureFrom(signatureDto,
+                createSignatureDto.getSignatureDrugs());
+    }
+
+    public LiveData<List<SignatureDrugDto>> getSignatureDrugsBySignatureId(int signatureId) {
+        return signatureDrugRepository.getSignatureDrugsBySignatureId(signatureId);
     }
 }

@@ -6,8 +6,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import ch.ffhs.drugstore.data.repository.TransactionRepository;
+import ch.ffhs.drugstore.data.repository.UserRepository;
+import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
+import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
+
 /**
  * This class represents a service to get a history of the transactions
  *
@@ -16,21 +19,30 @@ import ch.ffhs.drugstore.data.repository.TransactionRepository;
  */
 public class HistoryService {
     private final TransactionRepository transactionRepository;
+    private final UserRepository userRepository;
 
-    /**
-     * construct the service
-     * @param transactionRepository
-     */
     @Inject
-    public HistoryService(TransactionRepository transactionRepository) {
+    public HistoryService(TransactionRepository transactionRepository,
+            UserRepository userRepository) {
         this.transactionRepository = transactionRepository;
+        this.userRepository = userRepository;
     }
 
-    /**
-     *
-     * @return
-     */
     public LiveData<List<TransactionDto>> getHistory() {
         return transactionRepository.getAllTransactions();
+    }
+
+    public void addTransaction(TransactionDto transactionDto) {
+        UserDto user = transactionDto.getUser();
+        String userShortname = user.getShortName();
+        Integer userId = user.getUserId();
+
+        // if we didn't got a userId but a user shortname create the new user
+        if (userId == null && userShortname != null && !userShortname.isEmpty()) {
+            user = userRepository.getOrCreateUserByShortName(userShortname);
+            transactionDto.setUser(user);
+        }
+
+        transactionRepository.addTransaction(transactionDto);
     }
 }

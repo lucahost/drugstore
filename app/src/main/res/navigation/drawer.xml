@@ -18,10 +18,31 @@
         android:id="@+id/signature"
         android:name="ch.ffhs.drugstore.presentation.management.signature.view.SignatureFragment"
         android:label="fragment_signature"
-        tools:layout="@layout/fragment_signature" />
+        tools:layout="@layout/fragment_signature">
+        <action
+            android:id="@+id/action_signature_to_signatureDetailFragment"
+            app:destination="@id/signatureDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/history"
         android:name="ch.ffhs.drugstore.presentation.management.history.view.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/signatureDetailFragment"
+        android:name="ch.ffhs.drugstore.presentation.management.signature.view.SignatureDetailFragment"
+        android:label="fragment_signature_detail"
+        tools:layout="@layout/fragment_signature_detail">
+        <action
+            android:id="@+id/action_signatureDetailFragment_to_signature"
+            app:destination="@id/signature" />
+        <argument
+            android:name="signature_id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/settings"
+        android:name="ch.ffhs.drugstore.presentation.management.settings.view.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

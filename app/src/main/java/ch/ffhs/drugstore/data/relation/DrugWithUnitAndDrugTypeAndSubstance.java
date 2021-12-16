@@ -1,7 +1,6 @@
 package ch.ffhs.drugstore.data.relation;
 
 import androidx.room.Embedded;
-import androidx.room.Entity;
 import androidx.room.Relation;
 
 import ch.ffhs.drugstore.data.entity.Drug;

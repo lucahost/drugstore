@@ -3,6 +3,7 @@ package ch.ffhs.drugstore.data.repository;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
 
 import java.util.List;
 
@@ -10,33 +11,30 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.dao.TransactionDao;
 import ch.ffhs.drugstore.data.database.DrugstoreDatabase;
-import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import ch.ffhs.drugstore.data.entity.Transaction;
+import ch.ffhs.drugstore.data.relation.TransactionWithDrugAndUser;
+import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
+import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 
 public class TransactionRepository {
     private final TransactionDao transactionDao;
-    private final LiveData<List<TransactionDto>> allTransactions;
+    private final LiveData<List<TransactionWithDrugAndUser>> allTransactions;
+    private final DrugstoreMapper mapper;
 
-    // Note that in order to unit test the WordRepository, you have to remove the Application
-    // dependency. This adds complexity and much more code, and this sample is not about testing.
-    // See the BasicSample in the android-architecture-components repository at
-    // https://github.com/googlesamples
     @Inject
     public TransactionRepository(Application application) {
         DrugstoreDatabase db = DrugstoreDatabase.getDatabase(application);
+        mapper = DrugstoreMapper.INSTANCE;
         transactionDao = db.transactionDao();
         allTransactions = transactionDao.getAllTransactions();
     }
 
-    // Room executes all queries on a separate thread.
-    // Observed LiveData will notify the observer when the data has changed.
     public LiveData<List<TransactionDto>> getAllTransactions() {
-        return allTransactions;
+        return Transformations.map(allTransactions, mapper::transactionListToTransactionDtoList);
     }
 
-    // You must call this on a non-UI thread or your app will throw an exception. Room ensures
-    // that you're not doing any long running operations on the main thread, blocking the UI.
-    public void insert(Transaction transaction) {
+    public void addTransaction(TransactionDto transactionDto) {
+        Transaction transaction = mapper.transactionDtoToTransaction(transactionDto);
         DrugstoreDatabase.databaseWriteExecutor.execute(() -> transactionDao.insert(transaction));
     }
 

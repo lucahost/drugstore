@@ -2,20 +2,20 @@ package ch.ffhs.drugstore.shared.dto.management.drugs;
 
 public class CreateDrugDto {
     private String title;
+    private String substance;
     private String dosage;
     private int drugTypeId;
     private int unitId;
-    private int substanceId;
     private double tolerance;
     private boolean isFavorite;
 
-    public CreateDrugDto(String title, String dosage, int drugTypeId, int unitId, int substanceId,
+    public CreateDrugDto(String title, String dosage, int drugTypeId, int unitId, String substance,
             double tolerance, boolean isFavorite) {
         this.title = title;
         this.dosage = dosage;
         this.drugTypeId = drugTypeId;
         this.unitId = unitId;
-        this.substanceId = substanceId;
+        this.substance = substance;
         this.tolerance = tolerance;
         this.isFavorite = isFavorite;
     }
@@ -52,12 +52,12 @@ public class CreateDrugDto {
         this.unitId = unitId;
     }
 
-    public int getSubstanceId() {
-        return substanceId;
+    public String getSubstance() {
+        return substance;
     }
 
-    public void setSubstanceId(int substanceId) {
-        this.substanceId = substanceId;
+    public void setSubstance(String substance) {
+        this.substance = substance;
     }
 
     public double getTolerance() {

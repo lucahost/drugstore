@@ -13,12 +13,14 @@ import org.junit.Test;
 import java.util.List;
 
 import ch.ffhs.drugstore.data.repository.TransactionRepository;
+import ch.ffhs.drugstore.data.repository.UserRepository;
 import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
+
 /**
  * Test-class for HistoryService class
  *
- *  @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
- *  @version 2021.12.15
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
  */
 public class HistoryServiceTest {
 
@@ -30,9 +32,10 @@ public class HistoryServiceTest {
         // Setup
         LiveData<List<TransactionDto>> drugs = new MutableLiveData<>();
         TransactionRepository transactionRepository = mock(TransactionRepository.class);
+        UserRepository userRepository = mock(UserRepository.class);
         when(transactionRepository.getAllTransactions()).thenReturn(drugs);
 
-        HistoryService historyService = new HistoryService(transactionRepository);
+        HistoryService historyService = new HistoryService(transactionRepository, userRepository);
 
         // Test
         LiveData<List<TransactionDto>> result = historyService.getHistory();

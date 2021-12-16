@@ -1,23 +1,24 @@
 package ch.ffhs.drugstore.shared.dto.management.history;
 
-import androidx.room.Embedded;
+import java.time.ZonedDateTime;
 
-import java.util.Date;
-
-import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
+import ch.ffhs.drugstore.shared.dto.dispensary.SubmitDispenseDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
 
 public class TransactionDto {
     private int transactionId;
-    @Embedded
     private DrugDto drug;
-    @Embedded
     private UserDto user;
-    private Date createdAt;
+    private ZonedDateTime createdAt;
     private double amount;
     private String patient;
 
-    public TransactionDto(int transactionId, DrugDto drug, UserDto user, Date createdAt,
+    public TransactionDto() {
+
+    }
+
+    public TransactionDto(int transactionId, DrugDto drug, UserDto user, ZonedDateTime createdAt,
             double amount,
             String patient) {
         this.transactionId = transactionId;
@@ -26,6 +27,15 @@ public class TransactionDto {
         this.createdAt = createdAt;
         this.amount = amount;
         this.patient = patient;
+    }
+
+    public TransactionDto(SubmitDispenseDto submitDispenseDto, DrugDto drug) {
+        this.drug = drug;
+        this.amount = submitDispenseDto.getAmount();
+        this.patient = submitDispenseDto.getPatient();
+        this.user = new UserDto();
+        this.createdAt = ZonedDateTime.now();
+        user.setShortName(submitDispenseDto.getUserShortname());
     }
 
     public int getTransactionId() {
@@ -52,11 +62,11 @@ public class TransactionDto {
         this.user = user;
     }
 
-    public Date getCreatedAt() {
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

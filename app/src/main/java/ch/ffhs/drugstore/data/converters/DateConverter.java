@@ -1,17 +1,28 @@
 package ch.ffhs.drugstore.data.converters;
 
+import androidx.room.ProvidedTypeConverter;
 import androidx.room.TypeConverter;
 
-import java.util.Date;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
+@ProvidedTypeConverter
 public class DateConverter {
     @TypeConverter
-    public static Date fromTimestamp(Long value) {
-        return value == null ? null : new Date(value);
+    public static ZonedDateTime fromTimestampToUTC(Long value) {
+        if (value == null) {
+            return null;
+        }
+        Instant i = Instant.ofEpochSecond(value);
+        return ZonedDateTime.ofInstant(i, ZoneId.of("UTC"));
     }
 
     @TypeConverter
-    public static Long dateToTimestamp(Date date) {
-        return date == null ? null : date.getTime();
+    public static Long dateToTimestamp(ZonedDateTime date) {
+        if (date == null) {
+            return null;
+        }
+        return date.toInstant().getEpochSecond();
     }
 }

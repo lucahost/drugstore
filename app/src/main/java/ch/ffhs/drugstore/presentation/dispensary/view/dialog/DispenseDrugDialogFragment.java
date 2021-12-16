@@ -4,9 +4,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,11 +11,8 @@ import androidx.fragment.app.DialogFragment;
 
 import java.util.Objects;
 
-import javax.inject.Inject;
-
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.DialogDispenseDrugBinding;
-import ch.ffhs.drugstore.databinding.DialogSignInventoryBinding;
 import dagger.assisted.Assisted;
 import dagger.assisted.AssistedInject;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -30,12 +24,14 @@ public class DispenseDrugDialogFragment extends DialogFragment {
     public static final String ARG_DRUG_ID = "drugId";
     public static final String ARG_DRUG_TITLE = "drugTitle";
     public static final String ARG_DRUG_DOSAGE = "drugDosage";
+    public static final String ARG_DRUG_UNIT = "drugUnit";
 
     private ConfirmDispenseDrugListener confirmDispenseDrugListener;
     private DialogDispenseDrugBinding binding;
     private int drugId;
     private String drugTitle;
     private String drugDosage;
+    private String drugUnit;
 
     public DispenseDrugDialogFragment() {
         // Required empty public constructor
@@ -48,6 +44,7 @@ public class DispenseDrugDialogFragment extends DialogFragment {
         bundle.putInt(ARG_DRUG_ID, args.getDrugId());
         bundle.putString(ARG_DRUG_TITLE, args.getDrugTitle());
         bundle.putString(ARG_DRUG_DOSAGE, args.getDrugDosage());
+        bundle.putString(ARG_DRUG_UNIT, args.getDrugUnit());
         setArguments(bundle);
     }
 
@@ -58,6 +55,7 @@ public class DispenseDrugDialogFragment extends DialogFragment {
             drugId = getArguments().getInt(ARG_DRUG_ID);
             drugTitle = getArguments().getString(ARG_DRUG_TITLE);
             drugDosage = getArguments().getString(ARG_DRUG_DOSAGE);
+            drugUnit = getArguments().getString(ARG_DRUG_UNIT);
         }
     }
 
@@ -72,18 +70,13 @@ public class DispenseDrugDialogFragment extends DialogFragment {
         }
     }
 
-    @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = DialogDispenseDrugBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         binding = DialogDispenseDrugBinding.inflate(getLayoutInflater());
         binding.drugDosageText.setText(drugDosage);
+        binding.drugUnitText.setText(drugUnit);
         return new AlertDialog.Builder(requireContext())
                 .setView(binding.getRoot())
                 .setTitle(drugTitle)
