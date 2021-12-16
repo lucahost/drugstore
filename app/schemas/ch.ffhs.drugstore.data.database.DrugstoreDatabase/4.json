@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 4,
-    "identityHash": "c0b5b26a155c37a7d066bf109c3e1bdd",
+    "identityHash": "333df9ea0f34e0ea96a714d16be67566",
     "entities": [
       {
         "tableName": "drugs",
@@ -136,7 +136,7 @@
       },
       {
         "tableName": "drugTypes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`drugTypeId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `parentDrugTypeId` INTEGER NOT NULL, `title` TEXT, FOREIGN KEY(`parentDrugTypeId`) REFERENCES `drugTypes`(`drugTypeId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`drugTypeId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `parentDrugTypeId` INTEGER, `title` TEXT, FOREIGN KEY(`parentDrugTypeId`) REFERENCES `drugTypes`(`drugTypeId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "drugTypeId",
@@ -148,7 +148,7 @@
             "fieldPath": "parentDrugTypeId",
             "columnName": "parentDrugTypeId",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "title",
@@ -537,7 +537,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c0b5b26a155c37a7d066bf109c3e1bdd')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '333df9ea0f34e0ea96a714d16be67566')"
     ]
   }
 }

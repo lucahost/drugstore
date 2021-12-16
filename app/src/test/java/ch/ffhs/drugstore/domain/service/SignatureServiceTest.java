@@ -1,9 +1,9 @@
 package ch.ffhs.drugstore.domain.service;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
+import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -24,9 +24,6 @@ import ch.ffhs.drugstore.data.repository.SignatureRepository;
  */
 public class SignatureServiceTest {
 
-    /**
-     *
-     */
     @Test
     public void getSignatures() {
         // Setup

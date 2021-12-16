@@ -17,10 +17,10 @@ import androidx.room.PrimaryKey;
 public class DrugType {
     @PrimaryKey(autoGenerate = true)
     public int drugTypeId;
-    public int parentDrugTypeId;
+    public Integer parentDrugTypeId;
     public String title;
 
-    public DrugType(int drugTypeId, int parentDrugTypeId, String title) {
+    public DrugType(int drugTypeId, Integer parentDrugTypeId, String title) {
         this.drugTypeId = drugTypeId;
         this.parentDrugTypeId = parentDrugTypeId;
         this.title = title;
@@ -34,11 +34,11 @@ public class DrugType {
         this.drugTypeId = drugTypeId;
     }
 
-    public int getParentDrugTypeId() {
+    public Integer getParentDrugTypeId() {
         return parentDrugTypeId;
     }
 
-    public void setParentDrugTypeId(int parentDrugTypeId) {
+    public void setParentDrugTypeId(Integer parentDrugTypeId) {
         this.parentDrugTypeId = parentDrugTypeId;
     }
 

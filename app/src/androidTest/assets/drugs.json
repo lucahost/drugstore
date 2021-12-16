@@ -7,7 +7,7 @@
     "dosage": "200mcg",
     "tolerance": 0,
     "isFavorite": false,
-    "inStock": 15
+    "stockAmount": 15
   },
   {
     "drugId": 10002,
@@ -17,7 +17,7 @@
     "dosage": "400mcg",
     "tolerance": 0,
     "isFavorite": false,
-    "inStock": 5
+    "stockAmount": 5
   },
   {
     "drugId": 10003,
@@ -27,7 +27,7 @@
     "dosage": "18mg",
     "tolerance": 0,
     "isFavorite": false,
-    "inStock": 5
+    "stockAmount": 5
   },
   {
     "drugId": 10004,
@@ -37,7 +37,7 @@
     "dosage": "36mg",
     "tolerance": 0,
     "isFavorite": false,
-    "inStock": 30
+    "stockAmount": 30
   },
   {
     "drugId": 10005,
@@ -47,6 +47,6 @@
     "dosage": "54mg",
     "tolerance": 0,
     "isFavorite": false,
-    "inStock": 30
+    "stockAmount": 30
   }
 ]

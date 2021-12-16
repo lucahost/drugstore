@@ -1,6 +1,7 @@
 package ch.ffhs.drugstore.data.converters;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
@@ -13,7 +14,8 @@ public class DateConverterTest {
     public void fromTimestamp() {
         long valid_timestamp = 1639436411L;
         ZonedDateTime expected_date = ZonedDateTime.of(2021, 12, 13, 23, 0, 11, 0, ZoneOffset.UTC);
-        assertEquals(expected_date.toLocalTime(), DateConverter.fromTimestampToUTC(valid_timestamp).toLocalTime());
+        assertEquals(expected_date.toLocalTime(),
+                DateConverter.fromTimestampToUTC(valid_timestamp).toLocalTime());
     }
 
     @Test
@@ -21,5 +23,17 @@ public class DateConverterTest {
         ZonedDateTime expected_date = ZonedDateTime.of(2021, 12, 13, 23, 0, 11, 0, ZoneOffset.UTC);
         long valid_timestamp = 1639436411L;
         assertEquals(Long.valueOf(valid_timestamp), DateConverter.dateToTimestamp(expected_date));
+    }
+
+    @Test
+    public void emptyDateShouldReturnNull() {
+        ZonedDateTime expected_date = null;
+        assertNull(DateConverter.dateToTimestamp(expected_date));
+    }
+
+    @Test
+    public void emptyLongShouldReturnNull() {
+        Long invalid_timestamp = null;
+        assertNull(DateConverter.fromTimestampToUTC(invalid_timestamp));
     }
 }
