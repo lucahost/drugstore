@@ -93,9 +93,10 @@ public class DispensaryListAdapter
         void bind(int position) {
             drugTitle.setText(String.format("%s - %s (%s)", getItem(position).getDrugId(),
                     getItem(position).getTitle(), getItem(position).getDrugType()));
-            drugSecondary.setText(String.format("%s - %s %s", getItem(position).getDosage(),
+            drugSecondary.setText(String.format("%s - %s %s %s", getItem(position).getDosage(),
                     card.getContext().getResources().getString(R.string.remaining),
-                    new DecimalFormat("#.##").format(getItem(position).getStockAmount())));
+                    new DecimalFormat("#.##").format(getItem(position).getStockAmount()),
+                    getItem(position).getUnit()));
             card.setChecked(getItem(position).isFavorite());
             card.setOnClickListener(this);
             card.setOnLongClickListener(this);
