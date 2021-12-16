@@ -26,61 +26,63 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class InventoryFragment extends Fragment
-    implements InventoryListAdapter.OnItemClickListener,
+        implements InventoryListAdapter.OnItemClickListener,
         SignInventoryDialogFragment.ConfirmSignInventoryListener {
 
-  @Inject InventoryListAdapter adapter;
-  @Inject DialogService dialogService;
-  FragmentInventoryBinding binding;
-  InventoryViewModel viewModel;
+    @Inject
+    InventoryListAdapter adapter;
+    @Inject
+    DialogService dialogService;
+    FragmentInventoryBinding binding;
+    InventoryViewModel viewModel;
 
-  @Inject
-  public InventoryFragment() {
-    // Required empty public constructor
-  }
+    @Inject
+    public InventoryFragment() {
+        // Required empty public constructor
+    }
 
-  @Override
-  public View onCreateView(
-      @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    binding = FragmentInventoryBinding.inflate(getLayoutInflater());
-    binding.extendedFab.setOnClickListener(
-        view -> dialogService.showSignInventoryDialog(getChildFragmentManager()));
-    setupRecyclerView();
-    return binding.getRoot();
-  }
+    @Override
+    public View onCreateView(
+            @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentInventoryBinding.inflate(getLayoutInflater());
+        binding.extendedFab.setOnClickListener(
+                view -> dialogService.showSignInventoryDialog(getChildFragmentManager()));
+        setupRecyclerView();
+        return binding.getRoot();
+    }
 
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-  }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
-  @Override
-  public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-    viewModel = new ViewModelProvider(requireActivity()).get(InventoryViewModel.class);
-    viewModel.getItems().observe(getViewLifecycleOwner(), adapter::submitList);
-  }
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        viewModel = new ViewModelProvider(requireActivity()).get(InventoryViewModel.class);
+        viewModel.getItems().observe(getViewLifecycleOwner(), adapter::submitList);
+    }
 
-  public Context context() {
-    return Objects.requireNonNull(this.getActivity()).getApplicationContext();
-  }
+    public Context context() {
+        return Objects.requireNonNull(this.getActivity()).getApplicationContext();
+    }
 
-  @Override
-  public void onItemClick(DrugDto inventoryDrug) {
-    viewModel.toggleInventoryItem();
-    Toast.makeText(context(), "Checked", Toast.LENGTH_SHORT).show();
-  }
+    @Override
+    public void onItemClick(DrugDto inventoryDrug) {
+        viewModel.toggleInventoryItem(inventoryDrug.getDrugId());
+        Toast.makeText(context(), "Checked", Toast.LENGTH_SHORT).show();
+    }
 
-  private void setupRecyclerView() {
-    binding.inventoryList.setLayoutManager(new LinearLayoutManager(context()));
-    adapter.setClickListener(this);
-    binding.inventoryList.setAdapter(this.adapter);
-  }
+    private void setupRecyclerView() {
+        binding.inventoryList.setLayoutManager(new LinearLayoutManager(context()));
+        adapter.setClickListener(this);
+        binding.inventoryList.setAdapter(this.adapter);
+    }
 
-  @Override
-  public void onConfirmSignInventory(String employee) {
-    dialogService.dismiss(DialogService.Dialog.SIGN_INVENTORY);
-    viewModel.signInventory();
-    Toast.makeText(context(), "Erfolgreich signiert", Toast.LENGTH_SHORT).show();
-  }
+    @Override
+    public void onConfirmSignInventory(String employee) {
+        dialogService.dismiss(DialogService.Dialog.SIGN_INVENTORY);
+        viewModel.signInventory(employee);
+        Toast.makeText(context(), "Erfolgreich signiert", Toast.LENGTH_SHORT).show();
+    }
 }

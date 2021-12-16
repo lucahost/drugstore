@@ -17,7 +17,7 @@ import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrug
 public interface SignatureDao {
 
     @Insert
-    void insert(Signature signature);
+    long insert(Signature signature);
 
     @Update
     void update(Signature signature);

@@ -5,7 +5,10 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -13,10 +16,13 @@ import ch.ffhs.drugstore.domain.usecase.management.inventory.GetInventory;
 import ch.ffhs.drugstore.domain.usecase.management.inventory.SignInventory;
 import ch.ffhs.drugstore.domain.usecase.management.inventory.ToggleInventoryItem;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.dto.management.signature.CreateSignatureDto;
+import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
 public class InventoryViewModel extends AndroidViewModel {
+    private final Map<Integer, SignatureDrugDto> signatureDrugs;
     @Inject
     GetInventory getInventory;
     @Inject
@@ -28,6 +34,7 @@ public class InventoryViewModel extends AndroidViewModel {
     @Inject
     public InventoryViewModel(Application application) {
         super(application);
+        signatureDrugs = new HashMap<>();
     }
 
     public LiveData<List<DrugDto>> getItems() {
@@ -37,11 +44,18 @@ public class InventoryViewModel extends AndroidViewModel {
         return items;
     }
 
-    public void signInventory() {
-        signInventory.execute(null);
+    public void signInventory(String shortName) {
+        ArrayList<SignatureDrugDto> signatureDrugList = new ArrayList<>(signatureDrugs.values());
+        CreateSignatureDto createSignatureDto = new CreateSignatureDto(shortName,
+                signatureDrugList);
+        signInventory.execute(createSignatureDto);
     }
 
-    public void toggleInventoryItem() {
-        toggleInventoryItem.execute(null);
+    public void toggleInventoryItem(Integer drugId) {
+        if (signatureDrugs.get(drugId) != null) {
+            signatureDrugs.remove(drugId);
+        } else {
+            signatureDrugs.put(drugId, toggleInventoryItem.execute(drugId));
+        }
     }
 }

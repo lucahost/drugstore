@@ -19,6 +19,7 @@ import ch.ffhs.drugstore.data.converters.DateConverter;
 import ch.ffhs.drugstore.data.dao.DrugDao;
 import ch.ffhs.drugstore.data.dao.DrugTypeDao;
 import ch.ffhs.drugstore.data.dao.SignatureDao;
+import ch.ffhs.drugstore.data.dao.SignatureDrugDao;
 import ch.ffhs.drugstore.data.dao.SubstanceDao;
 import ch.ffhs.drugstore.data.dao.TransactionDao;
 import ch.ffhs.drugstore.data.dao.UnitDao;
@@ -99,6 +100,8 @@ public abstract class DrugstoreDatabase extends RoomDatabase {
     public abstract TransactionDao transactionDao();
 
     public abstract SignatureDao signatureDao();
+
+    public abstract SignatureDrugDao signatureDrugDao();
 
     public abstract SubstanceDao substanceDao();
 

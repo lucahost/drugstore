@@ -9,6 +9,8 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 import ch.ffhs.drugstore.data.entity.Drug;
+import ch.ffhs.drugstore.data.entity.Signature;
+import ch.ffhs.drugstore.data.entity.SignatureDrug;
 import ch.ffhs.drugstore.data.entity.Substance;
 import ch.ffhs.drugstore.data.entity.Transaction;
 import ch.ffhs.drugstore.data.entity.User;
@@ -22,6 +24,7 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.EditDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
+import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
 import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
 
@@ -98,4 +101,10 @@ public interface DrugstoreMapper {
     List<SubstanceDto> substanceListToSubstanceDtoList(List<Substance> substances);
 
     SubstanceDto substanceToSubstanceDto(Substance substances);
+
+    List<SignatureDrug> signatureDrugDtoListToSignatureDrugList(
+            List<SignatureDrugDto> signatureDrugs);
+
+    @Mapping(target = "userId", source = "user.userId")
+    Signature signatureDtoToSignature(SignatureDto signatureDto);
 }
