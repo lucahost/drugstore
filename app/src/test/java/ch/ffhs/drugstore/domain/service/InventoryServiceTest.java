@@ -14,9 +14,18 @@ import java.util.List;
 
 import ch.ffhs.drugstore.data.repository.DrugRepository;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
-
+/**
+ * Test-class for InventoryService class
+ *
+ *  @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ *  @version 2021.12.15
+ */
 public class InventoryServiceTest {
 
+
+    /**
+     * test methode
+     */
     @Test
     public void getInventory() {
         // Setup

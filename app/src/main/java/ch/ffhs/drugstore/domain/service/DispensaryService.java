@@ -10,15 +10,29 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.data.repository.DrugRepository;
 import ch.ffhs.drugstore.presentation.dispensary.view.DispensaryFilters;
 import ch.ffhs.drugstore.presentation.dispensary.view.FilterState;
-
+/**
+ * This class represents a service to dispense drugs
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 public class DispensaryService {
     private final DrugRepository drugRepository;
 
+    /**
+     *
+     * @param drugRepository
+     */
     @Inject
     public DispensaryService(DrugRepository drugRepository) {
         this.drugRepository = drugRepository;
     }
 
+    /**
+     *
+     * @param filterState
+     * @return
+     */
     public LiveData<List<DrugDto>> getAllDrugs(FilterState<DispensaryFilters> filterState) {
         boolean favorites = filterState.isFavorites();
         List<String> filters = filterState.getFiltersAsStrings();
@@ -32,6 +46,11 @@ public class DispensaryService {
         }
     }
 
+    /**
+     *
+     * @param drugId
+     * @param amount
+     */
     public void updateDrugAmount(int drugId, double amount) {
         drugRepository.updateDrugAmount(drugId, amount);
     }
