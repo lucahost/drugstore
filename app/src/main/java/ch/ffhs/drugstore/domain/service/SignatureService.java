@@ -7,20 +7,24 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs;
+import ch.ffhs.drugstore.data.repository.SignatureDrugRepository;
 import ch.ffhs.drugstore.data.repository.SignatureRepository;
 import ch.ffhs.drugstore.data.repository.UserRepository;
 import ch.ffhs.drugstore.shared.dto.management.signature.CreateSignatureDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
 import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
+import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
 
 public class SignatureService {
     private final SignatureRepository signatureRepository;
     private final UserRepository userRepository;
+    private final SignatureDrugRepository signatureDrugRepository;
 
     @Inject
-    public SignatureService(SignatureRepository signatureRepository,
+    public SignatureService(SignatureRepository signatureRepository, SignatureDrugRepository signatureDrugRepository,
             UserRepository userRepository) {
         this.signatureRepository = signatureRepository;
+        this.signatureDrugRepository = signatureDrugRepository;
         this.userRepository = userRepository;
     }
 
@@ -36,5 +40,9 @@ public class SignatureService {
 
         signatureRepository.createSignatureFrom(signatureDto,
                 createSignatureDto.getSignatureDrugs());
+    }
+
+    public LiveData<List<SignatureDrugDto>> getSignatureDrugsBySignatureId(int signatureId) {
+        return signatureDrugRepository.getSignatureDrugsBySignatureId(signatureId);
     }
 }

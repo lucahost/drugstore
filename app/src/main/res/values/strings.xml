@@ -53,4 +53,6 @@
     <string name="created_at">Created at</string>
     <string name="signature_id">Signature Id</string>
     <string name="transaction_id">Transaction Id</string>
+    <string name="back">Zurück</string>
+    <string name="share">Teilen</string>
 </resources>

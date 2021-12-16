@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.Objects;
@@ -60,13 +62,10 @@ public class SignatureFragment extends Fragment
     }
 
     @Override
-    public void onItemClick(SignatureWithUserAndSignatureDrugsAndDrugs signature) {
-        // TODO
-    }
-
-    @Override
-    public void onItemLongClick(SignatureWithUserAndSignatureDrugsAndDrugs signature) {
-        // TODO
+    public void onItemClick(View view, SignatureWithUserAndSignatureDrugsAndDrugs signature) {
+        NavDirections action = SignatureFragmentDirections.actionSignatureToSignatureDetailFragment(
+                (int) signature.signature.signatureId);
+        Navigation.findNavController(view).navigate(action);
     }
 
     private void setupRecyclerView() {
