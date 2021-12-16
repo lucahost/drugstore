@@ -7,7 +7,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.repository.TransactionRepository;
-import ch.ffhs.drugstore.data.repository.UserRepository;
 import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
 
@@ -19,13 +18,13 @@ import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
  */
 public class HistoryService {
     private final TransactionRepository transactionRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Inject
     public HistoryService(TransactionRepository transactionRepository,
-            UserRepository userRepository) {
+            UserService userService) {
         this.transactionRepository = transactionRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     public LiveData<List<TransactionDto>> getHistory() {
@@ -39,7 +38,7 @@ public class HistoryService {
 
         // if we didn't got a userId but a user shortname create the new user
         if (userId == null && userShortname != null && !userShortname.isEmpty()) {
-            user = userRepository.getOrCreateUserByShortName(userShortname);
+            user = userService.getOrCreateUserByShortName(userShortname);
             transactionDto.setUser(user);
         }
 

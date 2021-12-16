@@ -15,7 +15,6 @@ import java.util.List;
 import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs;
 import ch.ffhs.drugstore.data.repository.SignatureDrugRepository;
 import ch.ffhs.drugstore.data.repository.SignatureRepository;
-import ch.ffhs.drugstore.data.repository.UserRepository;
 
 /**
  * Test-class for SignatureService class
@@ -35,11 +34,11 @@ public class SignatureServiceTest {
                 new MutableLiveData<>();
         SignatureRepository signatureRepository = mock(SignatureRepository.class);
         SignatureDrugRepository signatureDrugRepository = mock(SignatureDrugRepository.class);
-        UserRepository userRepository = mock(UserRepository.class);
+        UserService userService = mock(UserService.class);
         when(signatureRepository.getSignatures()).thenReturn(signature);
 
         SignatureService signatureService = new SignatureService(signatureRepository,
-                signatureDrugRepository, userRepository);
+                signatureDrugRepository, userService);
 
         // Test
         LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> result =

@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs;
 import ch.ffhs.drugstore.data.repository.SignatureDrugRepository;
 import ch.ffhs.drugstore.data.repository.SignatureRepository;
-import ch.ffhs.drugstore.data.repository.UserRepository;
 import ch.ffhs.drugstore.shared.dto.management.signature.CreateSignatureDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
@@ -23,15 +22,16 @@ import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
  */
 public class SignatureService {
     private final SignatureRepository signatureRepository;
-    private final UserRepository userRepository;
     private final SignatureDrugRepository signatureDrugRepository;
+    private final UserService userService;
 
     @Inject
-    public SignatureService(SignatureRepository signatureRepository, SignatureDrugRepository signatureDrugRepository,
-            UserRepository userRepository) {
+    public SignatureService(SignatureRepository signatureRepository,
+            SignatureDrugRepository signatureDrugRepository,
+            UserService userService) {
         this.signatureRepository = signatureRepository;
         this.signatureDrugRepository = signatureDrugRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     public LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> getSignatures() {
@@ -40,7 +40,7 @@ public class SignatureService {
 
     public void createSignature(CreateSignatureDto createSignatureDto) {
         String userShortname = createSignatureDto.getUserShortName();
-        UserDto user = userRepository.getOrCreateUserByShortName(userShortname);
+        UserDto user = userService.getOrCreateUserByShortName(userShortname);
 
         SignatureDto signatureDto = new SignatureDto(0, user, createSignatureDto.getCreatedAt());
 
