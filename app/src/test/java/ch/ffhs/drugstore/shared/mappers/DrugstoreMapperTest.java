@@ -120,8 +120,11 @@ public class DrugstoreMapperTest {
         int drugId = 3;
         String title = "Drug";
         Integer drugTypeId = 101;
+        String drugTypeTitle = "ORAL";
         Integer substanceId = 202;
+        String substanceTitle = "Substance 01";
         Integer unitId = 303;
+        String unitTitle = "mg";
         String dosage = "100mg";
         double tolerance = 0.0;
         double stockAmount = 1.0;
@@ -130,20 +133,33 @@ public class DrugstoreMapperTest {
         double amount = 1.0;
         String patient = "Steve";
         TransactionWithDrugAndUser transaction = new TransactionWithDrugAndUser();
-        transaction.transaction = new Transaction(transactionId, userId, drugId, createdAt, amount, patient);
-        transaction.drug = new Drug(drugId, title, drugTypeId, substanceId, unitId, dosage, tolerance, stockAmount, isFavorite);
-        transaction.user = new User(userId, firstName, lastName, shortName, emailAddress, externalId);
+        transaction.transaction = new Transaction(transactionId, userId, drugId, createdAt, amount,
+                patient);
+        Unit unit = new Unit(unitId, unitTitle);
+        Substance substance = new Substance(substanceId, substanceTitle);
+        DrugType drugType = new DrugType(drugTypeId, 0, drugTypeTitle);
+        Drug drug = new Drug(drugId, title, drugTypeId, substanceId, unitId, dosage,
+                tolerance, stockAmount, isFavorite);
+
+        transaction.drug = new DrugWithUnitAndDrugTypeAndSubstance();
+        transaction.drug.drug = drug;
+        transaction.drug.unit = unit;
+        transaction.drug.substance = substance;
+        transaction.drug.drugType = drugType;
+        transaction.user = new User(userId, firstName, lastName, shortName, emailAddress,
+                externalId);
 
         // when
-        TransactionDto transactionDto = DrugstoreMapper.INSTANCE.transactionToTransactionDto(transaction);
+        TransactionDto transactionDto = DrugstoreMapper.INSTANCE.transactionToTransactionDto(
+                transaction);
 
         //then
         assertNotNull(transactionDto);
         assertEquals(transactionId, transactionDto.getTransactionId());
         assertEquals(drugId, transactionDto.getDrug().getDrugId());
-        assertEquals(userId, (int)transactionDto.getUser().getUserId());
+        assertEquals(userId, (int) transactionDto.getUser().getUserId());
         assertEquals(createdAt, transactionDto.getCreatedAt());
-        assertEquals(amount, transactionDto.getAmount(),0);
+        assertEquals(amount, transactionDto.getAmount(), 0);
         assertEquals(patient, transactionDto.getPatient());
 
     }
