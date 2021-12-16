@@ -15,5 +15,5 @@ public class SignatureDrugWithDrug {
             entityColumn = "drugId",
             entity = Drug.class
     )
-    public Drug drug;
+    public DrugWithUnitAndDrugTypeAndSubstance drug;
 }

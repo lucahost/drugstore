@@ -14,7 +14,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 import java.util.Objects;
@@ -115,7 +117,9 @@ public class InventoryFragment extends Fragment
     }
 
     private void setupRecyclerView() {
-        binding.inventoryList.setLayoutManager(new LinearLayoutManager(context()));
+        binding.inventoryList.setLayoutManager(
+                new GridLayoutManager(context(), 2, RecyclerView.VERTICAL, false));
+        binding.inventoryList.addItemDecoration(new DividerItemDecoration(context(), DividerItemDecoration.VERTICAL));
         adapter.setClickListener(this);
         binding.inventoryList.setAdapter(this.adapter);
     }

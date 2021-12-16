@@ -1,5 +1,6 @@
 package ch.ffhs.drugstore.presentation.management.inventory.view.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,9 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Locale;
-
 import javax.inject.Inject;
 
+import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.InventoryItemBinding;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
@@ -37,6 +37,7 @@ public class InventoryListAdapter
             };
 
     private InventoryListAdapter.OnItemClickListener clickListener;
+    private Context context;
 
     @Inject
     public InventoryListAdapter() {
@@ -49,6 +50,7 @@ public class InventoryListAdapter
         InventoryItemBinding binding =
                 InventoryItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent,
                         false);
+        context = binding.getRoot().getContext();
         return new InventoryItemHolder(binding);
     }
 
@@ -73,19 +75,33 @@ public class InventoryListAdapter
             View.OnClickListener {
         private final CheckedTextView title;
         private final TextView secondary;
+        // private final TextView deviation;
 
         InventoryItemHolder(InventoryItemBinding binding) {
             super(binding.getRoot());
             title = binding.title;
             secondary = binding.secondary;
+            // deviation = binding.deviation;
         }
 
         void bind(int position) {
             title.setOnClickListener(this);
-            title.setText(getItem(position).getTitle());
-            secondary.setText(String.format(Locale.getDefault(), "%.2f %s",
+            title.setText(getItemTitleText(position));
+            secondary.setText(getItemSecondaryText(position));
+        }
+
+        @NonNull
+        private String getItemTitleText(int position) {
+            return context.getString(R.string.drug_title_and_dosage,
+                    getItem(position).getTitle(),
+                    getItem(position).getDosage());
+        }
+
+        @NonNull
+        private String getItemSecondaryText(int position) {
+            return context.getString(R.string.drug_stock_unit,
                     getItem(position).getStockAmount(),
-                    getItem(position).getUnit()));
+                    getItem(position).getUnit());
         }
 
         @Override
