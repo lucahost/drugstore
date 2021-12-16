@@ -16,6 +16,7 @@ import ch.ffhs.drugstore.data.entity.Transaction;
 import ch.ffhs.drugstore.data.entity.User;
 import ch.ffhs.drugstore.data.relation.DrugTypeWithParentDrugType;
 import ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance;
+import ch.ffhs.drugstore.data.relation.SignatureDrugWithDrug;
 import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs;
 import ch.ffhs.drugstore.data.relation.TransactionWithDrugAndUser;
 import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
@@ -76,6 +77,10 @@ public interface DrugstoreMapper {
 
     SignatureDto signatureToSignatureDto(
             SignatureWithUserAndSignatureDrugsAndDrugs signatureEntity);
+
+    SignatureDrugDto signatureDrugToSignatureDrugDto(SignatureDrugWithDrug signatureDrug);
+
+    List<SignatureDrugDto> signatureDrugListToSignatureDrugDtoList(List<SignatureDrugWithDrug> signatureDrugs);
 
     @Mappings({
             @Mapping(target = "userId", source = "user.userId"),
