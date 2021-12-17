@@ -165,7 +165,17 @@ public class DispensaryFragment extends Fragment
 
     @Override
     public void onItemLongClick(DrugDto drug) {
-        viewModel.toggleDrugIsFavorite(drug.getDrugId());
+        try {
+            viewModel.toggleDrugIsFavorite(drug.getDrugId());
+        } catch (DrugstoreException ex) {
+            new AlertDialog.Builder(getContext())
+                    .setTitle(R.string.error_toggle_favorite)
+                    .setMessage(getString(ex.getCode()))
+                    .setNegativeButton(R.string.close, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+            return;
+        }
         Toast.makeText(context(),
                 drug.isFavorite() ? R.string.removed_from_favorites : R.string.added_to_favorites,
                 Toast.LENGTH_SHORT).show();

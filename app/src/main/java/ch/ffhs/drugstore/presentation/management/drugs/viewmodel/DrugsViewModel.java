@@ -17,11 +17,13 @@ import ch.ffhs.drugstore.domain.usecase.management.drugs.EditDrug;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugTypes;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugUnits;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugs;
+import ch.ffhs.drugstore.domain.usecase.management.drugs.GetSubstances;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.UpdateDrugAmount;
 import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.EditDrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UpdateDrugAmountDto;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
@@ -43,9 +45,12 @@ public class DrugsViewModel extends AndroidViewModel {
     GetDrugTypes getDrugTypes;
     @Inject
     GetDrugUnits getDrugUnits;
+    @Inject
+    GetSubstances getSubstances;
     private LiveData<List<DrugDto>> drugs;
     private LiveData<List<DrugTypeDto>> drugTypes;
     private LiveData<List<UnitDto>> drugUnits;
+    private LiveData<List<SubstanceDto>> substances;
 
     @Inject
     public DrugsViewModel(Application application) {
@@ -73,25 +78,34 @@ public class DrugsViewModel extends AndroidViewModel {
         return drugUnits;
     }
 
+    public LiveData<List<SubstanceDto>> getSubstances() {
+        if (substances == null) {
+            substances = getSubstances.execute(null);
+        }
+        return substances;
+    }
+
     public void updateDrugAmount(int drugId, String sAmount) throws DrugstoreException {
         double amount = tryParseDouble(sAmount);
         UpdateDrugAmountDto updateDrugAmountDto = new UpdateDrugAmountDto(drugId, amount);
         updateDrugAmount.execute(updateDrugAmountDto);
     }
 
-    public void editDrug(int drugId, String name, String dosage, int drugTypeId, int unitId,
+    public void editDrug(int drugId, String name, String substance, String dosage, int drugTypeId,
+            int unitId,
             String sTolerance, boolean isFavorite) {
         double tolerance = tryParseDouble(sTolerance);
-        EditDrugDto editDrugDto = new EditDrugDto(drugId, name, dosage, drugTypeId, unitId, name,
+        EditDrugDto editDrugDto = new EditDrugDto(drugId, name, dosage, drugTypeId, unitId,
+                substance,
                 tolerance, isFavorite);
         editDrug.execute(editDrugDto);
     }
 
-    public void createDrug(String name, String dosage, int drugTypeId, int unitId,
+    public void createDrug(String name, String substance, String dosage, int drugTypeId, int unitId,
             String sTolerance, boolean isFavorite)
             throws Exception {
         double tolerance = tryParseDouble(sTolerance);
-        CreateDrugDto createDrugDto = new CreateDrugDto(name, dosage, drugTypeId, unitId, name,
+        CreateDrugDto createDrugDto = new CreateDrugDto(name, dosage, drugTypeId, unitId, substance,
                 tolerance, isFavorite);
         createDrug.execute(createDrugDto);
     }

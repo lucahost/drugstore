@@ -12,6 +12,7 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.EditDrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UpdateDrugAmountDto;
 
@@ -108,5 +109,10 @@ public class TestUtil {
     public static UnitDto createDrugUnitDto(int unitId) {
         String unitTitle = faker.name().name();
         return new UnitDto(unitId, unitTitle);
+    }
+
+    public static SubstanceDto createSubstanceDto(int substanceId) {
+        String substanceTitle = faker.funnyName().name();
+        return new SubstanceDto(substanceId, substanceTitle);
     }
 }

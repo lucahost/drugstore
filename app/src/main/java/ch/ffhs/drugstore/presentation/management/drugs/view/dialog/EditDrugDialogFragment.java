@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
 
@@ -15,12 +16,15 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.DialogEditDrugBinding;
 import ch.ffhs.drugstore.presentation.InputValidation;
 import ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel;
+import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import dagger.assisted.Assisted;
 import dagger.assisted.AssistedInject;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -31,6 +35,7 @@ public class EditDrugDialogFragment extends DialogFragment {
     public static final String TAG = "EditDrug";
     public static final String ARG_DRUG_ID = "drugId";
     public static final String ARG_DRUG_TITLE = "drugTitle";
+    public static final String ARG_DRUG_SUBSTANCE = "substance";
     public static final String ARG_DRUG_DOSAGE = "dosage";
     public static final String ARG_DRUG_TYPE = "drugType";
     public static final String ARG_DRUG_UNIT = "drugUnit";
@@ -40,6 +45,7 @@ public class EditDrugDialogFragment extends DialogFragment {
     DrugsViewModel viewModel;
     private int drugId;
     private String drugTitle;
+    private String substance;
     private String dosage;
     private String drugType;
     private String drugUnit;
@@ -57,6 +63,7 @@ public class EditDrugDialogFragment extends DialogFragment {
         Bundle bundle = new Bundle();
         bundle.putInt(ARG_DRUG_ID, args.getDrugId());
         bundle.putString(ARG_DRUG_TITLE, args.getDrugTitle());
+        bundle.putString(ARG_DRUG_SUBSTANCE, args.getSubstance());
         bundle.putString(ARG_DRUG_DOSAGE, args.getDosage());
         bundle.putString(ARG_DRUG_TYPE, args.getDrugType());
         bundle.putString(ARG_DRUG_UNIT, args.getDrugUnit());
@@ -82,6 +89,7 @@ public class EditDrugDialogFragment extends DialogFragment {
         if (getArguments() != null) {
             drugId = getArguments().getInt(ARG_DRUG_ID);
             drugTitle = getArguments().getString(ARG_DRUG_TITLE);
+            substance = getArguments().getString(ARG_DRUG_SUBSTANCE);
             dosage = getArguments().getString(ARG_DRUG_DOSAGE);
             drugType = getArguments().getString(ARG_DRUG_TYPE);
             drugUnit = getArguments().getString(ARG_DRUG_UNIT);
@@ -98,7 +106,9 @@ public class EditDrugDialogFragment extends DialogFragment {
         binding = DialogEditDrugBinding.inflate(getLayoutInflater());
         setDrugTypeRadioButtons();
         setDrugUnitRadioButtons();
+        setSubstanceAutoComplete();
         binding.nameText.setText(drugTitle);
+        binding.substanceText.setText(substance);
         binding.dosageText.setText(dosage);
         binding.toleranceText.setText(getString(R.string.tolerance_double, tolerance));
         binding.isFavoriteCheckbox.setChecked(isFavorite);
@@ -110,7 +120,7 @@ public class EditDrugDialogFragment extends DialogFragment {
         AlertDialog dialog = new AlertDialog.Builder(requireContext())
                 .setView(binding.getRoot())
                 .setTitle(getString(R.string.edit_drug))
-                .setPositiveButton(getString(R.string.create), null)
+                .setPositiveButton(getString(R.string.save), null)
                 .setNegativeButton(getString(R.string.cancel), null)
                 .create();
         dialog.setOnShowListener(d -> {
@@ -125,20 +135,26 @@ public class EditDrugDialogFragment extends DialogFragment {
                 binding.nameText,
                 binding.nameTextLayout,
                 getString(R.string.error_name_required));
+        boolean substanceNotEmpty = InputValidation.validateTextNotEmpty(
+                binding.substanceText,
+                binding.substanceTextLayout,
+                getString(R.string.error_substance_required));
         boolean dosageNotEmpty = InputValidation.validateTextNotEmpty(
                 binding.dosageText,
                 binding.dosageTextLayout,
                 getString(R.string.error_dosage_required));
 
-        if (nameNotEmpty && dosageNotEmpty) {
+        if (nameNotEmpty && substanceNotEmpty && dosageNotEmpty) {
             String name = Objects.requireNonNull(binding.nameText.getText()).toString();
+            String substance = Objects.requireNonNull(binding.substanceText.getText()).toString();
             String dosage = Objects.requireNonNull(binding.dosageText.getText()).toString();
             int drugTypeId = binding.drugTypeRadioGroup.getCheckedRadioButtonId();
             int unitId = binding.dispenseUnitRadioGroup.getCheckedRadioButtonId();
             String tolerance = Objects.requireNonNull(binding.toleranceText.getText()).toString();
             boolean isFavorite = binding.isFavoriteCheckbox.isChecked();
 
-            confirmEditDrugListener.onConfirmEditDrug(drugId, name, dosage, drugTypeId, unitId,
+            confirmEditDrugListener.onConfirmEditDrug(drugId, name, substance, dosage, drugTypeId,
+                    unitId,
                     tolerance, isFavorite);
         }
     }
@@ -167,6 +183,19 @@ public class EditDrugDialogFragment extends DialogFragment {
                 }));
     }
 
+
+    private void setSubstanceAutoComplete() {
+        viewModel.getSubstances().observe(this, substanceDtoList -> {
+            List<String> substanceTitles = substanceDtoList.stream().map(
+                    SubstanceDto::getTitle).collect(
+                    Collectors.toList());
+            binding.substanceText.setAdapter(
+                    new ArrayAdapter<>(getContext(),
+                            android.R.layout.simple_dropdown_item_1line, substanceTitles
+                    ));
+        });
+    }
+
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
@@ -182,7 +211,8 @@ public class EditDrugDialogFragment extends DialogFragment {
 
     public interface ConfirmEditDrugListener {
         void onConfirmEditDrug(
-                int drugId, String name, String dosage, int drugTypeId, int unitId,
+                int drugId, String name, String substance, String dosage, int drugTypeId,
+                int unitId,
                 String tolerance, boolean isFavorite);
     }
 }

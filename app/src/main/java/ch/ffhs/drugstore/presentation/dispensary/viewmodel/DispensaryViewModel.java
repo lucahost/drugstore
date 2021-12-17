@@ -28,7 +28,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class DispensaryViewModel extends AndroidViewModel {
     private final LiveData<List<DrugDto>> items;
-    private LiveData<List<DrugTypeDto>> drugTypes;
     private final MutableLiveData<FilterState<Integer>> filterState = new MutableLiveData<>();
     @Inject
     GetAllDispensaryItems getAllDispensaryItems;
@@ -36,7 +35,9 @@ public class DispensaryViewModel extends AndroidViewModel {
     ToggleDrugIsFavorite toggleDrugIsFavorite;
     @Inject
     DispenseDrug dispenseDrug;
-    @Inject GetDrugTypes getDrugTypes;
+    @Inject
+    GetDrugTypes getDrugTypes;
+    private LiveData<List<DrugTypeDto>> drugTypes;
 
     @Inject
     public DispensaryViewModel(Application application) {
@@ -50,22 +51,22 @@ public class DispensaryViewModel extends AndroidViewModel {
         return items;
     }
 
-  public LiveData<FilterState<Integer>> getFilterState() {
-    return filterState;
-  }
+    public LiveData<FilterState<Integer>> getFilterState() {
+        return filterState;
+    }
 
     public LiveData<List<DrugTypeDto>> getDrugTypes() {
         if (drugTypes == null) {
-          drugTypes = getDrugTypes.execute(null);
+            drugTypes = getDrugTypes.execute(null);
         }
         return drugTypes;
     }
 
-  public void filter(FilterState<Integer> filters) {
-    filterState.postValue(filters);
-  }
+    public void filter(FilterState<Integer> filters) {
+        filterState.postValue(filters);
+    }
 
-    public void toggleDrugIsFavorite(int drugId) {
+    public void toggleDrugIsFavorite(int drugId) throws DrugstoreException {
         toggleDrugIsFavorite.execute(drugId);
     }
 

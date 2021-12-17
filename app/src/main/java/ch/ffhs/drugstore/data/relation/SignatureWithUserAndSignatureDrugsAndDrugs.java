@@ -6,6 +6,7 @@ import androidx.room.Relation;
 
 import java.util.List;
 
+import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.data.entity.Signature;
 import ch.ffhs.drugstore.data.entity.SignatureDrug;
 import ch.ffhs.drugstore.data.entity.User;
@@ -38,5 +39,5 @@ public class SignatureWithUserAndSignatureDrugsAndDrugs {
             entityColumn = "drugId",
             associateBy = @Junction(SignatureDrug.class)
     )
-    public List<SignatureDrug> signatureDrugs;
+    public List<Drug> signatureDrugs;
 }

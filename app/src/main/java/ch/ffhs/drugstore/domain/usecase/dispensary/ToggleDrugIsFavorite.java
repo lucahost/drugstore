@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.domain.service.DispensaryService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
+import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 
 public class ToggleDrugIsFavorite implements UseCase<Void, Integer> {
     @Inject
@@ -15,7 +16,7 @@ public class ToggleDrugIsFavorite implements UseCase<Void, Integer> {
     }
 
     @Override
-    public Void execute(Integer drugId) {
+    public Void execute(Integer drugId) throws DrugstoreException {
         dispensaryService.toggleDrugIsFavorite(drugId);
         return null;
     }
