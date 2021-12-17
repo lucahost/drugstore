@@ -1,5 +1,6 @@
 package ch.ffhs.drugstore.presentation.management.inventory.view.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,6 +64,12 @@ public class InventoryListAdapter
     public void setClickListener(OnItemClickListener itemClickListener) {
         this.clickListener = itemClickListener;
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void resetCheckState() {
+        notifyDataSetChanged();
+    }
+
 
     public interface OnItemClickListener {
         void onItemClick(DrugDto drugDto);

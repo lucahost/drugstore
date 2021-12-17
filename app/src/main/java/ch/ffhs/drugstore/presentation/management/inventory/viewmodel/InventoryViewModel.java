@@ -49,8 +49,6 @@ public class InventoryViewModel extends AndroidViewModel {
         CreateSignatureDto createSignatureDto = new CreateSignatureDto(shortName,
                 signatureDrugList);
         signInventory.execute(createSignatureDto);
-
-        // Clear Signatures and Checkbox State after Signature
         signatureDrugs.clear();
     }
 
