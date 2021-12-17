@@ -56,6 +56,7 @@ public abstract class DrugstoreDatabase extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 4;
     public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    private static final String DB_NAME = "drugstore_db";
     /**
      * Override the onCreate method to populate the database. For this sample, we clear the database
      * every time it is created.
@@ -77,12 +78,10 @@ public abstract class DrugstoreDatabase extends RoomDatabase {
                     INSTANCE =
                             Room.databaseBuilder(
                                     context.getApplicationContext(), DrugstoreDatabase.class,
-                                    "drugstore_db")
+                                    DB_NAME)
                                     .addCallback(sRoomDatabaseCallback)
-                                    //.fallbackToDestructiveMigration()
-                                    // TODO @Luca temporary fix for drugs.getById()
+                                    .createFromAsset("database/database.db")
                                     .allowMainThreadQueries()
-                                    .createFromAsset("database/database_v3.db")
                                     .build();
                 }
             }
