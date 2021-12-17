@@ -117,7 +117,8 @@ public class DrugsFragment extends Fragment
                 return true;
             } else if (itemId == R.id.drug_item_edit) {
                 EditDrugDialogFragmentArgs args = new EditDrugDialogFragmentArgs(
-                        drug.getDrugId(), drug.getTitle(), drug.getDosage(), drug.getDrugType(),
+                        drug.getDrugId(), drug.getTitle(), drug.getSubstance(), drug.getDosage(),
+                        drug.getDrugType(),
                         drug.getUnit(),
                         drug.getTolerance(), drug.isFavorite()
                 );
@@ -136,18 +137,21 @@ public class DrugsFragment extends Fragment
     private void setupRecyclerView() {
         binding.drugsList.setLayoutManager(
                 new GridLayoutManager(context(), 2, RecyclerView.VERTICAL, false));
-        binding.drugsList.addItemDecoration(new DividerItemDecoration(context(), DividerItemDecoration.VERTICAL));
+        binding.drugsList.addItemDecoration(
+                new DividerItemDecoration(context(), DividerItemDecoration.VERTICAL));
         adapter.setClickListener(this);
         binding.drugsList.setAdapter(this.adapter);
     }
 
     @Override
     public void onConfirmCreateDrug(
-            String name, String dosage, int drugTypeId, int unitId, String tolerance,
+            String name, String substance, String dosage, int drugTypeId, int unitId,
+            String tolerance,
             boolean isFavorite) {
         dialogService.dismiss(DialogService.Dialog.CREATE_DRUG);
         try {
-            viewModel.createDrug(name, dosage, drugTypeId, unitId, tolerance, isFavorite);
+            viewModel.createDrug(name, substance, dosage, drugTypeId, unitId, tolerance,
+                    isFavorite);
         } catch (Exception ex) {
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.error_create_drug)
@@ -185,10 +189,12 @@ public class DrugsFragment extends Fragment
     }
 
     @Override
-    public void onConfirmEditDrug(int drugId, String name, String dosage, int drugTypeId,
+    public void onConfirmEditDrug(int drugId, String name, String substance, String dosage,
+            int drugTypeId,
             int unitId, String tolerance, boolean isFavorite) {
         dialogService.dismiss(DialogService.Dialog.EDIT_DRUG);
-        viewModel.editDrug(drugId, name, dosage, drugTypeId, unitId, tolerance, isFavorite);
+        viewModel.editDrug(drugId, name, substance, dosage, drugTypeId, unitId, tolerance,
+                isFavorite);
         Toast.makeText(context(), "Erfolgreich bearbeitet", Toast.LENGTH_SHORT).show();
     }
 

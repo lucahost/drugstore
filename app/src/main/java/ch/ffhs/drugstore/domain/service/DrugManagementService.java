@@ -21,6 +21,7 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.UpdateDrugAmountDto;
 import ch.ffhs.drugstore.shared.exceptions.DrugNotFoundException;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
+
 /**
  * This class represents a service which manages drugs
  *
@@ -55,6 +56,10 @@ public class DrugManagementService {
 
     public LiveData<List<UnitDto>> getAllUnits() {
         return unitRepository.getAllUnits();
+    }
+
+    public LiveData<List<SubstanceDto>> getAllSubstances() {
+        return substanceRepository.getAllSubstances();
     }
 
     public DrugDto getDrugById(int drugId) {

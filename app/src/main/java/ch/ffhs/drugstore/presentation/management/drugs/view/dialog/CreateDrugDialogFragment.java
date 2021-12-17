@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
 
@@ -12,7 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -21,6 +24,7 @@ import ch.ffhs.drugstore.databinding.DialogCreateDrugBinding;
 import ch.ffhs.drugstore.presentation.InputValidation;
 import ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -55,6 +59,7 @@ public class CreateDrugDialogFragment extends DialogFragment {
         binding = DialogCreateDrugBinding.inflate(getLayoutInflater());
         setDrugTypeRadioButtons();
         setDrugUnitRadioButtons();
+        setSubstanceAutoComplete();
         return getAlertDialog();
     }
 
@@ -78,20 +83,26 @@ public class CreateDrugDialogFragment extends DialogFragment {
                 binding.nameText,
                 binding.nameTextLayout,
                 getString(R.string.error_name_required));
+        boolean substanceNotEmpty = InputValidation.validateTextNotEmpty(
+                binding.substanceText,
+                binding.substanceTextLayout,
+                getString(R.string.error_substance_required));
         boolean dosageNotEmpty = InputValidation.validateTextNotEmpty(
                 binding.dosageText,
                 binding.dosageTextLayout,
                 getString(R.string.error_dosage_required));
 
-        if (nameNotEmpty && dosageNotEmpty) {
+        if (nameNotEmpty && substanceNotEmpty && dosageNotEmpty) {
             String name = Objects.requireNonNull(binding.nameText.getText()).toString();
+            String substance = Objects.requireNonNull(binding.substanceText.getText()).toString();
             String dosage = Objects.requireNonNull(binding.dosageText.getText()).toString();
             int drugTypeId = binding.drugTypeRadioGroup.getCheckedRadioButtonId();
             int unitId = binding.dispenseUnitRadioGroup.getCheckedRadioButtonId();
             String tolerance = Objects.requireNonNull(binding.toleranceText.getText()).toString();
             boolean isFavorite = binding.isFavoriteCheckbox.isChecked();
 
-            confirmCreateDrugListener.onConfirmCreateDrug(name, dosage, drugTypeId, unitId,
+            confirmCreateDrugListener.onConfirmCreateDrug(name, substance, dosage, drugTypeId,
+                    unitId,
                     tolerance, isFavorite);
         }
     }
@@ -126,6 +137,18 @@ public class CreateDrugDialogFragment extends DialogFragment {
                 });
     }
 
+    private void setSubstanceAutoComplete() {
+        viewModel.getSubstances().observe(this, substanceDtoList -> {
+            List<String> substanceTitles = substanceDtoList.stream().map(
+                    SubstanceDto::getTitle).collect(
+                    Collectors.toList());
+            binding.substanceText.setAdapter(
+                    new ArrayAdapter<>(getContext(),
+                            android.R.layout.simple_dropdown_item_1line, substanceTitles
+                    ));
+        });
+    }
+
     @Override
     public void onDetach() {
         super.onDetach();
@@ -134,7 +157,8 @@ public class CreateDrugDialogFragment extends DialogFragment {
 
     public interface ConfirmCreateDrugListener {
         void onConfirmCreateDrug(
-                String name, String dosage, int drugTypeId, int unitId, String tolerance,
+                String name, String substance, String dosage, int drugTypeId, int unitId,
+                String tolerance,
                 boolean isFavorite);
     }
 }

@@ -78,4 +78,6 @@
     <string name="stock">Aktueller Bestand</string>
     <string name="add_to_stock">Zu Bestand hinzufügen</string>
     <string name="remove_from_stock">Von Bestand entfernen</string>
+    <string name="substance">Substanz</string>
+    <string name="error_substance_required">Bitte Substanz eingeben</string>
 </resources>
