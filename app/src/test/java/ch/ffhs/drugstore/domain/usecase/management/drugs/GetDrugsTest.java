@@ -6,11 +6,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -21,6 +23,9 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import util.TestUtil;
 
 public class GetDrugsTest {
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+
     private DrugManagementService drugManagementService;
 
     @Before
@@ -34,7 +39,7 @@ public class GetDrugsTest {
     }
 
     @Test
-    public void execute() throws Exception {
+    public void executeThrowsNullPointerFor() {
         // Arrange
         MutableLiveData<List<DrugDto>> liveDataDrugList = new MutableLiveData<>();
         List<DrugDto> drugList = new ArrayList<>();
