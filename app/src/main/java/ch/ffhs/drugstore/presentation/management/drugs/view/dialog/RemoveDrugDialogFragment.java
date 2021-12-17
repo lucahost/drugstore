@@ -4,15 +4,18 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import java.util.Locale;
+import java.util.Objects;
 
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.DialogRemoveDrugBinding;
+import ch.ffhs.drugstore.presentation.InputValidation;
 import dagger.assisted.Assisted;
 import dagger.assisted.AssistedInject;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -81,17 +84,35 @@ public class RemoveDrugDialogFragment extends DialogFragment {
         binding.drugDosageText.setText(dosage);
         String drugStockAmount = String.format(Locale.getDefault(), "%.2f %s", stockAmount, unit);
         binding.drugStockAmountText.setText(drugStockAmount);
-        return new AlertDialog.Builder(requireContext())
+        return getAlertDialog();
+    }
+
+    @NonNull
+    private AlertDialog getAlertDialog() {
+        AlertDialog dialog = new AlertDialog.Builder(requireContext())
                 .setView(binding.getRoot())
                 .setTitle(getString(R.string.remove_drug))
-                .setPositiveButton(
-                        getString(R.string.remove),
-                        (dialog, id) -> this.confirmRemoveDrugListener.onConfirmRemoveDrug(
-                                drugId, binding.drugCountText.getText().toString()
-                        ))
-                .setNegativeButton(getString(R.string.cancel), (dialog, id) -> {
-                })
+                .setPositiveButton(getString(R.string.remove), null)
+                .setNegativeButton(getString(R.string.cancel), null)
                 .create();
+        dialog.setOnShowListener(d -> {
+            Button button = ((AlertDialog) d).getButton(AlertDialog.BUTTON_POSITIVE);
+            button.setOnClickListener(view -> validateInputAndConfirmRemoveDrug());
+        });
+        return dialog;
+    }
+
+    private void validateInputAndConfirmRemoveDrug() {
+        boolean drugCountNotEmpty = InputValidation.validateNumberDecimalStringNotZero(
+                binding.drugCountText,
+                binding.drugCountTextLayout,
+                getString(R.string.error_amount_over_zero_required));
+
+        if (drugCountNotEmpty) {
+            String drugCount = Objects.requireNonNull(binding.drugCountText.getText()).toString();
+
+            confirmRemoveDrugListener.onConfirmRemoveDrug(drugId, drugCount);
+        }
     }
 
     @Override

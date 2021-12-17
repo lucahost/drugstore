@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import java.util.Objects;
 
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.DialogEditDrugBinding;
+import ch.ffhs.drugstore.presentation.InputValidation;
 import ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel;
 import dagger.assisted.Assisted;
 import dagger.assisted.AssistedInject;
@@ -96,30 +98,49 @@ public class EditDrugDialogFragment extends DialogFragment {
         binding = DialogEditDrugBinding.inflate(getLayoutInflater());
         setDrugTypeRadioButtons();
         setDrugUnitRadioButtons();
-        binding.editDrugNameText.setText(drugTitle);
-        binding.editDrugDosageText.setText(dosage);
-        binding.editDrugToleranceText.setText(Double.toString(tolerance));
+        binding.nameText.setText(drugTitle);
+        binding.dosageText.setText(dosage);
+        binding.toleranceText.setText(getString(R.string.tolerance_double, tolerance));
         binding.isFavoriteCheckbox.setChecked(isFavorite);
-        return new AlertDialog.Builder(requireContext())
+        return getAlertDialog();
+    }
+
+    @NonNull
+    private AlertDialog getAlertDialog() {
+        AlertDialog dialog = new AlertDialog.Builder(requireContext())
                 .setView(binding.getRoot())
                 .setTitle(getString(R.string.edit_drug))
-                .setPositiveButton(
-                        getString(R.string.save),
-                        (dialog, id) ->
-                                this.confirmEditDrugListener.onConfirmEditDrug(
-                                        drugId,
-                                        Objects.requireNonNull(
-                                                binding.editDrugNameText.getText()).toString(),
-                                        Objects.requireNonNull(
-                                                binding.editDrugDosageText.getText()).toString(),
-                                        binding.drugTypeRadioGroup.getCheckedRadioButtonId(),
-                                        binding.dispenseUnitRadioGroup.getCheckedRadioButtonId(),
-                                        Objects.requireNonNull(
-                                                binding.editDrugToleranceText.getText()).toString(),
-                                        binding.isFavoriteCheckbox.isChecked()))
-                .setNegativeButton(getString(R.string.cancel), (dialog, id) -> {
-                })
+                .setPositiveButton(getString(R.string.create), null)
+                .setNegativeButton(getString(R.string.cancel), null)
                 .create();
+        dialog.setOnShowListener(d -> {
+            Button button = ((AlertDialog) d).getButton(AlertDialog.BUTTON_POSITIVE);
+            button.setOnClickListener(view -> validateInputAndEditDrug());
+        });
+        return dialog;
+    }
+
+    private void validateInputAndEditDrug() {
+        boolean nameNotEmpty = InputValidation.validateTextNotEmpty(
+                binding.nameText,
+                binding.nameTextLayout,
+                getString(R.string.error_name_required));
+        boolean dosageNotEmpty = InputValidation.validateTextNotEmpty(
+                binding.dosageText,
+                binding.dosageTextLayout,
+                getString(R.string.error_dosage_required));
+
+        if (nameNotEmpty && dosageNotEmpty) {
+            String name = Objects.requireNonNull(binding.nameText.getText()).toString();
+            String dosage = Objects.requireNonNull(binding.dosageText.getText()).toString();
+            int drugTypeId = binding.drugTypeRadioGroup.getCheckedRadioButtonId();
+            int unitId = binding.dispenseUnitRadioGroup.getCheckedRadioButtonId();
+            String tolerance = Objects.requireNonNull(binding.toleranceText.getText()).toString();
+            boolean isFavorite = binding.isFavoriteCheckbox.isChecked();
+
+            confirmEditDrugListener.onConfirmEditDrug(drugId, name, dosage, drugTypeId, unitId,
+                    tolerance, isFavorite);
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

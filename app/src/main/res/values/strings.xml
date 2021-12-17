@@ -30,6 +30,7 @@
     <string name="category">Kategorie</string>
     <string name="dispense_unit">Ausgabe-Einheit</string>
     <string name="tolerance">Toleranz</string>
+    <string name="tolerance_double">%.2f</string>
     <string name="save">Speichern</string>
     <string name="content">Inhalt</string>
     <string name="count">Anzahl</string>
@@ -47,6 +48,14 @@
     <string name="dosage">Dosierung</string>
     <string name="error_dispense_drug">Beim Ausgeben trat ein Fehler auf</string>
     <string name="close">Schliessen</string>
+    <string name="error_name_required">Bitte Name eingeben</string>
+    <string name="error_dosage_required">Bitte Dosierung eingeben</string>
+    <string name="error_drugtype_required">Bitte Kategorie auswählen</string>
+    <string name="error_dispenseunit_required">Bitte Ausgabe-Einheit auswählen</string>
+    <string name="error_employee_required">Bitte Fachkraft eingeben</string>
+    <string name="error_patient_required">Bitte Patient eingeben</string>
+    <string name="error_amount_required">Bitte Anzahl eingeben</string>
+    <string name="error_amount_over_zero_required">Bitte Anzahl grösser als 0 eingeben</string>
     <string name="error_create_drug">Beim Erstellen trat ein Fehler auf</string>
     <string name="drug_not_found">Medikament wurde nicht gefunden</string>
     <string name="error_update_drug_amount">Fehler beim aktualisieren des Bestandes</string>
