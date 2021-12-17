@@ -1,14 +1,14 @@
 package ch.ffhs.drugstore.presentation.management.settings.viewmodel;
 
-import static ch.ffhs.drugstore.shared.extensions.FileExtensions.copyDirectory;
 import static ch.ffhs.drugstore.shared.extensions.FileExtensions.zipDirectory;
 
 import android.app.Application;
+import android.net.Uri;
 
+import androidx.core.content.FileProvider;
 import androidx.lifecycle.AndroidViewModel;
 
 import java.io.File;
-import java.io.IOException;
 
 import javax.inject.Inject;
 
@@ -20,7 +20,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class SettingsViewModel extends AndroidViewModel {
 
-    private final SingleLiveEvent<String> databaseExportedEvent = new SingleLiveEvent<>();
+    private final SingleLiveEvent<Uri> databaseExportedEvent = new SingleLiveEvent<>();
     private final Application app;
 
     @Inject
@@ -38,16 +38,15 @@ public class SettingsViewModel extends AndroidViewModel {
     public void exportDatabase() {
         String dbName = exportDatabase.execute(null);
         File dbDirectory = new File(dbName).getParentFile();
-        File destDirectory = new File(app.getApplicationContext().getFilesDir(), "/export/");
-        try {
-            copyDirectory(dbDirectory, destDirectory);
-            String zipName = zipDirectory(destDirectory, "db_export.zip");
-            databaseExportedEvent.setValue(zipName);
-        } catch (IOException ex) {
-            String errorMessage = ex.getMessage();
-            databaseExportedEvent.setValue(errorMessage);
-            return;
-        }
+        File targetFile = new File(
+                app.getApplicationContext().getCacheDir() + "/export/db_export.zip");
+
+        zipDirectory(dbDirectory, targetFile);
+
+        Uri fileUri = FileProvider.getUriForFile(app.getApplicationContext(),
+                "ch.ffhs.drugstore.fileprovider", targetFile);
+        databaseExportedEvent.setValue(fileUri);
+
     }
 
     public void importDatabase() {
@@ -55,7 +54,7 @@ public class SettingsViewModel extends AndroidViewModel {
         databaseExportedEvent.call();
     }
 
-    public SingleLiveEvent<String> getDatabaseExportedEvent() {
+    public SingleLiveEvent<Uri> getDatabaseExportedEvent() {
         return databaseExportedEvent;
     }
 

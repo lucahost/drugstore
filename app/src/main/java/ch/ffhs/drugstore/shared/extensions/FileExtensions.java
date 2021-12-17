@@ -10,8 +10,19 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class FileExtensions {
+    public static void zipDirectory(File sourceDirectory, File targetFile) {
+        try {
+            File tmp = new File(sourceDirectory + "tmp");
+            copyDirectory(sourceDirectory, tmp);
+            File zipFile = zipDirectory(tmp, targetFile.getName());
+            copyFile(zipFile, targetFile);
+            deleteFolder(tmp);
+        }
+        catch (Exception ignored) {
+        }
+    }
 
-    public static String zipDirectory(File directory, String zipFileName) throws IOException {
+    private static File zipDirectory(File directory, String zipFileName) throws IOException {
         String zipName = directory + "/" + zipFileName;
         FileOutputStream fos = new FileOutputStream(zipName);
         ZipOutputStream zipOut = new ZipOutputStream(fos);
@@ -20,7 +31,7 @@ public class FileExtensions {
         zipOut.close();
         fos.close();
 
-        return zipName;
+        return new File(zipName);
     }
 
     public static void copyDirectory(File sourceDirectory, File destinationDirectory) throws
@@ -29,12 +40,26 @@ public class FileExtensions {
             destinationDirectory.mkdir();
         }
         for (String f : sourceDirectory.list()) {
-            copyDirectoryCompatibityMode(new File(sourceDirectory, f),
+            copyDirectoryCompatibilityMode(new File(sourceDirectory, f),
                     new File(destinationDirectory, f));
         }
     }
 
-    private static void copyDirectoryCompatibityMode(File source, File destination) throws
+    public static void deleteFolder(File folder) {
+        File[] files = folder.listFiles();
+        if (files != null) { //some JVMs return null for empty dirs
+            for (File f : files) {
+                if (f.isDirectory()) {
+                    deleteFolder(f);
+                } else {
+                    f.delete();
+                }
+            }
+        }
+        folder.delete();
+    }
+
+    private static void copyDirectoryCompatibilityMode(File source, File destination) throws
             IOException {
         if (source.isDirectory()) {
             copyDirectory(source, destination);
@@ -43,8 +68,10 @@ public class FileExtensions {
         }
     }
 
-    private static void copyFile(File sourceFile, File destinationFile)
+    public static void copyFile(File sourceFile, File destinationFile)
             throws IOException {
+        File parentDestDir = destinationFile.getParentFile();
+        parentDestDir.mkdirs();
         try (InputStream in = new FileInputStream(sourceFile);
              OutputStream out = new FileOutputStream(destinationFile)) {
             byte[] buf = new byte[1024];
