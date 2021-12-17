@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
 import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
-import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 
 public class GetSubstances implements UseCase<LiveData<List<SubstanceDto>>, Void> {
     @Inject

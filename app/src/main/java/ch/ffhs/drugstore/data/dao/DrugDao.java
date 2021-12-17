@@ -37,26 +37,31 @@ public interface DrugDao {
     DrugWithUnitAndDrugTypeAndSubstance getDrugById(int drugId);
 
     @Transaction
-    @Query("SELECT * FROM drugs")
+    @Query("SELECT * FROM drugs " +
+            "ORDER BY title ASC")
     LiveData<List<DrugWithUnitAndDrugTypeAndSubstance>> getAllDrugs();
 
     @Transaction
     @Query("SELECT * FROM drugs " +
-            "WHERE stockAmount > 0 AND drugs.title LIKE '%' || :searchTerm || '%'"
+            "WHERE stockAmount > 0 AND drugs.title LIKE '%' || :searchTerm || '%' " +
+            "ORDER BY title ASC"
     )
     LiveData<List<DrugWithUnitAndDrugTypeAndSubstance>> getOnStockDrugs(String searchTerm);
 
     @Transaction
     @Query("SELECT * FROM drugs " +
             "WHERE stockAmount > 0 AND isFavorite = 1 AND drugs.title LIKE '%' || :searchTerm || "
-            + "'%'"
+            + "'%' " +
+            "ORDER BY title ASC"
     )
     LiveData<List<DrugWithUnitAndDrugTypeAndSubstance>> getOnStockFavoriteDrugs(String searchTerm);
 
     @Transaction
     @Query("SELECT * FROM drugs " +
-            "WHERE stockAmount > 0 AND drugs.drugTypeId IN (:drugTypeIds) AND drugs.title LIKE '%' " +
-            "|| :searchTerm || '%'"
+            "WHERE stockAmount > 0 AND drugs.drugTypeId IN (:drugTypeIds) AND drugs.title LIKE '%' "
+            +
+            "|| :searchTerm || '%' " +
+            "ORDER BY title ASC"
     )
     LiveData<List<DrugWithUnitAndDrugTypeAndSubstance>> getOnStockDrugsByDrugTypes(
             List<Integer> drugTypeIds, String searchTerm);
@@ -64,13 +69,15 @@ public interface DrugDao {
     @Transaction
     @Query("SELECT * FROM drugs " +
             "WHERE stockAmount > 0 AND isFavorite = 1 AND drugs.drugTypeId IN (:drugTypes) AND " +
-            "drugs.title LIKE '%' || :searchTerm || '%'"
+            "drugs.title LIKE '%' || :searchTerm || '%' " +
+            "ORDER BY title ASC"
     )
     LiveData<List<DrugWithUnitAndDrugTypeAndSubstance>> getOnStockFavoriteDrugsByDrugTypes(
             List<Integer> drugTypes,
             String searchTerm);
 
     @Transaction
-    @Query("UPDATE drugs SET isFavorite = ((isFavorite | 1) - (isFavorite & 1)) WHERE drugId = :drugId")
+    @Query("UPDATE drugs SET isFavorite = ((isFavorite | 1) - (isFavorite & 1)) WHERE drugId = "
+            + ":drugId")
     void toggleDrugIsFavorite(int drugId);
 }

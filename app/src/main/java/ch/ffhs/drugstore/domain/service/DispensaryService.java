@@ -1,14 +1,18 @@
 package ch.ffhs.drugstore.domain.service;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.data.repository.DrugRepository;
 import ch.ffhs.drugstore.presentation.dispensary.view.FilterState;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.exceptions.DrugNotFoundException;
+import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 
 /**
  * This class represents a service to dispense drugs
@@ -29,7 +33,7 @@ public class DispensaryService {
         this.drugRepository = drugRepository;
     }
 
-    public LiveData<List<DrugDto>> getAllDrugs(FilterState<Integer> filterState) {
+    public LiveData<List<DrugDto>> getAllDrugs(@NonNull FilterState<Integer> filterState) {
         boolean favorites = filterState.isFavorites();
         List<Integer> filters = filterState.getFilters();
         String searchTerm = filterState.getSearchFilter();
@@ -41,7 +45,11 @@ public class DispensaryService {
         }
     }
 
-    public void toggleDrugIsFavorite(int drugId) {
+    public void toggleDrugIsFavorite(int drugId) throws DrugstoreException {
+        DrugDto drug = drugRepository.getDrugById(drugId);
+        if (drug == null) {
+            throw new DrugNotFoundException(R.string.drug_not_found);
+        }
         drugRepository.toggleDrugIsFavorite(drugId);
     }
 }
