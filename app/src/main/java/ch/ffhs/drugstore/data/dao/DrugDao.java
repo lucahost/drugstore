@@ -13,10 +13,21 @@ import java.util.List;
 import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance;
 
-
+/**
+ * data access object (DAO) class
+ * abstracts access to the database for the Drug objects
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 @Dao
 public interface DrugDao {
-
+    /**
+     * @Insert
+     * @Update
+     * @Delete
+     * insert, update and delete rows without SQL code (room library)
+     */
     @Insert
     void insert(Drug drug);
 
@@ -26,12 +37,18 @@ public interface DrugDao {
     @Delete
     void delete(Drug drug);
 
+    /**
+     * @Query   methods for special queries
+     */
     @Query("DELETE FROM drugs")
     void deleteAll();
 
     @Query("DELETE FROM drugs WHERE drugId = :drugId")
     void deleteDrugById(int drugId);
 
+    /**
+     * @Transaction methods for relations (join)
+     */
     @Transaction
     @Query("SELECT * FROM drugs WHERE drugId = :drugId")
     DrugWithUnitAndDrugTypeAndSubstance getDrugById(int drugId);

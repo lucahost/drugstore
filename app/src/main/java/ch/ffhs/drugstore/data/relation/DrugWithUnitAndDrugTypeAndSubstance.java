@@ -8,7 +8,18 @@ import ch.ffhs.drugstore.data.entity.DrugType;
 import ch.ffhs.drugstore.data.entity.Substance;
 import ch.ffhs.drugstore.data.entity.Unit;
 
+/**
+ * This class represents the relation between the entities Drug with Unit
+ * and DrugType and Substance
+ * to use with Room persistence library
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 public class DrugWithUnitAndDrugTypeAndSubstance {
+    /**
+     * @Embedded    allows to represent two entities as one
+     * @Relation    represents join between two entities
+     */
     @Embedded
     public Drug drug;
 
@@ -19,6 +30,9 @@ public class DrugWithUnitAndDrugTypeAndSubstance {
     )
     public Unit unit;
 
+    /**
+     * second Drug join
+     */
     @Relation(
             parentColumn = "drugTypeId",
             entityColumn = "drugTypeId",
@@ -26,6 +40,9 @@ public class DrugWithUnitAndDrugTypeAndSubstance {
     )
     public DrugType drugType;
 
+    /**
+     * third Drug join
+     */
     @Relation(
             parentColumn = "substanceId",
             entityColumn = "substanceId",

@@ -12,10 +12,21 @@ import java.util.List;
 
 import ch.ffhs.drugstore.data.entity.Signature;
 import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs;
-
+/**
+ * data access object (DAO) class
+ * abstracts access to the database for the Signature objects
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 @Dao
 public interface SignatureDao {
-
+    /**
+     * @Insert
+     * @Update
+     * @Delete
+     * insert, update and delete rows without SQL code (room library)
+     */
     @Insert
     long insert(Signature signature);
 
@@ -25,9 +36,15 @@ public interface SignatureDao {
     @Delete
     void delete(Signature signature);
 
+    /**
+     * @Query   methods for special queries
+     */
     @Query("DELETE FROM signatures")
     void deleteAll();
 
+    /**
+     * @Transaction methods for relations (join)
+     */
     @Transaction
     @Query("SELECT * FROM signatures ORDER BY createdAt DESC")
     LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> getAllSignatures();
