@@ -10,34 +10,37 @@
         android:padding="16dp">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/name_text_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/name">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_drug_name_text"
+                android:id="@+id/name_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dosage_text_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/dosage">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_drug_dosage_text"
+                android:id="@+id/dosage_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tolerance_text_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/tolerance">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_drug_tolerance_text"
+                android:id="@+id/tolerance_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal" />

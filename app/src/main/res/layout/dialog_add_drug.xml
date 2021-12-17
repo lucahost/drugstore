@@ -83,6 +83,7 @@
     </TableLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/drug_count_text_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/add_to_stock">

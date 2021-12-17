@@ -12,6 +12,7 @@
         android:paddingBottom="16dp" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/employee_text_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/employee">
@@ -23,6 +24,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/patient_text_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/patient">
@@ -34,6 +36,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/amount_text_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/amount">
