@@ -18,6 +18,7 @@ import ch.ffhs.drugstore.domain.usecase.management.inventory.ToggleInventoryItem
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.CreateSignatureDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
+import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
@@ -52,7 +53,7 @@ public class InventoryViewModel extends AndroidViewModel {
         signatureDrugs.clear();
     }
 
-    public void toggleInventoryItem(Integer drugId) {
+    public void toggleInventoryItem(Integer drugId) throws DrugstoreException {
         if (signatureDrugs.get(drugId) != null) {
             signatureDrugs.remove(drugId);
         } else {

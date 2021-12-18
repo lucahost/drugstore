@@ -59,7 +59,7 @@ public class UpdateDrugAmountTest {
     }
 
     @Test
-    public void execute() throws DrugstoreException {
+    public void executeUpdateDrugAmountUseCaseSuccessfully() throws DrugstoreException {
         // Arrange
         UpdateDrugAmountDto updateDrugAmountDto = TestUtil.createUpdateDrugAmountDto(0);
         updateDrugAmountDto.setAmount(2);

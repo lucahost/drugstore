@@ -2,6 +2,15 @@ package util;
 
 import com.github.javafaker.Faker;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.function.Supplier;
+
 import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.data.entity.DrugType;
 import ch.ffhs.drugstore.data.entity.Substance;
@@ -15,6 +24,11 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.EditDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UpdateDrugAmountDto;
+import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
+import ch.ffhs.drugstore.shared.dto.management.signature.CreateSignatureDto;
+import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
+import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
+import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
 
 public class TestUtil {
     private static final Faker faker = new Faker();
@@ -25,8 +39,16 @@ public class TestUtil {
         String shortName = faker.name().prefix();
         String externalId = faker.number().toString();
         String email = faker.internet().emailAddress();
-
         return new User(userId, firstName, lastName, shortName, email, externalId);
+    }
+
+    public static UserDto createUserDto(int userId) {
+        String firstName = faker.name().firstName();
+        String lastName = faker.name().lastName();
+        String shortName = faker.name().prefix();
+        String externalId = faker.number().toString();
+        String email = faker.internet().emailAddress();
+        return new UserDto(userId, firstName, lastName, shortName, email, externalId);
     }
 
     public static DrugWithUnitAndDrugTypeAndSubstance createDrugWithAllRelations(int drugTypeId,
@@ -114,5 +136,50 @@ public class TestUtil {
     public static SubstanceDto createSubstanceDto(int substanceId) {
         String substanceTitle = faker.funnyName().name();
         return new SubstanceDto(substanceId, substanceTitle);
+    }
+
+    public static TransactionDto createTransactionDto(int transactionId) {
+        DrugDto drug = createDrugDto(faker.number().randomDigit());
+        UserDto user = createUserDto(faker.number().randomDigit());
+        ZonedDateTime createdAt = zonedDateFromDate(faker.date().birthday());
+        double amount = faker.number().randomDouble(2, 1, 10);
+        String patient = faker.funnyName().name();
+        return new TransactionDto(transactionId, drug, user, createdAt, amount, patient);
+    }
+
+    public static SignatureDto createSignatureDto(int signatureId) {
+        UserDto user = createUserDto(faker.number().randomDigit());
+        ZonedDateTime createdAt = zonedDateFromDate(faker.date().birthday());
+        return new SignatureDto(signatureId, user, createdAt);
+    }
+
+    public static SignatureDrugDto createSignatureDrugDto() {
+        int signatureId = faker.number().randomDigit();
+        int drugId = faker.number().randomDigit();
+        DrugDto drug = createDrugDto(drugId);
+        double expectedAmount = faker.number().randomDouble(2, 1, 10);
+        double actualAmount = faker.number().randomDouble(2, 1, 10);
+        boolean approved = false;
+        return new SignatureDrugDto(signatureId, drugId, drug, expectedAmount, actualAmount, approved);
+    }
+
+    public static CreateSignatureDto createCreateSignatureDto() {
+        String userShortName = faker.funnyName().name();
+        List<SignatureDrugDto> signatureDrugs = createObjectListWithSupplier(2, TestUtil::createSignatureDrugDto);
+        return new CreateSignatureDto(userShortName, signatureDrugs);
+    }
+
+    private static <T> List<T> createObjectListWithSupplier(int count, Supplier<T> creator)  {
+        List<T> objectList = new ArrayList<>(count);
+        for (int i = 0; i < count; i++) {
+            objectList.add(creator.get());
+        }
+        return objectList;
+    }
+
+    private static ZonedDateTime zonedDateFromDate(Date date) {
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+        Instant instant = date.toInstant();
+        return instant.atZone(defaultZoneId);
     }
 }

@@ -16,6 +16,7 @@ public class DeleteDrug implements UseCase<Void, Integer> {
 
     @Override
     public Void execute(Integer drugId) {
+        // TODO if drug is in transaction / history prevent delete
         drugManagementService.deleteDrug(drugId);
         return null;
     }

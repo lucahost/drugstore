@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.domain.usecase.management.drugs;
+package ch.ffhs.drugstore.domain.usecase.management.inventory;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -18,28 +18,28 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.ffhs.drugstore.domain.service.DrugManagementService;
+import ch.ffhs.drugstore.domain.service.InventoryService;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import util.TestUtil;
 
-public class GetDrugsTest {
+public class GetInventoryTest {
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
-    private DrugManagementService drugManagementService;
+    private InventoryService inventoryService;
 
     @Before
     public void setUp() {
-        drugManagementService = mock(DrugManagementService.class);
+        inventoryService = mock(InventoryService.class);
     }
 
     @After
     public void tearDown() {
-        drugManagementService = null;
+        inventoryService = null;
     }
 
     @Test
-    public void executeGetDrugsUseCaseSuccessfully() {
+    public void executeGetInventoryUseCaseSuccessfully() {
         // Arrange
         MutableLiveData<List<DrugDto>> liveDataDrugList = new MutableLiveData<>();
         List<DrugDto> drugList = new ArrayList<>();
@@ -47,14 +47,14 @@ public class GetDrugsTest {
         drugList.add(TestUtil.createDrugDto(2));
         liveDataDrugList.postValue(drugList);
 
-        when(drugManagementService.getAllDrugs()).thenReturn(liveDataDrugList);
+        when(inventoryService.getInventory()).thenReturn(liveDataDrugList);
 
         // Act
-        GetDrugs getDrugs = new GetDrugs(drugManagementService);
-        LiveData<List<DrugDto>> actualDrugs = getDrugs.execute(null);
+        GetInventory getInventory = new GetInventory(inventoryService);
+        LiveData<List<DrugDto>> actualDrugs = getInventory.execute(null);
 
         // Verify
-        verify(drugManagementService, times(1)).getAllDrugs();
+        verify(inventoryService, times(1)).getInventory();
         assertEquals(2, actualDrugs.getValue().size());
     }
 }

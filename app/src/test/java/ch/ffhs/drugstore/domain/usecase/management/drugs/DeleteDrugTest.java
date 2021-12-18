@@ -24,7 +24,7 @@ public class DeleteDrugTest {
     }
 
     @Test
-    public void execute() {
+    public void executeDeleteDrugUseCaseSuccessfully() {
         // Arrange
         int drugId = 1;
         // Act

@@ -1,5 +1,6 @@
 package ch.ffhs.drugstore.presentation.management.inventory.view;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import ch.ffhs.drugstore.presentation.management.inventory.view.adapter.Inventor
 import ch.ffhs.drugstore.presentation.management.inventory.view.dialog.SignInventoryDialogFragment;
 import ch.ffhs.drugstore.presentation.management.inventory.viewmodel.InventoryViewModel;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -113,8 +115,19 @@ public class InventoryFragment extends Fragment
 
     @Override
     public void onItemClick(DrugDto inventoryDrug) {
-        viewModel.toggleInventoryItem(inventoryDrug.getDrugId());
-        Toast.makeText(context(), "Checked", Toast.LENGTH_SHORT).show();
+        try {
+
+            viewModel.toggleInventoryItem(inventoryDrug.getDrugId());
+            Toast.makeText(context(), "Checked", Toast.LENGTH_SHORT).show();
+        } catch (DrugstoreException dse) {
+            new AlertDialog.Builder(getContext())
+                    .setTitle(R.string.error_toggle_favorite)
+                    .setMessage(dse.getMessage())
+                    .setNegativeButton(R.string.close, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+            return;
+        }
     }
 
 

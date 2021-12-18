@@ -26,7 +26,7 @@ public class EditDrugTest {
     }
 
     @Test
-    public void execute() {
+    public void executeEditDrugUseCaseSuccessfully() {
         // Arrange
         EditDrugDto editDrugDto = TestUtil.createEditDrugDto(1);
 
