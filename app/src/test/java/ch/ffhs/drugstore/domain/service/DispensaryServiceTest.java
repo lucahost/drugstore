@@ -119,6 +119,6 @@ public class DispensaryServiceTest {
         dispensaryService.toggleDrugIsFavorite(1);
 
         // Verify
-        verify(drugRepository, times(0)).toggleDrugIsFavorite(1);
+        verify(drugRepository, times(1)).toggleDrugIsFavorite(1);
     }
 }
