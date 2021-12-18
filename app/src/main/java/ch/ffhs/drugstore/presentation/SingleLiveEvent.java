@@ -19,6 +19,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * explicit call to setValue() or call().
  * <p>
  * Note that only one observer is going to be notified of changes.
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
  */
 public class SingleLiveEvent<T> extends MutableLiveData<T> {
 
@@ -26,6 +29,11 @@ public class SingleLiveEvent<T> extends MutableLiveData<T> {
 
     private final AtomicBoolean mPending = new AtomicBoolean(false);
 
+    /**
+     *
+     * @param owner
+     * @param observer
+     */
     @MainThread
     public void observe(LifecycleOwner owner, final Observer<? super T> observer) {
 
@@ -44,6 +52,10 @@ public class SingleLiveEvent<T> extends MutableLiveData<T> {
         });
     }
 
+    /**
+     *
+     * @param t
+     */
     @MainThread
     public void setValue(@Nullable T t) {
         mPending.set(true);

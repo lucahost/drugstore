@@ -21,30 +21,57 @@ import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
+/**
+ * View model for inventory management.
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 @HiltViewModel
 public class InventoryViewModel extends AndroidViewModel {
     private final Map<Integer, SignatureDrugDto> signatureDrugs;
-    @Inject
-    GetInventory getInventory;
-    @Inject
-    ToggleInventoryItem toggleInventoryItem;
-    @Inject
-    SignInventory signInventory;
-    private LiveData<List<DrugDto>> items;
+    private final GetInventory getInventory;
+    private final ToggleInventoryItem toggleInventoryItem;
+    private final SignInventory signInventory;
+    private LiveData<List<DrugDto>> drugs;
 
+    /**
+     * Constructs a {@link InventoryViewModel}
+     *
+     * @param application global application state
+     * @param getInventory  use case to get inventory
+     * @param toggleInventoryItem use case to toggle an inventory item
+     * @param signInventory use case to sign an inventory
+     */
     @Inject
-    public InventoryViewModel(Application application) {
+    public InventoryViewModel(Application application,
+            GetInventory getInventory,
+            ToggleInventoryItem toggleInventoryItem,
+            SignInventory signInventory) {
         super(application);
+        this.getInventory = getInventory;
+        this.toggleInventoryItem = toggleInventoryItem;
+        this.signInventory = signInventory;
         signatureDrugs = new HashMap<>();
     }
 
-    public LiveData<List<DrugDto>> getItems() {
-        if (items == null) {
-            items = getInventory.execute(null);
+    /**
+     * Get all drugs
+     *
+     * @return drugs
+     */
+    public LiveData<List<DrugDto>> getDrugs() {
+        if (drugs == null) {
+            drugs = getInventory.execute(null);
         }
-        return items;
+        return drugs;
     }
 
+    /**
+     * Signs the current state of the inventory.
+     *
+     * @param shortName the short name of the signing employee
+     */
     public void signInventory(String shortName) {
         ArrayList<SignatureDrugDto> signatureDrugList = new ArrayList<>(signatureDrugs.values());
         CreateSignatureDto createSignatureDto = new CreateSignatureDto(shortName,
@@ -53,6 +80,12 @@ public class InventoryViewModel extends AndroidViewModel {
         signatureDrugs.clear();
     }
 
+    /**
+     * Toggle a single inventory item by id
+     *
+     * @param drugId the id of the inventory item to toggle
+     * @throws DrugstoreException if toggling of the inventory item goes wrong
+     */
     public void toggleInventoryItem(Integer drugId) throws DrugstoreException {
         if (signatureDrugs.get(drugId) != null) {
             signatureDrugs.remove(drugId);

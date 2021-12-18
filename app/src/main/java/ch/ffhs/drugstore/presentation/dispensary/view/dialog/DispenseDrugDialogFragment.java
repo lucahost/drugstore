@@ -19,6 +19,12 @@ import dagger.assisted.Assisted;
 import dagger.assisted.AssistedInject;
 import dagger.hilt.android.AndroidEntryPoint;
 
+/**
+ * Dialog for the dispensation of a drug.
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 @AndroidEntryPoint
 public class DispenseDrugDialogFragment extends DialogFragment {
 
@@ -27,17 +33,19 @@ public class DispenseDrugDialogFragment extends DialogFragment {
     public static final String ARG_DRUG_TITLE = "drugTitle";
     public static final String ARG_DRUG_DOSAGE = "drugDosage";
     public static final String ARG_DRUG_UNIT = "drugUnit";
-    private ConfirmDispenseDrugListener confirmDispenseDrugListener;
-    private DialogDispenseDrugBinding binding;
-    private int drugId;
-    private String drugTitle;
-    private String drugDosage;
-    private String drugUnit;
 
-    public DispenseDrugDialogFragment() {
-        // Required empty public constructor
-    }
+    private ConfirmDispenseDrugListener confirmDispenseDrugListener = null;
+    private DialogDispenseDrugBinding binding = null;
+    private Integer drugId = null;
+    private String drugTitle = null;
+    private String drugDosage = null;
+    private String drugUnit = null;
 
+    /**
+     * Constructs a {@link DispenseDrugDialogFragment} by {@link DispenseDrugDialogFragmentFactory}.
+     *
+     * @param args fragment arguments
+     */
     @AssistedInject
     public DispenseDrugDialogFragment(
             @Assisted("dispenseDrugDialogFragmentArgs") DispenseDrugDialogFragmentArgs args) {
@@ -49,6 +57,9 @@ public class DispenseDrugDialogFragment extends DialogFragment {
         setArguments(bundle);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +71,9 @@ public class DispenseDrugDialogFragment extends DialogFragment {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -71,7 +85,9 @@ public class DispenseDrugDialogFragment extends DialogFragment {
         }
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -81,6 +97,18 @@ public class DispenseDrugDialogFragment extends DialogFragment {
         return getAlertDialog();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        this.confirmDispenseDrugListener = null;
+    }
+
+    /**
+     * @return the alert dialog
+     */
     @NonNull
     private AlertDialog getAlertDialog() {
         AlertDialog dialog = new AlertDialog.Builder(requireContext())
@@ -96,6 +124,9 @@ public class DispenseDrugDialogFragment extends DialogFragment {
         return dialog;
     }
 
+    /**
+     * Validates inputs and confirms the dispense if there are no validation errors.
+     */
     private void validateInputAndConfirmDispense() {
         boolean employeeNotEmpty = InputValidation.validateTextNotEmpty(
                 binding.employeeText,
@@ -117,15 +148,5 @@ public class DispenseDrugDialogFragment extends DialogFragment {
 
             confirmDispenseDrugListener.onConfirmDispenseDrug(drugId, employee, patient, amount);
         }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        this.confirmDispenseDrugListener = null;
-    }
-
-    public interface ConfirmDispenseDrugListener {
-        void onConfirmDispenseDrug(int drugId, String employee, String patient, String dosage);
     }
 }

@@ -15,11 +15,17 @@ import javax.inject.Inject;
 import ch.ffhs.drugstore.domain.usecase.settings.database.ExportDatabase;
 import ch.ffhs.drugstore.domain.usecase.settings.database.ImportDatabase;
 import ch.ffhs.drugstore.presentation.SingleLiveEvent;
+import ch.ffhs.drugstore.presentation.management.inventory.view.adapter.InventoryListAdapter;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
+/**
+ * View model for settings.
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 @HiltViewModel
 public class SettingsViewModel extends AndroidViewModel {
-
     private final SingleLiveEvent<Uri> databaseExportedEvent = new SingleLiveEvent<>();
     private final Application app;
 
@@ -29,12 +35,20 @@ public class SettingsViewModel extends AndroidViewModel {
     @Inject
     ImportDatabase importDatabase;
 
+    /**
+     * Constructs a {@link SettingsViewModel}
+     *
+     * @param app global application state
+     */
     @Inject
     public SettingsViewModel(Application app) {
         super(app);
         this.app = app;
     }
 
+    /**
+     * TODO: add docs
+     */
     public void exportDatabase() {
         String dbName = exportDatabase.execute(null);
         File dbDirectory = new File(dbName).getParentFile();
@@ -49,11 +63,19 @@ public class SettingsViewModel extends AndroidViewModel {
 
     }
 
+    /**
+     * TODO: add docs
+     */
     public void importDatabase() {
         importDatabase.execute(null);
         databaseExportedEvent.call();
     }
 
+    /**
+     * TODO: add docs
+     *
+     * @return
+     */
     public SingleLiveEvent<Uri> getDatabaseExportedEvent() {
         return databaseExportedEvent;
     }

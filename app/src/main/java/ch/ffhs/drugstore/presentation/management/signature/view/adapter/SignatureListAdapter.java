@@ -1,140 +1,81 @@
 package ch.ffhs.drugstore.presentation.management.signature.view.adapter;
 
-import android.content.Context;
+import static ch.ffhs.drugstore.presentation.management.ListItemItemDiffHelper.signatureDtoItemDiffCallback;
+
 import android.os.Build;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.chip.Chip;
-
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.SignatureItemBinding;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
 
+/**
+ * Recycler view list adapter for {@link SignatureDto} items used by {@link SignatureItemHolder}
+ * view holder.
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 public class SignatureListAdapter extends
-        ListAdapter<SignatureDto, SignatureListAdapter.SignatureItemHolder> {
-    private static final DiffUtil.ItemCallback<SignatureDto>
-            DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<SignatureDto>() {
-                @Override
-                public boolean areItemsTheSame(
-                        @NonNull SignatureDto oldItem,
-                        @NonNull SignatureDto newItem) {
-                    return oldItem.getSignatureId() == newItem.getSignatureId();
-                }
+        ListAdapter<SignatureDto, SignatureItemHolder> {
+    private OnSignatureItemClickListener clickListener;
 
-                @Override
-                public boolean areContentsTheSame(
-                        @NonNull SignatureDto oldItem,
-                        @NonNull SignatureDto newItem) {
-                    return Objects.equals(oldItem.getUser().getUserId(),
-                            newItem.getUser().getUserId())
-                            && oldItem.getSignatureId()
-                            == newItem.getSignatureId()
-                            && oldItem.getCreatedAt().equals(
-                            newItem.getCreatedAt());
-                }
-            };
-
-    private SignatureListAdapter.OnItemClickListener clickListener;
-    private Context context;
-
+    /**
+     * Constructs a {@link SignatureListAdapter}
+     */
     @Inject
     public SignatureListAdapter() {
-        super(DIFF_CALLBACK);
+        super(signatureDtoItemDiffCallback);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @NonNull
     @Override
     public SignatureItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         SignatureItemBinding binding =
                 SignatureItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent,
                         false);
-        context = binding.getRoot().getContext();
-        return new SignatureItemHolder(binding);
+        return new SignatureItemHolder(this, binding);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull SignatureItemHolder holder, int position) {
         holder.bind(position);
     }
 
-    // allows clicks events to be caught
-    public void setClickListener(OnItemClickListener itemClickListener) {
-        this.clickListener = itemClickListener;
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(View view, SignatureDto signature);
+    /**
+     * @return click listener
+     */
+    public OnSignatureItemClickListener getClickListener() {
+        return clickListener;
     }
 
     /**
-     * Provide a reference to the type of views that you are using (custom ViewHolder).
+     * allows clicks events to be caught
+     *
+     * @param itemClickListener click listener
      */
-    public class SignatureItemHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
-        private final TextView title;
-        private final TextView secondary;
-        private final Chip chip;
+    public void setClickListener(OnSignatureItemClickListener itemClickListener) {
+        this.clickListener = itemClickListener;
+    }
 
-        SignatureItemHolder(SignatureItemBinding binding) {
-            super(binding.getRoot());
-            title = binding.title;
-            secondary = binding.secondary;
-            chip = binding.chip;
-        }
-
-        @RequiresApi(api = Build.VERSION_CODES.O)
-        void bind(int position) {
-            title.setText(getItemTitleText(position));
-            secondary.setText(getItemSecondaryText(position));
-            chip.setText(getItemChipText(position));
-            itemView.setOnClickListener(this);
-        }
-
-        @RequiresApi(api = Build.VERSION_CODES.O)
-        @NonNull
-        private String getItemTitleText(int position) {
-            ZonedDateTime createdAt = getItem(position).getCreatedAt();
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(
-                    FormatStyle.MEDIUM);
-            return createdAt.format(dateTimeFormatter);
-        }
-
-        @RequiresApi(api = Build.VERSION_CODES.O)
-        @NonNull
-        private String getItemSecondaryText(int position) {
-            return context.getString(R.string.drug_count,
-                    getItem(position).getSignatureDrugs().size());
-        }
-
-        @NonNull
-        private String getItemChipText(int position) {
-            return getItem(position).getUser().getShortName();
-        }
-
-        @Override
-        public void onClick(View view) {
-            if (clickListener != null) {
-                clickListener.onItemClick(view,
-                        getItem(getAdapterPosition()));
-            }
-        }
+    /**
+     * @param position The position of the item within the adapter's data set
+     * @return The item at specified position
+     */
+    protected SignatureDto getItem(int position) {
+        return super.getItem(position);
     }
 }
