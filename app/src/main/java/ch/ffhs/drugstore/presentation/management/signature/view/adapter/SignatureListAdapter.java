@@ -18,37 +18,36 @@ import com.google.android.material.chip.Chip;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.Locale;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
-import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs;
 import ch.ffhs.drugstore.databinding.SignatureItemBinding;
+import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
 
-public class SignatureListAdapter
-        extends
-        ListAdapter<SignatureWithUserAndSignatureDrugsAndDrugs,
-                SignatureListAdapter.SignatureItemHolder> {
-    private static final DiffUtil.ItemCallback<SignatureWithUserAndSignatureDrugsAndDrugs>
+public class SignatureListAdapter extends
+        ListAdapter<SignatureDto, SignatureListAdapter.SignatureItemHolder> {
+    private static final DiffUtil.ItemCallback<SignatureDto>
             DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<SignatureWithUserAndSignatureDrugsAndDrugs>() {
+            new DiffUtil.ItemCallback<SignatureDto>() {
                 @Override
                 public boolean areItemsTheSame(
-                        @NonNull SignatureWithUserAndSignatureDrugsAndDrugs oldItem,
-                        @NonNull SignatureWithUserAndSignatureDrugsAndDrugs newItem) {
-                    return oldItem.signature.getSignatureId() == newItem.signature.getSignatureId();
+                        @NonNull SignatureDto oldItem,
+                        @NonNull SignatureDto newItem) {
+                    return oldItem.getSignatureId() == newItem.getSignatureId();
                 }
 
                 @Override
                 public boolean areContentsTheSame(
-                        @NonNull SignatureWithUserAndSignatureDrugsAndDrugs oldItem,
-                        @NonNull SignatureWithUserAndSignatureDrugsAndDrugs newItem) {
-                    return oldItem.signature.getUserId() == newItem.signature.getUserId()
-                            && oldItem.signature.getSignatureId()
-                            == newItem.signature.getSignatureId()
-                            && oldItem.signature.getCreatedAt().equals(
-                            newItem.signature.getCreatedAt());
+                        @NonNull SignatureDto oldItem,
+                        @NonNull SignatureDto newItem) {
+                    return Objects.equals(oldItem.getUser().getUserId(),
+                            newItem.getUser().getUserId())
+                            && oldItem.getSignatureId()
+                            == newItem.getSignatureId()
+                            && oldItem.getCreatedAt().equals(
+                            newItem.getCreatedAt());
                 }
             };
 
@@ -82,7 +81,7 @@ public class SignatureListAdapter
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, SignatureWithUserAndSignatureDrugsAndDrugs signature);
+        void onItemClick(View view, SignatureDto signature);
     }
 
     /**
@@ -112,7 +111,7 @@ public class SignatureListAdapter
         @RequiresApi(api = Build.VERSION_CODES.O)
         @NonNull
         private String getItemTitleText(int position) {
-            ZonedDateTime createdAt = getItem(position).signature.getCreatedAt();
+            ZonedDateTime createdAt = getItem(position).getCreatedAt();
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(
                     FormatStyle.MEDIUM);
             return createdAt.format(dateTimeFormatter);
@@ -122,12 +121,12 @@ public class SignatureListAdapter
         @NonNull
         private String getItemSecondaryText(int position) {
             return context.getString(R.string.drug_count,
-                    getItem(position).signatureDrugs.size());
+                    getItem(position).getSignatureDrugs().size());
         }
 
         @NonNull
         private String getItemChipText(int position) {
-            return getItem(position).user.getShortName();
+            return getItem(position).getUser().getShortName();
         }
 
         @Override

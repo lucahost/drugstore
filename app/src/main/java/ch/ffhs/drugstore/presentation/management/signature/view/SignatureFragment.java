@@ -22,6 +22,7 @@ import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrug
 import ch.ffhs.drugstore.databinding.FragmentSignatureBinding;
 import ch.ffhs.drugstore.presentation.management.signature.view.adapter.SignatureListAdapter;
 import ch.ffhs.drugstore.presentation.management.signature.viewmodel.SignatureViewModel;
+import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -63,9 +64,9 @@ public class SignatureFragment extends Fragment
     }
 
     @Override
-    public void onItemClick(View view, SignatureWithUserAndSignatureDrugsAndDrugs signature) {
+    public void onItemClick(View view, SignatureDto signature) {
         NavDirections action = SignatureFragmentDirections.actionSignatureToSignatureDetailFragment(
-                (int) signature.signature.signatureId);
+                (int) signature.getSignatureId());
         Navigation.findNavController(view).navigate(action);
     }
 

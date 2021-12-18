@@ -3,6 +3,7 @@ package ch.ffhs.drugstore.data.repository;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
 
 import java.util.List;
 
@@ -37,8 +38,8 @@ public class SignatureRepository {
         allSignaturesWithDrugs = signatureDao.getAllSignatures();
     }
 
-    public LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> getSignatures() {
-        return allSignaturesWithDrugs;
+    public LiveData<List<SignatureDto>> getSignatures() {
+        return Transformations.map(allSignaturesWithDrugs, mapper::signatureListToSignatureDrugDtoList);
     }
 
     public SignatureDto getSignatureBySignatureId(int signatureId) {

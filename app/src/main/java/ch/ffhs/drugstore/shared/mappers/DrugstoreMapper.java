@@ -75,13 +75,22 @@ public interface DrugstoreMapper {
 
     List<DrugDto> drugListToDrugDtoList(List<DrugWithUnitAndDrugTypeAndSubstance> drugEntity);
 
+    @Mappings({
+            @Mapping(target = "createdAt", source = "signature.createdAt"),
+            @Mapping(target = "signatureId", source = "signature.signatureId"),
+    })
     SignatureDto signatureToSignatureDto(
             SignatureWithUserAndSignatureDrugsAndDrugs signatureEntity);
+
+    List<SignatureDto> signatureListToSignatureDrugDtoList(
+            List<SignatureWithUserAndSignatureDrugsAndDrugs> signatureDrugs);
 
     @Mapping(target = ".", source = "signatureDrug")
     SignatureDrugDto signatureDrugToSignatureDrugDto(SignatureDrugWithDrug signatureDrug);
 
-    List<SignatureDrugDto> signatureDrugListToSignatureDrugDtoList(List<SignatureDrugWithDrug> signatureDrugs);
+    List<SignatureDrugDto> signatureDrugListToSignatureDrugDtoList(
+            List<SignatureDrugWithDrug> signatureDrugs);
+
 
     @Mappings({
             @Mapping(target = "userId", source = "user.userId"),
@@ -98,6 +107,7 @@ public interface DrugstoreMapper {
     List<UserDto> userListToUserDtoList(List<User> users);
 
     UserDto userToUserDto(User user);
+
     User userDtoToUser(UserDto userDto);
 
     @Mapping(target = ".", source = "drugType")

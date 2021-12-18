@@ -34,7 +34,7 @@ public class SignatureService {
         this.userService = userService;
     }
 
-    public LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> getSignatures() {
+    public LiveData<List<SignatureDto>> getSignatures() {
         return signatureRepository.getSignatures();
     }
 
