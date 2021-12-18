@@ -4,7 +4,12 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
-
+/**
+ * This class represents the DrugType entity in the local database
+ * to use with Room persistence library
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 @Entity(tableName = "drugTypes",
         foreignKeys = {
                 @ForeignKey(entity = DrugType.class, parentColumns = "drugTypeId", childColumns =

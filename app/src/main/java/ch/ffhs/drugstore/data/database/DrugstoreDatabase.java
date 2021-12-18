@@ -33,6 +33,12 @@ import ch.ffhs.drugstore.data.entity.Transaction;
 import ch.ffhs.drugstore.data.entity.Unit;
 import ch.ffhs.drugstore.data.entity.User;
 
+/**
+ * This class holds the database and serves as the main access point
+ * for the underlying connection to the app's persisted data
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 @Database(
         entities = {
                 Drug.class,
@@ -71,6 +77,12 @@ public abstract class DrugstoreDatabase extends RoomDatabase {
     // marking the instance as volatile to ensure atomic access to the variable
     private static volatile DrugstoreDatabase INSTANCE;
 
+    /**
+     *
+     * @param context
+     * check if not null
+     * @return Database instance
+     */
     public static DrugstoreDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (DrugstoreDatabase.class) {

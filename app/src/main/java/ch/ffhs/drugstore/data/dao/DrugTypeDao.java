@@ -11,13 +11,26 @@ import java.util.List;
 import ch.ffhs.drugstore.data.entity.DrugType;
 import ch.ffhs.drugstore.data.relation.DrugTypeWithParentDrugType;
 
-
+/**
+ * data access object (DAO) class
+ * abstracts access to the database for the DrugTypes objects
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 @Dao
 public interface DrugTypeDao {
+
+    /**
+     * @Transaction methods for relations (join)
+     */
     @Transaction
     @Query("SELECT * FROM drugTypes")
     LiveData<List<DrugTypeWithParentDrugType>> getAllDrugTypes();
 
+    /**
+     * @Insert  insert rows without SQL code (room library)
+     */
     @Insert
     long insert(DrugType drugType);
 }
