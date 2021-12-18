@@ -15,9 +15,10 @@ import ch.ffhs.drugstore.data.entity.Transaction;
 import ch.ffhs.drugstore.data.relation.TransactionWithDrugAndUser;
 import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
+
 /**
- * This class abstracts the data layer
- * methods for Transaction data
+ * This class abstracts the data layer methods for Transaction data
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */

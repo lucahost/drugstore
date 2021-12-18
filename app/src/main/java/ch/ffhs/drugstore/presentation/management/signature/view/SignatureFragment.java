@@ -18,27 +18,29 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs;
 import ch.ffhs.drugstore.databinding.FragmentSignatureBinding;
+import ch.ffhs.drugstore.presentation.management.signature.view.adapter.OnSignatureItemClickListener;
 import ch.ffhs.drugstore.presentation.management.signature.view.adapter.SignatureListAdapter;
 import ch.ffhs.drugstore.presentation.management.signature.viewmodel.SignatureViewModel;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
 import dagger.hilt.android.AndroidEntryPoint;
 
+/**
+ * Signature Fragment
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 @AndroidEntryPoint
-public class SignatureFragment extends Fragment
-        implements SignatureListAdapter.OnItemClickListener {
+public class SignatureFragment extends Fragment implements OnSignatureItemClickListener {
 
     @Inject
-    SignatureListAdapter adapter;
-    FragmentSignatureBinding binding;
-    SignatureViewModel viewModel;
+    protected SignatureListAdapter adapter;
+    private FragmentSignatureBinding binding;
 
-    @Inject
-    public SignatureFragment() {
-        // Required empty public constructor
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,22 +49,28 @@ public class SignatureFragment extends Fragment
         return binding.getRoot();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(requireActivity()).get(SignatureViewModel.class);
-        viewModel.getItems().observe(getViewLifecycleOwner(), adapter::submitList);
+        SignatureViewModel viewModel = new ViewModelProvider(requireActivity()).get(
+                SignatureViewModel.class);
+        viewModel.getSignatures().observe(getViewLifecycleOwner(), adapter::submitList);
     }
 
-    public Context context() {
-        return Objects.requireNonNull(this.getActivity()).getApplicationContext();
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onItemClick(View view, SignatureDto signature) {
         NavDirections action = SignatureFragmentDirections.actionSignatureToSignatureDetailFragment(
@@ -70,9 +78,22 @@ public class SignatureFragment extends Fragment
         Navigation.findNavController(view).navigate(action);
     }
 
+    /**
+     * Convenience method to access the app context
+     *
+     * @return app context
+     */
+    private Context context() {
+        return Objects.requireNonNull(this.getActivity()).getApplicationContext();
+    }
+
+    /**
+     * Setup the recycler view list
+     */
     private void setupRecyclerView() {
         binding.signatureList.setLayoutManager(new LinearLayoutManager(context()));
-        binding.signatureList.addItemDecoration(new DividerItemDecoration(context(), DividerItemDecoration.VERTICAL));
+        binding.signatureList.addItemDecoration(
+                new DividerItemDecoration(context(), DividerItemDecoration.VERTICAL));
         adapter.setClickListener(this);
         binding.signatureList.setAdapter(this.adapter);
     }

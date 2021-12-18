@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.presentation.management.drugs.view.dialog;
+package ch.ffhs.drugstore.presentation.management.drugs.view.dialog.create;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -28,19 +28,31 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 import dagger.hilt.android.AndroidEntryPoint;
 
+/**
+ * TODO: add description
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 @AndroidEntryPoint
 public class CreateDrugDialogFragment extends DialogFragment {
 
     public static final String TAG = "CreateDrug";
-    DialogCreateDrugBinding binding;
-    DrugsViewModel viewModel;
-    private ConfirmCreateDrugListener confirmCreateDrugListener;
 
+    private DialogCreateDrugBinding binding = null;
+    private DrugsViewModel viewModel = null;
+    private ConfirmCreateDrugListener confirmCreateDrugListener = null;
+
+    /**
+     * Empty constructor is required by the Android framework.
+     */
     @Inject
     public CreateDrugDialogFragment() {
-        /* TODO document why this constructor is empty */
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -52,6 +64,9 @@ public class CreateDrugDialogFragment extends DialogFragment {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -63,6 +78,9 @@ public class CreateDrugDialogFragment extends DialogFragment {
         return getAlertDialog();
     }
 
+    /**
+     * @return the alert dialog
+     */
     @NonNull
     private AlertDialog getAlertDialog() {
         AlertDialog dialog = new AlertDialog.Builder(requireContext())
@@ -78,6 +96,9 @@ public class CreateDrugDialogFragment extends DialogFragment {
         return dialog;
     }
 
+    /**
+     *
+     */
     private void validateInputAndCreateDrug() {
         boolean nameNotEmpty = InputValidation.validateTextNotEmpty(
                 binding.nameText,
@@ -107,6 +128,9 @@ public class CreateDrugDialogFragment extends DialogFragment {
         }
     }
 
+    /**
+     *
+     */
     private void setDrugTypeRadioButtons() {
         viewModel.getDrugTypes().observe(this,
                 list -> {
@@ -122,6 +146,9 @@ public class CreateDrugDialogFragment extends DialogFragment {
                 });
     }
 
+    /**
+     *
+     */
     private void setDrugUnitRadioButtons() {
         viewModel.getDrugUnits().observe(this,
                 list -> {
@@ -137,6 +164,9 @@ public class CreateDrugDialogFragment extends DialogFragment {
                 });
     }
 
+    /**
+     *
+     */
     private void setSubstanceAutoComplete() {
         viewModel.getSubstances().observe(this, substanceDtoList -> {
             List<String> substanceTitles = substanceDtoList.stream().map(
@@ -149,16 +179,13 @@ public class CreateDrugDialogFragment extends DialogFragment {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onDetach() {
         super.onDetach();
         this.confirmCreateDrugListener = null;
     }
 
-    public interface ConfirmCreateDrugListener {
-        void onConfirmCreateDrug(
-                String name, String substance, String dosage, int drugTypeId, int unitId,
-                String tolerance,
-                boolean isFavorite);
-    }
 }

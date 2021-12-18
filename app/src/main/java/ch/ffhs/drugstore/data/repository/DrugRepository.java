@@ -15,9 +15,10 @@ import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
+
 /**
- * This class abstracts the data layer
- * methods for Drug Repository data
+ * This class abstracts the data layer methods for Drug Repository data
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
@@ -39,6 +40,7 @@ public class DrugRepository {
 
     /**
      * create a drug
+     *
      * @param drugDto
      */
     public void createDrug(DrugDto drugDto) {
@@ -48,6 +50,7 @@ public class DrugRepository {
 
     /**
      * edit a drug
+     *
      * @param drugDto
      */
     public void editDrug(DrugDto drugDto) {
@@ -57,6 +60,7 @@ public class DrugRepository {
 
     /**
      * update the a drug amount
+     *
      * @param drugId
      * @param newAmount
      */
@@ -68,6 +72,7 @@ public class DrugRepository {
 
     /**
      * get all drugs
+     *
      * @return LiveData List with all drugs
      */
     public LiveData<List<DrugDto>> getAllDrugs() {
@@ -76,6 +81,7 @@ public class DrugRepository {
 
     /**
      * get drugs from a specific id
+     *
      * @param drugId
      * @return
      */
@@ -85,6 +91,7 @@ public class DrugRepository {
 
     /**
      * get drugs who are on stock
+     *
      * @param favorites
      * @param searchTerm
      * @return
@@ -101,6 +108,7 @@ public class DrugRepository {
 
     /**
      * get drugs who are on stock
+     *
      * @param favorites
      * @param drugTypeIds
      * @param searchTerm

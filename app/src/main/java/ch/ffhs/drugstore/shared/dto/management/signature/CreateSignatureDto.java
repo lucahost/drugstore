@@ -4,6 +4,12 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+/**
+ * TODO: add description
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 public class CreateSignatureDto {
     List<SignatureDrugDto> signatureDrugs;
     private String userShortName;

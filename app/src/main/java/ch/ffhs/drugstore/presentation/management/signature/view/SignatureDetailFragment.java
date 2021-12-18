@@ -27,19 +27,22 @@ import ch.ffhs.drugstore.presentation.management.signature.view.adapter.Signatur
 import ch.ffhs.drugstore.presentation.management.signature.viewmodel.SignatureViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
+/**
+ * TODO: add description
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 @AndroidEntryPoint
 public class SignatureDetailFragment extends Fragment {
 
     @Inject
-    SignatureDetailListAdapter adapter;
-    FragmentSignatureDetailBinding binding;
-    SignatureViewModel viewModel;
+    protected SignatureDetailListAdapter adapter;
+    private FragmentSignatureDetailBinding binding;
 
-    @Inject
-    public SignatureDetailFragment() {
-        // Required empty public constructor
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -48,20 +51,30 @@ public class SignatureDetailFragment extends Fragment {
         return binding.getRoot();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(requireActivity()).get(SignatureViewModel.class);
+        SignatureViewModel viewModel = new ViewModelProvider(requireActivity()).get(
+                SignatureViewModel.class);
         int signatureId = SignatureDetailFragmentArgs.fromBundle(getArguments()).getSignatureId();
         viewModel.getSignatureDrugBySignatureId(signatureId).observe(getViewLifecycleOwner(), adapter::submitList);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
@@ -69,12 +82,18 @@ public class SignatureDetailFragment extends Fragment {
         backItem.setVisible(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.toolbar_menu, menu);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.toolbar_back) {
@@ -86,10 +105,17 @@ public class SignatureDetailFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Convenience method to access the app context
+     * @return app context
+     */
     private Context context() {
         return Objects.requireNonNull(this.getActivity()).getApplicationContext();
     }
 
+    /**
+     * Setup the recycler view list
+     */
     private void setupRecyclerView() {
         binding.signatureDetailList.setLayoutManager(new LinearLayoutManager(context()));
         binding.signatureDetailList.addItemDecoration(new DividerItemDecoration(context(), DividerItemDecoration.VERTICAL));

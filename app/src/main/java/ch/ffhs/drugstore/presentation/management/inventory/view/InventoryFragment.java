@@ -1,9 +1,7 @@
 package ch.ffhs.drugstore.presentation.management.inventory.view;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,7 +20,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -30,30 +27,36 @@ import javax.inject.Inject;
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.FragmentInventoryBinding;
 import ch.ffhs.drugstore.presentation.DialogService;
+import ch.ffhs.drugstore.presentation.DialogType;
 import ch.ffhs.drugstore.presentation.management.inventory.view.adapter.InventoryListAdapter;
-import ch.ffhs.drugstore.presentation.management.inventory.view.dialog.SignInventoryDialogFragment;
+import ch.ffhs.drugstore.presentation.management.inventory.view.adapter.OnHistoryItemClickListener;
+import ch.ffhs.drugstore.presentation.management.inventory.view.dialog.ConfirmSignInventoryListener;
 import ch.ffhs.drugstore.presentation.management.inventory.viewmodel.InventoryViewModel;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import dagger.hilt.android.AndroidEntryPoint;
 
+/**
+ * Inventory Fragment
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 @AndroidEntryPoint
 public class InventoryFragment extends Fragment
-        implements InventoryListAdapter.OnItemClickListener,
-        SignInventoryDialogFragment.ConfirmSignInventoryListener {
+        implements OnHistoryItemClickListener,
+        ConfirmSignInventoryListener {
 
     @Inject
-    InventoryListAdapter adapter;
+    protected InventoryListAdapter adapter;
     @Inject
-    DialogService dialogService;
-    FragmentInventoryBinding binding;
-    InventoryViewModel viewModel;
+    protected DialogService dialogService;
+    private FragmentInventoryBinding binding;
+    private InventoryViewModel viewModel;
 
-    @Inject
-    public InventoryFragment() {
-        // Required empty public constructor
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,23 +67,28 @@ public class InventoryFragment extends Fragment
         return binding.getRoot();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(InventoryViewModel.class);
-        viewModel.getItems().observe(getViewLifecycleOwner(), adapter::submitList);
+        viewModel.getDrugs().observe(getViewLifecycleOwner(), adapter::submitList);
     }
 
-    public Context context() {
-        return Objects.requireNonNull(this.getActivity()).getApplicationContext();
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
@@ -94,12 +102,18 @@ public class InventoryFragment extends Fragment
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.toolbar_menu, menu);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.toolbar_share) {
@@ -111,17 +125,9 @@ public class InventoryFragment extends Fragment
         return super.onOptionsItemSelected(item);
     }
 
-    private void share(List<DrugDto> drugDtoList) {
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        // TODO: write inventory to e.g. csv file
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "This should contain the inventory.");
-        sendIntent.setType("text/plain");
-
-        Intent shareIntent = Intent.createChooser(sendIntent, null);
-        startActivity(shareIntent);
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onItemClick(DrugDto inventoryDrug) {
         try {
@@ -133,11 +139,21 @@ public class InventoryFragment extends Fragment
                     .setNegativeButton(R.string.close, null)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
-            return;
         }
     }
 
+    /**
+     * Convenience method to access the app context
+     *
+     * @return app context
+     */
+    private Context context() {
+        return Objects.requireNonNull(this.getActivity()).getApplicationContext();
+    }
 
+    /**
+     * Setup the recycler view list
+     */
     private void setupRecyclerView() {
         binding.inventoryList.setLayoutManager(
                 new GridLayoutManager(context(), 2, RecyclerView.VERTICAL, false));
@@ -147,17 +163,19 @@ public class InventoryFragment extends Fragment
         binding.inventoryList.setAdapter(this.adapter);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onConfirmSignInventory(String employee) {
-        dialogService.dismiss(DialogService.Dialog.SIGN_INVENTORY);
+        dialogService.dismiss(DialogType.SIGN_INVENTORY);
         viewModel.signInventory(employee);
         Toast.makeText(context(), R.string.signature_success, Toast.LENGTH_SHORT).show();
-        adapter.toggleCheckAll(false);
+        adapter.resetCheckState();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private void onCheckedChanged(CompoundButton item, boolean checked) {
-        adapter.notifyDataSetChanged();
         adapter.toggleCheckAll(checked);
     }
 

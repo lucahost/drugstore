@@ -1,4 +1,6 @@
 <resources>
+    <string name="is_supported_screen">false</string>
+    <string name="device_not_supported">Diese Applikation wurde für die Benutzung auf Tablets optimiert.</string>
     <string name="app_name">Drugstore</string>
     <string name="dialog_add_todo">Add Todo</string>
     <string name="dispense">Ausgeben</string>

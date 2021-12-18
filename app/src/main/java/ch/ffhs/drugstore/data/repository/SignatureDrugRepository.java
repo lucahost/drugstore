@@ -15,8 +15,8 @@ import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 
 /**
- * This class abstracts the data layer
- * methods for Drug Signature data
+ * This class abstracts the data layer methods for Drug Signature data
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */

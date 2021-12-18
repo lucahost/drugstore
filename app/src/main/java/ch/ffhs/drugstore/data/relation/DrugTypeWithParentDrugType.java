@@ -6,15 +6,16 @@ import androidx.room.Relation;
 import ch.ffhs.drugstore.data.entity.DrugType;
 
 /**
- * This class represents the recursive relation in the DrugType entity
- * to use with Room persistence library
+ * This class represents the recursive relation in the DrugType entity to use with Room persistence
+ * library
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
 public class DrugTypeWithParentDrugType {
     /**
-     * @Embedded    allows to represent two entities as one
-     * @Relation    represents join between two entities
+     * @Embedded allows to represent two entities as one
+     * @Relation represents join between two entities
      */
     @Embedded
     public DrugType drugType;

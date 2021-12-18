@@ -6,9 +6,11 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.time.ZonedDateTime;
+
 /**
- * This class represents the Signature entity in the local database
- * to use with Room persistence library
+ * This class represents the Signature entity in the local database to use with Room persistence
+ * library
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */

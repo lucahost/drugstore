@@ -19,18 +19,30 @@ import ch.ffhs.drugstore.databinding.DialogSignInventoryBinding;
 import ch.ffhs.drugstore.presentation.InputValidation;
 import dagger.hilt.android.AndroidEntryPoint;
 
+/**
+ * Dialog for the signing of an inventory.
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 @AndroidEntryPoint
 public class SignInventoryDialogFragment extends DialogFragment {
 
     public static final String TAG = "DispenseDrugDialog";
-    DialogSignInventoryBinding binding;
+
+    private DialogSignInventoryBinding binding;
     private ConfirmSignInventoryListener confirmSignInventoryListener;
 
+    /**
+     * Empty constructor is required by the Android framework.
+     */
     @Inject
     public SignInventoryDialogFragment() {
-        /* TODO document why this constructor is empty */
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -42,6 +54,9 @@ public class SignInventoryDialogFragment extends DialogFragment {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -49,6 +64,18 @@ public class SignInventoryDialogFragment extends DialogFragment {
         return getAlertDialog();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        this.confirmSignInventoryListener = null;
+    }
+
+    /**
+     * @return the alert dialog
+     */
     @NonNull
     private AlertDialog getAlertDialog() {
         AlertDialog dialog = new AlertDialog.Builder(requireContext())
@@ -59,12 +86,15 @@ public class SignInventoryDialogFragment extends DialogFragment {
                 .create();
         dialog.setOnShowListener(d -> {
             Button button = ((AlertDialog) d).getButton(AlertDialog.BUTTON_POSITIVE);
-            button.setOnClickListener(view -> validateInputAndCConfirmSignInventory());
+            button.setOnClickListener(view -> validateInputAndConfirmSignInventory());
         });
         return dialog;
     }
 
-    private void validateInputAndCConfirmSignInventory() {
+    /**
+     * Validates inputs and confirms the sign of the inventory if there are no validation errors.
+     */
+    private void validateInputAndConfirmSignInventory() {
         boolean employeeNotEmpty = InputValidation.validateTextNotEmpty(
                 binding.employeeText,
                 binding.employeeTextLayout, getString(R.string.error_employee_required));
@@ -74,15 +104,5 @@ public class SignInventoryDialogFragment extends DialogFragment {
 
             confirmSignInventoryListener.onConfirmSignInventory(employee);
         }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        this.confirmSignInventoryListener = null;
-    }
-
-    public interface ConfirmSignInventoryListener {
-        void onConfirmSignInventory(String employee);
     }
 }

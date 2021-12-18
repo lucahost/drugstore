@@ -8,9 +8,9 @@ import androidx.room.Query;
 import java.util.List;
 
 import ch.ffhs.drugstore.data.entity.User;
+
 /**
- * data access object (DAO) class
- * abstracts access to the database for the User objects
+ * data access object (DAO) class abstracts access to the database for the User objects
  *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
@@ -18,13 +18,13 @@ import ch.ffhs.drugstore.data.entity.User;
 @Dao
 public interface UserDao {
     /**
-     * @Insert  insert rows without SQL code (room library)
+     * @Insert insert rows without SQL code (room library)
      */
     @Insert
     long insert(User user);
 
     /**
-     * @Query   query methods for special queries
+     * @Query query methods for special queries
      */
     @Query("SELECT * FROM users")
     LiveData<List<User>> getAllUsers();

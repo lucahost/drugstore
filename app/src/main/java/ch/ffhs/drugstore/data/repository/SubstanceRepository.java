@@ -14,9 +14,10 @@ import ch.ffhs.drugstore.data.database.DrugstoreDatabase;
 import ch.ffhs.drugstore.data.entity.Substance;
 import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
+
 /**
- * This class abstracts the data layer
- * methods for Drug Substance data
+ * This class abstracts the data layer methods for Drug Substance data
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
@@ -49,6 +50,7 @@ public class SubstanceRepository {
 
     /**
      * create substance if not exists
+     *
      * @param title
      * @return Substance
      */
