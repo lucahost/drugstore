@@ -15,25 +15,24 @@ import ch.ffhs.drugstore.shared.exceptions.DrugNotFoundException;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 
 /**
- * This class represents a service to dispense drugs
- *
+ * This service class dispenses drugs
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
 public class DispensaryService {
     private final DrugRepository drugRepository;
 
-    /**
-     * Provide the drugRepository
-     *
-     * @param drugRepository
-     */
     @Inject
     public DispensaryService(DrugRepository drugRepository) {
         this.drugRepository = drugRepository;
     }
 
-    public LiveData<List<DrugDto>> getAllDrugs(@NonNull FilterState<Integer> filterState) {
+    /**
+     * gets all drugs and filters for favorite
+     * @param filterState
+     * @return Live Data List with favorite and searched drugs
+     */
+    public LiveData<List<DrugDto>> getAllDrugs(@NonNfitgggdfgjgjull FilterState<Integer> filterState) {
         boolean favorites = filterState.isFavorites();
         List<Integer> filters = filterState.getFilters();
         String searchTerm = filterState.getSearchFilter();
@@ -45,6 +44,11 @@ public class DispensaryService {
         }
     }
 
+    /**
+     * checks if drug from search exists otherwise throws exception
+     * @param drugId
+     * @throws DrugstoreException
+     */
     public void toggleDrugIsFavorite(int drugId) throws DrugstoreException {
         DrugDto drug = drugRepository.getDrugById(drugId);
         if (drug == null) {

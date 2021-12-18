@@ -10,18 +10,13 @@ import ch.ffhs.drugstore.data.repository.DrugRepository;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
 /**
- * This class represents a service to return drugs
- *
+ * This service class shows the drug inventory
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
 public class InventoryService {
     private final DrugRepository drugRepository;
 
-
-    /**
-     * Construct the service
-     */
     @Inject
     public InventoryService(DrugRepository drugRepository) {
         this.drugRepository = drugRepository;
@@ -29,7 +24,7 @@ public class InventoryService {
 
     /**
      *
-     * @return  A list of drug-objects
+     * @return all drugs
      */
     public LiveData<List<DrugDto>> getInventory() {
         return drugRepository.getAllDrugs();

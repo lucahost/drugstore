@@ -17,7 +17,12 @@ import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrug
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
-
+/**
+ * This class abstracts the data layer
+ * methods for Signature data
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 public class SignatureRepository {
     private final SignatureDao signatureDao;
     private final SignatureDrugDao signatureDrugDao;
@@ -63,6 +68,11 @@ public class SignatureRepository {
         DrugstoreDatabase.databaseWriteExecutor.execute(signatureDao::deleteAll);
     }
 
+    /**
+     * create Signature from list
+     * @param signatureDto
+     * @param signatureDrugDtoList
+     */
     public void createSignatureFrom(SignatureDto signatureDto,
             List<SignatureDrugDto> signatureDrugDtoList) {
         List<SignatureDrug> signatureDrugs = mapper.signatureDrugDtoListToSignatureDrugList(

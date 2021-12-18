@@ -15,8 +15,7 @@ import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
 import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
 
 /**
- * This class represents a service to return a signature
- *
+ * This service class returns a signature
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
@@ -34,10 +33,18 @@ public class SignatureService {
         this.userService = userService;
     }
 
+    /**
+     *
+     * @return signatures with drugs and users
+     */
     public LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> getSignatures() {
         return signatureRepository.getSignatures();
     }
 
+    /**
+     * creates a new signature
+     * @param createSignatureDto
+     */
     public void createSignature(CreateSignatureDto createSignatureDto) {
         String userShortname = createSignatureDto.getUserShortName();
         UserDto user = userService.getOrCreateUserByShortName(userShortname);

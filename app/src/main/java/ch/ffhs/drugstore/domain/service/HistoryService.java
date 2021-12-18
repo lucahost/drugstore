@@ -11,8 +11,8 @@ import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
 
 /**
- * This class represents a service to get a history of the transactions
- *
+ * This service class get the history of all transactions
+ * and creates new transactions
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
@@ -27,10 +27,18 @@ public class HistoryService {
         this.userService = userService;
     }
 
+    /**
+     *
+     * @return all transactions
+     */
     public LiveData<List<TransactionDto>> getHistory() {
         return transactionRepository.getAllTransactions();
     }
 
+    /**
+     * adds a new transaction
+     * @param transactionDto
+     */
     public void addTransaction(TransactionDto transactionDto) {
         UserDto user = transactionDto.getUser();
         String userShortname = user.getShortName();

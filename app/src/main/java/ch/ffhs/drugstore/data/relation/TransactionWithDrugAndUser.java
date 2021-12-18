@@ -29,7 +29,7 @@ public class TransactionWithDrugAndUser {
     public DrugWithUnitAndDrugTypeAndSubstance drug;
 
     /**
-     * second Transaction join
+     * second join
      */
     @Relation(
             parentColumn = "userId",

@@ -11,7 +11,12 @@ import javax.inject.Inject;
 import ch.ffhs.drugstore.data.dao.UnitDao;
 import ch.ffhs.drugstore.data.database.DrugstoreDatabase;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
-
+/**
+ * This class abstracts the data layer
+ * methods for Unit data
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 public class UnitRepository {
     private final UnitDao unitDao;
     private final LiveData<List<UnitDto>> allUnits;

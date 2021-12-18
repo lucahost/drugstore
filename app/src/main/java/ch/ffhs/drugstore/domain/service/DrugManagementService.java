@@ -24,7 +24,6 @@ import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 
 /**
  * This class represents a service which manages drugs
- *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
@@ -66,7 +65,10 @@ public class DrugManagementService {
         return drugRepository.getDrugById(drugId);
     }
 
-
+    /**
+     * this method edits drugs
+     * @param editDrugDto
+     */
     public void editDrug(EditDrugDto editDrugDto) {
         DrugDto originalDrug = drugRepository.getDrugById(editDrugDto.getDrugId());
         DrugDto drugDto = mapper.editDrugDtoToDrugDto(editDrugDto);
@@ -82,6 +84,10 @@ public class DrugManagementService {
         drugRepository.editDrug(drugDto);
     }
 
+    /**
+     * this method creates a new drug
+     * @param createDrugDto
+     */
     public void createDrug(CreateDrugDto createDrugDto) {
         DrugDto drugDto = mapper.createDrugDtoToDrugDto(createDrugDto);
 
@@ -92,6 +98,11 @@ public class DrugManagementService {
         drugRepository.createDrug(drugDto);
     }
 
+    /**
+     * this method updates the amount of a drug
+     * @param updateDrugAmountDto
+     * @throws DrugstoreException when drug not found
+     */
     public void updateDrugAmount(UpdateDrugAmountDto updateDrugAmountDto)
             throws DrugstoreException {
         DrugDto drug = drugRepository.getDrugById(updateDrugAmountDto.getDrugId());

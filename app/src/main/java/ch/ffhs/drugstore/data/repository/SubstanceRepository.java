@@ -14,7 +14,12 @@ import ch.ffhs.drugstore.data.database.DrugstoreDatabase;
 import ch.ffhs.drugstore.data.entity.Substance;
 import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
-
+/**
+ * This class abstracts the data layer
+ * methods for Drug Substance data
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 public class SubstanceRepository {
     private final SubstanceDao substanceDao;
     private final LiveData<List<Substance>> allSubstances;
@@ -42,6 +47,11 @@ public class SubstanceRepository {
         return mapper.substanceToSubstanceDto(substance);
     }
 
+    /**
+     * create substance if not exists
+     * @param title
+     * @return Substance
+     */
     public SubstanceDto getOrCreateSubstanceByTitle(String title) {
         Substance substance = substanceDao.getSubstanceByTitle(title);
         if (substance == null) {

@@ -31,7 +31,7 @@ public class DrugWithUnitAndDrugTypeAndSubstance {
     public Unit unit;
 
     /**
-     * second Drug join
+     * second join
      */
     @Relation(
             parentColumn = "drugTypeId",
@@ -41,7 +41,7 @@ public class DrugWithUnitAndDrugTypeAndSubstance {
     public DrugType drugType;
 
     /**
-     * third Drug join
+     * third join
      */
     @Relation(
             parentColumn = "substanceId",
