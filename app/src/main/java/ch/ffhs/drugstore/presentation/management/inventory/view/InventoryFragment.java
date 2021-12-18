@@ -1,6 +1,5 @@
 package ch.ffhs.drugstore.presentation.management.inventory.view;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +33,7 @@ import ch.ffhs.drugstore.presentation.management.inventory.view.adapter.Inventor
 import ch.ffhs.drugstore.presentation.management.inventory.view.dialog.SignInventoryDialogFragment;
 import ch.ffhs.drugstore.presentation.management.inventory.viewmodel.InventoryViewModel;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.SelectableDrugDto;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -48,6 +48,8 @@ public class InventoryFragment extends Fragment
     DialogService dialogService;
     FragmentInventoryBinding binding;
     InventoryViewModel viewModel;
+
+    private Menu menu;
 
     @Inject
     public InventoryFragment() {
@@ -84,6 +86,7 @@ public class InventoryFragment extends Fragment
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
+        this.menu = menu;
         MenuItem shareItem = menu.findItem(R.id.toolbar_share);
         shareItem.setVisible(true);
 
@@ -123,7 +126,7 @@ public class InventoryFragment extends Fragment
     }
 
     @Override
-    public void onItemClick(DrugDto inventoryDrug) {
+    public void onItemClick(SelectableDrugDto inventoryDrug) {
         try {
             viewModel.toggleInventoryItem(inventoryDrug.getDrugId());
         } catch (DrugstoreException dse) {
@@ -153,11 +156,19 @@ public class InventoryFragment extends Fragment
         viewModel.signInventory(employee);
         Toast.makeText(context(), R.string.signature_success, Toast.LENGTH_SHORT).show();
         adapter.toggleCheckAll(false);
+        CheckBox checkBox = (CheckBox) getMenu().findItem(
+                R.id.toolbar_toggle_check_all).getActionView();
+        checkBox.setChecked(false);
+
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+
     private void onCheckedChanged(CompoundButton item, boolean checked) {
-        adapter.notifyDataSetChanged();
         adapter.toggleCheckAll(checked);
     }
 

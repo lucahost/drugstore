@@ -1,5 +1,6 @@
 package ch.ffhs.drugstore.presentation.management.inventory.view.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +9,6 @@ import android.widget.CheckedTextView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.selection.ItemKeyProvider;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,21 +20,21 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.InventoryItemBinding;
-import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.SelectableDrugDto;
 
 public class InventoryListAdapter
-        extends ListAdapter<DrugDto, InventoryListAdapter.InventoryItemHolder> {
-    private static final DiffUtil.ItemCallback<DrugDto> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<DrugDto>() {
+        extends ListAdapter<SelectableDrugDto, InventoryListAdapter.InventoryItemHolder> {
+    private static final DiffUtil.ItemCallback<SelectableDrugDto> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<SelectableDrugDto>() {
                 @Override
                 public boolean areItemsTheSame(
-                        @NonNull DrugDto oldItem, @NonNull DrugDto newItem) {
+                        @NonNull SelectableDrugDto oldItem, @NonNull SelectableDrugDto newItem) {
                     return oldItem.getDrugId() == newItem.getDrugId();
                 }
 
                 @Override
                 public boolean areContentsTheSame(
-                        @NonNull DrugDto oldItem, @NonNull DrugDto newItem) {
+                        @NonNull SelectableDrugDto oldItem, @NonNull SelectableDrugDto newItem) {
                     return oldItem.getDrugId() == newItem.getDrugId()
                             && oldItem.getStockAmount() == newItem.getStockAmount();
                 }
@@ -70,44 +69,22 @@ public class InventoryListAdapter
         this.clickListener = itemClickListener;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void toggleCheckAll(boolean checkState) {
-        List<DrugDto> drugDtoList = getCurrentList();
-//        for (InventoryItemHolder itemHolder : itemHolders) {
-//            itemHolder.title.setChecked(checkState);
-//            int itemPos = itemHolder.getLayoutPosition();
-//            DrugDto drug = drugDtoList.get(itemPos);
-//            System.out.println(itemPos);
-//            System.out.println(drug.getDrugId());
-//            this.clickListener.onItemClick(drug);
-//        }
+        List<SelectableDrugDto> drugDtoList = getCurrentList();
+        for (InventoryItemHolder itemHolder : itemHolders) {
+            itemHolder.title.setChecked(checkState);
+            int itemPos = itemHolder.getLayoutPosition();
+            SelectableDrugDto drug = drugDtoList.get(itemPos);
+            drug.setSelected(checkState);
+            this.clickListener.onItemClick(drug);
+        }
+        notifyDataSetChanged();
     }
 
 
     public interface OnItemClickListener {
-        void onItemClick(DrugDto drugDto);
-    }
-
-    public class InventoryItemKeyProvider extends ItemKeyProvider {
-
-        /**
-         * Creates a new provider with the given scope.
-         *
-         * @param scope Scope can't be changed at runtime.
-         */
-        protected InventoryItemKeyProvider(int scope) {
-            super(scope);
-        }
-
-        @Nullable
-        @Override
-        public Object getKey(int position) {
-            return null;
-        }
-
-        @Override
-        public int getPosition(@NonNull Object key) {
-            return 0;
-        }
+        void onItemClick(SelectableDrugDto drugDto);
     }
 
     /**
@@ -123,6 +100,7 @@ public class InventoryListAdapter
             super(binding.getRoot());
             title = binding.title;
             secondary = binding.secondary;
+            title.setChecked(binding.title.isChecked());
             // deviation = binding.deviation;
         }
 
@@ -130,6 +108,12 @@ public class InventoryListAdapter
             title.setOnClickListener(this);
             title.setText(getItemTitleText(position));
             secondary.setText(getItemSecondaryText(position));
+            title.setChecked(getIsSelected(position));
+        }
+
+        @NonNull
+        private boolean getIsSelected(int position) {
+            return getItem(position).isSelected();
         }
 
         @NonNull

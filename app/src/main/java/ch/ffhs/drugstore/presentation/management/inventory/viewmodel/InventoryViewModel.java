@@ -4,18 +4,20 @@ import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.domain.usecase.management.inventory.GetInventory;
 import ch.ffhs.drugstore.domain.usecase.management.inventory.SignInventory;
 import ch.ffhs.drugstore.domain.usecase.management.inventory.ToggleInventoryItem;
-import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.SelectableDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.CreateSignatureDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
@@ -30,7 +32,7 @@ public class InventoryViewModel extends AndroidViewModel {
     ToggleInventoryItem toggleInventoryItem;
     @Inject
     SignInventory signInventory;
-    private LiveData<List<DrugDto>> items;
+    private LiveData<List<SelectableDrugDto>> items;
 
     @Inject
     public InventoryViewModel(Application application) {
@@ -38,9 +40,11 @@ public class InventoryViewModel extends AndroidViewModel {
         signatureDrugs = new HashMap<>();
     }
 
-    public LiveData<List<DrugDto>> getItems() {
+    public LiveData<List<SelectableDrugDto>> getItems() {
         if (items == null) {
-            items = getInventory.execute(null);
+            items = Transformations.map(getInventory.execute(null),
+                    d -> d.stream().map(dt -> new SelectableDrugDto(dt, false)).collect(
+                            Collectors.toList()));
         }
         return items;
     }
