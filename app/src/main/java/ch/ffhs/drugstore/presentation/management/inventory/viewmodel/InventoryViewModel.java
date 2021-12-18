@@ -38,10 +38,10 @@ public class InventoryViewModel extends AndroidViewModel {
     /**
      * Constructs a {@link InventoryViewModel}
      *
-     * @param application global application state
-     * @param getInventory  use case to get inventory
+     * @param application         global application state
+     * @param getInventory        use case to get inventory
      * @param toggleInventoryItem use case to toggle an inventory item
-     * @param signInventory use case to sign an inventory
+     * @param signInventory       use case to sign an inventory
      */
     @Inject
     public InventoryViewModel(Application application,

@@ -1,5 +1,11 @@
 package ch.ffhs.drugstore.shared.dto.dispensary;
 
+/**
+ * TODO: add description
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 public class SubmitDispenseDto {
     private int drugId;
     private String userShortname;

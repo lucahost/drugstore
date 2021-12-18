@@ -28,7 +28,7 @@ public class HistoryViewModel extends AndroidViewModel {
      * Constructs a {@link HistoryViewModel}
      *
      * @param application global application state
-     * @param getHistory use case to get the history
+     * @param getHistory  use case to get the history
      */
     @Inject
     public HistoryViewModel(Application application,

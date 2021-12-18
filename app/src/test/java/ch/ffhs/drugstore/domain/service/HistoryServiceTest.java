@@ -8,12 +8,18 @@ import static org.mockito.Mockito.when;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.github.javafaker.Faker;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
+import ch.ffhs.drugstore.data.repository.DrugRepository;
 import ch.ffhs.drugstore.data.repository.TransactionRepository;
 import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
+import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
 
 /**
  * Test-class for HistoryService class
@@ -23,15 +29,29 @@ import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
  */
 public class HistoryServiceTest {
 
+    private UserService userService = null;
+    private TransactionRepository transactionRepository = null;
+    private final Faker faker = new Faker();
+
+    @Before
+    public void setUp() throws Exception {
+        userService = mock(UserService.class);
+        transactionRepository = mock(TransactionRepository.class);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        userService = null;
+        transactionRepository = null;
+    }
+
     /**
-     * test methode
+     * test method
      */
     @Test
     public void getHistory() {
         // Setup
         LiveData<List<TransactionDto>> drugs = new MutableLiveData<>();
-        TransactionRepository transactionRepository = mock(TransactionRepository.class);
-        UserService userService = mock(UserService.class);
         when(transactionRepository.getAllTransactions()).thenReturn(drugs);
 
         HistoryService historyService = new HistoryService(transactionRepository, userService);
@@ -41,5 +61,24 @@ public class HistoryServiceTest {
 
         // Assert
         verify(transactionRepository, times(1)).getAllTransactions();
+    }
+
+    /**
+     * test method
+     */
+    @Test
+    public void addTransactionWithUser() {
+        // Setup
+        TransactionDto transactionDto = mock(TransactionDto.class);
+        UserDto userDto = mock(UserDto.class);
+        when(userDto.getUserId()).thenReturn(faker.number().randomDigit());
+        when(transactionDto.getUser()).thenReturn(userDto);
+        HistoryService historyService = new HistoryService(transactionRepository, userService);
+
+        // Test
+        historyService.addTransaction(transactionDto);
+
+        // Assert
+        verify(transactionRepository, times(1)).addTransaction(transactionDto);
     }
 }

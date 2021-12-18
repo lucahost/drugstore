@@ -34,8 +34,9 @@ import ch.ffhs.drugstore.data.entity.Unit;
 import ch.ffhs.drugstore.data.entity.User;
 
 /**
- * This class holds the database and serves as the main access point
- * for the underlying connection to the app's persisted data
+ * This class holds the database and serves as the main access point for the underlying connection
+ * to the app's persisted data
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
@@ -78,9 +79,7 @@ public abstract class DrugstoreDatabase extends RoomDatabase {
     private static volatile DrugstoreDatabase INSTANCE;
 
     /**
-     *
-     * @param context
-     * check if not null
+     * @param context check if not null
      * @return Database instance
      */
     public static DrugstoreDatabase getDatabase(final Context context) {

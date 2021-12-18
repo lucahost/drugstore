@@ -9,6 +9,12 @@ import java.io.OutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * TODO: add description
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 public class FileExtensions {
     public static void zipDirectory(File sourceDirectory, File targetFile) {
         try {
@@ -17,8 +23,7 @@ public class FileExtensions {
             File zipFile = zipDirectory(tmp, targetFile.getName());
             copyFile(zipFile, targetFile);
             deleteFolder(tmp);
-        }
-        catch (Exception ignored) {
+        } catch (Exception ignored) {
         }
     }
 

@@ -19,7 +19,6 @@ import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugUnits;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugs;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.GetSubstances;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.UpdateDrugAmount;
-import ch.ffhs.drugstore.presentation.management.inventory.view.adapter.InventoryListAdapter;
 import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
@@ -54,15 +53,15 @@ public class DrugsViewModel extends AndroidViewModel {
     /**
      * Constructs a {@link DrugsViewModel}
      *
-     * @param application global application state
-     * @param getDrugs use case to get drugs
-     * @param createDrug use case to create a drug
+     * @param application      global application state
+     * @param getDrugs         use case to get drugs
+     * @param createDrug       use case to create a drug
      * @param updateDrugAmount use case to update amount on a drug
-     * @param editDrug use case to edit a drug
-     * @param deleteDrug use case to delete a drug
-     * @param getDrugTypes use case to get drug types
-     * @param getDrugUnits use case to get drug units
-     * @param getSubstances use case to get substances
+     * @param editDrug         use case to edit a drug
+     * @param deleteDrug       use case to delete a drug
+     * @param getDrugTypes     use case to get drug types
+     * @param getDrugUnits     use case to get drug units
+     * @param getSubstances    use case to get substances
      */
     @Inject
     public DrugsViewModel(Application application,
@@ -136,7 +135,7 @@ public class DrugsViewModel extends AndroidViewModel {
     /**
      * Update the amount on a specific drug by id
      *
-     * @param drugId drug id to be updated
+     * @param drugId  drug id to be updated
      * @param sAmount the amount to be added
      * @throws DrugstoreException if updating the drug amount goes wrong
      */
@@ -149,12 +148,12 @@ public class DrugsViewModel extends AndroidViewModel {
     /**
      * Edit an existing drug by id
      *
-     * @param drugId id of the drug to be edited
-     * @param name name of the drug
-     * @param substance substance of the drug
-     * @param dosage dosage of the drug
+     * @param drugId     id of the drug to be edited
+     * @param name       name of the drug
+     * @param substance  substance of the drug
+     * @param dosage     dosage of the drug
      * @param drugTypeId drug type id of the drug
-     * @param unitId unit id of the drug
+     * @param unitId     unit id of the drug
      * @param sTolerance tolerance of the drug
      * @param isFavorite if the drug is a favorite
      */
@@ -171,11 +170,11 @@ public class DrugsViewModel extends AndroidViewModel {
     /**
      * Create a new drug
      *
-     * @param name name of the drug
-     * @param substance substance of the drug
-     * @param dosage dosage of the drug
+     * @param name       name of the drug
+     * @param substance  substance of the drug
+     * @param dosage     dosage of the drug
      * @param drugTypeId drug type id of the drug
-     * @param unitId unit id of the drug
+     * @param unitId     unit id of the drug
      * @param sTolerance tolerance of the drug
      * @param isFavorite if the drug is a favorite
      * @throws Exception if creation of the drug goes wrong

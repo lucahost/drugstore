@@ -31,13 +31,11 @@ import util.TestUtil;
 @PrepareForTest({DispenseDrug.class})
 public class DispenseDrugTest {
     Faker faker = new Faker();
-    DispensaryService dispensaryService = null;
     DrugManagementService drugManagementService = null;
     HistoryService historyService = null;
 
     @Before
     public void setUp() throws Exception {
-        dispensaryService = mock(DispensaryService.class);
         drugManagementService = mock(DrugManagementService.class);
         historyService = mock(HistoryService.class);
     }
@@ -61,8 +59,7 @@ public class DispenseDrugTest {
                 amount);
 
         // Act
-        DispenseDrug dispenseDrugUseCase = new DispenseDrug(dispensaryService,
-                drugManagementService, historyService);
+        DispenseDrug dispenseDrugUseCase = new DispenseDrug(drugManagementService, historyService);
         dispenseDrugUseCase.execute(submitDispenseDto);
     }
 
@@ -83,8 +80,7 @@ public class DispenseDrugTest {
                 amount);
 
         // Act
-        DispenseDrug dispenseDrugUseCase = new DispenseDrug(dispensaryService,
-                drugManagementService, historyService);
+        DispenseDrug dispenseDrugUseCase = new DispenseDrug(drugManagementService, historyService);
 
         dispenseDrugUseCase.execute(submitDispenseDto);
     }
@@ -112,8 +108,7 @@ public class DispenseDrugTest {
                 transactionDtoMock);
 
         // Act
-        DispenseDrug dispenseDrugUseCase = new DispenseDrug(dispensaryService,
-                drugManagementService, historyService);
+        DispenseDrug dispenseDrugUseCase = new DispenseDrug(drugManagementService, historyService);
 
         dispenseDrugUseCase.execute(submitDispenseDto);
 

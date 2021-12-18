@@ -1,8 +1,9 @@
 package ch.ffhs.drugstore.shared.dto.management.drugs;
 
 /**
- * Data Transfer Object (DTO) class
- * used to encapsulate- and transfer data between data- and domain layer
+ * Data Transfer Object (DTO) class used to encapsulate- and transfer data between data- and domain
+ * layer
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
@@ -17,15 +18,8 @@ public class DrugDto {
     private double stockAmount;
     private boolean isFavorite;
 
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public DrugDto(int drugId, String title, String drugType, String substance, String unit, String dosage,
+    public DrugDto(int drugId, String title, String drugType, String substance, String unit,
+            String dosage,
             double tolerance,
             double stockAmount, boolean isFavorite) {
         this.drugId = drugId;
@@ -37,6 +31,14 @@ public class DrugDto {
         this.tolerance = tolerance;
         this.stockAmount = stockAmount;
         this.isFavorite = isFavorite;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public int getDrugId() {

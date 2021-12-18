@@ -12,9 +12,9 @@ import java.util.List;
 
 import ch.ffhs.drugstore.data.entity.SignatureDrug;
 import ch.ffhs.drugstore.data.relation.SignatureDrugWithDrug;
+
 /**
- * data access object (DAO) class
- * abstracts access to the database for the SignatureDrug objects
+ * data access object (DAO) class abstracts access to the database for the SignatureDrug objects
  *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
@@ -24,8 +24,7 @@ public interface SignatureDrugDao {
     /**
      * @Insert
      * @Update
-     * @Delete
-     * insert, update and delete rows without SQL code because of room library
+     * @Delete insert, update and delete rows without SQL code because of room library
      */
     @Insert
     void insert(SignatureDrug... signatureDrug);
@@ -37,7 +36,7 @@ public interface SignatureDrugDao {
     void delete(SignatureDrug signatureDrug);
 
     /**
-     * @Query   methods for special queries
+     * @Query methods for special queries
      */
     @Query("DELETE FROM signatureDrugs")
     void deleteAll();

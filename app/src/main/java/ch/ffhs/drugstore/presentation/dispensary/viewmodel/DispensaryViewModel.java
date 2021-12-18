@@ -43,11 +43,11 @@ public class DispensaryViewModel extends AndroidViewModel {
     /**
      * Constructs a {@link DispensaryViewModel}
      *
-     * @param application global application state
+     * @param application           global application state
      * @param getAllDispensaryItems use case to get all dispensary items
-     * @param toggleDrugIsFavorite use case to toggle favorite on a drug
-     * @param dispenseDrug use case to dispense a drug
-     * @param getDrugTypes use case to get drug types
+     * @param toggleDrugIsFavorite  use case to toggle favorite on a drug
+     * @param dispenseDrug          use case to dispense a drug
+     * @param getDrugTypes          use case to get drug types
      */
     @Inject
     public DispensaryViewModel(Application application, GetAllDispensaryItems getAllDispensaryItems,
@@ -112,10 +112,10 @@ public class DispensaryViewModel extends AndroidViewModel {
     }
 
     /**
-     * @param drugId the id of the drug
+     * @param drugId   the id of the drug
      * @param employee the employee dispensing the drug
-     * @param patient the patient receiving the drug
-     * @param sDosage the dosage to be dispensed
+     * @param patient  the patient receiving the drug
+     * @param sDosage  the dosage to be dispensed
      * @throws DrugstoreException if dispensation of the drug goes wrong
      */
     public void dispenseDrug(int drugId, String employee, String patient, String sDosage)

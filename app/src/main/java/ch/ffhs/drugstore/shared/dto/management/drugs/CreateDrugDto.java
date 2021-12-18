@@ -1,8 +1,9 @@
 package ch.ffhs.drugstore.shared.dto.management.drugs;
 
 /**
- * Data Transfer Object (DTO) class
- * used to encapsulate- and transfer data between data- and domain layer
+ * Data Transfer Object (DTO) class used to encapsulate- and transfer data between data- and domain
+ * layer
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
