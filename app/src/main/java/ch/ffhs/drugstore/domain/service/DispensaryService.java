@@ -16,12 +16,18 @@ import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 
 /**
  * This service class communicates with data layer and is used to dispense drugs
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
 public class DispensaryService {
     private final DrugRepository drugRepository;
 
+    /**
+     * Construct a {@link DispensaryService} service
+     *
+     * @param drugRepository drug repository
+     */
     @Inject
     public DispensaryService(DrugRepository drugRepository) {
         this.drugRepository = drugRepository;
@@ -29,7 +35,8 @@ public class DispensaryService {
 
     /**
      * gets all drugs and filters for favorite
-     * @param filterState
+     *
+     * @param filterState filters to be applied to the request
      * @return Live Data List with favorite and searched drugs
      */
     public LiveData<List<DrugDto>> getAllDrugs(@NonNull FilterState<Integer> filterState) {
@@ -45,10 +52,10 @@ public class DispensaryService {
     }
 
     /**
-     * method to toggle favorite drug
-     * checks if drug from search exists otherwise throws exception
-     * @param drugId
-     * @throws DrugstoreException
+     * method to toggle favorite drug checks if drug from search exists otherwise throws exception
+     *
+     * @param drugId the id of the drug to be toggled
+     * @throws DrugstoreException error during toggle of the drug
      */
     public void toggleDrugIsFavorite(int drugId) throws DrugstoreException {
         DrugDto drug = drugRepository.getDrugById(drugId);

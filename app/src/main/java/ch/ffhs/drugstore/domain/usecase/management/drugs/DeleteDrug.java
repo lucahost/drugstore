@@ -4,23 +4,31 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
+
 /**
  * Use-Case class to delete a drug
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
 public class DeleteDrug implements UseCase<Void, Integer> {
-    @Inject
-    DrugManagementService drugManagementService;
+    private final DrugManagementService drugManagementService;
 
+    /**
+     * Construct a {@link DeleteDrug} use case
+     *
+     * @param drugManagementService drug management service
+     */
     @Inject
     public DeleteDrug(DrugManagementService drugManagementService) {
         this.drugManagementService = drugManagementService;
     }
 
     /**
-     * method to delete drug with ID
-     * @param drugId ID
+     * {@inheritDoc}
+     *
+     * @param drugId the id of the drug to delete
+     * @return Void
      */
     @Override
     public Void execute(Integer drugId) {

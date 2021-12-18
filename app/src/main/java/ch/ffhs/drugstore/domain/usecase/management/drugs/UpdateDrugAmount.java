@@ -10,25 +10,32 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.UpdateDrugAmountDto;
 import ch.ffhs.drugstore.shared.exceptions.DrugNotFoundException;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import ch.ffhs.drugstore.shared.exceptions.InsufficientAmountException;
+
 /**
  * Use-Case class to update the amount of a specific drug
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
 public class UpdateDrugAmount implements UseCase<Void, UpdateDrugAmountDto> {
-    @Inject
-    DrugManagementService drugManagementService;
+    private final DrugManagementService drugManagementService;
 
-
+    /**
+     * Construct a {@link UpdateDrugAmount} use case
+     *
+     * @param drugManagementService drug management service
+     */
     @Inject
     public UpdateDrugAmount(DrugManagementService drugManagementService) {
         this.drugManagementService = drugManagementService;
     }
 
     /**
-     * updates the amount of a drug
-     * @param updateDrugAmountDto drugID
-     * @throws DrugstoreException if drug not found
+     * {@inheritDoc}
+     *
+     * @param updateDrugAmountDto update drug amount input dto of the use case
+     * @return Void
+     * @throws DrugstoreException          if drug not found
      * @throws InsufficientAmountException if amount insufficient
      */
     @Override
