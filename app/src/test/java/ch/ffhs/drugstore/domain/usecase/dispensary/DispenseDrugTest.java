@@ -61,8 +61,7 @@ public class DispenseDrugTest {
                 amount);
 
         // Act
-        DispenseDrug dispenseDrugUseCase = new DispenseDrug(dispensaryService,
-                drugManagementService, historyService);
+        DispenseDrug dispenseDrugUseCase = new DispenseDrug(drugManagementService, historyService);
         dispenseDrugUseCase.execute(submitDispenseDto);
     }
 
@@ -83,8 +82,7 @@ public class DispenseDrugTest {
                 amount);
 
         // Act
-        DispenseDrug dispenseDrugUseCase = new DispenseDrug(dispensaryService,
-                drugManagementService, historyService);
+        DispenseDrug dispenseDrugUseCase = new DispenseDrug(drugManagementService, historyService);
 
         dispenseDrugUseCase.execute(submitDispenseDto);
     }
@@ -112,8 +110,7 @@ public class DispenseDrugTest {
                 transactionDtoMock);
 
         // Act
-        DispenseDrug dispenseDrugUseCase = new DispenseDrug(dispensaryService,
-                drugManagementService, historyService);
+        DispenseDrug dispenseDrugUseCase = new DispenseDrug(drugManagementService, historyService);
 
         dispenseDrugUseCase.execute(submitDispenseDto);
 
