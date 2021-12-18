@@ -1,5 +1,20 @@
 package ch.ffhs.drugstore.domain.usecase;
 
+/**
+ * Generic {@link UseCase} interface for a use case class.
+ *
+ * @param <T> the return type of the use case
+ * @param <P> the input type of the use case
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 public interface UseCase<T, P> {
-  T execute(P params) throws Exception;
+    /**
+     * Executes the use case.
+     *
+     * @param params the input type of the use case
+     * @return T the return type of the use case
+     * @throws Exception error during use case execution
+     */
+    T execute(P params) throws Exception;
 }

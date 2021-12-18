@@ -3,7 +3,6 @@ package ch.ffhs.drugstore.domain.usecase.dispensary;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
-import ch.ffhs.drugstore.domain.service.DispensaryService;
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
 import ch.ffhs.drugstore.domain.service.HistoryService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
@@ -15,21 +14,39 @@ import ch.ffhs.drugstore.shared.exceptions.DrugNotFoundException;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import ch.ffhs.drugstore.shared.exceptions.InsufficientAmountException;
 
+/**
+ * Use-Case class dispense a specific drug
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 public class DispenseDrug implements UseCase<Void, SubmitDispenseDto> {
-    DispensaryService dispensaryService;
-    DrugManagementService drugManagementService;
-    HistoryService historyService;
+    private final DrugManagementService drugManagementService;
+    private final HistoryService historyService;
 
+    /**
+     * Construct a {@link DispenseDrug} use case
+     *
+     * @param drugManagementService drug management service
+     * @param historyService        history service
+     */
     @Inject
-    public DispenseDrug(DispensaryService dispensaryService,
-            DrugManagementService drugManagementService,
+    public DispenseDrug(DrugManagementService drugManagementService,
             HistoryService historyService) {
-        this.dispensaryService = dispensaryService;
         this.drugManagementService = drugManagementService;
         this.historyService = historyService;
     }
 
     // TODO @Luca this should be transactional, use dispenseDrug from DAO make it transactional
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param submitDispenseDto submit dispense input dto of the use case
+     * @return Void
+     * @throws DrugstoreException          if drug not found
+     * @throws InsufficientAmountException if not enough amount on stock
+     */
     @Override
     public Void execute(SubmitDispenseDto submitDispenseDto) throws DrugstoreException {
         DrugDto drug = drugManagementService.getDrugById(submitDispenseDto.getDrugId());

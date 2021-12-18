@@ -11,8 +11,9 @@ import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
 
 /**
- * This service class get the history of all transactions
+ * This service class communicates with data layer, is used to get the history of all transactions
  * and creates new transactions
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
@@ -20,6 +21,12 @@ public class HistoryService {
     private final TransactionRepository transactionRepository;
     private final UserService userService;
 
+    /**
+     * Construct a {@link HistoryService} service
+     *
+     * @param transactionRepository transaction repository
+     * @param userService           user service
+     */
     @Inject
     public HistoryService(TransactionRepository transactionRepository,
             UserService userService) {
@@ -28,7 +35,6 @@ public class HistoryService {
     }
 
     /**
-     *
      * @return all transactions
      */
     public LiveData<List<TransactionDto>> getHistory() {
@@ -37,7 +43,8 @@ public class HistoryService {
 
     /**
      * adds a new transaction
-     * @param transactionDto
+     *
+     * @param transactionDto transaction dto to be added
      */
     public void addTransaction(TransactionDto transactionDto) {
         UserDto user = transactionDto.getUser();

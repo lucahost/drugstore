@@ -23,7 +23,8 @@ import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 
 /**
- * This class represents a service which manages drugs
+ * This service class communicates with data layer and is used to manage drugs
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
@@ -34,6 +35,14 @@ public class DrugManagementService {
     private final SubstanceRepository substanceRepository;
     private final UnitRepository unitRepository;
 
+    /**
+     * Construct a {@link DrugManagementService} service
+     *
+     * @param drugRepository      drug repository
+     * @param drugTypeRepository  drug type
+     * @param substanceRepository substance repository
+     * @param unitRepository      unit repository
+     */
     @Inject
     public DrugManagementService(DrugRepository drugRepository,
             DrugTypeRepository drugTypeRepository, SubstanceRepository substanceRepository,
@@ -45,29 +54,48 @@ public class DrugManagementService {
         mapper = DrugstoreMapper.INSTANCE;
     }
 
+    /**
+     * @return all drugs
+     */
     public LiveData<List<DrugDto>> getAllDrugs() {
         return drugRepository.getAllDrugs();
     }
 
+    /**
+     * @return all drug types
+     */
     public LiveData<List<DrugTypeDto>> getAllDrugTypes() {
         return drugTypeRepository.getAllDrugTypes();
     }
 
+    /**
+     * @return all units
+     */
     public LiveData<List<UnitDto>> getAllUnits() {
         return unitRepository.getAllUnits();
     }
 
+    /**
+     * @return all substances
+     */
     public LiveData<List<SubstanceDto>> getAllSubstances() {
         return substanceRepository.getAllSubstances();
     }
 
+    /**
+     * gets a drug by id
+     *
+     * @param drugId id of the drug
+     * @return drug from repository
+     */
     public DrugDto getDrugById(int drugId) {
         return drugRepository.getDrugById(drugId);
     }
 
     /**
      * this method edits drugs
-     * @param editDrugDto
+     *
+     * @param editDrugDto edit drug input dto
      */
     public void editDrug(EditDrugDto editDrugDto) {
         DrugDto originalDrug = drugRepository.getDrugById(editDrugDto.getDrugId());
@@ -86,7 +114,8 @@ public class DrugManagementService {
 
     /**
      * this method creates a new drug
-     * @param createDrugDto
+     *
+     * @param createDrugDto create drug input dto
      */
     public void createDrug(CreateDrugDto createDrugDto) {
         DrugDto drugDto = mapper.createDrugDtoToDrugDto(createDrugDto);
@@ -100,7 +129,8 @@ public class DrugManagementService {
 
     /**
      * this method updates the amount of a drug
-     * @param updateDrugAmountDto
+     *
+     * @param updateDrugAmountDto update drug input dto
      * @throws DrugstoreException when drug not found
      */
     public void updateDrugAmount(UpdateDrugAmountDto updateDrugAmountDto)
@@ -113,6 +143,11 @@ public class DrugManagementService {
         drugRepository.updateDrugAmount(drug.getDrugId(), updateDrugAmountDto.getAmount());
     }
 
+    /**
+     * deletes a drug from database by id
+     *
+     * @param drugId id of the drug to be deleted
+     */
     public void deleteDrug(Integer drugId) {
         drugRepository.deleteDrugById(drugId);
     }

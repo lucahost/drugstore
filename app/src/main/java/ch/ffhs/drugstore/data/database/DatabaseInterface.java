@@ -15,12 +15,19 @@ public class DatabaseInterface {
     private final DrugstoreDatabase db;
     private final Application app;
 
+    /**
+     *
+     * @param application for db
+     */
     @Inject
     public DatabaseInterface(Application application) {
         this.app = application;
         this.db = DrugstoreDatabase.getDatabase(application);
     }
 
+    /**
+     * @return file path string
+     */
     public String exportDatabase() {
         SupportSQLiteOpenHelper dbOpenHelper = db.getOpenHelper();
         String dbName = dbOpenHelper.getDatabaseName();
@@ -30,6 +37,9 @@ public class DatabaseInterface {
         return dbFilePath;
     }
 
+    /**
+     * empty method (have to be defined)
+     */
     public void importDatabase() {
     }
 }

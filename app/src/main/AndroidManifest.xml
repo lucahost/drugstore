@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ch.ffhs.drugstore">
 
+    <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="false"
+        android:smallScreens="false"
+        android:requiresSmallestWidthDp="600"
+        android:xlargeScreens="true" />
+
     <application
         android:name=".Drugstore"
         android:allowBackup="true"
@@ -13,7 +20,7 @@
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true"
-            android:screenOrientation="sensor">
+            android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
