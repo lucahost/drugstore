@@ -15,7 +15,7 @@ import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
 import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
 
 /**
- * This service class returns a signature
+ * This service class communicates with data layer and is used to create and return a signature
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
@@ -55,6 +55,11 @@ public class SignatureService {
                 createSignatureDto.getSignatureDrugs());
     }
 
+    /**
+     *
+     * @param signatureId
+     * @return signatures with drugs and users
+     */
     public LiveData<List<SignatureDrugDto>> getSignatureDrugsBySignatureId(int signatureId) {
         return signatureDrugRepository.getSignatureDrugsBySignatureId(signatureId);
     }

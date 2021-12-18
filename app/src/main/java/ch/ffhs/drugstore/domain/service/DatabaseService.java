@@ -18,10 +18,16 @@ public class DatabaseService {
         this.databaseInterface = databaseInterface;
     }
 
+    /**
+     * @return file path String
+     */
     public String exportDatabase() {
         return databaseInterface.exportDatabase();
     }
 
+    /**
+     * imports database (have to be defined)
+     */
     public void importDatabase() {
         databaseInterface.importDatabase();
     }

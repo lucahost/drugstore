@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import ch.ffhs.drugstore.data.repository.UserRepository;
 import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
 /**
- * This service class returns or creates a user
+ * This service class communicates with data layer and is used to return or create a user
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */

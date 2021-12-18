@@ -10,7 +10,7 @@ import ch.ffhs.drugstore.data.repository.DrugRepository;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
 /**
- * This service class shows the drug inventory
+ * This service class communicates with data layer and is used to show the drug inventory
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */

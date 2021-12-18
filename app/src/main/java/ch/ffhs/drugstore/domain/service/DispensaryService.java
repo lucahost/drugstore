@@ -15,7 +15,7 @@ import ch.ffhs.drugstore.shared.exceptions.DrugNotFoundException;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 
 /**
- * This service class dispenses drugs
+ * This service class communicates with data layer and is used to dispense drugs
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
@@ -45,6 +45,7 @@ public class DispensaryService {
     }
 
     /**
+     * method to toggle favorite drug
      * checks if drug from search exists otherwise throws exception
      * @param drugId
      * @throws DrugstoreException

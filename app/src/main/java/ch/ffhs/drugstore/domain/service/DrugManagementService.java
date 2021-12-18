@@ -23,7 +23,7 @@ import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 
 /**
- * This class represents a service which manages drugs
+ * This service class communicates with data layer and is used to manage drugs
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
@@ -45,22 +45,39 @@ public class DrugManagementService {
         mapper = DrugstoreMapper.INSTANCE;
     }
 
+    /**
+     * @return all drugs
+     */
     public LiveData<List<DrugDto>> getAllDrugs() {
         return drugRepository.getAllDrugs();
     }
 
+    /**
+     * @return all drug types
+     */
     public LiveData<List<DrugTypeDto>> getAllDrugTypes() {
         return drugTypeRepository.getAllDrugTypes();
     }
 
+    /**
+     * @return all units
+     */
     public LiveData<List<UnitDto>> getAllUnits() {
         return unitRepository.getAllUnits();
     }
 
+    /**
+     * @return all substances
+     */
     public LiveData<List<SubstanceDto>> getAllSubstances() {
         return substanceRepository.getAllSubstances();
     }
 
+    /**
+     * gets a drug with ID
+     * @param drugId ID
+     * @return drug from repository
+     */
     public DrugDto getDrugById(int drugId) {
         return drugRepository.getDrugById(drugId);
     }
@@ -113,6 +130,10 @@ public class DrugManagementService {
         drugRepository.updateDrugAmount(drug.getDrugId(), updateDrugAmountDto.getAmount());
     }
 
+    /**
+     * deletes a drug from database with ID
+     * @param drugId ID
+     */
     public void deleteDrug(Integer drugId) {
         drugRepository.deleteDrugById(drugId);
     }

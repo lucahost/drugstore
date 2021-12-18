@@ -15,6 +15,11 @@ import ch.ffhs.drugstore.shared.exceptions.DrugNotFoundException;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import ch.ffhs.drugstore.shared.exceptions.InsufficientAmountException;
 
+/**
+ * Use-Case class dispense a specific drug
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 public class DispenseDrug implements UseCase<Void, SubmitDispenseDto> {
     DispensaryService dispensaryService;
     DrugManagementService drugManagementService;
@@ -30,6 +35,13 @@ public class DispenseDrug implements UseCase<Void, SubmitDispenseDto> {
     }
 
     // TODO @Luca this should be transactional, use dispenseDrug from DAO make it transactional
+
+    /**
+     * method for dispense
+     * @param submitDispenseDto
+     * @throws  DrugstoreException if drug not found
+     * @throws  InsufficientAmountException if not enough amount on stock
+     */
     @Override
     public Void execute(SubmitDispenseDto submitDispenseDto) throws DrugstoreException {
         DrugDto drug = drugManagementService.getDrugById(submitDispenseDto.getDrugId());

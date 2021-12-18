@@ -9,7 +9,11 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
 import ch.ffhs.drugstore.shared.exceptions.DrugNotFoundException;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
-
+/**
+ * Use-Case class to toggle an inventory item
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 public class ToggleInventoryItem implements UseCase<SignatureDrugDto, Integer> {
     @Inject
     DrugManagementService drugManagementService;
@@ -19,6 +23,11 @@ public class ToggleInventoryItem implements UseCase<SignatureDrugDto, Integer> {
         this.drugManagementService = drugManagementService;
     }
 
+    /**
+     * @param drugId ID
+     * @return new Signature Drug DTO
+     * @throws DrugstoreException if drug not found
+     */
     @Override
     public SignatureDrugDto execute(Integer drugId) throws DrugstoreException {
         DrugDto drug = drugManagementService.getDrugById(drugId);
