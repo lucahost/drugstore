@@ -1,5 +1,6 @@
 package ch.ffhs.drugstore.presentation.management.inventory.view;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import ch.ffhs.drugstore.presentation.management.inventory.view.adapter.Inventor
 import ch.ffhs.drugstore.presentation.management.inventory.view.dialog.SignInventoryDialogFragment;
 import ch.ffhs.drugstore.presentation.management.inventory.viewmodel.InventoryViewModel;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -76,50 +78,64 @@ public class InventoryFragment extends Fragment
         return Objects.requireNonNull(this.getActivity()).getApplicationContext();
     }
 
-  @Override
-  public void onPrepareOptionsMenu(@NonNull Menu menu) {
-    super.onPrepareOptionsMenu(menu);
-    MenuItem shareItem = menu.findItem(R.id.toolbar_share);
-    shareItem.setVisible(true);
-  }
-
-  @Override
-  public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-    super.onCreateOptionsMenu(menu, inflater);
-    inflater.inflate(R.menu.toolbar_menu, menu);
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    if (item.getItemId() == R.id.toolbar_share) {
-      share(viewModel.getItems().getValue());
-      Toast.makeText(context(), "Shared", Toast.LENGTH_SHORT).show();
-      return true;
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem shareItem = menu.findItem(R.id.toolbar_share);
+        shareItem.setVisible(true);
     }
-    return super.onOptionsItemSelected(item);
-  }
 
-  private void share(List<DrugDto> drugDtoList) {
-    Intent sendIntent = new Intent();
-    sendIntent.setAction(Intent.ACTION_SEND);
-    // TODO: write inventory to e.g. csv file
-    sendIntent.putExtra(Intent.EXTRA_TEXT, "This should contain the inventory.");
-    sendIntent.setType("text/plain");
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.toolbar_menu, menu);
+    }
 
-    Intent shareIntent = Intent.createChooser(sendIntent, null);
-    startActivity(shareIntent);
-  }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.toolbar_share) {
+            // don't use getValue()
+            // share(viewModel.getItems().getValue());
+            Toast.makeText(context(), "Shared", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void share(List<DrugDto> drugDtoList) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        // TODO: write inventory to e.g. csv file
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "This should contain the inventory.");
+        sendIntent.setType("text/plain");
+
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        startActivity(shareIntent);
+    }
 
     @Override
     public void onItemClick(DrugDto inventoryDrug) {
-        viewModel.toggleInventoryItem(inventoryDrug.getDrugId());
-        Toast.makeText(context(), "Checked", Toast.LENGTH_SHORT).show();
+        try {
+
+            viewModel.toggleInventoryItem(inventoryDrug.getDrugId());
+            Toast.makeText(context(), "Checked", Toast.LENGTH_SHORT).show();
+        } catch (DrugstoreException dse) {
+            new AlertDialog.Builder(getContext())
+                    .setTitle(R.string.error_toggle_favorite)
+                    .setMessage(dse.getMessage())
+                    .setNegativeButton(R.string.close, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+            return;
+        }
     }
+
 
     private void setupRecyclerView() {
         binding.inventoryList.setLayoutManager(
                 new GridLayoutManager(context(), 2, RecyclerView.VERTICAL, false));
-        binding.inventoryList.addItemDecoration(new DividerItemDecoration(context(), DividerItemDecoration.VERTICAL));
+        binding.inventoryList.addItemDecoration(
+                new DividerItemDecoration(context(), DividerItemDecoration.VERTICAL));
         adapter.setClickListener(this);
         binding.inventoryList.setAdapter(this.adapter);
     }
@@ -128,6 +144,7 @@ public class InventoryFragment extends Fragment
     public void onConfirmSignInventory(String employee) {
         dialogService.dismiss(DialogService.Dialog.SIGN_INVENTORY);
         viewModel.signInventory(employee);
-        Toast.makeText(context(), "Erfolgreich signiert", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context(), R.string.signature_success, Toast.LENGTH_SHORT).show();
+        adapter.resetCheckState();
     }
 }

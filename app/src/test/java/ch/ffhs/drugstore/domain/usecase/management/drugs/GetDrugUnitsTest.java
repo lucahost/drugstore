@@ -39,7 +39,7 @@ public class GetDrugUnitsTest {
     }
 
     @Test
-    public void execute() {
+    public void executeGetDrugUnitsUseCaseSuccessfully() {
         // Arrange
         MutableLiveData<List<UnitDto>> liveDataUnitList = new MutableLiveData<>();
         List<UnitDto> drugUnitList = new ArrayList<>();

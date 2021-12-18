@@ -40,7 +40,7 @@ public class GetDrugTypesTest {
     }
 
     @Test
-    public void execute() {
+    public void executeGetDrugTypesUseCaseSuccessfully() {
         // Arrange
         MutableLiveData<List<DrugTypeDto>> liveDataDrugTypeList = new MutableLiveData<>();
         List<DrugTypeDto> drugTypeList = new ArrayList<>();

@@ -39,7 +39,7 @@ public class GetDrugsTest {
     }
 
     @Test
-    public void executeThrowsNullPointerFor() {
+    public void executeGetDrugsUseCaseSuccessfully() {
         // Arrange
         MutableLiveData<List<DrugDto>> liveDataDrugList = new MutableLiveData<>();
         List<DrugDto> drugList = new ArrayList<>();

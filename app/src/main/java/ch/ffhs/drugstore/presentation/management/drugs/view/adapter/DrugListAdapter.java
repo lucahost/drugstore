@@ -76,6 +76,7 @@ public class DrugListAdapter extends ListAdapter<DrugDto, DrugListAdapter.DrugHo
     void bind(int position) {
       title.setText(getItem(position).getTitle());
       secondary.setText(getItem(position).getDosage());
+      itemView.setOnClickListener(this);
       itemAction.setOnClickListener(this);
     }
 

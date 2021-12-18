@@ -12,9 +12,9 @@ import org.junit.Test;
 
 import java.util.List;
 
-import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs;
 import ch.ffhs.drugstore.data.repository.SignatureDrugRepository;
 import ch.ffhs.drugstore.data.repository.SignatureRepository;
+import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
 
 /**
  * Test-class for SignatureService class
@@ -27,7 +27,7 @@ public class SignatureServiceTest {
     @Test
     public void getSignatures() {
         // Setup
-        LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> signature =
+        LiveData<List<SignatureDto>> signature =
                 new MutableLiveData<>();
         SignatureRepository signatureRepository = mock(SignatureRepository.class);
         SignatureDrugRepository signatureDrugRepository = mock(SignatureDrugRepository.class);
@@ -38,7 +38,7 @@ public class SignatureServiceTest {
                 signatureDrugRepository, userService);
 
         // Test
-        LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> result =
+        LiveData<List<SignatureDto>> result =
                 signatureService.getSignatures();
 
         // Assert

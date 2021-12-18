@@ -13,6 +13,7 @@ import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrug
 import ch.ffhs.drugstore.domain.usecase.management.signatures.GetSignatureDrug;
 import ch.ffhs.drugstore.domain.usecase.management.signatures.GetSignatures;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
+import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
@@ -21,7 +22,7 @@ public class SignatureViewModel extends AndroidViewModel {
     GetSignatures getSignatures;
     @Inject
     GetSignatureDrug getSignatureDrug;
-    private LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> items;
+    private LiveData<List<SignatureDto>> items;
     private LiveData<SignatureDrugDto> signatureDrugDtoLiveData;
 
     @Inject
@@ -29,7 +30,7 @@ public class SignatureViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> getItems() {
+    public LiveData<List<SignatureDto>> getItems() {
         if (items == null) {
             items = getSignatures.execute(null);
         }

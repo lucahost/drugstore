@@ -26,7 +26,7 @@ public class CreateDrugTest {
     }
 
     @Test
-    public void execute() throws Exception {
+    public void executeCreateDrugUseCaseSuccessfully() throws Exception {
         // Arrange
         CreateDrugDto createDrugDto = TestUtil.createCreateDrugDto();
 

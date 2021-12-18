@@ -39,7 +39,7 @@ public class GetSubstancesTest {
     }
 
     @Test
-    public void execute() {
+    public void executeGetSubstancesUseCaseSuccessfully() {
         // Arrange
         MutableLiveData<List<SubstanceDto>> liveDataSubstanceList = new MutableLiveData<>();
         List<SubstanceDto> substanceList = new ArrayList<>();

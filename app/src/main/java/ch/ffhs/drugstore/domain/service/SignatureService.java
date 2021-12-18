@@ -37,7 +37,7 @@ public class SignatureService {
      *
      * @return signatures with drugs and users
      */
-    public LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> getSignatures() {
+    public LiveData<List<SignatureDto>> getSignatures() {
         return signatureRepository.getSignatures();
     }
 

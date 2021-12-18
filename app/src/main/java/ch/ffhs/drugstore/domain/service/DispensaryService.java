@@ -32,7 +32,7 @@ public class DispensaryService {
      * @param filterState
      * @return Live Data List with favorite and searched drugs
      */
-    public LiveData<List<DrugDto>> getAllDrugs(@NonNfitgggdfgjgjull FilterState<Integer> filterState) {
+    public LiveData<List<DrugDto>> getAllDrugs(@NonNull FilterState<Integer> filterState) {
         boolean favorites = filterState.isFavorites();
         List<Integer> filters = filterState.getFilters();
         String searchTerm = filterState.getSearchFilter();

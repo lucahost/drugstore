@@ -9,8 +9,9 @@ import javax.inject.Inject;
 import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs;
 import ch.ffhs.drugstore.domain.service.SignatureService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
+import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
 
-public class GetSignatures implements UseCase<LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>>, Void> {
+public class GetSignatures implements UseCase<LiveData<List<SignatureDto>>, Void> {
     @Inject
     SignatureService signatureService;
 
@@ -20,7 +21,7 @@ public class GetSignatures implements UseCase<LiveData<List<SignatureWithUserAnd
     }
 
     @Override
-    public LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> execute(Void unused) {
+    public LiveData<List<SignatureDto>> execute(Void unused) {
         return signatureService.getSignatures();
     }
 }

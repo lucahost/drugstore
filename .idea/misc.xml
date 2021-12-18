@@ -8,6 +8,9 @@
         <entry key="..\:/dev/git/gitlab/ffhs/luca.hostettler/drugstore/app/src/main/res/layout/dialog_edit_drug.xml" value="0.1875" />
         <entry key="..\:/dev/git/gitlab/ffhs/luca.hostettler/drugstore/app/src/main/res/layout/fragment_dispensary.xml" value="0.5728643216080402" />
         <entry key="..\:/dev/git/gitlab/ffhs/luca.hostettler/drugstore/app/src/main/res/layout/fragment_drugs.xml" value="0.21326754385964913" />
+        <entry key="..\:/dev/git/gitlab/ffhs/luca.hostettler/drugstore/app/src/main/res/layout/fragment_signature.xml" value="0.24609375" />
+        <entry key="..\:/dev/git/gitlab/ffhs/luca.hostettler/drugstore/app/src/main/res/layout/fragment_signature_detail.xml" value="0.24609375" />
+        <entry key="..\:/dev/git/gitlab/ffhs/luca.hostettler/drugstore/app/src/main/res/layout/inventory_item.xml" value="0.21326754385964913" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.262037037037037" />
         <entry key="app/src/main/res/drawable/ic_baseline_apps_24.xml" value="0.13854166666666667" />
         <entry key="app/src/main/res/drawable/ic_baseline_check_circle_outline_24.xml" value="0.13854166666666667" />
