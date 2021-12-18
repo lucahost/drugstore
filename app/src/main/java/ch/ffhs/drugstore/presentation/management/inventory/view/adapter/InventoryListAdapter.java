@@ -1,6 +1,5 @@
 package ch.ffhs.drugstore.presentation.management.inventory.view.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +8,14 @@ import android.widget.CheckedTextView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.selection.ItemKeyProvider;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -36,7 +40,7 @@ public class InventoryListAdapter
                             && oldItem.getStockAmount() == newItem.getStockAmount();
                 }
             };
-
+    private static final List<InventoryItemHolder> itemHolders = new ArrayList<>();
     private InventoryListAdapter.OnItemClickListener clickListener;
     private Context context;
 
@@ -58,6 +62,7 @@ public class InventoryListAdapter
     @Override
     public void onBindViewHolder(@NonNull InventoryItemHolder holder, int position) {
         holder.bind(position);
+        itemHolders.add(holder);
     }
 
     // allows clicks events to be caught
@@ -65,14 +70,44 @@ public class InventoryListAdapter
         this.clickListener = itemClickListener;
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void resetCheckState() {
-        notifyDataSetChanged();
+    public void toggleCheckAll(boolean checkState) {
+        List<DrugDto> drugDtoList = getCurrentList();
+//        for (InventoryItemHolder itemHolder : itemHolders) {
+//            itemHolder.title.setChecked(checkState);
+//            int itemPos = itemHolder.getLayoutPosition();
+//            DrugDto drug = drugDtoList.get(itemPos);
+//            System.out.println(itemPos);
+//            System.out.println(drug.getDrugId());
+//            this.clickListener.onItemClick(drug);
+//        }
     }
 
 
     public interface OnItemClickListener {
         void onItemClick(DrugDto drugDto);
+    }
+
+    public class InventoryItemKeyProvider extends ItemKeyProvider {
+
+        /**
+         * Creates a new provider with the given scope.
+         *
+         * @param scope Scope can't be changed at runtime.
+         */
+        protected InventoryItemKeyProvider(int scope) {
+            super(scope);
+        }
+
+        @Nullable
+        @Override
+        public Object getKey(int position) {
+            return null;
+        }
+
+        @Override
+        public int getPosition(@NonNull Object key) {
+            return 0;
+        }
     }
 
     /**

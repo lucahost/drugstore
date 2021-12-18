@@ -1,5 +1,6 @@
 package ch.ffhs.drugstore.presentation.management.inventory.view;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -83,7 +86,13 @@ public class InventoryFragment extends Fragment
         super.onPrepareOptionsMenu(menu);
         MenuItem shareItem = menu.findItem(R.id.toolbar_share);
         shareItem.setVisible(true);
+
+        MenuItem checkAllItem = menu.findItem(R.id.toolbar_toggle_check_all);
+        checkAllItem.setVisible(true);
+        CheckBox checkBox = (CheckBox) checkAllItem.getActionView();
+        checkBox.setOnCheckedChangeListener(this::onCheckedChanged);
     }
+
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -117,7 +126,6 @@ public class InventoryFragment extends Fragment
     public void onItemClick(DrugDto inventoryDrug) {
         try {
             viewModel.toggleInventoryItem(inventoryDrug.getDrugId());
-            Toast.makeText(context(), "Checked", Toast.LENGTH_SHORT).show();
         } catch (DrugstoreException dse) {
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.error_toggle_favorite)
@@ -144,6 +152,13 @@ public class InventoryFragment extends Fragment
         dialogService.dismiss(DialogService.Dialog.SIGN_INVENTORY);
         viewModel.signInventory(employee);
         Toast.makeText(context(), R.string.signature_success, Toast.LENGTH_SHORT).show();
-        adapter.resetCheckState();
+        adapter.toggleCheckAll(false);
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void onCheckedChanged(CompoundButton item, boolean checked) {
+        adapter.notifyDataSetChanged();
+        adapter.toggleCheckAll(checked);
+    }
+
 }
