@@ -116,7 +116,6 @@ public class InventoryFragment extends Fragment
     @Override
     public void onItemClick(DrugDto inventoryDrug) {
         try {
-
             viewModel.toggleInventoryItem(inventoryDrug.getDrugId());
             Toast.makeText(context(), "Checked", Toast.LENGTH_SHORT).show();
         } catch (DrugstoreException dse) {
