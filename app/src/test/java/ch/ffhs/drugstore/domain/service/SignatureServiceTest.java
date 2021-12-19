@@ -1,5 +1,6 @@
 package ch.ffhs.drugstore.domain.service;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
@@ -49,7 +50,8 @@ public class SignatureServiceTest {
         verify(signatureRepository, times(0)).getSignatureBySignatureId(anyInt());
     }
 
-    @Test void getSignatureById() {
+    @Test
+    public void getSignatureById() {
         // Setup
         int signatureId = 1;
         List<SignatureDrugDto> signatureDrugs = TestUtil.createObjectListWithSupplier(2,
@@ -67,7 +69,8 @@ public class SignatureServiceTest {
         LiveData<List<SignatureDrugDto>> result = signatureService.getSignatureDrugsBySignatureId(signatureId);
 
         // Assert
+        assertEquals(signatureDrugsLiveData, result);
         verify(signatureRepository, times(0)).getSignatures();
-        verify(signatureRepository, times(1)).getSignatureBySignatureId(anyInt());
+        verify(signatureDrugRepository, times(1)).getSignatureDrugsBySignatureId(anyInt());
     }
 }
