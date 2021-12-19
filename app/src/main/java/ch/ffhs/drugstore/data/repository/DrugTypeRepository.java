@@ -1,7 +1,5 @@
 package ch.ffhs.drugstore.data.repository;
 
-import android.app.Application;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 
@@ -10,7 +8,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.dao.DrugTypeDao;
-import ch.ffhs.drugstore.data.database.DrugstoreDatabase;
 import ch.ffhs.drugstore.data.relation.DrugTypeWithParentDrugType;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
@@ -27,10 +24,9 @@ public class DrugTypeRepository {
     private final DrugstoreMapper mapper;
 
     @Inject
-    public DrugTypeRepository(Application application) {
-        DrugstoreDatabase db = DrugstoreDatabase.getDatabase(application);
+    public DrugTypeRepository(DrugTypeDao drugTypeDao) {
         mapper = DrugstoreMapper.INSTANCE;
-        drugTypeDao = db.drugTypeDao();
+        this.drugTypeDao = drugTypeDao;
         allDrugTypes = drugTypeDao.getAllDrugTypes();
     }
 

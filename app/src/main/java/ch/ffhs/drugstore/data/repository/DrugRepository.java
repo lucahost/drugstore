@@ -1,13 +1,12 @@
 package ch.ffhs.drugstore.data.repository;
 
-import android.app.Application;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import ch.ffhs.drugstore.data.dao.DrugDao;
 import ch.ffhs.drugstore.data.database.DrugstoreDatabase;
@@ -22,19 +21,19 @@ import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
+@Singleton
 public class DrugRepository {
     private final DrugDao drugDao;
     private final LiveData<List<DrugWithUnitAndDrugTypeAndSubstance>> allDrugs;
     private final DrugstoreMapper mapper;
 
     /**
-     * @param application for getting the database
+     * @param drugDao for communicating with the db
      */
     @Inject
-    public DrugRepository(Application application) {
-        DrugstoreDatabase db = DrugstoreDatabase.getDatabase(application);
+    public DrugRepository(DrugDao drugDao) {
         this.mapper = DrugstoreMapper.INSTANCE;
-        drugDao = db.drugDao();
+        this.drugDao = drugDao;
         allDrugs = drugDao.getAllDrugs();
     }
 

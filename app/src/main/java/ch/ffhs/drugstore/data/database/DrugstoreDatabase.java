@@ -32,6 +32,7 @@ import ch.ffhs.drugstore.data.entity.Substance;
 import ch.ffhs.drugstore.data.entity.Transaction;
 import ch.ffhs.drugstore.data.entity.Unit;
 import ch.ffhs.drugstore.data.entity.User;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 
 /**
  * This class holds the database and serves as the main access point for the underlying connection

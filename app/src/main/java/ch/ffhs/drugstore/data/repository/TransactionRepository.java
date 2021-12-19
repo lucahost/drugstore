@@ -1,7 +1,5 @@
 package ch.ffhs.drugstore.data.repository;
 
-import android.app.Application;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 
@@ -28,10 +26,9 @@ public class TransactionRepository {
     private final DrugstoreMapper mapper;
 
     @Inject
-    public TransactionRepository(Application application) {
-        DrugstoreDatabase db = DrugstoreDatabase.getDatabase(application);
+    public TransactionRepository(TransactionDao transactionDao) {
         mapper = DrugstoreMapper.INSTANCE;
-        transactionDao = db.transactionDao();
+        this.transactionDao = transactionDao;
         allTransactions = transactionDao.getAllTransactions();
     }
 

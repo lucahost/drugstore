@@ -1,7 +1,5 @@
 package ch.ffhs.drugstore.data.repository;
 
-import android.app.Application;
-
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
@@ -9,7 +7,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.dao.UnitDao;
-import ch.ffhs.drugstore.data.database.DrugstoreDatabase;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 
 /**
@@ -23,9 +20,8 @@ public class UnitRepository {
     private final LiveData<List<UnitDto>> allUnits;
 
     @Inject
-    public UnitRepository(Application application) {
-        DrugstoreDatabase db = DrugstoreDatabase.getDatabase(application);
-        unitDao = db.unitDao();
+    public UnitRepository(UnitDao unitDao) {
+        this.unitDao = unitDao;
         allUnits = unitDao.getAllUnits();
     }
 

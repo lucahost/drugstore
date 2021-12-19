@@ -1,7 +1,5 @@
 package ch.ffhs.drugstore.data.repository;
 
-import android.app.Application;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 
@@ -31,16 +29,11 @@ public class SignatureRepository {
     private final LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>> allSignaturesWithDrugs;
     private final DrugstoreMapper mapper;
 
-    // Note that in order to unit test the WordRepository, you have to remove the Application
-    // dependency. This adds complexity and much more code, and this sample is not about testing.
-    // See the BasicSample in the android-architecture-components repository at
-    // https://github.com/googlesamples
     @Inject
-    public SignatureRepository(Application application) {
-        DrugstoreDatabase db = DrugstoreDatabase.getDatabase(application);
+    public SignatureRepository(SignatureDao signatureDao, SignatureDrugDao signatureDrugDao) {
         this.mapper = DrugstoreMapper.INSTANCE;
-        signatureDao = db.signatureDao();
-        signatureDrugDao = db.signatureDrugDao();
+        this.signatureDao = signatureDao;
+        this.signatureDrugDao = signatureDrugDao;
         allSignaturesWithDrugs = signatureDao.getAllSignatures();
     }
 
