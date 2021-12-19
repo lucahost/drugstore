@@ -17,7 +17,9 @@ import static ch.ffhs.drugstore.e2e.helpers.RecyclerViewItemCount.getCountFromRe
 import static ch.ffhs.drugstore.e2e.helpers.RecyclerViewItemCountAssertion.withItemCount;
 import static ch.ffhs.drugstore.e2e.helpers.TextHelpers.hasTextInputLayoutErrorText;
 
+import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -60,6 +62,8 @@ public class CreateDrugTest {
         onView(withId(R.id.tolerance_text)).perform(typeText(tolerance));
         onView(withId(R.id.is_favorite_checkbox)).perform(scrollTo());
         onView(withId(R.id.is_favorite_checkbox)).perform(click());
+        // Close KeyBoard (Else the button is not in the view and will result in an exception
+        onView(ViewMatchers.isRoot()).perform(ViewActions.closeSoftKeyboard());
         // Confirm form
         onView(withId(android.R.id.button1)).perform(click());
         // Check if there is one more item in the list

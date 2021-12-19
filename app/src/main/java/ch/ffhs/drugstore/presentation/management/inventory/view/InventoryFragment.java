@@ -9,6 +9,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,7 +32,7 @@ import ch.ffhs.drugstore.presentation.management.inventory.view.adapter.Inventor
 import ch.ffhs.drugstore.presentation.management.inventory.view.adapter.OnHistoryItemClickListener;
 import ch.ffhs.drugstore.presentation.management.inventory.view.dialog.ConfirmSignInventoryListener;
 import ch.ffhs.drugstore.presentation.management.inventory.viewmodel.InventoryViewModel;
-import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.SelectableDrugDto;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -41,8 +43,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * @version 2021.12.15
  */
 @AndroidEntryPoint
-public class InventoryFragment extends Fragment
-        implements OnHistoryItemClickListener,
+public class InventoryFragment extends Fragment implements OnHistoryItemClickListener,
         ConfirmSignInventoryListener {
 
     @Inject
@@ -51,6 +52,7 @@ public class InventoryFragment extends Fragment
     protected DialogService dialogService;
     private FragmentInventoryBinding binding;
     private InventoryViewModel viewModel;
+    private Menu menu;
 
     /**
      * {@inheritDoc}
@@ -90,9 +92,16 @@ public class InventoryFragment extends Fragment
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
+        this.menu = menu;
         MenuItem shareItem = menu.findItem(R.id.toolbar_share);
         shareItem.setVisible(true);
+
+        MenuItem checkAllItem = menu.findItem(R.id.toolbar_toggle_check_all);
+        checkAllItem.setVisible(true);
+        CheckBox checkBox = (CheckBox) checkAllItem.getActionView();
+        checkBox.setOnCheckedChangeListener(this::onCheckedChanged);
     }
+
 
     /**
      * {@inheritDoc}
@@ -121,10 +130,9 @@ public class InventoryFragment extends Fragment
      * {@inheritDoc}
      */
     @Override
-    public void onItemClick(DrugDto inventoryDrug) {
+    public void onItemClick(SelectableDrugDto inventoryDrug, boolean selected) {
         try {
-            viewModel.toggleInventoryItem(inventoryDrug.getDrugId());
-            Toast.makeText(context(), "Checked", Toast.LENGTH_SHORT).show();
+            viewModel.toggleInventoryItem(inventoryDrug.getDrugId(), selected);
         } catch (DrugstoreException dse) {
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.error_toggle_favorite)
@@ -133,17 +141,6 @@ public class InventoryFragment extends Fragment
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onConfirmSignInventory(String employee) {
-        dialogService.dismiss(DialogType.SIGN_INVENTORY);
-        viewModel.signInventory(employee);
-        Toast.makeText(context(), R.string.signature_success, Toast.LENGTH_SHORT).show();
-        adapter.resetCheckState();
     }
 
     /**
@@ -166,4 +163,30 @@ public class InventoryFragment extends Fragment
         adapter.setClickListener(this);
         binding.inventoryList.setAdapter(this.adapter);
     }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onConfirmSignInventory(String employee) {
+        dialogService.dismiss(DialogType.SIGN_INVENTORY);
+        viewModel.signInventory(employee);
+        Toast.makeText(context(), R.string.signature_success, Toast.LENGTH_SHORT).show();
+        CheckBox checkBox = (CheckBox) getMenu().findItem(
+                R.id.toolbar_toggle_check_all).getActionView();
+        checkBox.setChecked(false);
+        adapter.toggleCheckAll(false);
+    }
+
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+
+    private void onCheckedChanged(CompoundButton item, boolean checked) {
+        adapter.toggleCheckAll(checked);
+    }
+
 }

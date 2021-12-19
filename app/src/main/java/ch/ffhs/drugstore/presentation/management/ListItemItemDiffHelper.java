@@ -20,7 +20,7 @@ public class ListItemItemDiffHelper {
     /**
      * Compares two {@link DrugDto} recycler view list items
      */
-    public static final DiffUtil.ItemCallback<DrugDto> drugDtoItemDiffCallback =
+    public static final DiffUtil.ItemCallback<? extends DrugDto> drugDtoItemDiffCallback =
             new DiffUtil.ItemCallback<DrugDto>() {
                 @Override
                 public boolean areItemsTheSame(@NonNull DrugDto oldItem, @NonNull DrugDto newItem) {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
 import javax.inject.Inject;
@@ -27,7 +28,7 @@ public class DrugListAdapter extends ListAdapter<DrugDto, DrugItemHolder> {
      */
     @Inject
     public DrugListAdapter() {
-        super(drugDtoItemDiffCallback);
+        super((DiffUtil.ItemCallback<DrugDto>) drugDtoItemDiffCallback);
     }
 
     /**

@@ -4,18 +4,20 @@ import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.domain.usecase.management.inventory.GetInventory;
 import ch.ffhs.drugstore.domain.usecase.management.inventory.SignInventory;
 import ch.ffhs.drugstore.domain.usecase.management.inventory.ToggleInventoryItem;
-import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.SelectableDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.CreateSignatureDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
@@ -32,8 +34,8 @@ public class InventoryViewModel extends AndroidViewModel {
     private final Map<Integer, SignatureDrugDto> signatureDrugs;
     private final GetInventory getInventory;
     private final ToggleInventoryItem toggleInventoryItem;
-    private final SignInventory signInventory;
-    private LiveData<List<DrugDto>> drugs;
+    SignInventory signInventory;
+    private LiveData<List<SelectableDrugDto>> drugs;
 
     /**
      * Constructs a {@link InventoryViewModel}
@@ -60,9 +62,11 @@ public class InventoryViewModel extends AndroidViewModel {
      *
      * @return drugs
      */
-    public LiveData<List<DrugDto>> getDrugs() {
+    public LiveData<List<SelectableDrugDto>> getDrugs() {
         if (drugs == null) {
-            drugs = getInventory.execute(null);
+            drugs = Transformations.map(getInventory.execute(null),
+                    d -> d.stream().map(dt -> new SelectableDrugDto(dt, false)).collect(
+                            Collectors.toList()));
         }
         return drugs;
     }
@@ -86,11 +90,11 @@ public class InventoryViewModel extends AndroidViewModel {
      * @param drugId the id of the inventory item to toggle
      * @throws DrugstoreException if toggling of the inventory item goes wrong
      */
-    public void toggleInventoryItem(Integer drugId) throws DrugstoreException {
-        if (signatureDrugs.get(drugId) != null) {
+    public void toggleInventoryItem(Integer drugId, boolean selected) throws DrugstoreException {
+        if (!selected || signatureDrugs.containsKey(drugId)) {
             signatureDrugs.remove(drugId);
-        } else {
-            signatureDrugs.put(drugId, toggleInventoryItem.execute(drugId));
+            return;
         }
+        signatureDrugs.put(drugId, toggleInventoryItem.execute(drugId));
     }
 }

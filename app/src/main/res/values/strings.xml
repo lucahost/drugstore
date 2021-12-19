@@ -84,4 +84,5 @@
     <string name="error_substance_required">Bitte Substanz eingeben</string>
     <string name="error_toggle_favorite">Fehler beim Favorit setzen</string>
     <string name="signature_success">Erfolgreich signiert</string>
+    <string name="checkall">Check all</string>
 </resources>
