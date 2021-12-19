@@ -1,5 +1,7 @@
 package ch.ffhs.drugstore.shared.extensions;
 
+import android.content.Context;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -16,9 +18,9 @@ import java.util.zip.ZipOutputStream;
  * @version 2021.12.15
  */
 public class FileExtensions {
-    public static void zipDirectory(File sourceDirectory, File targetFile) {
+    public static void zipDirectory(Context context, File sourceDirectory, File targetFile) {
         try {
-            File tmp = new File(sourceDirectory + "tmp");
+            File tmp = new File(context.getCacheDir(), "tmp");
             copyDirectory(sourceDirectory, tmp);
             File zipFile = zipDirectory(tmp, targetFile.getName());
             copyFile(zipFile, targetFile);

@@ -46,7 +46,8 @@ public class SettingsViewModel extends AndroidViewModel {
     }
 
     /**
-     * TODO: add docs
+     * Gathers the current apps database files, saves them to a zip drive
+     * Creates a URI and invokes the databaseExportedEvent
      */
     public void exportDatabase() {
         String dbName = exportDatabase.execute(null);
@@ -54,7 +55,7 @@ public class SettingsViewModel extends AndroidViewModel {
         File targetFile = new File(
                 app.getApplicationContext().getCacheDir() + "/export/db_export.zip");
 
-        zipDirectory(dbDirectory, targetFile);
+        zipDirectory(app.getApplicationContext(), dbDirectory, targetFile);
 
         Uri fileUri = FileProvider.getUriForFile(app.getApplicationContext(),
                 "ch.ffhs.drugstore.fileprovider", targetFile);
@@ -63,7 +64,8 @@ public class SettingsViewModel extends AndroidViewModel {
     }
 
     /**
-     * TODO: add docs
+     * Should open a file-chooser where the user can provide the sqlite db
+     * Imports this db using the importDB UseCase
      */
     public void importDatabase() {
         importDatabase.execute(null);
@@ -71,9 +73,9 @@ public class SettingsViewModel extends AndroidViewModel {
     }
 
     /**
-     * TODO: add docs
+     * Used to send an event to the view from the viewModel
      *
-     * @return
+     * @return {@link SingleLiveEvent} databaseExportedEvent
      */
     public SingleLiveEvent<Uri> getDatabaseExportedEvent() {
         return databaseExportedEvent;
