@@ -96,9 +96,14 @@ public class DrugManagementService {
      * this method edits drugs
      *
      * @param editDrugDto edit drug input dto
+     *
+     * @throws DrugstoreException if creation of the drug goes wrong
      */
-    public void editDrug(EditDrugDto editDrugDto) {
+    public void editDrug(EditDrugDto editDrugDto) throws DrugNotFoundException {
         DrugDto originalDrug = drugRepository.getDrugById(editDrugDto.getDrugId());
+        if (originalDrug == null) {
+            throw new DrugNotFoundException(R.string.drug_not_found);
+        }
         DrugDto drugDto = mapper.editDrugDtoToDrugDto(editDrugDto);
 
         SubstanceDto substance = substanceRepository.getOrCreateSubstanceByTitle(
