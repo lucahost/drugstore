@@ -2,6 +2,10 @@ package ch.ffhs.drugstore.shared.extensions;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.powermock.api.mockito.PowerMockito.when;
+
+import android.content.Context;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -20,12 +24,16 @@ public class FileExtensionsTest {
     @Test
     public void zipDirectory() throws IOException {
         // Arrange
+        Context context = mock(Context.class);
         tempFolder.create();
+        TemporaryFolder tempFolder2 = new TemporaryFolder();
+        tempFolder2.create();
+        when(context.getCacheDir()).thenReturn(tempFolder2.getRoot());
 
         File targetZip = tempFolder.newFile("test.zip").getAbsoluteFile();
 
         // Act
-        FileExtensions.zipDirectory(tempFolder.getRoot(), targetZip);
+        FileExtensions.zipDirectory(context, tempFolder.getRoot(), targetZip);
 
         // Verify
         assertTrue(targetZip.exists());

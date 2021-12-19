@@ -8,7 +8,6 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.function.Supplier;
 
 import ch.ffhs.drugstore.data.entity.Drug;
@@ -134,7 +133,7 @@ public class TestUtil {
     }
 
     public static SubstanceDto createSubstanceDto(int substanceId) {
-        String substanceTitle = faker.funnyName().name();
+        String substanceTitle = faker.name().name();
         return new SubstanceDto(substanceId, substanceTitle);
     }
 
@@ -160,16 +159,18 @@ public class TestUtil {
         double expectedAmount = faker.number().randomDouble(2, 1, 10);
         double actualAmount = faker.number().randomDouble(2, 1, 10);
         boolean approved = false;
-        return new SignatureDrugDto(signatureId, drugId, drug, expectedAmount, actualAmount, approved);
+        return new SignatureDrugDto(signatureId, drugId, drug, expectedAmount, actualAmount,
+                approved);
     }
 
     public static CreateSignatureDto createCreateSignatureDto() {
         String userShortName = faker.funnyName().name();
-        List<SignatureDrugDto> signatureDrugs = createObjectListWithSupplier(2, TestUtil::createSignatureDrugDto);
+        List<SignatureDrugDto> signatureDrugs = createObjectListWithSupplier(2,
+                TestUtil::createSignatureDrugDto);
         return new CreateSignatureDto(userShortName, signatureDrugs);
     }
 
-    private static <T> List<T> createObjectListWithSupplier(int count, Supplier<T> creator)  {
+    public static <T> List<T> createObjectListWithSupplier(int count, Supplier<T> creator) {
         List<T> objectList = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
             objectList.add(creator.get());

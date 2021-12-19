@@ -1,5 +1,6 @@
 package ch.ffhs.drugstore.domain.service;
 
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 import static org.powermock.api.mockito.PowerMockito.mock;
@@ -14,7 +15,9 @@ import java.util.List;
 
 import ch.ffhs.drugstore.data.repository.SignatureDrugRepository;
 import ch.ffhs.drugstore.data.repository.SignatureRepository;
+import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
+import util.TestUtil;
 
 /**
  * Test-class for SignatureService class
@@ -43,5 +46,28 @@ public class SignatureServiceTest {
 
         // Assert
         verify(signatureRepository, times(1)).getSignatures();
+        verify(signatureRepository, times(0)).getSignatureBySignatureId(anyInt());
+    }
+
+    @Test void getSignatureById() {
+        // Setup
+        int signatureId = 1;
+        List<SignatureDrugDto> signatureDrugs = TestUtil.createObjectListWithSupplier(2,
+                TestUtil::createSignatureDrugDto);
+        LiveData<List<SignatureDrugDto>> signatureDrugsLiveData = new MutableLiveData<>(signatureDrugs);
+        SignatureRepository signatureRepository = mock(SignatureRepository.class);
+        SignatureDrugRepository signatureDrugRepository = mock(SignatureDrugRepository.class);
+        UserService userService = mock(UserService.class);
+        when(signatureDrugRepository.getSignatureDrugsBySignatureId(anyInt())).thenReturn(signatureDrugsLiveData);
+
+        SignatureService signatureService = new SignatureService(signatureRepository,
+                signatureDrugRepository, userService);
+
+        // Test
+        LiveData<List<SignatureDrugDto>> result = signatureService.getSignatureDrugsBySignatureId(signatureId);
+
+        // Assert
+        verify(signatureRepository, times(0)).getSignatures();
+        verify(signatureRepository, times(1)).getSignatureBySignatureId(anyInt());
     }
 }
