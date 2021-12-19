@@ -85,6 +85,8 @@
     <string name="error_toggle_favorite">Fehler beim Favorit setzen</string>
     <string name="signature_success">Erfolgreich signiert</string>
     <string name="checkall">Check all</string>
-    <string name="import_title">import</string>
+    <string name="import_title">IMPORT</string>
+    <string name="export_title">EXPORT</string>
     <string name="error_update_drug">Fehler beim Aktualisieren</string>
+    <string name="backup_title">BACKUP</string>
 </resources>
