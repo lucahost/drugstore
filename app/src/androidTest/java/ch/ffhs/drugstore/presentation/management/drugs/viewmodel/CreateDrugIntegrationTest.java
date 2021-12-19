@@ -20,10 +20,7 @@ import org.junit.runner.RunWith;
 import java.io.IOException;
 import java.util.List;
 
-import ch.ffhs.drugstore.data.dao.SubstanceDao;
 import ch.ffhs.drugstore.data.database.DrugstoreDatabase;
-import ch.ffhs.drugstore.data.entity.Substance;
-import ch.ffhs.drugstore.data.relation.DrugTypeWithParentDrugType;
 import ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance;
 import ch.ffhs.drugstore.data.repository.DrugRepository;
 import ch.ffhs.drugstore.data.repository.DrugTypeRepository;
@@ -32,7 +29,6 @@ import ch.ffhs.drugstore.data.repository.UnitRepository;
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.CreateDrug;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
-import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 import util.LiveDataTestUtil;
@@ -47,13 +43,19 @@ public class CreateDrugIntegrationTest {
     private final Faker faker = new Faker();
     private final DrugstoreMapper mapper = DrugstoreMapper.INSTANCE;
     private DrugstoreDatabase db;
-    private SubstanceDao substanceDao;
+    private DrugRepository drugRepository;
+    private DrugTypeRepository drugTypeRepository;
+    private SubstanceRepository substanceRepository;
+    private UnitRepository unitRepository;
 
     @Before
     public void setUp() {
-        db = Room.inMemoryDatabaseBuilder(appContext, DrugstoreDatabase.class)
-                .allowMainThreadQueries()
-                .build();
+        db = Room.inMemoryDatabaseBuilder(appContext, DrugstoreDatabase.class).build();
+
+        drugRepository = new DrugRepository(db.drugDao());
+        drugTypeRepository = new DrugTypeRepository(db.drugTypeDao());
+        substanceRepository = new SubstanceRepository(db.substanceDao());
+        unitRepository = new UnitRepository(db.unitDao());
     }
 
     @After
@@ -64,11 +66,6 @@ public class CreateDrugIntegrationTest {
     @Test
     public void CreateDrug() throws Exception {
         // Assert
-        DrugRepository drugRepository = new DrugRepository(appContext);
-        DrugTypeRepository drugTypeRepository = new DrugTypeRepository(appContext);
-        SubstanceRepository substanceRepository = new SubstanceRepository(appContext);
-        UnitRepository unitRepository = new UnitRepository(appContext);
-
         DrugManagementService drugManagementService = new DrugManagementService(drugRepository,
                 drugTypeRepository, substanceRepository, unitRepository);
 
@@ -78,27 +75,15 @@ public class CreateDrugIntegrationTest {
                 null, null, null, null);
 
         String drugName = faker.funnyName().name();
-        int substanceId = faker.number().randomDigit();
-        SubstanceDto substanceDto = TestUtil.createSubstanceDto(substanceId);
-        String substance = substanceDto.getTitle();
+        String substance = faker.funnyName().name();
         String dosage = faker.funnyName().name();
         int drugTypeId = faker.number().randomDigit();
-        DrugTypeDto drugTypeDto = TestUtil.createDrugTypeDto(drugTypeId);
         int unitId = faker.number().randomDigit();
-        UnitDto unitDto = TestUtil.createDrugUnitDto(unitId);
         String sTolerance = faker.funnyName().name();
         boolean isFavorite = false;
 
-        db.drugTypeDao().insert(
-                mapper.drugTypeFromDrugTypeDto(drugTypeDto));
-        db.unitDao().insert(mapper.unitFromUnitDto(unitDto));
-        db.substanceDao().insert(mapper.substanceDtoToSubstance(substanceDto));
-
-        List<DrugTypeWithParentDrugType> drugTypes = LiveDataTestUtil.getValue(
-                db.drugTypeDao().getAllDrugTypes());
-        List<UnitDto> units = LiveDataTestUtil.getValue(db.unitDao().getAllUnits());
-        List<Substance> substances = LiveDataTestUtil.getValue(
-                db.substanceDao().getAllSubstances());
+        insertDrugType(drugTypeId);
+        insertUnit(unitId);
 
         // Act
         drugsViewModel.createDrug(drugName, substance, dosage, drugTypeId, unitId,
@@ -109,5 +94,17 @@ public class CreateDrugIntegrationTest {
                 db.drugDao().getAllDrugs());
         assertEquals(1, drugs.size());
         assertEquals(drugName, drugs.get(0).getDrug().getTitle());
+    }
+
+    private void insertDrugType(int drugTypeId) {
+        DrugTypeDto drugTypeDto = TestUtil.createDrugTypeDto(drugTypeId);
+        db.drugTypeDao().insert(
+                mapper.drugTypeFromDrugTypeDto(drugTypeDto));
+    }
+
+
+    private void insertUnit(int unitId) {
+        UnitDto unitDto = TestUtil.createDrugUnitDto(unitId);
+        db.unitDao().insert(mapper.unitFromUnitDto(unitDto));
     }
 }
