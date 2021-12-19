@@ -63,9 +63,6 @@ public class HistoryServiceTest {
         verify(transactionRepository, times(1)).getAllTransactions();
     }
 
-    /**
-     * test method
-     */
     @Test
     public void addTransactionWithUser() {
         // Setup
@@ -80,5 +77,24 @@ public class HistoryServiceTest {
 
         // Assert
         verify(transactionRepository, times(1)).addTransaction(transactionDto);
+    }
+
+    @Test
+    public void addTransactionWithoutUserCreatesUser() {
+        // Setup
+        String userShortName = faker.funnyName().name();
+        TransactionDto transactionDto = mock(TransactionDto.class);
+        UserDto userDto = mock(UserDto.class);
+        when(transactionDto.getUser()).thenReturn(userDto);
+        when(userDto.getUserId()).thenReturn(null);
+        when(userDto.getShortName()).thenReturn(userShortName);
+
+        // Test
+        HistoryService historyService = new HistoryService(transactionRepository, userService);
+        historyService.addTransaction(transactionDto);
+
+        // Assert
+        verify(transactionRepository, times(1)).addTransaction(transactionDto);
+        verify(userService, times(1)).getOrCreateUserByShortName(userShortName);
     }
 }

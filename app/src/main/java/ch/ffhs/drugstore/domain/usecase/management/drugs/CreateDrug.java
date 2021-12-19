@@ -32,7 +32,7 @@ public class CreateDrug implements UseCase<Void, CreateDrugDto> {
      * @return Void
      */
     @Override
-    public Void execute(CreateDrugDto createDrugDto) throws Exception {
+    public Void execute(CreateDrugDto createDrugDto) {
         drugManagementService.createDrug(createDrugDto);
         return null;
     }

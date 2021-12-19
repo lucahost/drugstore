@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
 import ch.ffhs.drugstore.shared.dto.management.drugs.EditDrugDto;
+import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 
 /**
  * Use-Case class to edit a drug
@@ -30,9 +31,11 @@ public class EditDrug implements UseCase<Void, EditDrugDto> {
      *
      * @param editDrugDto edit drug input dto of the use case
      * @return Void
+     * @throws DrugstoreException if creation of the drug goes wrong
      */
+
     @Override
-    public Void execute(EditDrugDto editDrugDto) {
+    public Void execute(EditDrugDto editDrugDto) throws DrugstoreException {
         drugManagementService.editDrug(editDrugDto);
         return null;
     }

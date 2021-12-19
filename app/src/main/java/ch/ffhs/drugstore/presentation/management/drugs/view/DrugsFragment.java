@@ -164,8 +164,20 @@ public class DrugsFragment extends Fragment
             int drugTypeId,
             int unitId, String tolerance, boolean isFavorite) {
         dialogService.dismiss(DialogType.EDIT_DRUG);
-        viewModel.editDrug(drugId, name, substance, dosage, drugTypeId, unitId, tolerance,
-                isFavorite);
+        try {
+            viewModel.editDrug(drugId, name, substance, dosage, drugTypeId, unitId, tolerance,
+                    isFavorite);
+        }
+        catch(DrugstoreException ex) {
+            new AlertDialog.Builder(getContext())
+                    .setTitle(R.string.error_update_drug)
+                    .setMessage(ex.getCode())
+                    .setNegativeButton(R.string.close, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+            return;
+        }
+
         Toast.makeText(context(), "Erfolgreich bearbeitet", Toast.LENGTH_SHORT).show();
     }
 

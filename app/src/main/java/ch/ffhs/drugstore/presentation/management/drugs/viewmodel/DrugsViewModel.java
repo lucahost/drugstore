@@ -158,8 +158,7 @@ public class DrugsViewModel extends AndroidViewModel {
      * @param isFavorite if the drug is a favorite
      */
     public void editDrug(int drugId, String name, String substance, String dosage, int drugTypeId,
-            int unitId,
-            String sTolerance, boolean isFavorite) {
+            int unitId, String sTolerance, boolean isFavorite) throws DrugstoreException {
         double tolerance = tryParseDouble(sTolerance);
         EditDrugDto editDrugDto = new EditDrugDto(drugId, name, dosage, drugTypeId, unitId,
                 substance,
@@ -177,11 +176,9 @@ public class DrugsViewModel extends AndroidViewModel {
      * @param unitId     unit id of the drug
      * @param sTolerance tolerance of the drug
      * @param isFavorite if the drug is a favorite
-     * @throws Exception if creation of the drug goes wrong
      */
     public void createDrug(String name, String substance, String dosage, int drugTypeId, int unitId,
-            String sTolerance, boolean isFavorite)
-            throws Exception {
+            String sTolerance, boolean isFavorite) {
         double tolerance = tryParseDouble(sTolerance);
         CreateDrugDto createDrugDto = new CreateDrugDto(name, dosage, drugTypeId, unitId, substance,
                 tolerance, isFavorite);

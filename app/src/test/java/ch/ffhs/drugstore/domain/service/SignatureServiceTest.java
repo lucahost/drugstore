@@ -1,6 +1,7 @@
 package ch.ffhs.drugstore.domain.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
@@ -16,8 +17,10 @@ import java.util.List;
 
 import ch.ffhs.drugstore.data.repository.SignatureDrugRepository;
 import ch.ffhs.drugstore.data.repository.SignatureRepository;
+import ch.ffhs.drugstore.shared.dto.management.signature.CreateSignatureDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
+import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
 import util.TestUtil;
 
 /**
@@ -29,8 +32,8 @@ import util.TestUtil;
 public class SignatureServiceTest {
 
     @Test
-    public void getSignatures() {
-        // Setup
+    public void testGetSignatures() {
+        // Arrange
         LiveData<List<SignatureDto>> signature =
                 new MutableLiveData<>();
         SignatureRepository signatureRepository = mock(SignatureRepository.class);
@@ -41,7 +44,7 @@ public class SignatureServiceTest {
         SignatureService signatureService = new SignatureService(signatureRepository,
                 signatureDrugRepository, userService);
 
-        // Test
+        // Act
         LiveData<List<SignatureDto>> result =
                 signatureService.getSignatures();
 
@@ -51,8 +54,8 @@ public class SignatureServiceTest {
     }
 
     @Test
-    public void getSignatureById() {
-        // Setup
+    public void testGetSignatureById() {
+        // Arrange
         int signatureId = 1;
         List<SignatureDrugDto> signatureDrugs = TestUtil.createObjectListWithSupplier(2,
                 TestUtil::createSignatureDrugDto);
@@ -65,12 +68,35 @@ public class SignatureServiceTest {
         SignatureService signatureService = new SignatureService(signatureRepository,
                 signatureDrugRepository, userService);
 
-        // Test
+        // Act
         LiveData<List<SignatureDrugDto>> result = signatureService.getSignatureDrugsBySignatureId(signatureId);
 
-        // Assert
+        // Verify
         assertEquals(signatureDrugsLiveData, result);
         verify(signatureRepository, times(0)).getSignatures();
         verify(signatureDrugRepository, times(1)).getSignatureDrugsBySignatureId(anyInt());
+    }
+
+    @Test
+    public void testCreateSignature() {
+        // Arrange
+        int userId = 1;
+        SignatureRepository signatureRepository = mock(SignatureRepository.class);
+        SignatureDrugRepository signatureDrugRepository = mock(SignatureDrugRepository.class);
+        UserService userService = mock(UserService.class);
+
+        CreateSignatureDto createSignatureDto = TestUtil.createCreateSignatureDto();
+        UserDto userDto = TestUtil.createUserDto(userId);
+        userDto.setShortName(createSignatureDto.getUserShortName());
+
+        when(userService.getOrCreateUserByShortName(createSignatureDto.getUserShortName())).thenReturn(userDto);
+
+        // Act
+        SignatureService signatureService = new SignatureService(signatureRepository,
+                signatureDrugRepository, userService);
+        signatureService.createSignature(createSignatureDto);
+
+        // Verify
+        verify(signatureRepository, times(1)).createSignatureFrom(any(), any());
     }
 }

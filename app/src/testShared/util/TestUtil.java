@@ -89,7 +89,7 @@ public class TestUtil {
         double tolerance = faker.number().randomDouble(2, 1, 10);
         double stockAmount = faker.number().randomDouble(2, 1, 10);
         boolean isFavorite = false;
-        return new DrugDto(0, title, drugType, substance, unit, dosage, tolerance, stockAmount,
+        return new DrugDto(drugId, title, drugType, substance, unit, dosage, tolerance, stockAmount,
                 isFavorite);
     }
 

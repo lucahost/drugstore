@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
 import ch.ffhs.drugstore.shared.dto.management.drugs.EditDrugDto;
+import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import util.TestUtil;
 
 public class EditDrugTest {
@@ -26,7 +27,7 @@ public class EditDrugTest {
     }
 
     @Test
-    public void executeEditDrugUseCaseSuccessfully() {
+    public void executeEditDrugUseCaseSuccessfully() throws DrugstoreException {
         // Arrange
         EditDrugDto editDrugDto = TestUtil.createEditDrugDto(1);
 
