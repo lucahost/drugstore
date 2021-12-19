@@ -9,10 +9,12 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 import ch.ffhs.drugstore.data.entity.Drug;
+import ch.ffhs.drugstore.data.entity.DrugType;
 import ch.ffhs.drugstore.data.entity.Signature;
 import ch.ffhs.drugstore.data.entity.SignatureDrug;
 import ch.ffhs.drugstore.data.entity.Substance;
 import ch.ffhs.drugstore.data.entity.Transaction;
+import ch.ffhs.drugstore.data.entity.Unit;
 import ch.ffhs.drugstore.data.entity.User;
 import ch.ffhs.drugstore.data.relation.DrugTypeWithParentDrugType;
 import ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance;
@@ -24,6 +26,7 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.EditDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
@@ -119,11 +122,17 @@ public interface DrugstoreMapper {
     @Mapping(target = ".", source = "drugType")
     DrugTypeDto drugTypeDtoFromDrugType(DrugTypeWithParentDrugType drugType);
 
+    DrugType drugTypeFromDrugTypeDto(DrugTypeDto drugTypeDto);
+
+    Unit unitFromUnitDto(UnitDto unitDto);
+
     List<DrugTypeDto> drugTypeListToDrugTypeDtoList(List<DrugTypeWithParentDrugType> drugTypes);
 
     List<SubstanceDto> substanceListToSubstanceDtoList(List<Substance> substances);
 
     SubstanceDto substanceToSubstanceDto(Substance substances);
+
+    Substance substanceDtoToSubstance(SubstanceDto substanceDto);
 
     List<SignatureDrug> signatureDrugDtoListToSignatureDrugList(
             List<SignatureDrugDto> signatureDrugs);
