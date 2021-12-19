@@ -14,8 +14,7 @@ import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance;
 
 /**
- * data access object (DAO) class
- * abstracts access to the database for the Drug objects
+ * data access object (DAO) class abstracts access to the database for the Drug objects
  *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
@@ -25,8 +24,7 @@ public interface DrugDao {
     /**
      * @Insert
      * @Update
-     * @Delete
-     * insert, update and delete rows without SQL code (room library)
+     * @Delete insert, update and delete rows without SQL code (room library)
      */
     @Insert
     void insert(Drug drug);
@@ -38,7 +36,7 @@ public interface DrugDao {
     void delete(Drug drug);
 
     /**
-     * @Query   methods for special queries
+     * @Query methods for special queries
      */
     @Query("DELETE FROM drugs")
     void deleteAll();

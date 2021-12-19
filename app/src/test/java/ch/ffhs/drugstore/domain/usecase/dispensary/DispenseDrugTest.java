@@ -31,13 +31,11 @@ import util.TestUtil;
 @PrepareForTest({DispenseDrug.class})
 public class DispenseDrugTest {
     Faker faker = new Faker();
-    DispensaryService dispensaryService = null;
     DrugManagementService drugManagementService = null;
     HistoryService historyService = null;
 
     @Before
     public void setUp() throws Exception {
-        dispensaryService = mock(DispensaryService.class);
         drugManagementService = mock(DrugManagementService.class);
         historyService = mock(HistoryService.class);
     }

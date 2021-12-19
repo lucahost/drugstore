@@ -21,45 +21,65 @@ import ch.ffhs.drugstore.presentation.management.history.view.adapter.HistoryLis
 import ch.ffhs.drugstore.presentation.management.history.viewmodel.HistoryViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
+/**
+ * History Fragment
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 @AndroidEntryPoint
 public class HistoryFragment extends Fragment {
 
-  @Inject HistoryListAdapter adapter;
-  FragmentHistoryBinding binding;
-  HistoryViewModel viewModel;
+    @Inject
+    protected HistoryListAdapter adapter;
+    private FragmentHistoryBinding binding;
 
-  @Inject
-  public HistoryFragment() {
-    // Required empty public constructor
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public View onCreateView(
+            @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentHistoryBinding.inflate(getLayoutInflater());
+        setupRecyclerView();
+        return binding.getRoot();
+    }
 
-  @Override
-  public View onCreateView(
-      @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    binding = FragmentHistoryBinding.inflate(getLayoutInflater());
-    setupRecyclerView();
-    return binding.getRoot();
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        HistoryViewModel viewModel = new ViewModelProvider(requireActivity()).get(
+                HistoryViewModel.class);
+        viewModel.getTransactions().observe(getViewLifecycleOwner(), adapter::submitList);
+    }
 
-  @Override
-  public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-    viewModel = new ViewModelProvider(requireActivity()).get(HistoryViewModel.class);
-    viewModel.getItems().observe(getViewLifecycleOwner(), adapter::submitList);
-  }
+    /**
+     * Convenience method to access the app context
+     *
+     * @return app context
+     */
+    private Context context() {
+        return Objects.requireNonNull(this.getActivity()).getApplicationContext();
+    }
 
-  public Context context() {
-    return Objects.requireNonNull(this.getActivity()).getApplicationContext();
-  }
-
-  private void setupRecyclerView() {
-    binding.historyList.setLayoutManager(new LinearLayoutManager(context()));
-    binding.historyList.addItemDecoration(new DividerItemDecoration(context(), DividerItemDecoration.VERTICAL));
-    binding.historyList.setAdapter(this.adapter);
-  }
+    /**
+     * Setup the recycler view list
+     */
+    private void setupRecyclerView() {
+        binding.historyList.setLayoutManager(new LinearLayoutManager(context()));
+        binding.historyList.addItemDecoration(
+                new DividerItemDecoration(context(), DividerItemDecoration.VERTICAL));
+        binding.historyList.setAdapter(this.adapter);
+    }
 }

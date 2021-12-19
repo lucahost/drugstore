@@ -29,6 +29,12 @@ import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
 import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
 
+/**
+ * TODO: add description
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,
         suppressTimestampInGenerated = true)
 public interface DrugstoreMapper {

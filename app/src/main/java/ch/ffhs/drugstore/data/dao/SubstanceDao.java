@@ -10,9 +10,9 @@ import androidx.room.Update;
 import java.util.List;
 
 import ch.ffhs.drugstore.data.entity.Substance;
+
 /**
- * data access object (DAO) class
- * abstracts access to the database for the Substance objects
+ * data access object (DAO) class abstracts access to the database for the Substance objects
  *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
@@ -22,8 +22,7 @@ public interface SubstanceDao {
     /**
      * @Insert
      * @Update
-     * @Delete
-     * insert, update and delete rows without SQL code (room library)
+     * @Delete insert, update and delete rows without SQL code (room library)
      */
     @Insert
     long insert(Substance substance);
@@ -35,7 +34,7 @@ public interface SubstanceDao {
     void delete(Substance substance);
 
     /**
-     * @Query   methods for special queries
+     * @Query methods for special queries
      */
     @Query("DELETE FROM substances")
     void deleteAll();

@@ -5,8 +5,10 @@ import android.app.Application;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 import javax.inject.Inject;
+
 /**
  * class for export and import Database
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
@@ -16,7 +18,6 @@ public class DatabaseInterface {
     private final Application app;
 
     /**
-     *
      * @param application for db
      */
     @Inject

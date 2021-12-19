@@ -18,9 +18,10 @@ import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrug
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
+
 /**
- * This class abstracts the data layer
- * methods for Signature data
+ * This class abstracts the data layer methods for Signature data
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
@@ -44,7 +45,8 @@ public class SignatureRepository {
     }
 
     public LiveData<List<SignatureDto>> getSignatures() {
-        return Transformations.map(allSignaturesWithDrugs, mapper::signatureListToSignatureDrugDtoList);
+        return Transformations.map(allSignaturesWithDrugs,
+                mapper::signatureListToSignatureDrugDtoList);
     }
 
     public SignatureDto getSignatureBySignatureId(int signatureId) {
@@ -71,6 +73,7 @@ public class SignatureRepository {
 
     /**
      * create Signature from list
+     *
      * @param signatureDto
      * @param signatureDrugDtoList
      */
@@ -83,7 +86,7 @@ public class SignatureRepository {
 
         long newSignatureId = signatureDao.insert(signature);
         signatureDrugs.stream().forEach(s -> s.setSignatureId((int) newSignatureId));
-        
+
         signatureDrugDao.insert(signatureDrugs.toArray(new SignatureDrug[0]));
     }
 }

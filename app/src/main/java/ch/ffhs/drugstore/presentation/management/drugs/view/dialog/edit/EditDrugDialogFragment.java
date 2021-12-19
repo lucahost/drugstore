@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.presentation.management.drugs.view.dialog;
+package ch.ffhs.drugstore.presentation.management.drugs.view.dialog.edit;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -29,6 +29,12 @@ import dagger.assisted.Assisted;
 import dagger.assisted.AssistedInject;
 import dagger.hilt.android.AndroidEntryPoint;
 
+/**
+ * Dialog for the edit of a drug.
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 @AndroidEntryPoint
 public class EditDrugDialogFragment extends DialogFragment {
 
@@ -41,22 +47,24 @@ public class EditDrugDialogFragment extends DialogFragment {
     public static final String ARG_DRUG_UNIT = "drugUnit";
     public static final String ARG_DRUG_TOLERANCE = "tolerance";
     public static final String ARG_DRUG_FAVORITE = "isFavorite";
-    DialogEditDrugBinding binding;
-    DrugsViewModel viewModel;
-    private int drugId;
-    private String drugTitle;
-    private String substance;
-    private String dosage;
-    private String drugType;
-    private String drugUnit;
-    private double tolerance;
-    private boolean isFavorite;
-    private ConfirmEditDrugListener confirmEditDrugListener;
 
-    public EditDrugDialogFragment() {
-        /* TODO document why this constructor is empty */
-    }
+    private DialogEditDrugBinding binding = null;
+    private DrugsViewModel viewModel = null;
+    private Integer drugId = null;
+    private String drugTitle = null;
+    private String substance = null;
+    private String dosage = null;
+    private String drugType = null;
+    private String drugUnit = null;
+    private Double tolerance = null;
+    private Boolean isFavorite = null;
+    private ConfirmEditDrugListener confirmEditDrugListener = null;
 
+    /**
+     * Constructs a {@link EditDrugDialogFragment} by {@link EditDrugDialogFragmentFactory}.
+     *
+     * @param args fragment arguments
+     */
     @AssistedInject
     public EditDrugDialogFragment(
             @Assisted("editDrugDialogFragmentArgs") EditDrugDialogFragmentArgs args) {
@@ -72,6 +80,9 @@ public class EditDrugDialogFragment extends DialogFragment {
         setArguments(bundle);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -83,6 +94,9 @@ public class EditDrugDialogFragment extends DialogFragment {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +112,9 @@ public class EditDrugDialogFragment extends DialogFragment {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     @NonNull
     @Override
@@ -115,6 +132,9 @@ public class EditDrugDialogFragment extends DialogFragment {
         return getAlertDialog();
     }
 
+    /**
+     * @return the alert dialog
+     */
     @NonNull
     private AlertDialog getAlertDialog() {
         AlertDialog dialog = new AlertDialog.Builder(requireContext())
@@ -130,6 +150,9 @@ public class EditDrugDialogFragment extends DialogFragment {
         return dialog;
     }
 
+    /**
+     * Validates inputs and confirms the edit if there are no validation errors.
+     */
     private void validateInputAndEditDrug() {
         boolean nameNotEmpty = InputValidation.validateTextNotEmpty(
                 binding.nameText,
@@ -159,6 +182,29 @@ public class EditDrugDialogFragment extends DialogFragment {
         }
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        setArguments(null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        this.confirmEditDrugListener = null;
+        setArguments(null);
+    }
+
+    /**
+     *
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setDrugTypeRadioButtons() {
         viewModel.getDrugTypes().observe(this,
@@ -171,6 +217,9 @@ public class EditDrugDialogFragment extends DialogFragment {
                 }));
     }
 
+    /**
+     *
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setDrugUnitRadioButtons() {
         viewModel.getDrugUnits().observe(this,
@@ -183,7 +232,9 @@ public class EditDrugDialogFragment extends DialogFragment {
                 }));
     }
 
-
+    /**
+     *
+     */
     private void setSubstanceAutoComplete() {
         viewModel.getSubstances().observe(this, substanceDtoList -> {
             List<String> substanceTitles = substanceDtoList.stream().map(
@@ -194,25 +245,5 @@ public class EditDrugDialogFragment extends DialogFragment {
                             android.R.layout.simple_dropdown_item_1line, substanceTitles
                     ));
         });
-    }
-
-    @Override
-    public void onDismiss(@NonNull DialogInterface dialog) {
-        super.onDismiss(dialog);
-        setArguments(null);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        this.confirmEditDrugListener = null;
-        setArguments(null);
-    }
-
-    public interface ConfirmEditDrugListener {
-        void onConfirmEditDrug(
-                int drugId, String name, String substance, String dosage, int drugTypeId,
-                int unitId,
-                String tolerance, boolean isFavorite);
     }
 }

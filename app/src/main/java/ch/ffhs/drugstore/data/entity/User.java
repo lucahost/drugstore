@@ -2,9 +2,10 @@ package ch.ffhs.drugstore.data.entity;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
 /**
- * This class represents the User entity in the local database
- * to use with Room persistence library
+ * This class represents the User entity in the local database to use with Room persistence library
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */

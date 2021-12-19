@@ -14,9 +14,10 @@ import ch.ffhs.drugstore.data.database.DrugstoreDatabase;
 import ch.ffhs.drugstore.data.relation.DrugTypeWithParentDrugType;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
+
 /**
- * This class abstracts the data layer,
- * methods for Drug Type data
+ * This class abstracts the data layer, methods for Drug Type data
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */

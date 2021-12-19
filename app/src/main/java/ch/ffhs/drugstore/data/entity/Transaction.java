@@ -6,9 +6,11 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.time.ZonedDateTime;
+
 /**
- * This class represents the Transaction entity in the local database
- * to use with Room persistence library
+ * This class represents the Transaction entity in the local database to use with Room persistence
+ * library
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
@@ -31,7 +33,8 @@ public class Transaction {
     public double amount;
     public String patient;
 
-    public Transaction(int transactionId, int userId, int drugId, ZonedDateTime createdAt, double amount,
+    public Transaction(int transactionId, int userId, int drugId, ZonedDateTime createdAt,
+            double amount,
             String patient) {
         this.transactionId = transactionId;
         this.userId = userId;

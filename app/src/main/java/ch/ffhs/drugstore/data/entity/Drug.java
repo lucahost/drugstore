@@ -6,8 +6,8 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
- * This class represents the Drug entity in the local database
- * to use with Room persistence library
+ * This class represents the Drug entity in the local database to use with Room persistence library
+ *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
@@ -39,6 +39,9 @@ public class Drug {
     private boolean isFavorite;
 
 
+    /**
+     * Constructs a {@link Drug}.
+     */
     public Drug(int drugId, String title, Integer drugTypeId, Integer substanceId, Integer unitId,
             String dosage, double tolerance, double stockAmount, boolean isFavorite) {
         this.drugId = drugId;

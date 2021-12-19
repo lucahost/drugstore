@@ -26,8 +26,10 @@ import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.FilterChipBinding;
 import ch.ffhs.drugstore.databinding.FragmentDispensaryBinding;
 import ch.ffhs.drugstore.presentation.DialogService;
+import ch.ffhs.drugstore.presentation.DialogType;
 import ch.ffhs.drugstore.presentation.dispensary.view.adapter.DispensaryListAdapter;
-import ch.ffhs.drugstore.presentation.dispensary.view.dialog.DispenseDrugDialogFragment;
+import ch.ffhs.drugstore.presentation.dispensary.view.adapter.OnDispensaryItemClickListener;
+import ch.ffhs.drugstore.presentation.dispensary.view.dialog.ConfirmDispenseDrugListener;
 import ch.ffhs.drugstore.presentation.dispensary.view.dialog.DispenseDrugDialogFragmentArgs;
 import ch.ffhs.drugstore.presentation.dispensary.viewmodel.DispensaryViewModel;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
@@ -35,23 +37,28 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import dagger.hilt.android.AndroidEntryPoint;
 
+/**
+ * Dispensary Fragment
+ *
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
 @AndroidEntryPoint
 public class DispensaryFragment extends Fragment
-        implements DispensaryListAdapter.OnItemClickListener,
-        DispenseDrugDialogFragment.ConfirmDispenseDrugListener, SearchView.OnQueryTextListener {
+        implements OnDispensaryItemClickListener,
+        ConfirmDispenseDrugListener, SearchView.OnQueryTextListener {
 
     @Inject
-    DispensaryListAdapter adapter;
+    protected DispensaryListAdapter adapter;
     @Inject
-    DialogService dialogService;
-    FragmentDispensaryBinding binding;
-    DispensaryViewModel viewModel;
+    protected DialogService dialogService;
 
-    @Inject
-    public DispensaryFragment() {
-        // Required empty public constructor
-    }
+    private FragmentDispensaryBinding binding = null;
+    private DispensaryViewModel viewModel = null;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,20 +67,98 @@ public class DispensaryFragment extends Fragment
         return binding.getRoot();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(DispensaryViewModel.class);
-        viewModel.getItems().observe(getViewLifecycleOwner(), this::observeItems);
+        viewModel.getDispensaryItems().observe(getViewLifecycleOwner(), this::observeItems);
         viewModel.getDrugTypes().observe(getViewLifecycleOwner(), this::setupFilterChips);
         setupSearchBar();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return search(query);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return search(newText);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onItemClick(DrugDto drug) {
+        DispenseDrugDialogFragmentArgs args = new DispenseDrugDialogFragmentArgs(
+                drug.getDrugId(), drug.getTitle(), drug.getDosage(), drug.getUnit());
+        dialogService.showDispenseDrugDialog(getChildFragmentManager(), args);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onItemLongClick(DrugDto drug) {
+        try {
+            viewModel.toggleDrugIsFavorite(drug.getDrugId());
+        } catch (DrugstoreException ex) {
+            new AlertDialog.Builder(getContext())
+                    .setTitle(R.string.error_toggle_favorite)
+                    .setMessage(getString(ex.getCode()))
+                    .setNegativeButton(R.string.close, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+            return;
+        }
+        Toast.makeText(context(),
+                drug.isFavorite() ? R.string.removed_from_favorites : R.string.added_to_favorites,
+                Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onConfirmDispenseDrug(int drugId, String employee, String patient, String amount) {
+        dialogService.dismiss(DialogType.DISPENSE_DRUG);
+        try {
+            viewModel.dispenseDrug(drugId, employee, patient, amount);
+        } catch (DrugstoreException ex) {
+            new AlertDialog.Builder(getContext())
+                    .setTitle(R.string.error_dispense_drug)
+                    .setMessage(getString(ex.getCode()))
+                    .setNegativeButton(R.string.close, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+            return;
+        }
+        Toast.makeText(context(), R.string.dispense, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Observation of drug dtos. Submits list to adapter and handles empty state.
+     *
+     * @param drugDtos the drug dtos to be observed
+     */
     private void observeItems(List<DrugDto> drugDtos) {
         adapter.submitList(drugDtos);
         if (!drugDtos.isEmpty()) {
@@ -85,10 +170,18 @@ public class DispensaryFragment extends Fragment
         }
     }
 
-    public Context context() {
+    /**
+     * Convenience method to access the app context
+     *
+     * @return app context
+     */
+    private Context context() {
         return Objects.requireNonNull(this.getActivity()).getApplicationContext();
     }
 
+    /**
+     * Setup the search bar
+     */
     private void setupSearchBar() {
         binding.searchView.setOnQueryTextListener(this);
         binding.searchView.onActionViewExpanded();
@@ -101,6 +194,11 @@ public class DispensaryFragment extends Fragment
         });
     }
 
+    /**
+     * Setup the filter chips
+     *
+     * @param drugTypeDtos the drug types to create filter chips
+     */
     private void setupFilterChips(@NonNull List<DrugTypeDto> drugTypeDtos) {
         // Get initial filter state
         FilterState<Integer> filterState = Objects.requireNonNull(
@@ -124,16 +222,13 @@ public class DispensaryFragment extends Fragment
         }
     }
 
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return search(query);
-    }
 
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return search(newText);
-    }
-
+    /**
+     * Search dispensary items by search term
+     *
+     * @param searchTerm the search term to search for
+     * @return search has been handled
+     */
     private boolean search(String searchTerm) {
         FilterState<Integer> currentFilters = viewModel.getFilterState().getValue();
         assert currentFilters != null;
@@ -142,6 +237,12 @@ public class DispensaryFragment extends Fragment
         return true;
     }
 
+    /**
+     * Filter dispensary items by favorites
+     *
+     * @param buttonView the clicked filter button
+     * @param isChecked  if the filter has been checked
+     */
     private void onFavoriteChipFilterClick(CompoundButton buttonView, boolean isChecked) {
         FilterState<Integer> currentFilters = viewModel.getFilterState().getValue();
         assert currentFilters != null;
@@ -149,6 +250,12 @@ public class DispensaryFragment extends Fragment
         viewModel.filter(currentFilters);
     }
 
+    /**
+     * Filter dispensary items by filter chips
+     *
+     * @param buttonView the clicked filter button
+     * @param isChecked  if the filter has been checked
+     */
     private void onDrugTypeChipFilterClick(CompoundButton buttonView, boolean isChecked) {
         FilterState<Integer> currentFilters = viewModel.getFilterState().getValue();
         assert currentFilters != null;
@@ -156,52 +263,13 @@ public class DispensaryFragment extends Fragment
         viewModel.filter(currentFilters);
     }
 
-    @Override
-    public void onItemClick(DrugDto drug) {
-        DispenseDrugDialogFragmentArgs args = new DispenseDrugDialogFragmentArgs(
-                drug.getDrugId(), drug.getTitle(), drug.getDosage(), drug.getUnit());
-        dialogService.showDispenseDrugDialog(getChildFragmentManager(), args);
-    }
-
-    @Override
-    public void onItemLongClick(DrugDto drug) {
-        try {
-            viewModel.toggleDrugIsFavorite(drug.getDrugId());
-        } catch (DrugstoreException ex) {
-            new AlertDialog.Builder(getContext())
-                    .setTitle(R.string.error_toggle_favorite)
-                    .setMessage(getString(ex.getCode()))
-                    .setNegativeButton(R.string.close, null)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
-            return;
-        }
-        Toast.makeText(context(),
-                drug.isFavorite() ? R.string.removed_from_favorites : R.string.added_to_favorites,
-                Toast.LENGTH_SHORT).show();
-    }
-
+    /**
+     * Setup the recycler view list
+     */
     private void setupRecyclerView() {
         binding.dispensaryList.setLayoutManager(
                 new GridLayoutManager(context(), 2, RecyclerView.VERTICAL, false));
         adapter.setClickListener(this);
         binding.dispensaryList.setAdapter(this.adapter);
-    }
-
-    @Override
-    public void onConfirmDispenseDrug(int drugId, String employee, String patient, String amount) {
-        dialogService.dismiss(DialogService.Dialog.DISPENSE_DRUG);
-        try {
-            viewModel.dispenseDrug(drugId, employee, patient, amount);
-        } catch (DrugstoreException ex) {
-            new AlertDialog.Builder(getContext())
-                    .setTitle(R.string.error_dispense_drug)
-                    .setMessage(getString(ex.getCode()))
-                    .setNegativeButton(R.string.close, null)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
-            return;
-        }
-        Toast.makeText(context(), R.string.dispense, Toast.LENGTH_SHORT).show();
     }
 }
