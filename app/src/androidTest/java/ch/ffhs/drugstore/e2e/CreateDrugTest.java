@@ -62,7 +62,7 @@ public class CreateDrugTest {
         onView(withId(R.id.tolerance_text)).perform(typeText(tolerance));
         onView(withId(R.id.is_favorite_checkbox)).perform(scrollTo());
         onView(withId(R.id.is_favorite_checkbox)).perform(click());
-        // Close KeyBoard (Else the button is not in the view and will result in an exception
+        // Close KeyBoard (Or else the button is not in the view and will result in an exception
         onView(ViewMatchers.isRoot()).perform(ViewActions.closeSoftKeyboard());
         // Confirm form
         onView(withId(android.R.id.button1)).perform(click());
@@ -82,6 +82,8 @@ public class CreateDrugTest {
         onView(withId(R.id.extended_fab)).perform(click());
         // Check that dialog is displayed
         onView(withText(R.string.create_drug)).check(matches(isDisplayed()));
+        // Close KeyBoard (Or else the button is not in the view and will result in an exception
+        onView(ViewMatchers.isRoot()).perform(ViewActions.closeSoftKeyboard());
         // Confirm form
         onView(withId(android.R.id.button1)).perform(click());
         // Check if validation errors are shown
@@ -91,6 +93,8 @@ public class CreateDrugTest {
                 matches(hasTextInputLayoutErrorText(R.string.error_substance_required)));
         onView(withId(R.id.dosage_text_layout)).check(
                 matches(hasTextInputLayoutErrorText(R.string.error_dosage_required)));
+        // Close KeyBoard (Or else the button is not in the view and will result in an exception
+        onView(ViewMatchers.isRoot()).perform(ViewActions.closeSoftKeyboard());
         // Dismiss form
         onView(withId(android.R.id.button2)).perform(click());
     }
