@@ -26,8 +26,8 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.FragmentInventoryBinding;
-import ch.ffhs.drugstore.presentation.DialogService;
-import ch.ffhs.drugstore.presentation.DialogType;
+import ch.ffhs.drugstore.presentation.dialog.DialogService;
+import ch.ffhs.drugstore.presentation.dialog.DialogType;
 import ch.ffhs.drugstore.presentation.management.inventory.view.adapter.InventoryListAdapter;
 import ch.ffhs.drugstore.presentation.management.inventory.view.adapter.OnHistoryItemClickListener;
 import ch.ffhs.drugstore.presentation.management.inventory.view.dialog.ConfirmSignInventoryListener;

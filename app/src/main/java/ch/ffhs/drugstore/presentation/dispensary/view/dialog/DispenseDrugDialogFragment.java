@@ -14,7 +14,7 @@ import java.util.Objects;
 
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.DialogDispenseDrugBinding;
-import ch.ffhs.drugstore.presentation.InputValidation;
+import ch.ffhs.drugstore.presentation.helpers.InputValidation;
 import dagger.assisted.Assisted;
 import dagger.assisted.AssistedInject;
 import dagger.hilt.android.AndroidEntryPoint;

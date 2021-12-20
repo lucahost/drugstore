@@ -14,7 +14,7 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.domain.usecase.settings.database.ExportDatabase;
 import ch.ffhs.drugstore.domain.usecase.settings.database.ImportDatabase;
-import ch.ffhs.drugstore.presentation.SingleLiveEvent;
+import ch.ffhs.drugstore.presentation.helpers.SingleLiveEvent;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 /**

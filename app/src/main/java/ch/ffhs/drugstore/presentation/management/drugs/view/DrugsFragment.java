@@ -23,8 +23,8 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.FragmentDrugsBinding;
-import ch.ffhs.drugstore.presentation.DialogService;
-import ch.ffhs.drugstore.presentation.DialogType;
+import ch.ffhs.drugstore.presentation.dialog.DialogService;
+import ch.ffhs.drugstore.presentation.dialog.DialogType;
 import ch.ffhs.drugstore.presentation.management.drugs.view.adapter.DrugListAdapter;
 import ch.ffhs.drugstore.presentation.management.drugs.view.adapter.OnDrugListItemClickListener;
 import ch.ffhs.drugstore.presentation.management.drugs.view.dialog.add.AddDrugDialogFragmentArgs;

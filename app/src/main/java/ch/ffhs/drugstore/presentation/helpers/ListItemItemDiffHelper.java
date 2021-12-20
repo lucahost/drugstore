@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.presentation.management;
+package ch.ffhs.drugstore.presentation.helpers;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;

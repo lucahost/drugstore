@@ -16,7 +16,7 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.DialogSignInventoryBinding;
-import ch.ffhs.drugstore.presentation.InputValidation;
+import ch.ffhs.drugstore.presentation.helpers.InputValidation;
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**

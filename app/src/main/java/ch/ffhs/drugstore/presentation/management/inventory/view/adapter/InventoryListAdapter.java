@@ -1,6 +1,6 @@
 package ch.ffhs.drugstore.presentation.management.inventory.view.adapter;
 
-import static ch.ffhs.drugstore.presentation.management.ListItemItemDiffHelper.drugDtoItemDiffCallback;
+import static ch.ffhs.drugstore.presentation.helpers.ListItemItemDiffHelper.drugDtoItemDiffCallback;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

@@ -21,7 +21,7 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.R;
 import ch.ffhs.drugstore.databinding.DialogCreateDrugBinding;
-import ch.ffhs.drugstore.presentation.InputValidation;
+import ch.ffhs.drugstore.presentation.helpers.InputValidation;
 import ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;

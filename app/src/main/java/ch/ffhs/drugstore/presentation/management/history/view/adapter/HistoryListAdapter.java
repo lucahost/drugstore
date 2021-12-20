@@ -1,6 +1,6 @@
 package ch.ffhs.drugstore.presentation.management.history.view.adapter;
 
-import static ch.ffhs.drugstore.presentation.management.ListItemItemDiffHelper.transactionDtoItemDiffCallback;
+import static ch.ffhs.drugstore.presentation.helpers.ListItemItemDiffHelper.transactionDtoItemDiffCallback;
 
 import android.os.Build;
 import android.view.LayoutInflater;
