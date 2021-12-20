@@ -31,6 +31,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
  */
 @HiltViewModel
 public class InventoryViewModel extends AndroidViewModel {
+
     private final Map<Integer, SignatureDrugDto> signatureDrugs;
     private final GetInventory getInventory;
     private final ToggleInventoryItem toggleInventoryItem;
@@ -69,6 +70,15 @@ public class InventoryViewModel extends AndroidViewModel {
                             Collectors.toList()));
         }
         return drugs;
+    }
+
+    /**
+     * Get all toggled drugs
+     *
+     * @return checkedDrugs
+     */
+    public Map<Integer, SignatureDrugDto> getSignatureDrugs() {
+        return signatureDrugs;
     }
 
     /**

@@ -1,6 +1,5 @@
 package ch.ffhs.drugstore.presentation.management.drugs.viewmodel;
 
-import static org.junit.Assert.assertEquals;
 
 import android.app.Application;
 
@@ -18,10 +17,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
-import java.util.List;
 
 import ch.ffhs.drugstore.data.database.DrugstoreDatabase;
-import ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance;
 import ch.ffhs.drugstore.data.repository.DrugRepository;
 import ch.ffhs.drugstore.data.repository.DrugTypeRepository;
 import ch.ffhs.drugstore.data.repository.SubstanceRepository;
@@ -31,7 +28,6 @@ import ch.ffhs.drugstore.data.repository.UserRepository;
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
 import ch.ffhs.drugstore.domain.service.HistoryService;
 import ch.ffhs.drugstore.domain.service.UserService;
-import ch.ffhs.drugstore.domain.usecase.management.drugs.CreateDrug;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.DeleteDrug;
 import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
@@ -40,7 +36,6 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import ch.ffhs.drugstore.shared.exceptions.DrugAlreadyUsedException;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
-import util.LiveDataTestUtil;
 import util.TestUtil;
 
 @RunWith(AndroidJUnit4.class)
