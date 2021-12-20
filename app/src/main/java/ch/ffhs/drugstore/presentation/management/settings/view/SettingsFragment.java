@@ -141,7 +141,7 @@ public class SettingsFragment extends Fragment {
      * @param unitDtos the drug types to create filter chips
      */
     private void setupUnitChips(@NonNull List<UnitDto> unitDtos) {
-        binding.newDrugTypeChip.setOnClickListener(this::onNewUnitClick);
+        binding.newUnitChip.setOnClickListener(this::onNewUnitClick);
         // Setup dynamic drug type filters
         for (UnitDto unitDto : unitDtos) {
             if (binding.unitChipGroup.findViewById(unitDto.getUnitId()) == null) {

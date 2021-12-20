@@ -141,5 +141,6 @@ public interface DrugstoreMapper {
     @Mapping(target = "userId", source = "user.userId")
     Signature signatureDtoToSignature(SignatureDto signatureDto);
 
+    @Mapping(target = "title", source = "drugTypeTitle")
     DrugTypeDto createDrugTypeDtoToDrugTypeDto(CreateDrugTypeDto createDrugTypeDto);
 }
