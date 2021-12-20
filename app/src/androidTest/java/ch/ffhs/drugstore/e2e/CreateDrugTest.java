@@ -60,10 +60,10 @@ public class CreateDrugTest {
         onView(withId(R.id.substance_text)).perform(typeText(substance));
         onView(withId(R.id.dosage_text)).perform(typeText(dosage));
         onView(withId(R.id.tolerance_text)).perform(typeText(tolerance));
+        // Close KeyBoard (Or else the button is not in the view and will result in an exception)
+        onView(ViewMatchers.isRoot()).perform(ViewActions.closeSoftKeyboard());
         onView(withId(R.id.is_favorite_checkbox)).perform(scrollTo());
         onView(withId(R.id.is_favorite_checkbox)).perform(click());
-        // Close KeyBoard (Or else the button is not in the view and will result in an exception
-        onView(ViewMatchers.isRoot()).perform(ViewActions.closeSoftKeyboard());
         // Confirm form
         onView(withId(android.R.id.button1)).perform(click());
         // Check if there is one more item in the list

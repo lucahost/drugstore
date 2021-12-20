@@ -38,18 +38,18 @@ public class TransactionRepository {
 
     public void addTransaction(TransactionDto transactionDto) {
         Transaction transaction = mapper.transactionDtoToTransaction(transactionDto);
-        DrugstoreDatabase.databaseWriteExecutor.execute(() -> transactionDao.insert(transaction));
+        transactionDao.insert(transaction);
     }
 
     public void update(Transaction transaction) {
-        DrugstoreDatabase.databaseWriteExecutor.execute(() -> transactionDao.update(transaction));
+        transactionDao.update(transaction);
     }
 
     public void delete(Transaction transaction) {
-        DrugstoreDatabase.databaseWriteExecutor.execute(() -> transactionDao.delete(transaction));
+        transactionDao.delete(transaction);
     }
 
     public void deleteAll() {
-        DrugstoreDatabase.databaseWriteExecutor.execute(transactionDao::deleteAll);
+        transactionDao.deleteAll();
     }
 }

@@ -1,5 +1,7 @@
 package ch.ffhs.drugstore.domain.service;
 
+import android.database.sqlite.SQLiteConstraintException;
+
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
@@ -18,6 +20,7 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.EditDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UpdateDrugAmountDto;
+import ch.ffhs.drugstore.shared.exceptions.DrugAlreadyUsedException;
 import ch.ffhs.drugstore.shared.exceptions.DrugNotFoundException;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
@@ -96,7 +99,6 @@ public class DrugManagementService {
      * this method edits drugs
      *
      * @param editDrugDto edit drug input dto
-     *
      * @throws DrugstoreException if creation of the drug goes wrong
      */
     public void editDrug(EditDrugDto editDrugDto) throws DrugNotFoundException {
@@ -122,14 +124,14 @@ public class DrugManagementService {
      *
      * @param createDrugDto create drug input dto
      */
-    public void createDrug(CreateDrugDto createDrugDto) {
+    public long createDrug(CreateDrugDto createDrugDto) {
         DrugDto drugDto = mapper.createDrugDtoToDrugDto(createDrugDto);
 
         SubstanceDto substance = substanceRepository.getOrCreateSubstanceByTitle(
                 drugDto.getSubstance());
         drugDto.setSubstance(String.valueOf(substance.getSubstanceId()));
 
-        drugRepository.createDrug(drugDto);
+        return drugRepository.createDrug(drugDto);
     }
 
     /**
@@ -153,7 +155,11 @@ public class DrugManagementService {
      *
      * @param drugId id of the drug to be deleted
      */
-    public void deleteDrug(Integer drugId) {
-        drugRepository.deleteDrugById(drugId);
+    public void deleteDrug(Integer drugId) throws DrugstoreException {
+        try {
+            drugRepository.deleteDrugById(drugId);
+        } catch (SQLiteConstraintException ex) {
+            throw new DrugAlreadyUsedException(R.string.drug_prevente_delete);
+        }
     }
 }

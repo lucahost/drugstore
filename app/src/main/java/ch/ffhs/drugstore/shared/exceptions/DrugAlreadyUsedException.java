@@ -1,7 +1,12 @@
 package ch.ffhs.drugstore.shared.exceptions;
 
-public class DrugAlreadyUsedException extends
-        Throwable {
-    public DrugAlreadyUsedException(int drug_prevente_delete) {
+
+/**
+ * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
+ * @version 2021.12.15
+ */
+public class DrugAlreadyUsedException extends DrugstoreException {
+    public DrugAlreadyUsedException(int code) {
+        super("DrugAlreadyUsedException", code);
     }
 }

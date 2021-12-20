@@ -25,17 +25,26 @@ import ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance;
 import ch.ffhs.drugstore.data.repository.DrugRepository;
 import ch.ffhs.drugstore.data.repository.DrugTypeRepository;
 import ch.ffhs.drugstore.data.repository.SubstanceRepository;
+import ch.ffhs.drugstore.data.repository.TransactionRepository;
 import ch.ffhs.drugstore.data.repository.UnitRepository;
+import ch.ffhs.drugstore.data.repository.UserRepository;
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
+import ch.ffhs.drugstore.domain.service.HistoryService;
+import ch.ffhs.drugstore.domain.service.UserService;
 import ch.ffhs.drugstore.domain.usecase.management.drugs.CreateDrug;
+import ch.ffhs.drugstore.domain.usecase.management.drugs.DeleteDrug;
+import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
+import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
+import ch.ffhs.drugstore.shared.exceptions.DrugAlreadyUsedException;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 import util.LiveDataTestUtil;
 import util.TestUtil;
 
 @RunWith(AndroidJUnit4.class)
-public class CreateDrugIntegrationTest {
+public class DeleteDrugIntegrationTest {
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
@@ -63,37 +72,40 @@ public class CreateDrugIntegrationTest {
         db.close();
     }
 
-    @Test
-    public void CreateDrug() throws Exception {
+    @Test(expected = DrugAlreadyUsedException.class)
+    public void DeleteDrugWithTransactionThrowsDrugAlreadyUsedException() throws Exception {
         // Assert
         DrugManagementService drugManagementService = new DrugManagementService(drugRepository,
                 drugTypeRepository, substanceRepository, unitRepository);
 
-        CreateDrug createDrug = new CreateDrug(drugManagementService);
+        DeleteDrug deleteDrug = new DeleteDrug(drugManagementService);
 
-        DrugsViewModel drugsViewModel = new DrugsViewModel(appContext, null, createDrug, null, null,
-                null, null, null, null);
+        DrugsViewModel drugsViewModel = new DrugsViewModel(appContext, null, null, null, null,
+                deleteDrug, null, null, null);
 
-        String drugName = faker.funnyName().name();
-        String substance = faker.funnyName().name();
-        String dosage = faker.funnyName().name();
-        int drugTypeId = faker.number().randomDigit();
-        int unitId = faker.number().randomDigit();
-        String sTolerance = faker.funnyName().name();
-        boolean isFavorite = false;
 
-        insertDrugType(drugTypeId);
-        insertUnit(unitId);
+        CreateDrugDto createDrugDto = TestUtil.createCreateDrugDto();
+
+        insertDrugType(createDrugDto.getDrugTypeId());
+        insertUnit(createDrugDto.getUnitId());
+
+        int newDrugId = (int) drugManagementService.createDrug(createDrugDto);
+
+        // Create Transaction
+        TransactionRepository transactionRepository = new TransactionRepository(db.transactionDao());
+        UserService userService = new UserService(new UserRepository(db.userDao()));
+        HistoryService historyService = new HistoryService(transactionRepository, userService);
+        TransactionDto transactionDto = TestUtil.createTransactionDto(1);
+        DrugDto drugDto =  mapper.createDrugDtoToDrugDto(createDrugDto);
+        drugDto.setDrugId(newDrugId);
+        transactionDto.setDrug(drugDto);
+        // Remove userid on transaction, so that the user will be created
+        transactionDto.getUser().setUserId(null);
+        historyService.addTransaction(transactionDto);
 
         // Act
-        drugsViewModel.createDrug(drugName, substance, dosage, drugTypeId, unitId,
-                sTolerance, isFavorite);
-
-        // Verify
-        List<DrugWithUnitAndDrugTypeAndSubstance> drugs = LiveDataTestUtil.getValue(
-                db.drugDao().getAllDrugs());
-        assertEquals(1, drugs.size());
-        assertEquals(drugName, drugs.get(0).getDrug().getTitle());
+        // Should Throw
+        drugsViewModel.deleteDrug(newDrugId);
     }
 
     private void insertDrugType(int drugTypeId) {

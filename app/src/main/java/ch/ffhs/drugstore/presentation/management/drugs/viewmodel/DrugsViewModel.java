@@ -190,7 +190,7 @@ public class DrugsViewModel extends AndroidViewModel {
      *
      * @param drugId id of the drug to be deleted
      */
-    public void deleteDrug(int drugId) {
+    public void deleteDrug(int drugId) throws DrugstoreException {
         deleteDrug.execute(drugId);
     }
 }

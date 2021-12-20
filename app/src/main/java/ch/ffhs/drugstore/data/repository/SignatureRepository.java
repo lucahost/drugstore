@@ -49,19 +49,19 @@ public class SignatureRepository {
     // You must call this on a non-UI thread or your app will throw an exception. Room ensures
     // that you're not doing any long running operations on the main thread, blocking the UI.
     public void insert(Signature signature) {
-        DrugstoreDatabase.databaseWriteExecutor.execute(() -> signatureDao.insert(signature));
+        signatureDao.insert(signature);
     }
 
     public void update(Signature signature) {
-        DrugstoreDatabase.databaseWriteExecutor.execute(() -> signatureDao.update(signature));
+        signatureDao.update(signature);
     }
 
     public void delete(Signature signature) {
-        DrugstoreDatabase.databaseWriteExecutor.execute(() -> signatureDao.delete(signature));
+        signatureDao.delete(signature);
     }
 
     public void deleteAll() {
-        DrugstoreDatabase.databaseWriteExecutor.execute(signatureDao::deleteAll);
+        signatureDao.deleteAll();
     }
 
     /**

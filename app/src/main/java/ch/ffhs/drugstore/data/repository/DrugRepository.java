@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import ch.ffhs.drugstore.data.dao.DrugDao;
-import ch.ffhs.drugstore.data.database.DrugstoreDatabase;
 import ch.ffhs.drugstore.data.entity.Drug;
 import ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
@@ -42,9 +41,9 @@ public class DrugRepository {
      *
      * @param drugDto
      */
-    public void createDrug(DrugDto drugDto) {
+    public long createDrug(DrugDto drugDto) {
         Drug drug = mapper.drugDtoToDrug(drugDto);
-        this.insert(drug);
+        return this.insert(drug);
     }
 
     /**
@@ -128,27 +127,28 @@ public class DrugRepository {
     /**
      * execute dao methods
      */
-    public void insert(Drug drug) {
-        DrugstoreDatabase.databaseWriteExecutor.execute(() -> drugDao.insert(drug));
+
+    public long insert(Drug drug) {
+        return drugDao.insert(drug);
     }
 
     public void update(Drug drug) {
-        DrugstoreDatabase.databaseWriteExecutor.execute(() -> drugDao.update(drug));
+        drugDao.update(drug);
     }
 
     public void delete(Drug drug) {
-        DrugstoreDatabase.databaseWriteExecutor.execute(() -> drugDao.delete(drug));
+        drugDao.delete(drug);
     }
 
     public void deleteDrugById(int drugId) {
-        DrugstoreDatabase.databaseWriteExecutor.execute(() -> drugDao.deleteDrugById(drugId));
+        drugDao.deleteDrugById(drugId);
     }
 
     public void deleteAll() {
-        DrugstoreDatabase.databaseWriteExecutor.execute(drugDao::deleteAll);
+        drugDao.deleteAll();
     }
 
     public void toggleDrugIsFavorite(int drugId) {
-        DrugstoreDatabase.databaseWriteExecutor.execute(() -> drugDao.toggleDrugIsFavorite(drugId));
+        drugDao.toggleDrugIsFavorite(drugId);
     }
 }

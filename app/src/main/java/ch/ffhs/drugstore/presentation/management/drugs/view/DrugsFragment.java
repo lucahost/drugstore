@@ -152,7 +152,18 @@ public class DrugsFragment extends Fragment
     @Override
     public void onConfirmDeleteDrug(int drugId) {
         dialogService.dismiss(DialogType.DELETE_DRUG);
-        viewModel.deleteDrug(drugId);
+        try {
+            viewModel.deleteDrug(drugId);
+        }
+        catch(DrugstoreException dex) {
+            new AlertDialog.Builder(getContext())
+                    .setTitle(R.string.error_delete_drug)
+                    .setMessage(dex.getCode())
+                    .setNegativeButton(R.string.close, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+            return;
+        }
         Toast.makeText(context(), "Erfolgreich gelöscht", Toast.LENGTH_SHORT).show();
     }
 

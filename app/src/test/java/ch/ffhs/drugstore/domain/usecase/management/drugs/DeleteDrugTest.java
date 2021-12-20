@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
+import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 
 public class DeleteDrugTest {
     private DrugManagementService drugManagementService;
@@ -24,7 +25,7 @@ public class DeleteDrugTest {
     }
 
     @Test
-    public void executeDeleteDrugUseCaseSuccessfully() {
+    public void executeDeleteDrugUseCaseSuccessfully() throws DrugstoreException {
         // Arrange
         int drugId = 1;
         // Act

@@ -89,4 +89,6 @@
     <string name="export_title">EXPORT</string>
     <string name="error_update_drug">Fehler beim Aktualisieren</string>
     <string name="backup_title">BACKUP</string>
+    <string name="drug_prevente_delete">Medikament bereits in Transaktion - Löschen verhindert</string>
+    <string name="error_delete_drug">Fehler beim Löschen</string>
 </resources>

@@ -27,7 +27,7 @@ public interface DrugDao {
      * @Delete insert, update and delete rows without SQL code (room library)
      */
     @Insert
-    void insert(Drug drug);
+    long insert(Drug drug);
 
     @Update
     void update(Drug drug);

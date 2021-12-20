@@ -210,7 +210,7 @@ public class DrugManagementServiceTest {
     }
 
     @Test
-    public void deleteDrug() {
+    public void deleteDrug() throws DrugstoreException {
         // Arrange
         int drugId = 1;
 
