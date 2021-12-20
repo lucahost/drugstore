@@ -8,6 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.dao.DrugTypeDao;
+import ch.ffhs.drugstore.data.entity.DrugType;
 import ch.ffhs.drugstore.data.relation.DrugTypeWithParentDrugType;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
@@ -32,5 +33,10 @@ public class DrugTypeRepository {
 
     public LiveData<List<DrugTypeDto>> getAllDrugTypes() {
         return Transformations.map(allDrugTypes, mapper::drugTypeListToDrugTypeDtoList);
+    }
+
+    public long createDrugType(DrugTypeDto drugTypeDto) {
+        DrugType drugType = mapper.drugTypeFromDrugTypeDto(drugTypeDto);
+        return drugTypeDao.insert(drugType);
     }
 }

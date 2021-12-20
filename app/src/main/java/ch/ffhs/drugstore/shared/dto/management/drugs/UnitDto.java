@@ -8,19 +8,19 @@ package ch.ffhs.drugstore.shared.dto.management.drugs;
  * @version 2021.12.15
  */
 public class UnitDto {
-    private int unitId;
+    private Integer unitId;
     private String title;
 
-    public UnitDto(int unitId, String title) {
+    public UnitDto(Integer unitId, String title) {
         this.unitId = unitId;
         this.title = title;
     }
 
-    public int getUnitId() {
+    public Integer getUnitId() {
         return unitId;
     }
 
-    public void setUnitId(int unitId) {
+    public void setUnitId(Integer unitId) {
         this.unitId = unitId;
     }
 

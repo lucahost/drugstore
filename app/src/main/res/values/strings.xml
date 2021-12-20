@@ -91,4 +91,18 @@
     <string name="backup_title">BACKUP</string>
     <string name="drug_prevente_delete">Medikament bereits in Transaktion - Löschen verhindert</string>
     <string name="error_delete_drug">Fehler beim Löschen</string>
+    <string name="drugtypes_title">Kategorien</string>
+    <string name="units_title">Einheiten</string>
+    <string name="new_drug_type">Neue Kategorie</string>
+    <string name="new_unit">Neue Einheit</string>
+    <string name="error_delete_drug_type">Fehler beim Löschen der Kategorie</string>
+    <string name="error_delete_unit">Fehler beim Löschen der Einheit</string>
+    <string name="successfully_created">Erfolgreich erstellt</string>
+    <string name="create_new_unit">Eine neue Einheit erstellen</string>
+    <string name="create_new_drug_type">Eine neue Kategorie erstellen</string>
+    <string name="confirm_delete_drug_type">Löschen der Kategorie bestätigen</string>
+    <string name="confirm_delete_unit">Löschen der Einheit bestätigen</string>
+    <string name="confirm_delete_detail">Wollen Sie %s wirklich löschen</string>
+    <string name="todo">TODO löschen</string>
+    <string name="confirm">Bestätigen</string>
 </resources>

@@ -7,7 +7,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.dao.UnitDao;
+import ch.ffhs.drugstore.data.entity.Unit;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
+import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
 
 /**
  * This class abstracts the data layer methods for Unit data
@@ -18,6 +20,7 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 public class UnitRepository {
     private final UnitDao unitDao;
     private final LiveData<List<UnitDto>> allUnits;
+    private final DrugstoreMapper mapper = DrugstoreMapper.INSTANCE;
 
     @Inject
     public UnitRepository(UnitDao unitDao) {
@@ -27,5 +30,10 @@ public class UnitRepository {
 
     public LiveData<List<UnitDto>> getAllUnits() {
         return allUnits;
+    }
+
+    public long createUnit(UnitDto unitDto) {
+        Unit unit = mapper.unitFromUnitDto(unitDto);
+        return unitDao.insert(unit);
     }
 }

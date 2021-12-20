@@ -13,25 +13,24 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginStart="16dp"
         android:drawableStart="@drawable/ic_baseline_share_24"
         android:text="@string/export_title"
-        app:layout_constraintBottom_toTopOf="@+id/materialDivider3"
-        app:layout_constraintEnd_toStartOf="@+id/import_button" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/import_button"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/import_button"
         style="?android:attr/borderlessButtonStyle"
-        android:enabled="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:layout_marginStart="19dp"
         android:drawableStart="@drawable/ic_baseline_arrow_downward_24"
-        android:layout_marginStart="52dp"
+        android:enabled="false"
         android:text="@string/import_title"
         app:layout_constraintBottom_toTopOf="@+id/materialDivider3"
-        app:layout_constraintStart_toEndOf="@+id/textView" />
+        app:layout_constraintStart_toEndOf="@+id/export_button" />
 
     <TextView
         android:id="@+id/textView3"
@@ -49,11 +48,73 @@
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
         android:text="@string/backup_title"
+        app:layout_constraintBottom_toTopOf="@+id/export_button"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        android:text="@string/drugtypes_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialDivider" />
+        app:layout_constraintTop_toBottomOf="@+id/materialDivider3" />
+
+    <TextView
+        android:id="@+id/textView4"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="18dp"
+        android:text="@string/units_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialDivider2" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/drugTypeChipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="18dp"
+        android:paddingHorizontal="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:singleLine="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/new_drug_type_chip"
+            style="@style/Widget.MaterialComponents.Chip.Action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_drug_type"
+            app:chipIcon="@drawable/plus" />
+    </com.google.android.material.chip.ChipGroup>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/unitChipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="18dp"
+        android:paddingHorizontal="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:singleLine="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/new_unit_chip"
+            style="@style/Widget.MaterialComponents.Chip.Action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_unit"
+            app:chipIcon="@drawable/plus" />
+    </com.google.android.material.chip.ChipGroup>
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/materialDivider3"
@@ -63,6 +124,24 @@
         android:layout_marginTop="214dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/materialDivider2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/drugTypeChipGroup" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/materialDivider4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/unitChipGroup" />
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/materialDivider"

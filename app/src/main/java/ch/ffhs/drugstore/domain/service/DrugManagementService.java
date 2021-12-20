@@ -14,6 +14,7 @@ import ch.ffhs.drugstore.data.repository.DrugTypeRepository;
 import ch.ffhs.drugstore.data.repository.SubstanceRepository;
 import ch.ffhs.drugstore.data.repository.UnitRepository;
 import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugTypeDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.EditDrugDto;
@@ -132,6 +133,16 @@ public class DrugManagementService {
         drugDto.setSubstance(String.valueOf(substance.getSubstanceId()));
 
         return drugRepository.createDrug(drugDto);
+    }
+
+    public long createDrugType(CreateDrugTypeDto createDrugTypeDto) {
+        DrugTypeDto drugTypeDto = mapper.createDrugTypeDtoToDrugTypeDto(createDrugTypeDto);
+        return drugTypeRepository.createDrugType(drugTypeDto);
+    }
+
+    public long createUnit(String unitTitle) {
+        UnitDto unitDto = new UnitDto(null, unitTitle);
+        return unitRepository.createUnit(unitDto);
     }
 
     /**

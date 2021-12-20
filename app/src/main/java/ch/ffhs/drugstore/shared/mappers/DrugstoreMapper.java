@@ -22,6 +22,7 @@ import ch.ffhs.drugstore.data.relation.SignatureDrugWithDrug;
 import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs;
 import ch.ffhs.drugstore.data.relation.TransactionWithDrugAndUser;
 import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugTypeDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.EditDrugDto;
@@ -139,4 +140,6 @@ public interface DrugstoreMapper {
 
     @Mapping(target = "userId", source = "user.userId")
     Signature signatureDtoToSignature(SignatureDto signatureDto);
+
+    DrugTypeDto createDrugTypeDtoToDrugTypeDto(CreateDrugTypeDto createDrugTypeDto);
 }
