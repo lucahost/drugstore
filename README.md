@@ -38,3 +38,22 @@ Using devices with different configurations e.g. screen resolutions might not pr
 | Android API Level    | 30                           |
 | CPU/ABI              | Google APIs Intel Atom (x86) |
 | Target               | Google APIs                  |
+
+## Run E2E Tests
+
+On your device, under Settings > Developer options, disable the following 3 settings:
+
+* Window animation scale
+* Transition animation scale
+* Animator duration scale
+
+To run the e2e tests within Android Studio complete the following steps:
+
+* Add a new Android Tests configuration.
+* Add a specific instrumentation runner: `androidx.test.runner.AndroidJUnitRunner`
+
+To run the e2e tests from the command line execute the following Gradle command:
+
+``` bash
+./gradlew connectedAndroidTest
+```
