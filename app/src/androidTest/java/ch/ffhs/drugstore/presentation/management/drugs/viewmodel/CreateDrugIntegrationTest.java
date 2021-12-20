@@ -65,7 +65,7 @@ public class CreateDrugIntegrationTest {
 
     @Test
     public void CreateDrug() throws Exception {
-        // Assert
+        // Arrange
         DrugManagementService drugManagementService = new DrugManagementService(drugRepository,
                 drugTypeRepository, substanceRepository, unitRepository);
 

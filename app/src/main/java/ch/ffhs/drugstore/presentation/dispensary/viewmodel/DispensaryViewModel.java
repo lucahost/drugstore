@@ -115,14 +115,14 @@ public class DispensaryViewModel extends AndroidViewModel {
      * @param drugId   the id of the drug
      * @param employee the employee dispensing the drug
      * @param patient  the patient receiving the drug
-     * @param sDosage  the dosage to be dispensed
+     * @param sAmount  the amount to be dispensed
      * @throws DrugstoreException if dispensation of the drug goes wrong
      */
-    public void dispenseDrug(int drugId, String employee, String patient, String sDosage)
+    public void dispenseDrug(int drugId, String employee, String patient, String sAmount)
             throws DrugstoreException {
-        double dosage = tryParseDouble(sDosage);
+        double amount = tryParseDouble(sAmount);
         SubmitDispenseDto submitDispenseDto = new SubmitDispenseDto(drugId, employee, patient,
-                dosage);
+                amount);
         dispenseDrug.execute(submitDispenseDto);
     }
 }
