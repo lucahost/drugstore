@@ -3,6 +3,8 @@ package ch.ffhs.drugstore.data.converters;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import static java.time.ZoneOffset.UTC;
+
 import org.junit.Test;
 
 import java.time.ZoneId;
@@ -12,10 +14,10 @@ import java.time.ZonedDateTime;
 public class DateConverterTest {
 
     @Test
-    public void fromTimestampWithSystemDefaultZoneId() {
+    public void fromTimestamp() {
         long valid_timestamp = 1639436411L;
         ZonedDateTime expected_date = ZonedDateTime.of(2021, 12, 14, 0, 0, 11, 0,
-                ZoneId.systemDefault());
+                UTC);
         assertEquals(expected_date.toLocalTime(),
                 DateConverter.fromTimestampToSystemDefaultZonedDateTime(
                         valid_timestamp).toLocalTime());
@@ -23,7 +25,7 @@ public class DateConverterTest {
 
     @Test
     public void dateToTimestamp() {
-        ZonedDateTime expected_date = ZonedDateTime.of(2021, 12, 13, 23, 0, 11, 0, ZoneOffset.UTC);
+        ZonedDateTime expected_date = ZonedDateTime.of(2021, 12, 13, 23, 0, 11, 0, UTC);
         long valid_timestamp = 1639436411L;
         assertEquals(Long.valueOf(valid_timestamp), DateConverter.dateToTimestamp(expected_date));
     }

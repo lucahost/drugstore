@@ -43,35 +43,35 @@ cloud "Externe Medikanenten DB" {
 
 
 
-:User: -> UC11
-:User: -> UC12
-:User: -> UC13
-:User: -> UC14
+:User: - UC11
+:User: - UC12
+:User: - UC13
+:User: - UC14
 
-:User: ---> UC21
-:User: ---> UC22
-:User: ---> UC23
-:User: ---> UC24
+:User: --- UC21
+:User: --- UC22
+:User: --- UC23
+:User: --- UC24
 
-:User: ---> UC31
-:User: ---> UC35
+:User: --- UC31
+:User: --- UC35
 
-:User: -> UC41
-:User: -> UC44
+:User: - UC41
+:User: - UC44
 
-UC24 .> UC31
+UC24 . UC31
 
-UC31 ..> UC32
-UC32 ..> UC33
-UC31 ..> UC34
-UC35 ..> UC36
+UC31 .. UC32
+UC32 .. UC33
+UC31 .. UC34
+UC35 .. UC36
 
-UC41 --> UC42
-UC42 ..> UC43
-UC44 ..> UC45
+UC41 -- UC42
+UC42 .. UC43
+UC44 .. UC45
 
-UC12 <...> LoginProvider
-UC21 <....> DrugImport
-UC34 <...> PatientInterface
+UC12 ... LoginProvider
+UC21 .... DrugImport
+UC34 ... PatientInterface
 
 @enduml
