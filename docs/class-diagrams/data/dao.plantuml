@@ -1,0 +1,128 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace dao {
+        interface ch.ffhs.drugstore.data.dao.DrugDao {
+            {abstract} + delete()
+            {abstract} + deleteAll()
+            {abstract} + deleteDrugById()
+            {abstract} + getAllDrugs()
+            {abstract} + getDrugById()
+            {abstract} + getOnStockDrugs()
+            {abstract} + getOnStockDrugsByDrugTypes()
+            {abstract} + getOnStockFavoriteDrugs()
+            {abstract} + getOnStockFavoriteDrugsByDrugTypes()
+            {abstract} + insert()
+            {abstract} + toggleDrugIsFavorite()
+            {abstract} + update()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace dao {
+        interface ch.ffhs.drugstore.data.dao.DrugTypeDao {
+            {abstract} + getAllDrugTypes()
+            {abstract} + insert()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace dao {
+        interface ch.ffhs.drugstore.data.dao.SignatureDao {
+            {abstract} + delete()
+            {abstract} + deleteAll()
+            {abstract} + getAllSignatures()
+            {abstract} + getSignatureBySignatureId()
+            {abstract} + insert()
+            {abstract} + update()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace dao {
+        interface ch.ffhs.drugstore.data.dao.SignatureDrugDao {
+            {abstract} + delete()
+            {abstract} + deleteAll()
+            {abstract} + getAllSignatureDrugs()
+            {abstract} + getSignatureDrugsBySignatureId()
+            {abstract} + getSignatureDrugsWithDrugBySignatureId()
+            {abstract} + insert()
+            {abstract} + update()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace dao {
+        interface ch.ffhs.drugstore.data.dao.SubstanceDao {
+            {abstract} + delete()
+            {abstract} + deleteAll()
+            {abstract} + deleteSubstanceById()
+            {abstract} + getAllSubstances()
+            {abstract} + getSubstanceById()
+            {abstract} + getSubstanceByTitle()
+            {abstract} + insert()
+            {abstract} + update()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace dao {
+        interface ch.ffhs.drugstore.data.dao.TransactionDao {
+            {abstract} + delete()
+            {abstract} + deleteAll()
+            {abstract} + getAllTransactions()
+            {abstract} + insert()
+            {abstract} + update()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace dao {
+        interface ch.ffhs.drugstore.data.dao.UnitDao {
+            {abstract} + getAllUnits()
+            {abstract} + insert()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace dao {
+        interface ch.ffhs.drugstore.data.dao.UserDao {
+            {abstract} + getAllUsers()
+            {abstract} + getUserById()
+            {abstract} + getUserByShortName()
+            {abstract} + insert()
+        }
+      }
+    }
+  }
+
+@enduml

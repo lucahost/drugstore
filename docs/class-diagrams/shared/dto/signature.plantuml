@@ -1,0 +1,71 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.dto.management.signature {
+      class ch.ffhs.drugstore.shared.dto.management.signature.CreateSignatureDto {
+          ~ signatureDrugs : List<SignatureDrugDto>
+          - createdAt : ZonedDateTime
+          - userShortName : String
+          + CreateSignatureDto()
+          + getCreatedAt()
+          + getSignatureDrugs()
+          + getUserShortName()
+          + setCreatedAt()
+          + setSignatureDrugs()
+          + setUserShortName()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.dto.management.signature {
+      class ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto {
+          - actualAmount : double
+          - approved : boolean
+          - drugId : int
+          - expectedAmount : double
+          - signatureId : int
+          + SignatureDrugDto()
+          + getActualAmount()
+          + getDrug()
+          + getDrugId()
+          + getExpectedAmount()
+          + getSignatureId()
+          + isApproved()
+          + setActualAmount()
+          + setApproved()
+          + setDrug()
+          + setDrugId()
+          + setExpectedAmount()
+          + setSignatureId()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.dto.management.signature {
+      class ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto {
+          - createdAt : ZonedDateTime
+          - signatureDrugs : List<SignatureDrugDto>
+          - signatureId : int
+          + SignatureDto()
+          + getCreatedAt()
+          + getSignatureDrugs()
+          + getSignatureId()
+          + getUser()
+          + setCreatedAt()
+          + setSignatureDrugs()
+          + setSignatureId()
+          + setUser()
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto o-- ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto : drug
+  ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto o-- ch.ffhs.drugstore.shared.dto.management.user.UserDto : user
+
+
+@enduml

@@ -1,0 +1,116 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.usecase {
+      namespace management.drugs {
+        interface ch.ffhs.drugstore.domain.usecase.UseCase {
+              {abstract} + execute()
+          }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.usecase {
+      namespace management.drugs {
+        class ch.ffhs.drugstore.domain.usecase.management.drugs.DeleteDrug {
+            + DeleteDrug()
+            + execute()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.usecase {
+      namespace management.drugs {
+        class ch.ffhs.drugstore.domain.usecase.management.drugs.EditDrug {
+            + EditDrug()
+            + execute()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.usecase {
+      namespace management.drugs {
+        class ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugTypes {
+            + GetDrugTypes()
+            + execute()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.usecase {
+      namespace management.drugs {
+        class ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugUnits {
+            + GetDrugUnits()
+            + execute()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.usecase {
+      namespace management.drugs {
+        class ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugs {
+            + GetDrugs()
+            + execute()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.usecase {
+      namespace management.drugs {
+        class ch.ffhs.drugstore.domain.usecase.management.drugs.GetSubstances {
+            + GetSubstances()
+            + execute()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.usecase {
+      namespace management.drugs {
+        class ch.ffhs.drugstore.domain.usecase.management.drugs.UpdateDrugAmount {
+            + UpdateDrugAmount()
+            + execute()
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.domain.usecase.management.drugs.CreateDrug .up.|> ch.ffhs.drugstore.domain.usecase.UseCase
+  ch.ffhs.drugstore.domain.usecase.management.drugs.CreateDrug o-- ch.ffhs.drugstore.domain.service.DrugManagementService : drugManagementService
+  ch.ffhs.drugstore.domain.usecase.management.drugs.DeleteDrug .up.|> ch.ffhs.drugstore.domain.usecase.UseCase
+  ch.ffhs.drugstore.domain.usecase.management.drugs.DeleteDrug o-- ch.ffhs.drugstore.domain.service.DrugManagementService : drugManagementService
+  ch.ffhs.drugstore.domain.usecase.management.drugs.EditDrug .up.|> ch.ffhs.drugstore.domain.usecase.UseCase
+  ch.ffhs.drugstore.domain.usecase.management.drugs.EditDrug o-- ch.ffhs.drugstore.domain.service.DrugManagementService : drugManagementService
+  ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugTypes .up.|> ch.ffhs.drugstore.domain.usecase.UseCase
+  ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugTypes o-- ch.ffhs.drugstore.domain.service.DrugManagementService : drugManagementService
+  ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugUnits .up.|> ch.ffhs.drugstore.domain.usecase.UseCase
+  ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugUnits o-- ch.ffhs.drugstore.domain.service.DrugManagementService : drugManagementService
+  ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugs .up.|> ch.ffhs.drugstore.domain.usecase.UseCase
+  ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugs o-- ch.ffhs.drugstore.domain.service.DrugManagementService : drugManagementService
+  ch.ffhs.drugstore.domain.usecase.management.drugs.GetSubstances .up.|> ch.ffhs.drugstore.domain.usecase.UseCase
+  ch.ffhs.drugstore.domain.usecase.management.drugs.GetSubstances o-- ch.ffhs.drugstore.domain.service.DrugManagementService : drugManagementService
+  ch.ffhs.drugstore.domain.usecase.management.drugs.UpdateDrugAmount .up.|> ch.ffhs.drugstore.domain.usecase.UseCase
+  ch.ffhs.drugstore.domain.usecase.management.drugs.UpdateDrugAmount o-- ch.ffhs.drugstore.domain.service.DrugManagementService : drugManagementService
+
+
+@enduml

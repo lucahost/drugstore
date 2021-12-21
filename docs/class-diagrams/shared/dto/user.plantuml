@@ -1,0 +1,30 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.dto.management.user {
+      class ch.ffhs.drugstore.shared.dto.management.user.UserDto {
+          - emailAddress : String
+          - externalId : String
+          - firstName : String
+          - lastName : String
+          - shortName : String
+          - userId : Integer
+          + UserDto()
+          + UserDto()
+          + getEmailAddress()
+          + getExternalId()
+          + getFirstName()
+          + getLastName()
+          + getShortName()
+          + getUserId()
+          + setEmailAddress()
+          + setExternalId()
+          + setFirstName()
+          + setLastName()
+          + setShortName()
+          + setUserId()
+      }
+    }
+  }
+
+@enduml

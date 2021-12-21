@@ -1,0 +1,22 @@
+@startuml
+
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace history.viewmodel {
+            class ch.ffhs.drugstore.presentation.management.history.viewmodel.HistoryViewModel {
+                - transactions : LiveData<List<TransactionDto>>
+                + HistoryViewModel()
+                + getTransactions()
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.history.viewmodel.HistoryViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  ch.ffhs.drugstore.presentation.management.history.viewmodel.HistoryViewModel o-- ch.ffhs.drugstore.domain.usecase.management.history.GetHistory : getHistory
+
+@enduml

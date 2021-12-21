@@ -1,0 +1,23 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace signature.viewmodel {
+            class ch.ffhs.drugstore.presentation.management.signature.viewmodel.SignatureViewModel {
+                - signatures : LiveData<List<SignatureDto>>
+                + SignatureViewModel()
+                + getSignatureDrugBySignatureId()
+                + getSignatures()
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.signature.viewmodel.SignatureViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  ch.ffhs.drugstore.presentation.management.signature.viewmodel.SignatureViewModel o-- ch.ffhs.drugstore.domain.usecase.management.signatures.GetSignatureDrug : getSignatureDrug
+  ch.ffhs.drugstore.presentation.management.signature.viewmodel.SignatureViewModel o-- ch.ffhs.drugstore.domain.usecase.management.signatures.GetSignatures : getSignatures
+
+@enduml

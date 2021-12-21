@@ -1,0 +1,27 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.extensions {
+      class ch.ffhs.drugstore.shared.extensions.DoubleExtension {
+          {static} + tryParseDouble()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.extensions {
+      class ch.ffhs.drugstore.shared.extensions.FileExtensions {
+          {static} + copyDirectory()
+          {static} + copyFile()
+          {static} + deleteFolder()
+          {static} + zipDirectory()
+          {static} - copyDirectoryCompatibilityMode()
+          {static} - zipDirectory()
+          {static} - zipFile()
+      }
+    }
+  }
+
+
+@enduml

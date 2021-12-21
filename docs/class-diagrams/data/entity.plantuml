@@ -1,0 +1,199 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace entity {
+        class ch.ffhs.drugstore.data.entity.Drug {
+            - dosage : String
+            - drugId : int
+            - drugTypeId : Integer
+            - isFavorite : boolean
+            - stockAmount : double
+            - substanceId : Integer
+            - title : String
+            - tolerance : double
+            - unitId : Integer
+            + Drug()
+            + getDosage()
+            + getDrugId()
+            + getDrugTypeId()
+            + getStockAmount()
+            + getSubstanceId()
+            + getTitle()
+            + getTolerance()
+            + getUnitId()
+            + isFavorite()
+            + setDosage()
+            + setDrugId()
+            + setDrugTypeId()
+            + setFavorite()
+            + setStockAmount()
+            + setSubstanceId()
+            + setTitle()
+            + setTolerance()
+            + setUnitId()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace entity {
+        class ch.ffhs.drugstore.data.entity.DrugType {
+            + drugTypeId : int
+            + parentDrugTypeId : Integer
+            + title : String
+            + DrugType()
+            + getDrugTypeId()
+            + getParentDrugTypeId()
+            + getTitle()
+            + setDrugTypeId()
+            + setParentDrugTypeId()
+            + setTitle()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace entity {
+        class ch.ffhs.drugstore.data.entity.Signature {
+            + createdAt : ZonedDateTime
+            + signatureId : long
+            + userId : long
+            + Signature()
+            + getCreatedAt()
+            + getSignatureId()
+            + getUserId()
+            + setCreatedAt()
+            + setSignatureId()
+            + setUserId()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace entity {
+        class ch.ffhs.drugstore.data.entity.SignatureDrug {
+            + actualAmount : double
+            + approved : boolean
+            + drugId : int
+            + expectedAmount : double
+            + signatureId : int
+            + SignatureDrug()
+            + getActualAmount()
+            + getDrugId()
+            + getExpectedAmount()
+            + getSignatureId()
+            + isApproved()
+            + setActualAmount()
+            + setApproved()
+            + setDrugId()
+            + setExpectedAmount()
+            + setSignatureId()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace entity {
+        class ch.ffhs.drugstore.data.entity.Substance {
+            - substanceId : int
+            - title : String
+            + Substance()
+            + getSubstanceId()
+            + getTitle()
+            + setSubstanceId()
+            + setTitle()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace entity {
+        class ch.ffhs.drugstore.data.entity.Transaction {
+            + amount : double
+            + createdAt : ZonedDateTime
+            + drugId : int
+            + patient : String
+            + transactionId : int
+            + userId : int
+            + Transaction()
+            + getAmount()
+            + getCreatedAt()
+            + getDrugId()
+            + getPatient()
+            + getTransactionId()
+            + getUserId()
+            + setAmount()
+            + setCreatedAt()
+            + setDrugId()
+            + setPatient()
+            + setTransactionId()
+            + setUserId()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace entity {
+        class ch.ffhs.drugstore.data.entity.Unit {
+            + title : String
+            + unitId : int
+            + Unit()
+            + getTitle()
+            + getUnitId()
+            + setTitle()
+            + setUnitId()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace entity {
+        class ch.ffhs.drugstore.data.entity.User {
+            + emailAddress : String
+            + externalId : String
+            + firstName : String
+            + lastName : String
+            + shortName : String
+            + userId : int
+            + User()
+            + getEmailAddress()
+            + getExternalId()
+            + getFirstName()
+            + getLastName()
+            + getShortName()
+            + getUserId()
+            + setEmailAddress()
+            + setExternalId()
+            + setFirstName()
+            + setLastName()
+            + setShortName()
+            + setUserId()
+        }
+      }
+    }
+  }
+
+
+@enduml

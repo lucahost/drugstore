@@ -1,0 +1,113 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace signature.view {
+          namespace adapter {
+            interface ch.ffhs.drugstore.presentation.management.signature.view.adapter.OnSignatureItemClickListener {
+                {abstract} + onItemClick()
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace signature.view {
+          namespace adapter {
+            class ch.ffhs.drugstore.presentation.management.signature.view.adapter.SignatureDetailListAdapter {
+                + SignatureDetailListAdapter()
+                + onBindViewHolder()
+                + onCreateViewHolder()
+                # getItem()
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace signature.view {
+          namespace adapter {
+            class ch.ffhs.drugstore.presentation.management.signature.view.adapter.SignatureDrugItemHolder {
+                - chip : TextView
+                - context : Context
+                - secondary : TextView
+                - title : TextView
+                # bind()
+                ~ SignatureDrugItemHolder()
+                - getItemChipText()
+                - getItemSecondaryText()
+                - getItemTitleText()
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace signature.view {
+          namespace adapter {
+            class ch.ffhs.drugstore.presentation.management.signature.view.adapter.SignatureItemHolder {
+                - chip : Chip
+                - context : Context
+                - secondary : TextView
+                - title : TextView
+                + onClick()
+                ~ SignatureItemHolder()
+                ~ bind()
+                - getItemChipText()
+                - getItemSecondaryText()
+                - getItemTitleText()
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace signature.view {
+          namespace adapter {
+            class ch.ffhs.drugstore.presentation.management.signature.view.adapter.SignatureListAdapter {
+                + SignatureListAdapter()
+                + getClickListener()
+                + onBindViewHolder()
+                + onCreateViewHolder()
+                + setClickListener()
+                # getItem()
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.signature.view.adapter.SignatureDetailListAdapter -up-|> androidx.recyclerview.widget.ListAdapter
+  ch.ffhs.drugstore.presentation.management.signature.view.adapter.SignatureDrugItemHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  ch.ffhs.drugstore.presentation.management.signature.view.adapter.SignatureDrugItemHolder o-- ch.ffhs.drugstore.presentation.management.signature.view.adapter.SignatureDetailListAdapter : signatureDetailListAdapter
+  ch.ffhs.drugstore.presentation.management.signature.view.adapter.SignatureItemHolder .up.|> android.view.View.OnClickListener
+  ch.ffhs.drugstore.presentation.management.signature.view.adapter.SignatureItemHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  ch.ffhs.drugstore.presentation.management.signature.view.adapter.SignatureItemHolder o-- ch.ffhs.drugstore.presentation.management.signature.view.adapter.SignatureListAdapter : signatureListAdapter
+  ch.ffhs.drugstore.presentation.management.signature.view.adapter.SignatureListAdapter -up-|> androidx.recyclerview.widget.ListAdapter
+  ch.ffhs.drugstore.presentation.management.signature.view.adapter.SignatureListAdapter o-- ch.ffhs.drugstore.presentation.management.signature.view.adapter.OnSignatureItemClickListener : clickListener
+
+
+@enduml

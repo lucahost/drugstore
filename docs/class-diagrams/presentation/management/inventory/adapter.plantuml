@@ -1,0 +1,69 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace inventory.view {
+          namespace adapter {
+            class ch.ffhs.drugstore.presentation.management.inventory.view.adapter.InventoryItemHolder {
+                - context : Context
+                - secondary : TextView
+                - title : CheckedTextView
+                + onClick()
+                # bind()
+                ~ InventoryItemHolder()
+                - getIsSelected()
+                - getItemSecondaryText()
+                - getItemTitleText()
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace inventory.view {
+          namespace adapter {
+            class ch.ffhs.drugstore.presentation.management.inventory.view.adapter.InventoryListAdapter {
+                + InventoryListAdapter()
+                + onBindViewHolder()
+                + onCreateViewHolder()
+                + setClickListener()
+                + toggleCheckAll()
+                # getClickListener()
+                # getItem()
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace inventory.view {
+          namespace adapter {
+            interface ch.ffhs.drugstore.presentation.management.inventory.view.adapter.OnHistoryItemClickListener {
+                {abstract} + onItemClick()
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.inventory.view.adapter.InventoryItemHolder .up.|> android.view.View.OnClickListener
+  ch.ffhs.drugstore.presentation.management.inventory.view.adapter.InventoryItemHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  ch.ffhs.drugstore.presentation.management.inventory.view.adapter.InventoryItemHolder o-- ch.ffhs.drugstore.presentation.management.inventory.view.adapter.InventoryListAdapter : inventoryListAdapter
+  ch.ffhs.drugstore.presentation.management.inventory.view.adapter.InventoryListAdapter -up-|> androidx.recyclerview.widget.ListAdapter
+  ch.ffhs.drugstore.presentation.management.inventory.view.adapter.InventoryListAdapter o-- ch.ffhs.drugstore.presentation.management.inventory.view.adapter.OnHistoryItemClickListener : clickListener
+
+
+@enduml

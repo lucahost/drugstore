@@ -1,0 +1,57 @@
+@startuml
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace dispensary.view {
+        class ch.ffhs.drugstore.presentation.dispensary.view.DispensaryFragment {
+            - binding : FragmentDispensaryBinding
+            + onConfirmDispenseDrug()
+            + onCreate()
+            + onCreateView()
+            + onItemClick()
+            + onItemLongClick()
+            + onQueryTextChange()
+            + onQueryTextSubmit()
+            + onViewCreated()
+            - context()
+            - observeItems()
+            - onDrugTypeChipFilterClick()
+            - onFavoriteChipFilterClick()
+            - search()
+            - setupFilterChips()
+            - setupRecyclerView()
+            - setupSearchBar()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace dispensary.view {
+        class ch.ffhs.drugstore.presentation.dispensary.view.FilterState {
+            - favorites : boolean
+            - filters : List<T>
+            - searchFilter : String
+            + getFilters()
+            + getSearchFilter()
+            + isFavorites()
+            + setSearchFilter()
+            + toggleFavorites()
+            + toggleFilter()
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.dispensary.view.DispensaryFragment .up.|> androidx.appcompat.widget.SearchView.OnQueryTextListener
+  ch.ffhs.drugstore.presentation.dispensary.view.DispensaryFragment .up.|> ch.ffhs.drugstore.presentation.dispensary.view.adapter.OnDispensaryItemClickListener
+  ch.ffhs.drugstore.presentation.dispensary.view.DispensaryFragment .up.|> ch.ffhs.drugstore.presentation.dispensary.view.dialog.ConfirmDispenseDrugListener
+  ch.ffhs.drugstore.presentation.dispensary.view.DispensaryFragment -up-|> androidx.fragment.app.Fragment
+  ch.ffhs.drugstore.presentation.dispensary.view.DispensaryFragment o-- ch.ffhs.drugstore.presentation.dispensary.view.adapter.DispensaryListAdapter : adapter
+  ch.ffhs.drugstore.presentation.dispensary.view.DispensaryFragment o-- ch.ffhs.drugstore.presentation.dialog.DialogService : dialogService
+  ch.ffhs.drugstore.presentation.dispensary.view.DispensaryFragment o-- ch.ffhs.drugstore.presentation.dispensary.viewmodel.DispensaryViewModel : viewModel
+
+
+@enduml

@@ -1,0 +1,51 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace history.view {
+          namespace adapter {
+            class ch.ffhs.drugstore.presentation.management.history.view.adapter.HistoryItemHolder {
+                - chip : Chip
+                - context : Context
+                - secondary : TextView
+                - tertiary : TextView
+                - title : TextView
+                # bind()
+                ~ HistoryItemHolder()
+                - getItemChipText()
+                - getItemSecondaryText()
+                - getItemTertiaryText()
+                - getItemTitleText()
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace history.view {
+          namespace adapter {
+            class ch.ffhs.drugstore.presentation.management.history.view.adapter.HistoryListAdapter {
+                + HistoryListAdapter()
+                + onBindViewHolder()
+                + onCreateViewHolder()
+                # getItem()
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.history.view.adapter.HistoryItemHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  ch.ffhs.drugstore.presentation.management.history.view.adapter.HistoryItemHolder o-- ch.ffhs.drugstore.presentation.management.history.view.adapter.HistoryListAdapter : historyListAdapter
+  ch.ffhs.drugstore.presentation.management.history.view.adapter.HistoryListAdapter -up-|> androidx.recyclerview.widget.ListAdapter
+
+
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace inventory.viewmodel {
+            class ch.ffhs.drugstore.presentation.management.inventory.viewmodel.InventoryViewModel {
+                - drugs : LiveData<List<SelectableDrugDto>>
+                - signatureDrugs : Map<Integer, SignatureDrugDto>
+                + InventoryViewModel()
+                + getDrugs()
+                + getSignatureDrugs()
+                + signInventory()
+                + toggleInventoryItem()
+
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.inventory.viewmodel.InventoryViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  ch.ffhs.drugstore.presentation.management.inventory.viewmodel.InventoryViewModel o-- ch.ffhs.drugstore.domain.usecase.management.inventory.SignInventory : signInventory
+  ch.ffhs.drugstore.presentation.management.inventory.viewmodel.InventoryViewModel o-- ch.ffhs.drugstore.domain.usecase.management.inventory.GetInventory : getInventory
+  ch.ffhs.drugstore.presentation.management.inventory.viewmodel.InventoryViewModel o-- ch.ffhs.drugstore.domain.usecase.management.inventory.ToggleInventoryItem : toggleInventoryItem
+
+
+@enduml

@@ -1,0 +1,54 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace dialog {
+        class ch.ffhs.drugstore.presentation.dialog.DialogService {
+            + DialogService()
+            + dismiss()
+            + showAddDrugDialog()
+            + showCreateDrugDialog()
+            + showDeleteDrugDialog()
+            + showDispenseDrugDialog()
+            + showEditDrugDialog()
+            + showRemoveDrugDialog()
+            + showSignInventoryDialog()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace dialog {
+        enum DialogType {
+          ADD_DRUG
+          CREATE_DRUG
+          DELETE_DRUG
+          DISPENSE_DRUG
+          EDIT_DRUG
+          REMOVE_DRUG
+          SIGN_INVENTORY
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.dialog.DialogService o-- ch.ffhs.drugstore.presentation.management.drugs.view.dialog.add.AddDrugDialogFragmentFactory : addDrugDialogFragmentFactory
+  ch.ffhs.drugstore.presentation.dialog.DialogService o-- ch.ffhs.drugstore.presentation.management.drugs.view.dialog.create.CreateDrugDialogFragment : createDrugDialogFragment
+  ch.ffhs.drugstore.presentation.dialog.DialogService o-- ch.ffhs.drugstore.presentation.management.drugs.view.dialog.delete.DeleteDrugDialogFragmentFactory : deleteDrugDialogFragmentFactory
+  ch.ffhs.drugstore.presentation.dialog.DialogService o-- ch.ffhs.drugstore.presentation.dispensary.view.dialog.DispenseDrugDialogFragmentFactory : dispenseDrugDialogFragmentFactory
+  ch.ffhs.drugstore.presentation.dialog.DialogService o-- ch.ffhs.drugstore.presentation.management.drugs.view.dialog.edit.EditDrugDialogFragmentFactory : editDrugDialogFragmentFactory
+  ch.ffhs.drugstore.presentation.dialog.DialogService o-- ch.ffhs.drugstore.presentation.management.drugs.view.dialog.remove.RemoveDrugDialogFragmentFactory : removeDrugDialogFragmentFactory
+  ch.ffhs.drugstore.presentation.dialog.DialogService o-- ch.ffhs.drugstore.presentation.management.inventory.view.dialog.SignInventoryDialogFragment : signInventoryDialogFragment
+  ch.ffhs.drugstore.presentation.dialog.DialogService o-- ch.ffhs.drugstore.presentation.management.drugs.view.dialog.add.AddDrugDialogFragment : addDrugDialogFragment
+  ch.ffhs.drugstore.presentation.dialog.DialogService o-- ch.ffhs.drugstore.presentation.management.drugs.view.dialog.delete.DeleteDrugDialogFragment : deleteDrugDialogFragment
+  ch.ffhs.drugstore.presentation.dialog.DialogService o-- ch.ffhs.drugstore.presentation.dispensary.view.dialog.DispenseDrugDialogFragment : dispenseDrugDialogFragment
+  ch.ffhs.drugstore.presentation.dialog.DialogService o-- ch.ffhs.drugstore.presentation.management.drugs.view.dialog.edit.EditDrugDialogFragment : editDrugDialogFragment
+  ch.ffhs.drugstore.presentation.dialog.DialogService o-- ch.ffhs.drugstore.presentation.management.drugs.view.dialog.remove.RemoveDrugDialogFragment : removeDrugDialogFragment
+
+
+
+@enduml

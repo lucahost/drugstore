@@ -1,0 +1,64 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.view {
+          namespace adapter {
+            class ch.ffhs.drugstore.presentation.management.drugs.view.adapter.DrugItemHolder {
+                - itemAction : ImageButton
+                - secondary : TextView
+                - title : TextView
+                + onClick()
+                # bind()
+                ~ DrugItemHolder()
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.view {
+          namespace adapter {
+            class ch.ffhs.drugstore.presentation.management.drugs.view.adapter.DrugListAdapter {
+                + DrugListAdapter()
+                + getClickListener()
+                + onBindViewHolder()
+                + onCreateViewHolder()
+                + setClickListener()
+                # getItem()
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.view {
+          namespace adapter {
+            interface ch.ffhs.drugstore.presentation.management.drugs.view.adapter.OnDrugListItemClickListener {
+                {abstract} + onItemClick()
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.drugs.view.adapter.DrugItemHolder .up.|> android.view.View.OnClickListener
+  ch.ffhs.drugstore.presentation.management.drugs.view.adapter.DrugItemHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  ch.ffhs.drugstore.presentation.management.drugs.view.adapter.DrugItemHolder o-- ch.ffhs.drugstore.presentation.management.drugs.view.adapter.DrugListAdapter : drugListAdapter
+  ch.ffhs.drugstore.presentation.management.drugs.view.adapter.DrugListAdapter -up-|> androidx.recyclerview.widget.ListAdapter
+  ch.ffhs.drugstore.presentation.management.drugs.view.adapter.DrugListAdapter o-- ch.ffhs.drugstore.presentation.management.drugs.view.adapter.OnDrugListItemClickListener : clickListener
+
+@enduml

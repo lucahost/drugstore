@@ -1,0 +1,37 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace inventory.view {
+          class ch.ffhs.drugstore.presentation.management.inventory.view.InventoryFragment {
+              - binding : FragmentInventoryBinding
+              - menu : Menu
+              + getMenu()
+              + onConfirmSignInventory()
+              + onCreate()
+              + onCreateOptionsMenu()
+              + onCreateView()
+              + onItemClick()
+              + onOptionsItemSelected()
+              + onPrepareOptionsMenu()
+              + onViewCreated()
+              - context()
+              - onCheckedChanged()
+              - setupRecyclerView()
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.inventory.view.InventoryFragment .up.|> ch.ffhs.drugstore.presentation.management.inventory.view.adapter.OnHistoryItemClickListener
+  ch.ffhs.drugstore.presentation.management.inventory.view.InventoryFragment .up.|> ch.ffhs.drugstore.presentation.management.inventory.view.dialog.ConfirmSignInventoryListener
+  ch.ffhs.drugstore.presentation.management.inventory.view.InventoryFragment -up-|> androidx.fragment.app.Fragment
+  ch.ffhs.drugstore.presentation.management.inventory.view.InventoryFragment o-- ch.ffhs.drugstore.presentation.management.inventory.view.adapter.InventoryListAdapter : adapter
+  ch.ffhs.drugstore.presentation.management.inventory.view.InventoryFragment o-- ch.ffhs.drugstore.presentation.dialog.DialogService : dialogService
+  ch.ffhs.drugstore.presentation.management.inventory.view.InventoryFragment o-- ch.ffhs.drugstore.presentation.management.inventory.viewmodel.InventoryViewModel : viewModel
+
+
+@enduml

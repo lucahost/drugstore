@@ -1,0 +1,14 @@
+@startuml
+
+namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace converters {
+        class ch.ffhs.drugstore.data.converters.DateConverter {
+            {static} + dateToTimestamp()
+            {static} + fromTimestampToUTC()
+        }
+      }
+    }
+}
+
+@enduml

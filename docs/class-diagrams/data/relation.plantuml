@@ -1,0 +1,78 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace relation {
+        class ch.ffhs.drugstore.data.relation.DrugTypeWithParentDrugType {
+            + getDrugType()
+            + getParentDrugType()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace relation {
+        class ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance {
+            + getDrug()
+            + getDrugType()
+            + getSubstance()
+            + getUnit()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace relation {
+        class ch.ffhs.drugstore.data.relation.SignatureDrugWithDrug {
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace relation {
+        class ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs {
+            + signatureDrugs : List<Drug>
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace relation {
+        class ch.ffhs.drugstore.data.relation.TransactionWithDrugAndUser {
+            + getDrug()
+            + getTransaction()
+            + getUser()
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.data.relation.DrugTypeWithParentDrugType o-- ch.ffhs.drugstore.data.entity.DrugType : drugType
+  ch.ffhs.drugstore.data.relation.DrugTypeWithParentDrugType o-- ch.ffhs.drugstore.data.entity.DrugType : parentDrugType
+  ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance o-- ch.ffhs.drugstore.data.entity.Drug : drug
+  ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance o-- ch.ffhs.drugstore.data.entity.DrugType : drugType
+  ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance o-- ch.ffhs.drugstore.data.entity.Substance : substance
+  ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance o-- ch.ffhs.drugstore.data.entity.Unit : unit
+  ch.ffhs.drugstore.data.relation.SignatureDrugWithDrug o-- ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance : drug
+  ch.ffhs.drugstore.data.relation.SignatureDrugWithDrug o-- ch.ffhs.drugstore.data.entity.SignatureDrug : signatureDrug
+  ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs o-- ch.ffhs.drugstore.data.entity.Signature : signature
+  ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs o-- ch.ffhs.drugstore.data.entity.User : user
+  ch.ffhs.drugstore.data.relation.TransactionWithDrugAndUser o-- ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance : drug
+  ch.ffhs.drugstore.data.relation.TransactionWithDrugAndUser o-- ch.ffhs.drugstore.data.entity.Transaction : transaction
+  ch.ffhs.drugstore.data.relation.TransactionWithDrugAndUser o-- ch.ffhs.drugstore.data.entity.User : user
+
+
+@enduml
