@@ -7,12 +7,12 @@ node Drugstore {
         usecase "Medikament bearbeiten" as UC22
         usecase "Medikament löschen" as UC23
         usecase "Medikamente anzeigen" as UC24
-        usecase "Medikamentbestand ändern" as UC25
+        usecase "Medikament Bestand ändern" as UC25
         usecase "Medikament zu Favoriten hinzufügen" as UC26
     }
 
     node Medikamentabgabe {
-        usecase "Abgabe erfassen" as UC31
+        usecase "Medikamentabgabe erfassen" as UC31
     }
 }
 

@@ -15,19 +15,20 @@ cloud Klinikinformationssystem {
 cloud Internet {
     database Medikamente
 }
-component Signatur
+component Export
 
 Drugstore <..> Mitarbeiter
 Drugstore <.. Patienten 
 Drugstore ..> Medikamente
 Drugstore <.> Filesystem
-DrugstoreDB .> Signatur
+DrugstoreDB .> Export
 
 left to right direction
 
-note right of Signatur 
-    PDF Export:
-    E-Mail oder Netzwerk
+note right of Export
+    Android Share Intent
+    - PDF Export
+    - .zip Export    
 end note
 
 note right of Mitarbeiter

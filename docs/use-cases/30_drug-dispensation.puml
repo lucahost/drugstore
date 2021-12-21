@@ -3,33 +3,30 @@ left to right direction
 node Drugstore {
 
     node Medikamentenverwaltung {
-        usecase "Favoriten" as UC24
+        usecase "Medikament Bestand ändern" as UC25
     }
 
     node Medikamentabgabe {
         usecase "Medikamentabgabe erfassen" as UC31
-        usecase "Medikamente filtern" as UC32
-        usecase "Medikamente suchen" as UC33
+        usecase "Medikamente suchen" as UC32
+        usecase "Medikamente filtern" as UC33
         usecase "Patient suchen" as UC34
         usecase "Abgabe Verlauf anzeigen" as UC35
         usecase "Abgabe Verlauf filtern" as UC36
     }
 }
-cloud "Klinikinformationssystem" {
-    usecase "Patienten Schnittstelle" as PatientInterface
-}
+
 
 :User: --> UC31
 :User: --> UC35
 
-UC24 .> UC31
+UC31 .> "<<include>>" UC25
 
-UC31 ..> UC32
-UC32 ..> UC33
-UC31 ..> UC34
-UC35 ..> UC36
+UC31 ..> "<<include>>" UC32
+UC31 ..> "<<include>>" UC34
+UC32 ..> "<<include>>" UC33
+UC35 ..> "<<include>>" UC36
 
 
-UC34 <...> PatientInterface
 
 @enduml

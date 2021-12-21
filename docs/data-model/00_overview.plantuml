@@ -2,124 +2,111 @@
 
 database drugstore {
 
-  entity UnitGroup {
-    * UnitGroupId : number <<generated>>
-    --
-    * Title : varchar
-  }
-
   entity Unit {
-    * UnitId : numbe <<generated>>
+    * unitId : number <<generated>>
     --
-    * UnitGroupId : number <<FK>>
-    --
-    * Title : varchar
-    * ShortName : varchar
+    * title : varchar
   }
 
   entity DrugType {
-    * DrugTypeId : number <<generated>>
+    * drugTypeId : number <<generated>>
     --
-    ParentDrugType : number <<FK>>
+    parentDrugTypeId : number <<FK>>
     --
-    * Title : varchar
+    * title : varchar
   }
 
 
   entity Substance {
-    * SubstanceId : number <<generated>>
+    * substanceId : number <<generated>>
     --
-    * Title : varchar
+    * title : varchar
   }
 
   entity Drug {
-    * DrugId : number <<generated>>
+    * drugId : number <<generated>>
     --
-    * SubstanceId : number <<FK>>
-    * DrugTypeId : number <<FK>>
-    * UnitId : number <<FK>>
+    * substanceId : number <<FK>>
+    * drugTypeId : number <<FK>>
+    * unitId : number <<FK>>
     --
-    * Title : varchar
-    * Dosage : varchar
-    Tolerance : number
-    IsFavorite : boolean
-    InStock : number
+    * title : varchar
+    dosage : varchar
+    isFavorite : boolean
+    tolerance : double
+    stockAmount : double
   }
 
   entity Transaction {
-    * TransactionId : number <<generated>>
+    * transactionId : number <<generated>>
     --
-    * DrugId : number <<FK>>
-    * UserId : number <<FK>>
+    * drugId : number <<FK>>
+    * userId : number <<FK>>
     --
-    * Amount : number
-    * DateTime : timestamp
+    * patient : varchar
+    * amount : double
+    * createdAt : timestamp
   }
 
-  ' Stock-Control creates a new signature
   entity Signature {
-    * SignatureId : number <<generated>>
+    * signatureId : number <<generated>>
     --
-    * UserId : number <<FK>>
+    * userId : number <<FK>>
     --
-    * DateTime : timestamp
+    * createdAt : timestamp
   }
 
   ' Need a better name for this one
   ' Items at stock when signature is created
   entity SignatureDrug {
-    * ID_SignatureId : number <<FK>>
-    * ID_DrugId : number <<FK>>
+    * ID_signatureId : number <<FK>>
+    * ID_drugId : number <<FK>>
     --
-    * Amount : number
-    * Checked : boolean
+    * expectedAmount : double
+    * actualAmount: double
+    * approved: boolean
   }
 
   entity User {
-    * UserId : number
+    * userId : number
     --
-    * ShortName : varchar
-    FirstName : varchar
-    LastName : varchar
-    EMail : varchar
-    ExternalId : varchar
+    * shortName : varchar
+    firstName : varchar
+    lastName : varchar
+    emailAddress : varchar
+    externalId : varchar
   }
 
 }
 
-' One UnitGroup can have one or many Units
-UnitGroup ||..|{ Unit
 
-' One DrugType has one Unit
+' One Drug has one Unit
 ' One Unit has zero or many DrugTypes
-Drug ||..o{ Unit
-
+Drug }o..|| Unit
 
 ' One Drug has zero or one Substance
 ' One Substance has zero or many Drugs
-Substance |o..o{ Drug
-
+Substance ||..o{ Drug
 
 ' One Drug has one DrugType
 ' One DrugType can occur in zero or many Drugs
-Drug ||..o{ DrugType
+Drug }o..|| DrugType
 
-' One Drugs can be in zero or many transactions
+' One Drug can be in zero or many transactions
 ' One Transaction has one Drug
-Drug ||..o{ Transaction
+Drug }o..|| Transaction
 
 ' One User can have zero or many transactions
 ' One Transaction has one User
-User }o..|| Transaction
-
+User ||..o{ Transaction
 
 ' One User as zero or many Signatures
 ' One Signaure has one User
-User }o..|| Signature
+User ||..o{ Signature
 
 ' One Signature has one or many SignatureDrug
 ' One SigantureDrug has one Signature
-Signature ||..|{ SignatureDrug
+Signature ||...|{ SignatureDrug
 
 ' One Drug has zero or many SignatureDrug
 ' One SignatureDrug has one Drug

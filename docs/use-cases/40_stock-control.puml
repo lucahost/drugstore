@@ -3,18 +3,21 @@ left to right direction
 node Drugstore {
 
     node Bestandeskontrolle {
-        usecase "Bestandeskontrolle starten" as UC41
-        usecase "Bestandeskontrolle signieren" as UC42
-        usecase "Exportieren der Bestandeskontrolle" as UC43
-        usecase "Bestandeskontrolle Verlauf anzeigen" as UC44
-        usecase "Bestandeskontrolle Verlauf filtern" as UC45
+        usecase "Bestand laden" as UC41
+        usecase "Medikament hinzufügen / entfernen" as UC42
+        usecase "Signieren" as UC43
+        usecase "Verlauf anzeigen" as UC44
+        usecase "Verlauf filtern" as UC45
+        usecase "Exportieren der Bestandeskontrolle" as UC46
     }
 }
-:User: --> UC41
-:User: --> UC44
 
-UC41 --> UC42
-UC42 ..> UC43
-UC44 ..> UC45
+:User: --- UC41
+:User: --- UC42
+:User: --- UC43
+:User: --- UC44
+:User: --- UC46
+
+UC44 ..> "<<include>>" UC45
 
 @enduml
