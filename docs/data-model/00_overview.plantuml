@@ -112,5 +112,4 @@ Signature ||...|{ SignatureDrug
 ' One SignatureDrug has one Drug
 Drug ||..|{ SignatureDrug
 
-
 @enduml
