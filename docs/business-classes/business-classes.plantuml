@@ -9,20 +9,7 @@ object Abgabe
 object Patientenschaft
 object Bestandeskontrolle
 object Abteilungsapotheke
-object Substanz
-
-Fachkraft -right- Abgabe: > erfasst
-Abgabe -right- Patientenschaft: > geht an
-Abgabe -down- Substanz: > enthält
-
-Abteilungsapotheke -right- Substanz: enthält
-Fachkraft -down- Bestandeskontrolle: > kontrolliert/\n> signiert/\n> exportiert
-
-Bestandeskontrolle -- Abteilungsapotheke: > verwendet
-Bestandeskontrolle -- Substanz: > enthält
-
-Fachkraft -- Abteilungsapotheke: > verwaltet
-Fachkraft -- Substanz: > erstellt/\n> bearbeitet/\n> entfernt
+object Medikament
 
 Fachkraft : Kürzel
 Fachkraft : Vorname
@@ -31,13 +18,35 @@ Abgabe : Zeitpunkt
 Abgabe : Dosis
 Patientenschaft : Name
 Bestandeskontrolle : Zeitpunkt
-Bestandeskontrolle : Substanzanzahl
+Bestandeskontrolle : Medikamentanzahl
 Abteilungsapotheke : Bestand
-Substanz : Name
-Substanz : Dosierung
-Substanz : Kategorie
-Substanz : Ausgabe-Einheit
-Substanz : Toleranz
-Substanz : Favorit
+Medikament : Name
+Medikament : Dosierung
+Medikament : Kategorie
+Medikament : Ausgabe-Einheit
+Medikament : Toleranz
+Medikament : Favorit
+
+' Eine Fachkraft erfasst 0-n Abgaben
+Fachkraft ||-right-o{ Abgabe: > erfasst
+' Eine Abgabe geht an eine Patientenschaft
+Abgabe ||-right-|| Patientenschaft: > geht an
+' Eine Abgabe enthält eine Medikament
+Abgabe ||-down-|| Medikament: > enthält
+
+' Eine Abteilungsapotheke enthält 0-n Medikamente
+Abteilungsapotheke ||-right-o{ Medikament: enthält
+' Eine Fachkraft signiert 1-n Bestandeskontrollen
+Fachkraft ||-down-|{ Bestandeskontrolle: > kontrolliert/\n> signiert/\n> exportiert
+
+' Eine Bestandeskontrolle verwendet eine Abteilungsapotheke
+Bestandeskontrolle ||--|| Abteilungsapotheke: > verwendet
+' Eine Bestandeskontrolle enthält 1-n Medikamente
+Bestandeskontrolle ||--|{ Medikament: > enthält
+
+' Eine Fachkraft verwaltet eine Abteilungsapotheke
+Fachkraft ||--|| Abteilungsapotheke: > verwaltet
+' Eine erstellt 0-n Medikamente
+Fachkraft ||--o{ Medikament: > erstellt/\n> bearbeitet/\n> entfernt
 
 @enduml
