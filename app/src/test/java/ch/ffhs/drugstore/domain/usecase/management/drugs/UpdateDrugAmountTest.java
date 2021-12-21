@@ -1,13 +1,15 @@
 package ch.ffhs.drugstore.domain.usecase.management.drugs;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
+import ch.ffhs.drugstore.domain.service.HistoryService;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UpdateDrugAmountDto;
 import ch.ffhs.drugstore.shared.exceptions.DrugNotFoundException;
@@ -16,16 +18,20 @@ import ch.ffhs.drugstore.shared.exceptions.InsufficientAmountException;
 import util.TestUtil;
 
 public class UpdateDrugAmountTest {
+    @Mock
     private DrugManagementService drugManagementService;
+    @Mock
+    private HistoryService historyService;
 
     @Before
     public void setUp() {
-        drugManagementService = mock(DrugManagementService.class);
+        MockitoAnnotations.openMocks(this);
     }
 
     @After
     public void tearDown() {
         drugManagementService = null;
+        historyService = null;
     }
 
     @Test(expected = InsufficientAmountException.class)
@@ -39,7 +45,8 @@ public class UpdateDrugAmountTest {
         when(drugManagementService.getDrugById(0)).thenReturn(fakeDrug);
 
         // Act
-        UpdateDrugAmount updateDrugAmount = new UpdateDrugAmount(drugManagementService);
+        UpdateDrugAmount updateDrugAmount = new UpdateDrugAmount(drugManagementService,
+                historyService);
         updateDrugAmount.execute(updateDrugAmountDto);
     }
 
@@ -54,7 +61,8 @@ public class UpdateDrugAmountTest {
         when(drugManagementService.getDrugById(0)).thenReturn(fakeDrug);
 
         // Act
-        UpdateDrugAmount updateDrugAmount = new UpdateDrugAmount(drugManagementService);
+        UpdateDrugAmount updateDrugAmount = new UpdateDrugAmount(drugManagementService,
+                historyService);
         updateDrugAmount.execute(updateDrugAmountDto);
     }
 
@@ -69,7 +77,8 @@ public class UpdateDrugAmountTest {
         when(drugManagementService.getDrugById(0)).thenReturn(fakeDrug);
 
         // Act
-        UpdateDrugAmount updateDrugAmount = new UpdateDrugAmount(drugManagementService);
+        UpdateDrugAmount updateDrugAmount = new UpdateDrugAmount(drugManagementService,
+                historyService);
         updateDrugAmount.execute(updateDrugAmountDto);
     }
 }

@@ -12,6 +12,7 @@ public interface ConfirmRemoveDrugListener {
      *
      * @param drugId the id of the drug
      * @param amount the amount to be removed
+     * @param userShortName the shortName of the currentUser
      */
-    void onConfirmRemoveDrug(int drugId, String amount);
+    void onConfirmRemoveDrug(int drugId, String amount, String userShortName);
 }

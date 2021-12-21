@@ -12,6 +12,7 @@ public interface ConfirmAddDrugListener {
      *
      * @param drugId the id of the drug
      * @param amount the amount to be added
+     * @param userShortName the shortName of the currentUser
      */
-    void onConfirmAddDrug(int drugId, String amount);
+    void onConfirmAddDrug(int drugId, String amount, String userShortName);
 }

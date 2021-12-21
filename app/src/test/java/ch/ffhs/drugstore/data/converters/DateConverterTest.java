@@ -5,17 +5,20 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 public class DateConverterTest {
 
     @Test
-    public void fromTimestamp() {
+    public void fromTimestampWithSystemDefaultZoneId() {
         long valid_timestamp = 1639436411L;
-        ZonedDateTime expected_date = ZonedDateTime.of(2021, 12, 13, 23, 0, 11, 0, ZoneOffset.UTC);
+        ZonedDateTime expected_date = ZonedDateTime.of(2021, 12, 14, 0, 0, 11, 0,
+                ZoneId.systemDefault());
         assertEquals(expected_date.toLocalTime(),
-                DateConverter.fromTimestampToUTC(valid_timestamp).toLocalTime());
+                DateConverter.fromTimestampToSystemDefaultZonedDateTime(
+                        valid_timestamp).toLocalTime());
     }
 
     @Test
@@ -34,6 +37,6 @@ public class DateConverterTest {
     @Test
     public void emptyLongShouldReturnNull() {
         Long invalid_timestamp = null;
-        assertNull(DateConverter.fromTimestampToUTC(invalid_timestamp));
+        assertNull(DateConverter.fromTimestampToSystemDefaultZonedDateTime(invalid_timestamp));
     }
 }

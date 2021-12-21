@@ -10,10 +10,12 @@ package ch.ffhs.drugstore.shared.dto.management.drugs;
 public class UpdateDrugAmountDto {
     private int drugId;
     private double amount;
+    private String userShortName;
 
-    public UpdateDrugAmountDto(int drugId, double amount) {
+    public UpdateDrugAmountDto(int drugId, double amount, String userShortName) {
         this.drugId = drugId;
         this.amount = amount;
+        this.userShortName = userShortName;
     }
 
     public int getDrugId() {
@@ -30,5 +32,13 @@ public class UpdateDrugAmountDto {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public String getUserShortName() {
+        return userShortName;
+    }
+
+    public void setUserShortName(String userShortName) {
+        this.userShortName = userShortName;
     }
 }

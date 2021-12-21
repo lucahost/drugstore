@@ -42,6 +42,7 @@ public class AddDrugDialogFragment extends DialogFragment {
     private String dosage = null;
     private String unit = null;
     private Double stockAmount = null;
+    private String userShortName = null;
     private ConfirmAddDrugListener confirmAddDrugListener = null;
 
     /**
@@ -140,10 +141,16 @@ public class AddDrugDialogFragment extends DialogFragment {
                 binding.drugCountTextLayout,
                 getString(R.string.error_amount_over_zero_required));
 
-        if (drugCountNotEmpty) {
-            String drugCount = Objects.requireNonNull(binding.drugCountText.getText()).toString();
+        boolean userShortNameNotEmpty = InputValidation.validateTextNotEmpty(
+                binding.userShortNameText,
+                binding.userShortNameTextLayout,
+                getString(R.string.error_name_required));
 
-            confirmAddDrugListener.onConfirmAddDrug(drugId, drugCount);
+        if (drugCountNotEmpty && userShortNameNotEmpty) {
+            String drugCount = Objects.requireNonNull(binding.drugCountText.getText()).toString();
+            String userShortName = Objects.requireNonNull(binding.userShortNameText.getText()).toString();
+
+            confirmAddDrugListener.onConfirmAddDrug(drugId, drugCount, userShortName);
         }
     }
 }

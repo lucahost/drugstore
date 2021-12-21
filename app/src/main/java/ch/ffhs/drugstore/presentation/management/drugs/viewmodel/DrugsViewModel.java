@@ -139,9 +139,9 @@ public class DrugsViewModel extends AndroidViewModel {
      * @param sAmount the amount to be added
      * @throws DrugstoreException if updating the drug amount goes wrong
      */
-    public void updateDrugAmount(int drugId, String sAmount) throws DrugstoreException {
+    public void updateDrugAmount(int drugId, String sAmount, String userShortName) throws DrugstoreException {
         double amount = tryParseDouble(sAmount);
-        UpdateDrugAmountDto updateDrugAmountDto = new UpdateDrugAmountDto(drugId, amount);
+        UpdateDrugAmountDto updateDrugAmountDto = new UpdateDrugAmountDto(drugId, amount, userShortName);
         updateDrugAmount.execute(updateDrugAmountDto);
     }
 

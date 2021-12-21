@@ -119,7 +119,8 @@ public class TestUtil {
 
     public static UpdateDrugAmountDto createUpdateDrugAmountDto(int drugId) {
         double amount = faker.number().randomDouble(2, 1, 10);
-        return new UpdateDrugAmountDto(drugId, amount);
+        String userShortName = faker.funnyName().name();
+        return new UpdateDrugAmountDto(drugId, amount, userShortName);
     }
 
     public static DrugTypeDto createDrugTypeDto(int drugTypeId) {

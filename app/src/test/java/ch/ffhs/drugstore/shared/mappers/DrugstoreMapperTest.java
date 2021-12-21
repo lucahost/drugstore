@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.text.IsEmptyString.isEmptyOrNullString;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -20,6 +21,7 @@ import ch.ffhs.drugstore.data.entity.Unit;
 import ch.ffhs.drugstore.data.entity.User;
 import ch.ffhs.drugstore.data.relation.DrugWithUnitAndDrugTypeAndSubstance;
 import ch.ffhs.drugstore.data.relation.TransactionWithDrugAndUser;
+import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import util.TestUtil;
@@ -53,10 +55,38 @@ public class DrugstoreMapperTest {
 
     @Test
     public void createDrugDtoToDrugDto() {
+        CreateDrugDto createDrugDto = TestUtil.createCreateDrugDto();
+
+        DrugDto drugDto = DrugstoreMapper.INSTANCE.createDrugDtoToDrugDto(createDrugDto);
+
+        assertEquals(String.valueOf(createDrugDto.getDrugTypeId()), drugDto.getDrugType());
+        assertEquals(createDrugDto.getSubstance(), drugDto.getSubstance());
+        assertEquals(createDrugDto.getTitle(), drugDto.getTitle());
+        assertEquals(createDrugDto.getTolerance(), drugDto.getTolerance(), 0);
+        assertEquals(createDrugDto.isFavorite(), drugDto.isFavorite());
+        assertEquals(createDrugDto.getDosage(), drugDto.getDosage());
+        assertEquals(String.valueOf(createDrugDto.getUnitId()), drugDto.getUnit());
     }
 
     @Test
     public void drugDtoToDrug() {
+        DrugDto drugDto = TestUtil.createDrugDto(1);
+        drugDto.setSubstance(null);
+        drugDto.setDrugType(null);
+        drugDto.setUnit(null);
+
+        Drug drug = DrugstoreMapper.INSTANCE.drugDtoToDrug(drugDto);
+
+        assertEquals(drugDto.isFavorite(), drug.isFavorite());
+        assertEquals(drugDto.getDrugId(), drug.getDrugId());
+        assertEquals(drugDto.getTitle(), drug.getTitle());
+        assertEquals(drugDto.getStockAmount(), drug.getStockAmount(), 0);
+        assertEquals(drugDto.getDosage(), drug.getDosage());
+
+        // Cant parse these back
+        assertNotEquals(drugDto.getUnit(), String.valueOf(drug.getUnitId()));
+        assertNotEquals(drugDto.getSubstance(), String.valueOf(drug.getSubstanceId()));
+        assertNotEquals(drugDto.getDrugType(), String.valueOf(drug.getDrugTypeId()));
     }
 
     @Test
@@ -98,7 +128,7 @@ public class DrugstoreMapperTest {
     @Test
     public void transactionToTransactionDto() {
         // given
-        int transactionId = 1;
+        Integer transactionId = 1;
         int userId = 2;
         String firstName = "a";
         String lastName = "b";

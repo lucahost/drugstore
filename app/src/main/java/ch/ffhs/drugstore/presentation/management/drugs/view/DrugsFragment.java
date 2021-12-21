@@ -130,10 +130,10 @@ public class DrugsFragment extends Fragment
      * {@inheritDoc}
      */
     @Override
-    public void onConfirmAddDrug(int drugId, String amount) {
+    public void onConfirmAddDrug(int drugId, String amount, String userShortName) {
         dialogService.dismiss(DialogType.ADD_DRUG);
         try {
-            viewModel.updateDrugAmount(drugId, amount);
+            viewModel.updateDrugAmount(drugId, amount, userShortName);
         } catch (DrugstoreException ex) {
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.error_update_drug_amount)
@@ -196,10 +196,10 @@ public class DrugsFragment extends Fragment
      * {@inheritDoc}
      */
     @Override
-    public void onConfirmRemoveDrug(int drugId, String amount) {
+    public void onConfirmRemoveDrug(int drugId, String amount, String userShortName) {
         dialogService.dismiss(DialogType.REMOVE_DRUG);
         try {
-            viewModel.updateDrugAmount(drugId, "-" + amount);
+            viewModel.updateDrugAmount(drugId, "-" + amount, userShortName);
         } catch (DrugstoreException ex) {
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.error_update_drug_amount)

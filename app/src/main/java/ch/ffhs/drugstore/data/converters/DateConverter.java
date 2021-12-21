@@ -6,6 +6,7 @@ import androidx.room.TypeConverter;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.TimeZone;
 
 /**
  * This class converts the date to timestamp and reverse needed because SQLite can't handle date
@@ -21,12 +22,12 @@ public class DateConverter {
      * @return ZonedDateTime
      */
     @TypeConverter
-    public static ZonedDateTime fromTimestampToUTC(Long value) {
+    public static ZonedDateTime fromTimestampToSystemDefaultZonedDateTime(Long value) {
         if (value == null) {
             return null;
         }
         Instant i = Instant.ofEpochSecond(value);
-        return ZonedDateTime.ofInstant(i, ZoneId.of("UTC"));
+        return ZonedDateTime.ofInstant(i, ZoneId.systemDefault());
     }
 
     /**

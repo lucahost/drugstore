@@ -62,7 +62,7 @@ public class DispenseDrug implements UseCase<Void, SubmitDispenseDto> {
         }
 
         UpdateDrugAmountDto updateDrugAmountDto = new UpdateDrugAmountDto(drug.getDrugId(),
-                newAmount);
+                newAmount, submitDispenseDto.getUserShortname());
         drugManagementService.updateDrugAmount(updateDrugAmountDto);
         historyService.addTransaction(transaction);
         return null;

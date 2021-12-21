@@ -140,10 +140,16 @@ public class RemoveDrugDialogFragment extends DialogFragment {
                 binding.drugCountTextLayout,
                 getString(R.string.error_amount_over_zero_required));
 
-        if (drugCountNotEmpty) {
-            String drugCount = Objects.requireNonNull(binding.drugCountText.getText()).toString();
+        boolean userShortNameNotEmpty = InputValidation.validateTextNotEmpty(
+                binding.userShortNameText,
+                binding.userShortNameTextLayout,
+                getString(R.string.error_name_required));
 
-            confirmRemoveDrugListener.onConfirmRemoveDrug(drugId, drugCount);
+        if (drugCountNotEmpty && userShortNameNotEmpty) {
+            String drugCount = Objects.requireNonNull(binding.drugCountText.getText()).toString();
+            String userShortName = Objects.requireNonNull(binding.userShortNameText.getText()).toString();
+
+            confirmRemoveDrugListener.onConfirmRemoveDrug(drugId, drugCount, userShortName);
         }
     }
 }
