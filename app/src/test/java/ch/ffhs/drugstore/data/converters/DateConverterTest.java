@@ -16,7 +16,7 @@ public class DateConverterTest {
     @Test
     public void fromTimestamp() {
         long valid_timestamp = 1639436411L;
-        ZonedDateTime expected_date = ZonedDateTime.of(2021, 12, 14, 0, 0, 11, 0,
+        ZonedDateTime expected_date = ZonedDateTime.of(2021, 12, 13, 23, 0, 11, 0,
                 UTC);
         assertEquals(expected_date.toLocalTime(),
                 DateConverter.fromTimestampToSystemDefaultZonedDateTime(
