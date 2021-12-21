@@ -36,4 +36,8 @@ public class UnitRepository {
         Unit unit = mapper.unitFromUnitDto(unitDto);
         return unitDao.insert(unit);
     }
+
+    public void deleteUnitById(Integer unitId) {
+        unitDao.deleteUnitById(unitId);
+    }
 }

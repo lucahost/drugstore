@@ -173,4 +173,12 @@ public class DrugManagementService {
             throw new DrugAlreadyUsedException(R.string.drug_prevente_delete);
         }
     }
+
+    public void deleteDrugType(Integer drugTypeId) {
+        drugTypeRepository.deleteDrugTypeById(drugTypeId);
+    }
+
+    public void deleteUnit(Integer unitId) {
+        unitRepository.deleteUnitById(unitId);
+    }
 }

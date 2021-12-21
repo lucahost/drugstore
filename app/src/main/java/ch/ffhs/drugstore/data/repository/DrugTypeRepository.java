@@ -39,4 +39,8 @@ public class DrugTypeRepository {
         DrugType drugType = mapper.drugTypeFromDrugTypeDto(drugTypeDto);
         return drugTypeDao.insert(drugType);
     }
+
+    public void deleteDrugTypeById(Integer drugTypeId) {
+        drugTypeDao.deleteDrugTypeById(drugTypeId);
+    }
 }

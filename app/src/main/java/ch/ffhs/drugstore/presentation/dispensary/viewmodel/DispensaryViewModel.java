@@ -17,7 +17,7 @@ import javax.inject.Inject;
 import ch.ffhs.drugstore.domain.usecase.dispensary.DispenseDrug;
 import ch.ffhs.drugstore.domain.usecase.dispensary.GetAllDispensaryItems;
 import ch.ffhs.drugstore.domain.usecase.dispensary.ToggleDrugIsFavorite;
-import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugTypes;
+import ch.ffhs.drugstore.domain.usecase.management.drugTypes.GetDrugTypes;
 import ch.ffhs.drugstore.presentation.dispensary.view.FilterState;
 import ch.ffhs.drugstore.shared.dto.dispensary.SubmitDispenseDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;

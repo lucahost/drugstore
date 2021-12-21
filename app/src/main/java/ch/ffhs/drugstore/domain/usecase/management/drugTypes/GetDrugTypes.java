@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.domain.usecase.management.drugs;
+package ch.ffhs.drugstore.domain.usecase.management.drugTypes;
 
 import androidx.lifecycle.LiveData;
 
@@ -8,24 +8,24 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
 import ch.ffhs.drugstore.domain.usecase.UseCase;
-import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 
 /**
- * Use-Case class to get all substances
+ * Use-Case class to return all drug types
  *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
-public class GetSubstances implements UseCase<LiveData<List<SubstanceDto>>, Void> {
+public class GetDrugTypes implements UseCase<LiveData<List<DrugTypeDto>>, Void> {
     private final DrugManagementService drugManagementService;
 
     /**
-     * Construct a {@link GetSubstances} use case
+     * Construct a {@link GetDrugTypes} use case
      *
      * @param drugManagementService drug management service
      */
     @Inject
-    public GetSubstances(DrugManagementService drugManagementService) {
+    public GetDrugTypes(DrugManagementService drugManagementService) {
         this.drugManagementService = drugManagementService;
     }
 
@@ -33,10 +33,10 @@ public class GetSubstances implements UseCase<LiveData<List<SubstanceDto>>, Void
      * {@inheritDoc}
      *
      * @param unused no parameters
-     * @return live data list of substances
+     * @return live data list of drug types
      */
     @Override
-    public LiveData<List<SubstanceDto>> execute(Void unused) {
-        return drugManagementService.getAllSubstances();
+    public LiveData<List<DrugTypeDto>> execute(Void unused) {
+        return drugManagementService.getAllDrugTypes();
     }
 }

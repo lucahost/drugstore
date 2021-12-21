@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.domain.usecase.management.drugs;
+package ch.ffhs.drugstore.domain.usecase.management.drugTypes;
 
 import javax.inject.Inject;
 

@@ -2,6 +2,7 @@ package ch.ffhs.drugstore.data.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
@@ -32,4 +33,7 @@ public interface DrugTypeDao {
      */
     @Insert
     long insert(DrugType drugType);
+
+    @Query("DELETE FROM drugTypes WHERE drugTypeId = :drugTypeId")
+    void deleteDrugTypeById(int drugTypeId);
 }

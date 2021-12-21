@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
+import ch.ffhs.drugstore.domain.usecase.management.substances.GetSubstances;
 import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import util.TestUtil;
 

@@ -147,7 +147,8 @@ public class DispensaryIntegrationTest {
     }
 
     @Test(expected = InsufficientAmountException.class)
-    public void dispenseDrugThrowsInsufficientExceptionIfAmountIsTooHigh() throws DrugstoreException, InterruptedException {
+    public void dispenseDrugThrowsInsufficientExceptionIfAmountIsTooHigh()
+            throws DrugstoreException, InterruptedException {
         // Arrange
         DrugManagementService drugManagementService = new DrugManagementService(drugRepository,
                 drugTypeRepository, substanceRepository, unitRepository);

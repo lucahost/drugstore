@@ -14,10 +14,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ch.ffhs.drugstore.domain.usecase.management.drugs.CreateDrugType;
-import ch.ffhs.drugstore.domain.usecase.management.drugs.CreateUnit;
-import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugTypes;
-import ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugUnits;
+import ch.ffhs.drugstore.domain.usecase.management.drugTypes.CreateDrugType;
+import ch.ffhs.drugstore.domain.usecase.management.units.CreateUnit;
+import ch.ffhs.drugstore.domain.usecase.management.drugTypes.GetDrugTypes;
+import ch.ffhs.drugstore.domain.usecase.management.units.GetDrugUnits;
 import ch.ffhs.drugstore.domain.usecase.settings.database.ExportDatabase;
 import ch.ffhs.drugstore.domain.usecase.settings.database.ImportDatabase;
 import ch.ffhs.drugstore.presentation.SingleLiveEvent;

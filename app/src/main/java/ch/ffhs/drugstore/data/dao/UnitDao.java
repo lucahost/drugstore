@@ -29,4 +29,7 @@ public interface UnitDao {
      */
     @Insert
     long insert(Unit unit);
+
+    @Query("DELETE FROM units WHERE unitId = :unitId")
+    void deleteUnitById(int unitId);
 }
