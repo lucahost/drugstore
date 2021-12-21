@@ -5,14 +5,18 @@ actor "User" as user
 interface "External Services" as e #lightgrey
 
 node "Drugstore" as drugstore {
+    component Shared
     component "Presentation" as ui
     component Domain
     component Data
     ui -down-> Domain
     Domain -down-> Data
+    ui -down-> Shared
+    Domain -left-> Shared
+    Data -left-> Shared
 }
 
-user -right-> ui
+user --> ui
 Data .right.> e
 
 @enduml
