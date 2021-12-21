@@ -50,7 +50,8 @@ public class UpdateDrugAmount implements UseCase<Void, UpdateDrugAmountDto> {
      */
     @Override
     public Void execute(UpdateDrugAmountDto updateDrugAmountDto) throws DrugstoreException {
-        if (updateDrugAmountDto.getUserShortName().isEmpty()) {
+        String userShortName = updateDrugAmountDto.getUserShortName();
+        if (userShortName == null || userShortName.isEmpty()) {
             throw new InvalidUserException(R.string.error_employee_required);
         }
         DrugDto drug = drugManagementService.getDrugById(updateDrugAmountDto.getDrugId());
@@ -68,7 +69,7 @@ public class UpdateDrugAmount implements UseCase<Void, UpdateDrugAmountDto> {
 
         // Insert 'TO SYSTEM' Transaction in History
         UserDto user = new UserDto();
-        user.setShortName(updateDrugAmountDto.getUserShortName());
+        user.setShortName(userShortName);
         TransactionDto transactionDto = new TransactionDto(null, drug, user, ZonedDateTime.now(),
                 amountToAddOrRemove, "SYSTEM");
         historyService.addTransaction(transactionDto);

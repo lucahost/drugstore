@@ -15,6 +15,7 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.UpdateDrugAmountDto;
 import ch.ffhs.drugstore.shared.exceptions.DrugNotFoundException;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import ch.ffhs.drugstore.shared.exceptions.InsufficientAmountException;
+import ch.ffhs.drugstore.shared.exceptions.InvalidUserException;
 import util.TestUtil;
 
 public class UpdateDrugAmountTest {
@@ -59,6 +60,19 @@ public class UpdateDrugAmountTest {
         DrugDto fakeDrug = TestUtil.createDrugDto(1);
         fakeDrug.setStockAmount(0);
         when(drugManagementService.getDrugById(0)).thenReturn(fakeDrug);
+
+        // Act
+        UpdateDrugAmount updateDrugAmount = new UpdateDrugAmount(drugManagementService,
+                historyService);
+        updateDrugAmount.execute(updateDrugAmountDto);
+    }
+
+    @Test(expected = InvalidUserException.class)
+    public void executeUpdateDrugAmountWithoutUserShortNameThrows() throws DrugstoreException {
+        // Arrange
+        UpdateDrugAmountDto updateDrugAmountDto = TestUtil.createUpdateDrugAmountDto(0);
+        updateDrugAmountDto.setAmount(2);
+        updateDrugAmountDto.setUserShortName(null);
 
         // Act
         UpdateDrugAmount updateDrugAmount = new UpdateDrugAmount(drugManagementService,
