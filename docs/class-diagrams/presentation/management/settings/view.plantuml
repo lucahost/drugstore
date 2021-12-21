@@ -1,0 +1,27 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace settings.view {
+          class ch.ffhs.drugstore.presentation.management.settings.view.SettingsFragment {
+              - activityResultLauncher : ActivityResultLauncher<Intent>
+              - binding : FragmentSettingsBinding
+              - dbFileUri : Uri
+              + onAttach()
+              + onCreateView()
+              + onViewCreated()
+              - exportDb()
+              - setupRecyclerView()
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.settings.view.SettingsFragment -up-|> androidx.fragment.app.Fragment
+  ch.ffhs.drugstore.presentation.management.settings.view.SettingsFragment o-- ch.ffhs.drugstore.presentation.management.settings.viewmodel.SettingsViewModel : viewModel
+
+
+@enduml

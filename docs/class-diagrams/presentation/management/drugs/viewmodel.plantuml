@@ -1,0 +1,38 @@
+@startuml
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.viewmodel {
+            class ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel {
+                - drugTypes : LiveData<List<DrugTypeDto>>
+                - drugUnits : LiveData<List<UnitDto>>
+                - drugs : LiveData<List<DrugDto>>
+                - substances : LiveData<List<SubstanceDto>>
+                + DrugsViewModel()
+                + createDrug()
+                + deleteDrug()
+                + editDrug()
+                + getDrugTypes()
+                + getDrugUnits()
+                + getDrugs()
+                + getSubstances()
+                + updateDrugAmount()
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel o-- ch.ffhs.drugstore.domain.usecase.management.drugs.CreateDrug : createDrug
+  ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel o-- ch.ffhs.drugstore.domain.usecase.management.drugs.DeleteDrug : deleteDrug
+  ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel o-- ch.ffhs.drugstore.domain.usecase.management.drugs.EditDrug : editDrug
+  ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel o-- ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugTypes : getDrugTypes
+  ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel o-- ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugUnits : getDrugUnits
+  ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel o-- ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugs : getDrugs
+  ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel o-- ch.ffhs.drugstore.domain.usecase.management.drugs.GetSubstances : getSubstances
+  ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel o-- ch.ffhs.drugstore.domain.usecase.management.drugs.UpdateDrugAmount : updateDrugAmount
+
+
+@enduml

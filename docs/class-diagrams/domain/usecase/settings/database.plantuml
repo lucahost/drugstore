@@ -1,0 +1,32 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.usecase {
+      namespace settings.database {
+        interface ch.ffhs.drugstore.domain.usecase.UseCase {
+                  {abstract} + execute()
+              }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.usecase {
+      namespace settings.database {
+        class ch.ffhs.drugstore.domain.usecase.settings.database.ImportDatabase {
+            + ImportDatabase()
+            + execute()
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.domain.usecase.settings.database.ExportDatabase .up.|> ch.ffhs.drugstore.domain.usecase.UseCase
+  ch.ffhs.drugstore.domain.usecase.settings.database.ExportDatabase o-- ch.ffhs.drugstore.domain.service.DatabaseService : databaseService
+  ch.ffhs.drugstore.domain.usecase.settings.database.ImportDatabase .up.|> ch.ffhs.drugstore.domain.usecase.UseCase
+  ch.ffhs.drugstore.domain.usecase.settings.database.ImportDatabase o-- ch.ffhs.drugstore.domain.service.DatabaseService : databaseService
+
+
+@enduml

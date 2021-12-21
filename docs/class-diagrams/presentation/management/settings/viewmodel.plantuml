@@ -1,0 +1,26 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace settings.viewmodel {
+            class ch.ffhs.drugstore.presentation.management.settings.viewmodel.SettingsViewModel {
+                - app : Application
+                - databaseExportedEvent : SingleLiveEvent<Uri>
+                + SettingsViewModel()
+                + exportDatabase()
+                + getDatabaseExportedEvent()
+                + importDatabase()
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.settings.viewmodel.SettingsViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  ch.ffhs.drugstore.presentation.management.settings.viewmodel.SettingsViewModel o-- ch.ffhs.drugstore.domain.usecase.settings.database.ExportDatabase : exportDatabase
+  ch.ffhs.drugstore.presentation.management.settings.viewmodel.SettingsViewModel o-- ch.ffhs.drugstore.domain.usecase.settings.database.ImportDatabase : importDatabase
+
+
+@enduml

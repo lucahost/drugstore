@@ -1,0 +1,178 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.dto.management.drugs {
+      class ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugDto {
+          - dosage : String
+          - drugTypeId : int
+          - isFavorite : boolean
+          - substance : String
+          - title : String
+          - tolerance : double
+          - unitId : int
+          + CreateDrugDto()
+          + getDosage()
+          + getDrugTypeId()
+          + getSubstance()
+          + getTitle()
+          + getTolerance()
+          + getUnitId()
+          + isFavorite()
+          + setDosage()
+          + setDrugTypeId()
+          + setFavorite()
+          + setSubstance()
+          + setTitle()
+          + setTolerance()
+          + setUnitId()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.dto.management.drugs {
+      class ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto {
+          - dosage : String
+          - drugId : int
+          - drugType : String
+          - isFavorite : boolean
+          - stockAmount : double
+          - substance : String
+          - title : String
+          - tolerance : double
+          - unit : String
+          + DrugDto()
+          + getDosage()
+          + getDrugId()
+          + getDrugType()
+          + getStockAmount()
+          + getSubstance()
+          + getTitle()
+          + getTolerance()
+          + getUnit()
+          + isFavorite()
+          + setDosage()
+          + setDrugId()
+          + setDrugType()
+          + setFavorite()
+          + setStockAmount()
+          + setSubstance()
+          + setTitle()
+          + setTolerance()
+          + setUnit()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.dto.management.drugs {
+      class ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto {
+          - drugTypeId : int
+          - title : String
+          + DrugTypeDto()
+          + getDrugTypeId()
+          + getTitle()
+          + setDrugTypeId()
+          + setTitle()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.dto.management.drugs {
+      class ch.ffhs.drugstore.shared.dto.management.drugs.EditDrugDto {
+          - dosage : String
+          - drugId : int
+          - drugTypeId : int
+          - isFavorite : boolean
+          - substance : String
+          - title : String
+          - tolerance : double
+          - unitId : int
+          + EditDrugDto()
+          + getDosage()
+          + getDrugId()
+          + getDrugTypeId()
+          + getSubstance()
+          + getTitle()
+          + getTolerance()
+          + getUnitId()
+          + isFavorite()
+          + setDosage()
+          + setDrugId()
+          + setDrugTypeId()
+          + setFavorite()
+          + setSubstance()
+          + setTitle()
+          + setTolerance()
+          + setUnitId()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.dto.management.drugs {
+      class ch.ffhs.drugstore.shared.dto.management.drugs.SelectableDrugDto {
+          - isSelected : boolean
+          + SelectableDrugDto()
+          + SelectableDrugDto()
+          + isSelected()
+          + setSelected()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.dto.management.drugs {
+      class ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto {
+          - substanceId : int
+          - title : String
+          + SubstanceDto()
+          + getSubstanceId()
+          + getTitle()
+          + setSubstanceId()
+          + setTitle()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.dto.management.drugs {
+      class ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto {
+          - title : String
+          - unitId : int
+          + UnitDto()
+          + getTitle()
+          + getUnitId()
+          + setTitle()
+          + setUnitId()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.dto.management.drugs {
+      class ch.ffhs.drugstore.shared.dto.management.drugs.UpdateDrugAmountDto {
+          - amount : double
+          - drugId : int
+          + UpdateDrugAmountDto()
+          + getAmount()
+          + getDrugId()
+          + setAmount()
+          + setDrugId()
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.shared.dto.management.drugs.SelectableDrugDto -up-|> ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto
+
+
+@enduml

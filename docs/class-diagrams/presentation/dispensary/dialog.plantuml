@@ -1,0 +1,83 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace dispensary.view {
+        namespace dialog {
+          interface ch.ffhs.drugstore.presentation.dispensary.view.dialog.ConfirmDispenseDrugListener {
+              {abstract} + onConfirmDispenseDrug()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace dispensary.view {
+        namespace dialog {
+          class ch.ffhs.drugstore.presentation.dispensary.view.dialog.DispenseDrugDialogFragment {
+              {static} + ARG_DRUG_DOSAGE : String
+              {static} + ARG_DRUG_ID : String
+              {static} + ARG_DRUG_TITLE : String
+              {static} + ARG_DRUG_UNIT : String
+              {static} + TAG : String
+              - binding : DialogDispenseDrugBinding
+              - drugDosage : String
+              - drugId : Integer
+              - drugTitle : String
+              - drugUnit : String
+              + DispenseDrugDialogFragment()
+              + onAttach()
+              + onCreate()
+              + onCreateDialog()
+              + onDetach()
+              - getAlertDialog()
+              - validateInputAndConfirmDispense()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace dispensary.view {
+        namespace dialog {
+          class ch.ffhs.drugstore.presentation.dispensary.view.dialog.DispenseDrugDialogFragmentArgs {
+              - drugDosage : String
+              - drugId : int
+              - drugTitle : String
+              - drugUnit : String
+              + DispenseDrugDialogFragmentArgs()
+              + getDrugDosage()
+              + getDrugId()
+              + getDrugTitle()
+              + getDrugUnit()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace dispensary.view {
+        namespace dialog {
+          interface ch.ffhs.drugstore.presentation.dispensary.view.dialog.DispenseDrugDialogFragmentFactory {
+              {abstract} + create()
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.dispensary.view.dialog.DispenseDrugDialogFragment -up-|> androidx.fragment.app.DialogFragment
+  ch.ffhs.drugstore.presentation.dispensary.view.dialog.DispenseDrugDialogFragment o-- ch.ffhs.drugstore.presentation.dispensary.view.dialog.ConfirmDispenseDrugListener : confirmDispenseDrugListener
+
+
+@enduml

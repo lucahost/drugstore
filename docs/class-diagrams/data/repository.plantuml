@@ -1,0 +1,152 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace repository {
+        class ch.ffhs.drugstore.data.repository.DrugRepository {
+            - allDrugs : LiveData<List<DrugWithUnitAndDrugTypeAndSubstance>>
+            + DrugRepository()
+            + createDrug()
+            + delete()
+            + deleteAll()
+            + deleteDrugById()
+            + editDrug()
+            + getAllDrugs()
+            + getDrugById()
+            + getOnStockDrugs()
+            + getOnStockDrugs()
+            + insert()
+            + toggleDrugIsFavorite()
+            + update()
+            + updateDrugAmount()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace repository {
+        class ch.ffhs.drugstore.data.repository.DrugTypeRepository {
+            - allDrugTypes : LiveData<List<DrugTypeWithParentDrugType>>
+            + DrugTypeRepository()
+            + getAllDrugTypes()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace repository {
+        class ch.ffhs.drugstore.data.repository.SignatureDrugRepository {
+            + SignatureDrugRepository()
+            + getSignatureDrugsBySignatureId()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace repository {
+        class ch.ffhs.drugstore.data.repository.SignatureRepository {
+            - allSignaturesWithDrugs : LiveData<List<SignatureWithUserAndSignatureDrugsAndDrugs>>
+            + SignatureRepository()
+            + createSignatureFrom()
+            + delete()
+            + deleteAll()
+            + getSignatureBySignatureId()
+            + getSignatures()
+            + insert()
+            + update()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace repository {
+        class ch.ffhs.drugstore.data.repository.SubstanceRepository {
+            - allSubstances : LiveData<List<Substance>>
+            + SubstanceRepository()
+            + getAllSubstances()
+            + getOrCreateSubstanceByTitle()
+            + getSubstanceById()
+            + getSubstanceByTitle()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace repository {
+        class ch.ffhs.drugstore.data.repository.TransactionRepository {
+            - allTransactions : LiveData<List<TransactionWithDrugAndUser>>
+            + TransactionRepository()
+            + addTransaction()
+            + delete()
+            + deleteAll()
+            + getAllTransactions()
+            + update()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace repository {
+        class ch.ffhs.drugstore.data.repository.UnitRepository {
+            - allUnits : LiveData<List<UnitDto>>
+            + UnitRepository()
+            + getAllUnits()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace repository {
+        class ch.ffhs.drugstore.data.repository.UserRepository {
+            - allUsers : LiveData<List<User>>
+            + UserRepository()
+            + addUser()
+            + getAllUsers()
+            + getUserById()
+            + getUserByShortName()
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.data.repository.DrugRepository o-- ch.ffhs.drugstore.data.dao.DrugDao : drugDao
+  ch.ffhs.drugstore.data.repository.DrugRepository o-- ch.ffhs.drugstore.shared.mappers.DrugstoreMapper : mapper
+  ch.ffhs.drugstore.data.repository.DrugTypeRepository o-- ch.ffhs.drugstore.data.dao.DrugTypeDao : drugTypeDao
+  ch.ffhs.drugstore.data.repository.DrugTypeRepository o-- ch.ffhs.drugstore.shared.mappers.DrugstoreMapper : mapper
+  ch.ffhs.drugstore.data.repository.SignatureDrugRepository o-- ch.ffhs.drugstore.shared.mappers.DrugstoreMapper : mapper
+  ch.ffhs.drugstore.data.repository.SignatureDrugRepository o-- ch.ffhs.drugstore.data.dao.SignatureDrugDao : signatureDrugDao
+  ch.ffhs.drugstore.data.repository.SignatureRepository o-- ch.ffhs.drugstore.shared.mappers.DrugstoreMapper : mapper
+  ch.ffhs.drugstore.data.repository.SignatureRepository o-- ch.ffhs.drugstore.data.dao.SignatureDao : signatureDao
+  ch.ffhs.drugstore.data.repository.SignatureRepository o-- ch.ffhs.drugstore.data.dao.SignatureDrugDao : signatureDrugDao
+  ch.ffhs.drugstore.data.repository.SubstanceRepository o-- ch.ffhs.drugstore.shared.mappers.DrugstoreMapper : mapper
+  ch.ffhs.drugstore.data.repository.SubstanceRepository o-- ch.ffhs.drugstore.data.dao.SubstanceDao : substanceDao
+  ch.ffhs.drugstore.data.repository.TransactionRepository o-- ch.ffhs.drugstore.shared.mappers.DrugstoreMapper : mapper
+  ch.ffhs.drugstore.data.repository.TransactionRepository o-- ch.ffhs.drugstore.data.dao.TransactionDao : transactionDao
+  ch.ffhs.drugstore.data.repository.UnitRepository o-- ch.ffhs.drugstore.data.dao.UnitDao : unitDao
+  ch.ffhs.drugstore.data.repository.UserRepository o-- ch.ffhs.drugstore.shared.mappers.DrugstoreMapper : mapper
+  ch.ffhs.drugstore.data.repository.UserRepository o-- ch.ffhs.drugstore.data.dao.UserDao : userDao
+
+
+@enduml

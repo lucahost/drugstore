@@ -1,0 +1,103 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.view {
+          namespace dialog {
+            namespace remove {
+              interface ch.ffhs.drugstore.presentation.management.drugs.view.dialog.remove.ConfirmRemoveDrugListener {
+                  {abstract} + onConfirmRemoveDrug()
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.view {
+          namespace dialog {
+            namespace remove {
+              class ch.ffhs.drugstore.presentation.management.drugs.view.dialog.remove.RemoveDrugDialogFragment {
+                  {static} + ARG_DRUG_DOSAGE : String
+                  {static} + ARG_DRUG_ID : String
+                  {static} + ARG_DRUG_STOCKAMOUNT : String
+                  {static} + ARG_DRUG_TITLE : String
+                  {static} + ARG_DRUG_UNIT : String
+                  {static} + TAG : String
+                  - binding : DialogRemoveDrugBinding
+                  - dosage : String
+                  - drugId : Integer
+                  - drugTitle : String
+                  - stockAmount : Double
+                  - unit : String
+                  + RemoveDrugDialogFragment()
+                  + onAttach()
+                  + onCreate()
+                  + onCreateDialog()
+                  + onDetach()
+                  - getAlertDialog()
+                  - validateInputAndConfirmRemoveDrug()
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.view {
+          namespace dialog {
+            namespace remove {
+              class ch.ffhs.drugstore.presentation.management.drugs.view.dialog.remove.RemoveDrugDialogFragmentArgs {
+                  - dosage : String
+                  - drugId : int
+                  - drugTitle : String
+                  - stockAmount : double
+                  - unit : String
+                  + RemoveDrugDialogFragmentArgs()
+                  + getDosage()
+                  + getDrugId()
+                  + getDrugTitle()
+                  + getStockAmount()
+                  + getUnit()
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.view {
+          namespace dialog {
+            namespace remove {
+              interface ch.ffhs.drugstore.presentation.management.drugs.view.dialog.remove.RemoveDrugDialogFragmentFactory {
+                  {abstract} + create()
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.drugs.view.dialog.remove.RemoveDrugDialogFragment -up-|> androidx.fragment.app.DialogFragment
+  ch.ffhs.drugstore.presentation.management.drugs.view.dialog.remove.RemoveDrugDialogFragment o-- ch.ffhs.drugstore.presentation.management.drugs.view.dialog.remove.ConfirmRemoveDrugListener : confirmRemoveDrugListener
+
+
+@enduml

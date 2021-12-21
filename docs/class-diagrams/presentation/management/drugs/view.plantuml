@@ -1,0 +1,42 @@
+@startuml
+
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.view {
+          class ch.ffhs.drugstore.presentation.management.drugs.view.DrugsFragment {
+              - binding : FragmentDrugsBinding
+              + onConfirmAddDrug()
+              + onConfirmCreateDrug()
+              + onConfirmDeleteDrug()
+              + onConfirmEditDrug()
+              + onConfirmRemoveDrug()
+              + onCreate()
+              + onCreateView()
+              + onItemClick()
+              + onViewCreated()
+              - context()
+              - getMenuItemClickListener()
+              - setupRecyclerView()
+              - showPopup()
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.drugs.view.DrugsFragment .up.|> ch.ffhs.drugstore.presentation.management.drugs.view.adapter.OnDrugListItemClickListener
+  ch.ffhs.drugstore.presentation.management.drugs.view.DrugsFragment .up.|> ch.ffhs.drugstore.presentation.management.drugs.view.dialog.add.ConfirmAddDrugListener
+  ch.ffhs.drugstore.presentation.management.drugs.view.DrugsFragment .up.|> ch.ffhs.drugstore.presentation.management.drugs.view.dialog.create.ConfirmCreateDrugListener
+  ch.ffhs.drugstore.presentation.management.drugs.view.DrugsFragment .up.|> ch.ffhs.drugstore.presentation.management.drugs.view.dialog.delete.ConfirmDeleteDrugListener
+  ch.ffhs.drugstore.presentation.management.drugs.view.DrugsFragment .up.|> ch.ffhs.drugstore.presentation.management.drugs.view.dialog.edit.ConfirmEditDrugListener
+  ch.ffhs.drugstore.presentation.management.drugs.view.DrugsFragment .up.|> ch.ffhs.drugstore.presentation.management.drugs.view.dialog.remove.ConfirmRemoveDrugListener
+  ch.ffhs.drugstore.presentation.management.drugs.view.DrugsFragment -up-|> androidx.fragment.app.Fragment
+  ch.ffhs.drugstore.presentation.management.drugs.view.DrugsFragment o-- ch.ffhs.drugstore.presentation.management.drugs.view.adapter.DrugListAdapter : adapter
+  ch.ffhs.drugstore.presentation.management.drugs.view.DrugsFragment o-- ch.ffhs.drugstore.presentation.dialog.DialogService : dialogService
+  ch.ffhs.drugstore.presentation.management.drugs.view.DrugsFragment o-- ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel : viewModel
+
+
+@enduml

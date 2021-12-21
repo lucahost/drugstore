@@ -1,0 +1,28 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace dispensary.viewmodel {
+          class ch.ffhs.drugstore.presentation.dispensary.viewmodel.DispensaryViewModel {
+              - dispensaryItems : LiveData<List<DrugDto>>
+              - drugTypes : LiveData<List<DrugTypeDto>>
+              - filterState : MutableLiveData<FilterState<Integer>>
+              + DispensaryViewModel()
+              + dispenseDrug()
+              + filter()
+              + getDispensaryItems()
+              + getDrugTypes()
+              + getFilterState()
+              + toggleDrugIsFavorite()
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.dispensary.viewmodel.DispensaryViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  ch.ffhs.drugstore.presentation.dispensary.viewmodel.DispensaryViewModel o-- ch.ffhs.drugstore.domain.usecase.dispensary.DispenseDrug : dispenseDrug
+  ch.ffhs.drugstore.presentation.dispensary.viewmodel.DispensaryViewModel o-- ch.ffhs.drugstore.domain.usecase.management.drugs.GetDrugTypes : getDrugTypes
+  ch.ffhs.drugstore.presentation.dispensary.viewmodel.DispensaryViewModel o-- ch.ffhs.drugstore.domain.usecase.dispensary.ToggleDrugIsFavorite : toggleDrugIsFavorite
+
+@enduml

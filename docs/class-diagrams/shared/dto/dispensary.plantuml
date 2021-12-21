@@ -1,0 +1,25 @@
+@startuml
+
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.dto.dispensary {
+      class ch.ffhs.drugstore.shared.dto.dispensary.SubmitDispenseDto {
+          - amount : double
+          - drugId : int
+          - patient : String
+          - userShortname : String
+          + SubmitDispenseDto()
+          + getAmount()
+          + getDrugId()
+          + getPatient()
+          + getUserShortname()
+          + setAmount()
+          + setDrugId()
+          + setPatient()
+          + setUserShortname()
+      }
+    }
+  }
+  
+
+@enduml

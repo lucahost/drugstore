@@ -14,7 +14,7 @@ node "Drugstore" {
       component ViewModel
       Activity -down-> Fragment
       Fragment  -down-> Adapter
-      View  -down-> ViewModel
+      Fragment  -right-> ViewModel
     }
 
     package Domain {
@@ -29,17 +29,29 @@ node "Drugstore" {
       component DAO
       component Provider
       database Database
-      Repository --> Provider
       Repository --> DAO
       DAO -down-> Database
+      Repository --> Provider
       DAO --> Entity
       Provider --> Entity
     }
+
+    package Shared {
+      component DTO
+      component Exceptions
+      component Extensions
+      component Mappers
+    }
+
+    Presentation -right-> Shared
+    Domain -right-> Shared
+    Data --> Shared
 }
+
 
 user -down-> View
 ViewModel -down-> uc
 Service -down-> Repository
-Provider .down.> e
+Provider ..> e
 
 @enduml

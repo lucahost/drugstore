@@ -1,0 +1,17 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.usecase {
+      namespace management.history {
+        interface ch.ffhs.drugstore.domain.usecase.UseCase {
+                  {abstract} + execute()
+              }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.domain.usecase.management.history.GetHistory .up.|> ch.ffhs.drugstore.domain.usecase.UseCase
+  ch.ffhs.drugstore.domain.usecase.management.history.GetHistory o-- ch.ffhs.drugstore.domain.service.HistoryService : historyService
+
+@enduml

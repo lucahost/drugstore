@@ -1,0 +1,50 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace signature.view {
+          class ch.ffhs.drugstore.presentation.management.signature.view.SignatureDetailFragment {
+              - binding : FragmentSignatureDetailBinding
+              + onCreate()
+              + onCreateOptionsMenu()
+              + onCreateView()
+              + onOptionsItemSelected()
+              + onPrepareOptionsMenu()
+              + onViewCreated()
+              - context()
+              - setupRecyclerView()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace signature.view {
+          class ch.ffhs.drugstore.presentation.management.signature.view.SignatureFragment {
+              - binding : FragmentSignatureBinding
+              + onCreate()
+              + onCreateView()
+              + onItemClick()
+              + onViewCreated()
+              - context()
+              - setupRecyclerView()
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.signature.view.SignatureDetailFragment -up-|> androidx.fragment.app.Fragment
+  ch.ffhs.drugstore.presentation.management.signature.view.SignatureDetailFragment o-- ch.ffhs.drugstore.presentation.management.signature.view.adapter.SignatureDetailListAdapter : adapter
+  ch.ffhs.drugstore.presentation.management.signature.view.SignatureFragment .up.|> ch.ffhs.drugstore.presentation.management.signature.view.adapter.OnSignatureItemClickListener
+  ch.ffhs.drugstore.presentation.management.signature.view.SignatureFragment -up-|> androidx.fragment.app.Fragment
+  ch.ffhs.drugstore.presentation.management.signature.view.SignatureFragment o-- ch.ffhs.drugstore.presentation.management.signature.view.adapter.SignatureListAdapter : adapter
+
+
+@enduml

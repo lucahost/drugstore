@@ -1,0 +1,76 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace database {
+        class ch.ffhs.drugstore.data.database.DatabaseInterface {
+            - app : Application
+            + DatabaseInterface()
+            + exportDatabase()
+            + importDatabase()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace database {
+        class ch.ffhs.drugstore.data.database.DatabaseModule {
+            ~ provideAppDatabase()
+            ~ provideDrugDao()
+            ~ provideDrugTypeDao()
+            ~ provideSignatureDao()
+            ~ provideSignatureDrugDao()
+            ~ provideSubstanceDao()
+            ~ provideTransactionDao()
+            ~ provideUnitDao()
+            ~ provideUserDao()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace database {
+        abstract class ch.ffhs.drugstore.data.database.DrugstoreDatabase {
+            {static} + databaseWriteExecutor : ExecutorService
+            {static} - DB_NAME : String
+            {static} - INSTANCE : DrugstoreDatabase
+            {static} - NUMBER_OF_THREADS : int
+            {static} - sRoomDatabaseCallback : Callback
+            {abstract} + drugDao()
+            {abstract} + drugTypeDao()
+            {static} + getDatabase()
+            {abstract} + signatureDao()
+            {abstract} + signatureDrugDao()
+            {abstract} + substanceDao()
+            {abstract} + transactionDao()
+            {abstract} + unitDao()
+            {abstract} + userDao()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace data {
+      namespace database {
+        class ch.ffhs.drugstore.data.database.DrugstoreDatabase.DropUnitColumnMigration {
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.data.database.DatabaseInterface o-- ch.ffhs.drugstore.data.database.DrugstoreDatabase : db
+  ch.ffhs.drugstore.data.database.DrugstoreDatabase -up-|> androidx.room.RoomDatabase
+  ch.ffhs.drugstore.data.database.DrugstoreDatabase +-down- ch.ffhs.drugstore.data.database.DrugstoreDatabase.DropUnitColumnMigration
+  ch.ffhs.drugstore.data.database.DrugstoreDatabase.DropUnitColumnMigration .up.|> androidx.room.migration.AutoMigrationSpec
+
+
+@enduml

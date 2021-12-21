@@ -1,0 +1,62 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace dispensary.view {
+        namespace adapter {
+          class ch.ffhs.drugstore.presentation.dispensary.view.adapter.DispensaryItemHolder {
+              - card : MaterialCardView
+              - drugSecondary : TextView
+              - drugTitle : TextView
+              + onClick()
+              + onLongClick()
+              # bind()
+              ~ DispensaryItemHolder()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace dispensary.view {
+        namespace adapter {
+          class ch.ffhs.drugstore.presentation.dispensary.view.adapter.DispensaryListAdapter {
+              + DispensaryListAdapter()
+              + onBindViewHolder()
+              + onCreateViewHolder()
+              + setClickListener()
+              # getClickListener()
+              # getItem()
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace dispensary.view {
+        namespace adapter {
+          interface ch.ffhs.drugstore.presentation.dispensary.view.adapter.OnDispensaryItemClickListener {
+              {abstract} + onItemClick()
+              {abstract} + onItemLongClick()
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.dispensary.view.adapter.DispensaryItemHolder .up.|> android.view.View.OnClickListener
+  ch.ffhs.drugstore.presentation.dispensary.view.adapter.DispensaryItemHolder .up.|> android.view.View.OnLongClickListener
+  ch.ffhs.drugstore.presentation.dispensary.view.adapter.DispensaryItemHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  ch.ffhs.drugstore.presentation.dispensary.view.adapter.DispensaryItemHolder o-- ch.ffhs.drugstore.presentation.dispensary.view.adapter.DispensaryListAdapter : dispensaryListAdapter
+  ch.ffhs.drugstore.presentation.dispensary.view.adapter.DispensaryListAdapter -up-|> androidx.recyclerview.widget.ListAdapter
+  ch.ffhs.drugstore.presentation.dispensary.view.adapter.DispensaryListAdapter o-- ch.ffhs.drugstore.presentation.dispensary.view.adapter.OnDispensaryItemClickListener : clickListener
+
+
+@enduml

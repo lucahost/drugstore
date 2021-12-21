@@ -1,0 +1,44 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace inventory.view {
+          namespace dialog {
+            interface ch.ffhs.drugstore.presentation.management.inventory.view.dialog.ConfirmSignInventoryListener {
+                {abstract} + onConfirmSignInventory()
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace inventory.view {
+          namespace dialog {
+            class ch.ffhs.drugstore.presentation.management.inventory.view.dialog.SignInventoryDialogFragment {
+                {static} + TAG : String
+                - binding : DialogSignInventoryBinding
+                + SignInventoryDialogFragment()
+                + onAttach()
+                + onCreateDialog()
+                + onDetach()
+                - getAlertDialog()
+                - validateInputAndConfirmSignInventory()
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.inventory.view.dialog.SignInventoryDialogFragment -up-|> androidx.fragment.app.DialogFragment
+  ch.ffhs.drugstore.presentation.management.inventory.view.dialog.SignInventoryDialogFragment o-- ch.ffhs.drugstore.presentation.management.inventory.view.dialog.ConfirmSignInventoryListener : confirmSignInventoryListener
+
+
+@enduml

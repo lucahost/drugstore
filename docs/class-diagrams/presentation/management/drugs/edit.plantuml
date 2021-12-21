@@ -1,0 +1,119 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.view {
+          namespace dialog {
+            namespace edit {
+              interface ch.ffhs.drugstore.presentation.management.drugs.view.dialog.edit.ConfirmEditDrugListener {
+                  {abstract} + onConfirmEditDrug()
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.view {
+          namespace dialog {
+            namespace edit {
+              class ch.ffhs.drugstore.presentation.management.drugs.view.dialog.edit.EditDrugDialogFragment {
+                  {static} + ARG_DRUG_DOSAGE : String
+                  {static} + ARG_DRUG_FAVORITE : String
+                  {static} + ARG_DRUG_ID : String
+                  {static} + ARG_DRUG_SUBSTANCE : String
+                  {static} + ARG_DRUG_TITLE : String
+                  {static} + ARG_DRUG_TOLERANCE : String
+                  {static} + ARG_DRUG_TYPE : String
+                  {static} + ARG_DRUG_UNIT : String
+                  {static} + TAG : String
+                  - binding : DialogEditDrugBinding
+                  - dosage : String
+                  - drugId : Integer
+                  - drugTitle : String
+                  - drugType : String
+                  - drugUnit : String
+                  - isFavorite : Boolean
+                  - substance : String
+                  - tolerance : Double
+                  + EditDrugDialogFragment()
+                  + onAttach()
+                  + onCreate()
+                  + onCreateDialog()
+                  + onDetach()
+                  + onDismiss()
+                  - getAlertDialog()
+                  - setDrugTypeRadioButtons()
+                  - setDrugUnitRadioButtons()
+                  - setSubstanceAutoComplete()
+                  - validateInputAndEditDrug()
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.view {
+          namespace dialog {
+            namespace edit {
+              class ch.ffhs.drugstore.presentation.management.drugs.view.dialog.edit.EditDrugDialogFragmentArgs {
+                  - dosage : String
+                  - drugId : int
+                  - drugTitle : String
+                  - drugType : String
+                  - drugUnit : String
+                  - isFavorite : boolean
+                  - substance : String
+                  - tolerance : double
+                  + EditDrugDialogFragmentArgs()
+                  + getDosage()
+                  + getDrugId()
+                  + getDrugTitle()
+                  + getDrugType()
+                  + getDrugUnit()
+                  + getSubstance()
+                  + getTolerance()
+                  + isFavorite()
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.view {
+          namespace dialog {
+            namespace edit {
+              interface ch.ffhs.drugstore.presentation.management.drugs.view.dialog.edit.EditDrugDialogFragmentFactory {
+                  {abstract} + create()
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.drugs.view.dialog.edit.EditDrugDialogFragment -up-|> androidx.fragment.app.DialogFragment
+  ch.ffhs.drugstore.presentation.management.drugs.view.dialog.edit.EditDrugDialogFragment o-- ch.ffhs.drugstore.presentation.management.drugs.view.dialog.edit.ConfirmEditDrugListener : confirmEditDrugListener
+  ch.ffhs.drugstore.presentation.management.drugs.view.dialog.edit.EditDrugDialogFragment o-- ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel : viewModel
+
+@enduml

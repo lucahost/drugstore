@@ -20,7 +20,7 @@ import ch.ffhs.drugstore.domain.usecase.management.drugTypes.GetDrugTypes;
 import ch.ffhs.drugstore.domain.usecase.management.units.GetDrugUnits;
 import ch.ffhs.drugstore.domain.usecase.settings.database.ExportDatabase;
 import ch.ffhs.drugstore.domain.usecase.settings.database.ImportDatabase;
-import ch.ffhs.drugstore.presentation.SingleLiveEvent;
+import ch.ffhs.drugstore.presentation.helpers.SingleLiveEvent;
 import ch.ffhs.drugstore.shared.dto.management.drugs.CreateDrugTypeDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;

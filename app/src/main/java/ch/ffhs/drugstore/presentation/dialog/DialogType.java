@@ -1,4 +1,4 @@
-package ch.ffhs.drugstore.presentation;
+package ch.ffhs.drugstore.presentation.dialog;
 
 /**
  * Types of app dialogs.

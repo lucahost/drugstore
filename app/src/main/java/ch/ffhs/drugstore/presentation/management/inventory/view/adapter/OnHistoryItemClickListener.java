@@ -12,7 +12,7 @@ public interface OnHistoryItemClickListener {
     /**
      * Called when a {@link SelectableDrugDto} item has been clicked.
      *
-     * @param drugDto the clicked {@link SelectableDrugDto} item
+     * @param drugDto  the clicked {@link SelectableDrugDto} item
      * @param selected state of the checkbox
      */
     void onItemClick(SelectableDrugDto drugDto, boolean selected);

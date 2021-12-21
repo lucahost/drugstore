@@ -1,0 +1,30 @@
+@startuml
+participant Actor
+Actor -> DrugsFragment : onConfirmCreateDrug
+activate DrugsFragment
+DrugsFragment -> DrugsViewModel : createDrug
+activate DrugsViewModel
+DrugsViewModel -> CreateDrug : execute
+activate CreateDrug
+CreateDrug -> DrugManagementService : createDrug
+activate DrugManagementService
+DrugManagementService -> SubstanceRepository : getOrCreateSubstanceByTitle
+activate SubstanceRepository
+SubstanceRepository --> DrugManagementService
+deactivate SubstanceRepository
+DrugManagementService -> DrugRepository : createDrug
+activate DrugRepository
+DrugRepository -> DrugRepository : insert
+activate DrugRepository
+DrugRepository --> DrugRepository
+deactivate DrugRepository
+DrugRepository --> DrugManagementService
+deactivate DrugRepository
+DrugManagementService --> CreateDrug
+deactivate DrugManagementService
+CreateDrug --> DrugsViewModel
+deactivate CreateDrug
+DrugsViewModel --> DrugsFragment
+deactivate DrugsViewModel
+return
+@enduml

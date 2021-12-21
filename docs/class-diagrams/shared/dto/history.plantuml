@@ -1,0 +1,35 @@
+@startuml
+
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.dto.management.history {
+      class ch.ffhs.drugstore.shared.dto.management.history.TransactionDto {
+          - amount : double
+          - createdAt : ZonedDateTime
+          - patient : String
+          - transactionId : int
+          + TransactionDto()
+          + TransactionDto()
+          + TransactionDto()
+          + getAmount()
+          + getCreatedAt()
+          + getDrug()
+          + getPatient()
+          + getTransactionId()
+          + getUser()
+          + setAmount()
+          + setCreatedAt()
+          + setDrug()
+          + setPatient()
+          + setTransactionId()
+          + setUser()
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.shared.dto.management.history.TransactionDto o-- ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto : drug
+  ch.ffhs.drugstore.shared.dto.management.history.TransactionDto o-- ch.ffhs.drugstore.shared.dto.management.user.UserDto : user
+
+
+@enduml

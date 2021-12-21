@@ -1,0 +1,48 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.usecase {
+      namespace dispensary {
+        interface ch.ffhs.drugstore.domain.usecase.UseCase {
+                  {abstract} + execute()
+              }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.usecase {
+      namespace dispensary {
+        class ch.ffhs.drugstore.domain.usecase.dispensary.GetAllDispensaryItems {
+            + GetAllDispensaryItems()
+            + execute()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.usecase {
+      namespace dispensary {
+        class ch.ffhs.drugstore.domain.usecase.dispensary.ToggleDrugIsFavorite {
+            + ToggleDrugIsFavorite()
+            + execute()
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.domain.usecase.dispensary.DispenseDrug .up.|> ch.ffhs.drugstore.domain.usecase.UseCase
+  ch.ffhs.drugstore.domain.usecase.dispensary.DispenseDrug o-- ch.ffhs.drugstore.domain.service.DrugManagementService : drugManagementService
+  ch.ffhs.drugstore.domain.usecase.dispensary.DispenseDrug o-- ch.ffhs.drugstore.domain.service.HistoryService : historyService
+  ch.ffhs.drugstore.domain.usecase.dispensary.GetAllDispensaryItems .up.|> ch.ffhs.drugstore.domain.usecase.UseCase
+  ch.ffhs.drugstore.domain.usecase.dispensary.GetAllDispensaryItems o-- ch.ffhs.drugstore.domain.service.DispensaryService : dispensaryService
+  ch.ffhs.drugstore.domain.usecase.dispensary.ToggleDrugIsFavorite .up.|> ch.ffhs.drugstore.domain.usecase.UseCase
+  ch.ffhs.drugstore.domain.usecase.dispensary.ToggleDrugIsFavorite o-- ch.ffhs.drugstore.domain.service.DispensaryService : dispensaryService
+
+
+
+@enduml

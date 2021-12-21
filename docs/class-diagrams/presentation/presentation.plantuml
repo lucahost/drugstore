@@ -1,0 +1,18 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      class ch.ffhs.drugstore.presentation.MainActivity {
+          - bottomNavigationView : BottomNavigationView
+          # onCreate()
+          - isTablet()
+          - setUpNavigation()
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.MainActivity -up-|> androidx.appcompat.app.AppCompatActivity
+
+
+@enduml

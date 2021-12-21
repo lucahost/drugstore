@@ -1,0 +1,36 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.mappers {
+      interface ch.ffhs.drugstore.shared.mappers.DrugstoreMapper {
+          {static} + INSTANCE : DrugstoreMapper
+          {abstract} + createDrugDtoToDrugDto()
+          {abstract} + drugDtoToDrug()
+          {abstract} + drugDtoToDrugWithUnitAndDrugTypeAndSubstance()
+          {abstract} + drugListToDrugDtoList()
+          {abstract} + drugToDrugWithUnitAndDrugTypesAndSubstanceDto()
+          {abstract} + drugTypeDtoFromDrugType()
+          {abstract} + drugTypeFromDrugTypeDto()
+          {abstract} + drugTypeListToDrugTypeDtoList()
+          {abstract} + editDrugDtoToDrugDto()
+          {abstract} + signatureDrugDtoListToSignatureDrugList()
+          {abstract} + signatureDrugListToSignatureDrugDtoList()
+          {abstract} + signatureDrugToSignatureDrugDto()
+          {abstract} + signatureDtoToSignature()
+          {abstract} + signatureListToSignatureDrugDtoList()
+          {abstract} + signatureToSignatureDto()
+          {abstract} + substanceDtoToSubstance()
+          {abstract} + substanceListToSubstanceDtoList()
+          {abstract} + substanceToSubstanceDto()
+          {abstract} + transactionDtoToTransaction()
+          {abstract} + transactionListToTransactionDtoList()
+          {abstract} + transactionToTransactionDto()
+          {abstract} + unitFromUnitDto()
+          {abstract} + userDtoToUser()
+          {abstract} + userListToUserDtoList()
+          {abstract} + userToUserDto()
+      }
+    }
+  }
+
+@enduml

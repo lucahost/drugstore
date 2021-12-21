@@ -1,0 +1,48 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.exceptions {
+      class ch.ffhs.drugstore.shared.exceptions.DrugAlreadyUsedException {
+          + DrugAlreadyUsedException()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.exceptions {
+      class ch.ffhs.drugstore.shared.exceptions.DrugNotFoundException {
+          + DrugNotFoundException()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.exceptions {
+      abstract class ch.ffhs.drugstore.shared.exceptions.DrugstoreException {
+          - code : int
+          + DrugstoreException()
+          + DrugstoreException()
+          + getCode()
+          + setCode()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace shared.exceptions {
+      class ch.ffhs.drugstore.shared.exceptions.InsufficientAmountException {
+          + InsufficientAmountException()
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.shared.exceptions.DrugAlreadyUsedException -up-|> ch.ffhs.drugstore.shared.exceptions.DrugstoreException
+  ch.ffhs.drugstore.shared.exceptions.DrugNotFoundException -up-|> ch.ffhs.drugstore.shared.exceptions.DrugstoreException
+  ch.ffhs.drugstore.shared.exceptions.InsufficientAmountException -up-|> ch.ffhs.drugstore.shared.exceptions.DrugstoreException
+
+
+@enduml

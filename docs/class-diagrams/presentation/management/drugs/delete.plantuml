@@ -1,0 +1,88 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.view {
+          namespace dialog {
+            namespace delete {
+              interface ch.ffhs.drugstore.presentation.management.drugs.view.dialog.delete.ConfirmDeleteDrugListener {
+                  {abstract} + onConfirmDeleteDrug()
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.view {
+          namespace dialog {
+            namespace delete {
+              class ch.ffhs.drugstore.presentation.management.drugs.view.dialog.delete.DeleteDrugDialogFragment {
+                  {static} + ARG_DRUG_ID : String
+                  {static} + ARG_DRUG_TITLE : String
+                  {static} + TAG : String
+                  - drugId : Integer
+                  - drugTitle : String
+                  + DeleteDrugDialogFragment()
+                  + onAttach()
+                  + onCreate()
+                  + onCreateDialog()
+                  + onDetach()
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.view {
+          namespace dialog {
+            namespace delete {
+              class ch.ffhs.drugstore.presentation.management.drugs.view.dialog.delete.DeleteDrugDialogFragmentArgs {
+                  - drugId : int
+                  - drugTitle : String
+                  + DeleteDrugDialogFragmentArgs()
+                  + getDrugId()
+                  + getDrugTitle()
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.view {
+          namespace dialog {
+            namespace delete {
+              interface ch.ffhs.drugstore.presentation.management.drugs.view.dialog.delete.DeleteDrugDialogFragmentFactory {
+                  {abstract} + create()
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.drugs.view.dialog.delete.DeleteDrugDialogFragment -up-|> androidx.fragment.app.DialogFragment
+  ch.ffhs.drugstore.presentation.management.drugs.view.dialog.delete.DeleteDrugDialogFragment o-- ch.ffhs.drugstore.presentation.management.drugs.view.dialog.delete.ConfirmDeleteDrugListener : confirmDeleteDrugListener
+
+
+@enduml

@@ -1,0 +1,51 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.view {
+          namespace dialog {
+            namespace create {
+              interface ch.ffhs.drugstore.presentation.management.drugs.view.dialog.create.ConfirmCreateDrugListener {
+                  {abstract} + onConfirmCreateDrug()
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace drugs.view {
+          namespace dialog {
+            namespace create {
+              class ch.ffhs.drugstore.presentation.management.drugs.view.dialog.create.CreateDrugDialogFragment {
+                  {static} + TAG : String
+                  - binding : DialogCreateDrugBinding
+                  + CreateDrugDialogFragment()
+                  + onAttach()
+                  + onCreateDialog()
+                  + onDetach()
+                  - getAlertDialog()
+                  - setDrugTypeRadioButtons()
+                  - setDrugUnitRadioButtons()
+                  - setSubstanceAutoComplete()
+                  - validateInputAndCreateDrug()
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.drugs.view.dialog.create.CreateDrugDialogFragment -up-|> androidx.fragment.app.DialogFragment
+  ch.ffhs.drugstore.presentation.management.drugs.view.dialog.create.CreateDrugDialogFragment o-- ch.ffhs.drugstore.presentation.management.drugs.view.dialog.create.ConfirmCreateDrugListener : confirmCreateDrugListener
+  ch.ffhs.drugstore.presentation.management.drugs.view.dialog.create.CreateDrugDialogFragment o-- ch.ffhs.drugstore.presentation.management.drugs.viewmodel.DrugsViewModel : viewModel
+
+@enduml

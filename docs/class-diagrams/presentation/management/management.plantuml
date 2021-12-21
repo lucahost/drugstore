@@ -1,0 +1,19 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        class ch.ffhs.drugstore.presentation.management.ManagementFragment {
+            - managementNavigation : NavigationView
+            + onCreateView()
+            - setUpNavigation()
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.ManagementFragment -up-|> androidx.fragment.app.Fragment
+
+
+@enduml

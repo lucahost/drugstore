@@ -1,0 +1,46 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.usecase {
+      namespace management.inventory {
+        interface ch.ffhs.drugstore.domain.usecase.UseCase {
+                  {abstract} + execute()
+              }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.usecase {
+      namespace management.inventory {
+        class ch.ffhs.drugstore.domain.usecase.management.inventory.SignInventory {
+            + SignInventory()
+            + execute()
+        }
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.usecase {
+      namespace management.inventory {
+        class ch.ffhs.drugstore.domain.usecase.management.inventory.ToggleInventoryItem {
+            + ToggleInventoryItem()
+            + execute()
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.domain.usecase.management.inventory.GetInventory .up.|> ch.ffhs.drugstore.domain.usecase.UseCase
+  ch.ffhs.drugstore.domain.usecase.management.inventory.GetInventory o-- ch.ffhs.drugstore.domain.service.InventoryService : inventoryService
+  ch.ffhs.drugstore.domain.usecase.management.inventory.SignInventory .up.|> ch.ffhs.drugstore.domain.usecase.UseCase
+  ch.ffhs.drugstore.domain.usecase.management.inventory.SignInventory o-- ch.ffhs.drugstore.domain.service.SignatureService : signatureService
+  ch.ffhs.drugstore.domain.usecase.management.inventory.ToggleInventoryItem .up.|> ch.ffhs.drugstore.domain.usecase.UseCase
+  ch.ffhs.drugstore.domain.usecase.management.inventory.ToggleInventoryItem o-- ch.ffhs.drugstore.domain.service.DrugManagementService : drugManagementService
+
+
+@enduml

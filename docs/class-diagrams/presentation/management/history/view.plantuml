@@ -1,0 +1,25 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace presentation {
+      namespace management {
+        namespace history.view {
+          class ch.ffhs.drugstore.presentation.management.history.view.HistoryFragment {
+              - binding : FragmentHistoryBinding
+              + onCreate()
+              + onCreateView()
+              + onViewCreated()
+              - context()
+              - setupRecyclerView()
+          }
+        }
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.presentation.management.history.view.HistoryFragment -up-|> androidx.fragment.app.Fragment
+  ch.ffhs.drugstore.presentation.management.history.view.HistoryFragment o-- ch.ffhs.drugstore.presentation.management.history.view.adapter.HistoryListAdapter : adapter
+
+
+@enduml

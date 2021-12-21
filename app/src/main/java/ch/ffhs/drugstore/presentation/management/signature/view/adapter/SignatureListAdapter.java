@@ -1,6 +1,6 @@
 package ch.ffhs.drugstore.presentation.management.signature.view.adapter;
 
-import static ch.ffhs.drugstore.presentation.management.ListItemItemDiffHelper.signatureDtoItemDiffCallback;
+import static ch.ffhs.drugstore.presentation.helpers.ListItemItemDiffHelper.signatureDtoItemDiffCallback;
 
 import android.os.Build;
 import android.view.LayoutInflater;

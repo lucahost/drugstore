@@ -1,0 +1,104 @@
+@startuml
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.service {
+      class ch.ffhs.drugstore.domain.service.DatabaseService {
+          + DatabaseService()
+          + exportDatabase()
+          + importDatabase()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.service {
+      class ch.ffhs.drugstore.domain.service.DispensaryService {
+          + DispensaryService()
+          + getAllDrugs()
+          + toggleDrugIsFavorite()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.service {
+      class ch.ffhs.drugstore.domain.service.DrugManagementService {
+          + DrugManagementService()
+          + createDrug()
+          + deleteDrug()
+          + editDrug()
+          + getAllDrugTypes()
+          + getAllDrugs()
+          + getAllSubstances()
+          + getAllUnits()
+          + getDrugById()
+          + updateDrugAmount()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.service {
+      class ch.ffhs.drugstore.domain.service.HistoryService {
+          + HistoryService()
+          + addTransaction()
+          + getHistory()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.service {
+      class ch.ffhs.drugstore.domain.service.InventoryService {
+          + InventoryService()
+          + getInventory()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.service {
+      class ch.ffhs.drugstore.domain.service.SignatureService {
+          + SignatureService()
+          + createSignature()
+          + getSignatureDrugsBySignatureId()
+          + getSignatures()
+      }
+    }
+  }
+  
+
+  namespace ch.ffhs.drugstore {
+    namespace domain.service {
+      class ch.ffhs.drugstore.domain.service.UserService {
+          + UserService()
+          + getOrCreateUserByShortName()
+          + getUserById()
+          + getUserByShortName()
+      }
+    }
+  }
+  
+
+  ch.ffhs.drugstore.domain.service.DatabaseService o-right- ch.ffhs.drugstore.data.database.DatabaseInterface : databaseInterface
+  ch.ffhs.drugstore.domain.service.DispensaryService o-- ch.ffhs.drugstore.data.repository.DrugRepository : drugRepository
+  ch.ffhs.drugstore.domain.service.DrugManagementService o-- ch.ffhs.drugstore.data.repository.DrugRepository : drugRepository
+  ch.ffhs.drugstore.domain.service.DrugManagementService o-- ch.ffhs.drugstore.data.repository.DrugTypeRepository : drugTypeRepository
+  ch.ffhs.drugstore.domain.service.DrugManagementService o-- ch.ffhs.drugstore.data.repository.SubstanceRepository : substanceRepository
+  ch.ffhs.drugstore.domain.service.DrugManagementService o-- ch.ffhs.drugstore.data.repository.UnitRepository : unitRepository
+  ch.ffhs.drugstore.domain.service.HistoryService o-- ch.ffhs.drugstore.data.repository.TransactionRepository : transactionRepository
+  ch.ffhs.drugstore.domain.service.HistoryService o-- ch.ffhs.drugstore.domain.service.UserService : userService
+  ch.ffhs.drugstore.domain.service.InventoryService o-- ch.ffhs.drugstore.data.repository.DrugRepository : drugRepository
+  ch.ffhs.drugstore.domain.service.SignatureService o-right- ch.ffhs.drugstore.data.repository.SignatureDrugRepository : signatureDrugRepository
+  ch.ffhs.drugstore.domain.service.SignatureService o-- ch.ffhs.drugstore.data.repository.SignatureRepository : signatureRepository
+  ch.ffhs.drugstore.domain.service.SignatureService o-- ch.ffhs.drugstore.domain.service.UserService : userService
+  ch.ffhs.drugstore.domain.service.UserService o-- ch.ffhs.drugstore.data.repository.UserRepository : userRepository
+
+
+
+@enduml
