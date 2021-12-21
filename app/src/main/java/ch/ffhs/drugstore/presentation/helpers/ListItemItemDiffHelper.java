@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import java.util.Objects;
 
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
+import ch.ffhs.drugstore.shared.dto.management.drugs.SelectableDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
@@ -20,7 +21,7 @@ public class ListItemItemDiffHelper {
     /**
      * Compares two {@link DrugDto} recycler view list items
      */
-    public static final DiffUtil.ItemCallback<? extends DrugDto> drugDtoItemDiffCallback =
+    public static final DiffUtil.ItemCallback<DrugDto> drugDtoItemDiffCallback =
             new DiffUtil.ItemCallback<DrugDto>() {
                 @Override
                 public boolean areItemsTheSame(@NonNull DrugDto oldItem, @NonNull DrugDto newItem) {
@@ -37,6 +38,23 @@ public class ListItemItemDiffHelper {
                             && oldItem.getTolerance() == newItem.getTolerance()
                             && oldItem.getStockAmount() == newItem.getStockAmount()
                             && oldItem.isFavorite() == newItem.isFavorite();
+                }
+            };
+
+    /**
+     * Compares two {@link DrugDto} recycler view list items
+     */
+    public static final DiffUtil.ItemCallback<SelectableDrugDto> selectableDrugDtoItemDiffCallback =
+            new DiffUtil.ItemCallback<SelectableDrugDto>() {
+                @Override
+                public boolean areItemsTheSame(@NonNull SelectableDrugDto oldItem, @NonNull SelectableDrugDto newItem) {
+                    return drugDtoItemDiffCallback.areItemsTheSame(oldItem, newItem);
+                }
+
+                @Override
+                public boolean areContentsTheSame(@NonNull SelectableDrugDto oldItem,
+                        @NonNull SelectableDrugDto newItem) {
+                    return drugDtoItemDiffCallback.areContentsTheSame(oldItem, newItem);
                 }
             };
 
