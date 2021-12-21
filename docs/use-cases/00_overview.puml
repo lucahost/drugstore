@@ -5,73 +5,71 @@ node Drugstore {
     node System {
         usecase "Benutzer Registrierung" as UC11
         usecase "Benutzer Login" as UC12
-        usecase "Externe Sicherung der Datenbank" as UC13
-        usecase "Wiederherstellung aus externer Sicherung" as UC14
+        usecase "Benutzer Logout" as UC13
+        usecase "Externe Sicherung der Datenbank" as UC14
+        usecase "Wiederherstellung aus externer Sicherung" as UC15
     }
 
     node Medikamentenverwaltung {
         usecase "Medikament erfassen" as UC21
-        usecase "Medikament in Apotheke aufnehmen" as UC22
-        usecase "Medikament aus Apotheke austragen" as UC23
-        usecase "Favoriten" as UC24
+        usecase "Medikament bearbeiten" as UC22
+        usecase "Medikament löschen" as UC23
+        usecase "Medikamente anzeigen" as UC24
+        usecase "Medikamentbestand ändern" as UC25
+        usecase "Medikament zu Favoriten hinzufügen" as UC26
     }
 
     node Medikamentabgabe {
         usecase "Medikmanetabgabe erfassen" as UC31
-        usecase "Medikamente filtern" as UC32
-        usecase "Medikamente suchen" as UC33
+        usecase "Medikamente suchen" as UC32
+        usecase "Medikamente filtern" as UC33
         usecase "Patient suchen" as UC34
         usecase "Abgabe Verlauf anzeigen" as UC35
         usecase "Abgabe Verlauf filtern" as UC36
     }
 
     node Bestandeskontrolle {
-        usecase "Bestandeskontrolle starten" as UC41
-        usecase "Bestandeskontrolle signieren" as UC42
-        usecase "Exportieren der Bestandeskontrolle" as UC43
-        usecase "Bestandeskontrolle Verlauf anzeigen" as UC44
-        usecase "Bestandeskontrolle Verlauf filtern" as UC45
+        usecase "Bestand laden" as UC41
+        usecase "Medikament hinzufügen / entfernen" as UC42
+        usecase "Signieren" as UC43
+        usecase "Verlauf anzeigen" as UC44
+        usecase "Verlauf filtern" as UC45
+        usecase "Exportieren der Bestandeskontrolle" as UC46
     }
 }
-cloud "Klinikinformationssystem" {
-    usecase "Login Provider" as LoginProvider
-    usecase "Patienten Schnittstelle" as PatientInterface
-}
-cloud "Externe Medikanenten DB" {
-    usecase "Medikament Importieren" as DrugImport
-}
-
 
 
 :User: - UC11
 :User: - UC12
 :User: - UC13
 :User: - UC14
+:User: - UC15
 
-:User: --- UC21
-:User: --- UC22
-:User: --- UC23
-:User: --- UC24
+:User: -- UC21
+:User: -- UC22
+:User: -- UC23
+:User: -- UC24
+:User: -- UC25
+:User: -- UC26
 
 :User: --- UC31
 :User: --- UC35
 
-:User: - UC41
-:User: - UC44
+:User: --- UC41
+:User: --- UC42
+:User: --- UC43
+:User: --- UC44
+:User: --- UC46
 
-UC24 . UC31
+UC22 <- "<<generalizes>>" UC25
 
-UC31 .. UC32
-UC32 .. UC33
-UC31 .. UC34
-UC35 .. UC36
+UC31 .> "<<include>>" UC25
 
-UC41 -- UC42
-UC42 .. UC43
-UC44 .. UC45
+UC31 ..> "<<include>>" UC32
+UC31 ..> "<<include>>" UC34
+UC32 ..> "<<include>>" UC33
+UC35 ..> "<<include>>" UC36
 
-UC12 ... LoginProvider
-UC21 .... DrugImport
-UC34 ... PatientInterface
+UC44 ..> "<<include>>" UC45
 
 @enduml

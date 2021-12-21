@@ -4,25 +4,31 @@ node Drugstore {
 
     node Medikamentenverwaltung {
         usecase "Medikament erfassen" as UC21
-        usecase "Medikament in Apotheke aufnehmen" as UC22
-        usecase "Medikament aus Apotheke austragen" as UC23
-        usecase "Favoriten" as UC24
+        usecase "Medikament bearbeiten" as UC22
+        usecase "Medikament löschen" as UC23
+        usecase "Medikamente anzeigen" as UC24
+        usecase "Medikamentbestand ändern" as UC25
+        usecase "Medikament zu Favoriten hinzufügen" as UC26
     }
 
     node Medikamentabgabe {
         usecase "Abgabe erfassen" as UC31
     }
 }
-cloud "Externe Medikanenten DB" {
-    usecase "Medikament Importieren" as DrugImport
-}
 
-:User: --> UC21
-:User: --> UC22
-:User: --> UC23
-:User: --> UC24
+:User: -- UC21
+:User: -- UC22
+:User: -- UC23
+:User: -- UC24
+:User: -- UC25
+:User: -- UC26
 
-UC24 ...> UC31
-UC21 <....> DrugImport
+:User: --- UC31
+
+
+UC22 <- "<<generalizes>>" UC25
+
+UC31 .> "<<include>>" UC25
+
 
 @enduml
