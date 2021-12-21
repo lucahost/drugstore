@@ -1,0 +1,22 @@
+@startuml
+participant Actor
+Actor -> DrugsFragment : onConfirmDeleteDrug
+activate DrugsFragment
+DrugsFragment -> DrugsViewModel : deleteDrug
+activate DrugsViewModel
+DrugsViewModel -> DeleteDrug : execute
+activate DeleteDrug
+DeleteDrug -> DrugManagementService : deleteDrug
+activate DrugManagementService
+DrugManagementService -> DrugRepository : deleteDrugById
+activate DrugRepository
+DrugRepository --> DrugManagementService
+deactivate DrugRepository
+DrugManagementService --> DeleteDrug
+deactivate DrugManagementService
+DeleteDrug --> DrugsViewModel
+deactivate DeleteDrug
+DrugsViewModel --> DrugsFragment
+deactivate DrugsViewModel
+return
+@enduml

@@ -1,0 +1,54 @@
+@startuml
+participant Actor
+Actor -> DispensaryFragment : onConfirmDispenseDrug
+activate DispensaryFragment
+DispensaryFragment -> DispensaryViewModel : dispenseDrug
+activate DispensaryViewModel
+DispensaryViewModel -> DispenseDrug : execute
+activate DispenseDrug
+DispenseDrug -> DrugManagementService : getDrugById
+activate DrugManagementService
+DrugManagementService -> DrugRepository : getDrugById
+activate DrugRepository
+DrugRepository --> DrugManagementService
+deactivate DrugRepository
+DrugManagementService --> DispenseDrug
+deactivate DrugManagementService
+DispenseDrug -> DrugManagementService : updateDrugAmount
+activate DrugManagementService
+DrugManagementService -> DrugRepository : getDrugById
+activate DrugRepository
+DrugRepository --> DrugManagementService
+deactivate DrugRepository
+DrugManagementService -> DrugRepository : updateDrugAmount
+activate DrugRepository
+DrugRepository --> DrugManagementService
+deactivate DrugRepository
+DrugManagementService --> DispenseDrug
+deactivate DrugManagementService
+DispenseDrug -> HistoryService : addTransaction
+activate HistoryService
+HistoryService -> UserService : getOrCreateUserByShortName
+activate UserService
+UserService -> UserRepository : getUserByShortName
+activate UserRepository
+UserRepository --> UserService
+deactivate UserRepository
+UserService -> UserRepository : addUser
+activate UserRepository
+UserRepository --> UserService
+deactivate UserRepository
+UserService --> HistoryService
+deactivate UserService
+HistoryService -> TransactionRepository : addTransaction
+activate TransactionRepository
+TransactionRepository --> HistoryService
+deactivate TransactionRepository
+HistoryService --> DispenseDrug
+deactivate HistoryService
+DispenseDrug --> DispensaryViewModel
+deactivate DispenseDrug
+DispensaryViewModel --> DispensaryFragment
+deactivate DispensaryViewModel
+return
+@enduml
