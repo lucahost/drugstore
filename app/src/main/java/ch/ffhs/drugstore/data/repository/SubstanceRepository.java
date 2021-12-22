@@ -47,7 +47,7 @@ public class SubstanceRepository {
     /**
      * create substance if not exists
      *
-     * @param title
+     * @param title the title of the substance
      * @return Substance
      */
     public SubstanceDto getOrCreateSubstanceByTitle(String title) {

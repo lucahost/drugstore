@@ -13,18 +13,12 @@ import ch.ffhs.drugstore.data.entity.DrugType;
  * @version 2021.12.15
  */
 public class DrugTypeWithParentDrugType {
-    /**
-     * @Embedded allows to represent two entities as one
-     * @Relation represents join between two entities
-     */
+
     @Embedded
     public DrugType drugType;
 
-    @Relation(
-            parentColumn = "parentDrugTypeId",
-            entityColumn = "drugTypeId",
-            entity = DrugType.class
-    )
+    @Relation(parentColumn = "parentDrugTypeId", entityColumn = "drugTypeId", entity =
+            DrugType.class)
     public DrugType parentDrugType;
 
     public DrugType getDrugType() {

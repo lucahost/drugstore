@@ -12,8 +12,9 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "units")
 public class Unit {
     @PrimaryKey(autoGenerate = true)
-    public int unitId;
-    public String title;
+    private int unitId;
+
+    private String title;
 
     public Unit(int unitId, String title) {
         this.unitId = unitId;

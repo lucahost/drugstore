@@ -31,8 +31,7 @@ public class HistoryViewModel extends AndroidViewModel {
      * @param getHistory  use case to get the history
      */
     @Inject
-    public HistoryViewModel(Application application,
-            GetHistory getHistory) {
+    public HistoryViewModel(Application application, GetHistory getHistory) {
         super(application);
         this.getHistory = getHistory;
     }

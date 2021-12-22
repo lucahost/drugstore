@@ -46,7 +46,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class DispensaryFragment extends Fragment
         implements OnDispensaryItemClickListener,
-        ConfirmDispenseDrugListener, SearchView.OnQueryTextListener {
+        ConfirmDispenseDrugListener,
+        SearchView.OnQueryTextListener {
 
     @Inject
     protected DispensaryListAdapter adapter;
@@ -65,14 +66,6 @@ public class DispensaryFragment extends Fragment
         binding = FragmentDispensaryBinding.inflate(getLayoutInflater());
         setupRecyclerView();
         return binding.getRoot();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     /**
@@ -108,8 +101,9 @@ public class DispensaryFragment extends Fragment
      */
     @Override
     public void onItemClick(DrugDto drug) {
-        DispenseDrugDialogFragmentArgs args = new DispenseDrugDialogFragmentArgs(
-                drug.getDrugId(), drug.getTitle(), drug.getDosage(), drug.getUnit());
+        DispenseDrugDialogFragmentArgs args =
+                new DispenseDrugDialogFragmentArgs(
+                        drug.getDrugId(), drug.getTitle(), drug.getDosage(), drug.getUnit());
         dialogService.showDispenseDrugDialog(getChildFragmentManager(), args);
     }
 
@@ -129,9 +123,11 @@ public class DispensaryFragment extends Fragment
                     .show();
             return;
         }
-        Toast.makeText(context(),
+        Toast.makeText(
+                context(),
                 drug.isFavorite() ? R.string.removed_from_favorites : R.string.added_to_favorites,
-                Toast.LENGTH_SHORT).show();
+                Toast.LENGTH_SHORT)
+                .show();
     }
 
     /**
@@ -186,12 +182,13 @@ public class DispensaryFragment extends Fragment
         binding.searchView.setOnQueryTextListener(this);
         binding.searchView.onActionViewExpanded();
         binding.searchView.clearFocus();
-        ImageView clearButton = binding.searchView.findViewById(
-                androidx.appcompat.R.id.search_close_btn);
-        clearButton.setOnClickListener(v -> {
-            binding.searchView.setQuery("", false);
-            binding.searchView.clearFocus();
-        });
+        ImageView clearButton =
+                binding.searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
+        clearButton.setOnClickListener(
+                v -> {
+                    binding.searchView.setQuery("", false);
+                    binding.searchView.clearFocus();
+                });
     }
 
     /**
@@ -201,8 +198,8 @@ public class DispensaryFragment extends Fragment
      */
     private void setupFilterChips(@NonNull List<DrugTypeDto> drugTypeDtos) {
         // Get initial filter state
-        FilterState<Integer> filterState = Objects.requireNonNull(
-                viewModel.getFilterState().getValue());
+        FilterState<Integer> filterState =
+                Objects.requireNonNull(viewModel.getFilterState().getValue());
         // Setup favorite filter
         binding.filterFavorite.setChecked(filterState.isFavorites());
         binding.filterFavorite.setOnCheckedChangeListener(this::onFavoriteChipFilterClick);
@@ -221,7 +218,6 @@ public class DispensaryFragment extends Fragment
             }
         }
     }
-
 
     /**
      * Search dispensary items by search term

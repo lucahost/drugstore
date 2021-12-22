@@ -47,13 +47,17 @@ public class DispensaryItemHolder extends RecyclerView.ViewHolder
      */
     protected void bind(int position) {
         drugTitle.setText(
-                String.format("%s (%s)", dispensaryListAdapter.getItem(position).getTitle(),
+                String.format(
+                        "%s (%s)",
+                        dispensaryListAdapter.getItem(position).getTitle(),
                         dispensaryListAdapter.getItem(position).getDrugType()));
         drugSecondary.setText(
-                String.format("%s - %s %s %s", dispensaryListAdapter.getItem(position).getDosage(),
+                String.format(
+                        "%s - %s %s %s",
+                        dispensaryListAdapter.getItem(position).getDosage(),
                         card.getContext().getResources().getString(R.string.remaining),
-                        new DecimalFormat("#.##").format(
-                                dispensaryListAdapter.getItem(position).getStockAmount()),
+                        new DecimalFormat("#.##")
+                                .format(dispensaryListAdapter.getItem(position).getStockAmount()),
                         dispensaryListAdapter.getItem(position).getUnit()));
         card.setChecked(dispensaryListAdapter.getItem(position).isFavorite());
         card.setOnClickListener(this);
@@ -66,8 +70,9 @@ public class DispensaryItemHolder extends RecyclerView.ViewHolder
     @Override
     public void onClick(View view) {
         if (dispensaryListAdapter.getClickListener() != null) {
-            dispensaryListAdapter.getClickListener().onItemClick(
-                    dispensaryListAdapter.getItem(getAdapterPosition()));
+            dispensaryListAdapter
+                    .getClickListener()
+                    .onItemClick(dispensaryListAdapter.getItem(getAdapterPosition()));
         }
     }
 
@@ -77,8 +82,9 @@ public class DispensaryItemHolder extends RecyclerView.ViewHolder
     @Override
     public boolean onLongClick(View view) {
         if (dispensaryListAdapter.getClickListener() != null) {
-            dispensaryListAdapter.getClickListener().onItemLongClick(
-                    dispensaryListAdapter.getItem(getAdapterPosition()));
+            dispensaryListAdapter
+                    .getClickListener()
+                    .onItemLongClick(dispensaryListAdapter.getItem(getAdapterPosition()));
         }
         return true;
     }

@@ -2,7 +2,6 @@ package ch.ffhs.drugstore.data.database;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.room.AutoMigration;
 import androidx.room.Database;
 import androidx.room.DeleteColumn;
@@ -10,7 +9,6 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.room.migration.AutoMigrationSpec;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -32,7 +30,6 @@ import ch.ffhs.drugstore.data.entity.Substance;
 import ch.ffhs.drugstore.data.entity.Transaction;
 import ch.ffhs.drugstore.data.entity.Unit;
 import ch.ffhs.drugstore.data.entity.User;
-import dagger.hilt.android.qualifiers.ApplicationContext;
 
 /**
  * This class holds the database and serves as the main access point for the underlying connection
@@ -65,40 +62,28 @@ public abstract class DrugstoreDatabase extends RoomDatabase {
     public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
     private static final String DB_NAME = "drugstore_db";
-    /**
-     * Override the onCreate method to populate the database. For this sample, we clear the database
-     * every time it is created.
-     */
-    private static final RoomDatabase.Callback sRoomDatabaseCallback =
-            new RoomDatabase.Callback() {
-                @Override
-                public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                    super.onCreate(db);
-                }
-            };
     // marking the instance as volatile to ensure atomic access to the variable
-    private static volatile DrugstoreDatabase INSTANCE;
+    private static volatile DrugstoreDatabase instance;
 
     /**
      * @param context check if not null
      * @return Database instance
      */
     public static DrugstoreDatabase getDatabase(final Context context) {
-        if (INSTANCE == null) {
+        if (instance == null) {
             synchronized (DrugstoreDatabase.class) {
-                if (INSTANCE == null) {
-                    INSTANCE =
+                if (instance == null) {
+                    instance =
                             Room.databaseBuilder(
                                     context.getApplicationContext(), DrugstoreDatabase.class,
                                     DB_NAME)
-                                    .addCallback(sRoomDatabaseCallback)
                                     .createFromAsset("database/database.db")
                                     .allowMainThreadQueries()
                                     .build();
                 }
             }
         }
-        return INSTANCE;
+        return instance;
     }
 
     public abstract DrugDao drugDao();

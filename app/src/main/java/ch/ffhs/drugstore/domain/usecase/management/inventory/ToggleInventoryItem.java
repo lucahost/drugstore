@@ -42,7 +42,7 @@ public class ToggleInventoryItem implements UseCase<SignatureDrugDto, Integer> {
         if (drug == null) {
             throw new DrugNotFoundException(R.string.drug_not_found);
         }
-        return new SignatureDrugDto(0, drugId, drug,
-                drug.getStockAmount(), drug.getStockAmount(), true);
+        return new SignatureDrugDto(
+                0, drugId, drug, drug.getStockAmount(), drug.getStockAmount(), true);
     }
 }

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
 import javax.inject.Inject;
@@ -28,7 +27,7 @@ public class DrugListAdapter extends ListAdapter<DrugDto, DrugItemHolder> {
      */
     @Inject
     public DrugListAdapter() {
-        super((DiffUtil.ItemCallback<DrugDto>) drugDtoItemDiffCallback);
+        super(drugDtoItemDiffCallback);
     }
 
     /**
@@ -70,7 +69,8 @@ public class DrugListAdapter extends ListAdapter<DrugDto, DrugItemHolder> {
      * @param position The position of the item within the adapter's data set
      * @return The item at specified position
      */
-    protected DrugDto getItem(int position) {
+    @Override
+    public DrugDto getItem(int position) {
         return super.getItem(position);
     }
 }

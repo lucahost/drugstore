@@ -80,14 +80,6 @@ public class DrugsFragment extends Fragment
      * {@inheritDoc}
      */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(DrugsViewModel.class);
@@ -107,7 +99,11 @@ public class DrugsFragment extends Fragment
      */
     @Override
     public void onConfirmCreateDrug(
-            String name, String substance, String dosage, int drugTypeId, int unitId,
+            String name,
+            String substance,
+            String dosage,
+            int drugTypeId,
+            int unitId,
             String tolerance,
             boolean isFavorite) {
         dialogService.dismiss(DialogType.CREATE_DRUG);
@@ -154,8 +150,7 @@ public class DrugsFragment extends Fragment
         dialogService.dismiss(DialogType.DELETE_DRUG);
         try {
             viewModel.deleteDrug(drugId);
-        }
-        catch(DrugstoreException dex) {
+        } catch (DrugstoreException dex) {
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.error_delete_drug)
                     .setMessage(dex.getCode())
@@ -171,15 +166,20 @@ public class DrugsFragment extends Fragment
      * {@inheritDoc}
      */
     @Override
-    public void onConfirmEditDrug(int drugId, String name, String substance, String dosage,
+    public void onConfirmEditDrug(
+            int drugId,
+            String name,
+            String substance,
+            String dosage,
             int drugTypeId,
-            int unitId, String tolerance, boolean isFavorite) {
+            int unitId,
+            String tolerance,
+            boolean isFavorite) {
         dialogService.dismiss(DialogType.EDIT_DRUG);
         try {
-            viewModel.editDrug(drugId, name, substance, dosage, drugTypeId, unitId, tolerance,
-                    isFavorite);
-        }
-        catch(DrugstoreException ex) {
+            viewModel.editDrug(
+                    drugId, name, substance, dosage, drugTypeId, unitId, tolerance, isFavorite);
+        } catch (DrugstoreException ex) {
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.error_update_drug)
                     .setMessage(ex.getCode())
@@ -246,29 +246,41 @@ public class DrugsFragment extends Fragment
         return item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.drug_item_add) {
-                AddDrugDialogFragmentArgs args = new AddDrugDialogFragmentArgs(drug.getDrugId(),
-                        drug.getTitle(), drug.getDosage(),
-                        drug.getUnit(), drug.getStockAmount());
+                AddDrugDialogFragmentArgs args =
+                        new AddDrugDialogFragmentArgs(
+                                drug.getDrugId(),
+                                drug.getTitle(),
+                                drug.getDosage(),
+                                drug.getUnit(),
+                                drug.getStockAmount());
                 dialogService.showAddDrugDialog(getChildFragmentManager(), args);
                 return true;
             } else if (itemId == R.id.drug_item_remove) {
-                RemoveDrugDialogFragmentArgs args = new RemoveDrugDialogFragmentArgs(
-                        drug.getDrugId(), drug.getTitle(), drug.getDosage(), drug.getUnit(),
-                        drug.getStockAmount());
+                RemoveDrugDialogFragmentArgs args =
+                        new RemoveDrugDialogFragmentArgs(
+                                drug.getDrugId(),
+                                drug.getTitle(),
+                                drug.getDosage(),
+                                drug.getUnit(),
+                                drug.getStockAmount());
                 dialogService.showRemoveDrugDialog(getChildFragmentManager(), args);
                 return true;
             } else if (itemId == R.id.drug_item_edit) {
-                EditDrugDialogFragmentArgs args = new EditDrugDialogFragmentArgs(
-                        drug.getDrugId(), drug.getTitle(), drug.getSubstance(), drug.getDosage(),
-                        drug.getDrugType(),
-                        drug.getUnit(),
-                        drug.getTolerance(), drug.isFavorite()
-                );
+                EditDrugDialogFragmentArgs args =
+                        new EditDrugDialogFragmentArgs(
+                                drug.getDrugId(),
+                                drug.getTitle(),
+                                drug.getSubstance(),
+                                drug.getDosage(),
+                                drug.getDrugType(),
+                                drug.getUnit(),
+                                drug.getTolerance(),
+                                drug.isFavorite());
                 dialogService.showEditDrugDialog(getChildFragmentManager(), args);
                 return true;
             } else if (itemId == R.id.drug_item_delete) {
-                DeleteDrugDialogFragmentArgs args = new DeleteDrugDialogFragmentArgs(
-                        drug.getDrugId(), drug.getTitle());
+                DeleteDrugDialogFragmentArgs args =
+                        new DeleteDrugDialogFragmentArgs(drug.getDrugId(), drug.getTitle());
                 dialogService.showDeleteDrugDialog(getChildFragmentManager(), args);
                 return true;
             }

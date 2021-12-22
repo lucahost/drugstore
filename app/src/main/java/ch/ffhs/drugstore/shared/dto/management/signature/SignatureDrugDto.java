@@ -3,7 +3,7 @@ package ch.ffhs.drugstore.shared.dto.management.signature;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 
 /**
- * TODO: add description
+ * DTO to respresent a signature drug
  *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
@@ -16,8 +16,13 @@ public class SignatureDrugDto {
     private double actualAmount;
     private boolean approved;
 
-    public SignatureDrugDto(int signatureId, int drugId, DrugDto drug,
-            double expectedAmount, double actualAmount, boolean approved) {
+    public SignatureDrugDto(
+            int signatureId,
+            int drugId,
+            DrugDto drug,
+            double expectedAmount,
+            double actualAmount,
+            boolean approved) {
         this.signatureId = signatureId;
         this.drugId = drugId;
         this.drug = drug;

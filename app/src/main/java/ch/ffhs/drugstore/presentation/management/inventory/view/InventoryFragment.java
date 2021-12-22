@@ -43,8 +43,8 @@ import dagger.hilt.android.AndroidEntryPoint;
  * @version 2021.12.15
  */
 @AndroidEntryPoint
-public class InventoryFragment extends Fragment implements OnHistoryItemClickListener,
-        ConfirmSignInventoryListener {
+public class InventoryFragment extends Fragment
+        implements OnHistoryItemClickListener, ConfirmSignInventoryListener {
 
     @Inject
     protected InventoryListAdapter adapter;
@@ -102,7 +102,6 @@ public class InventoryFragment extends Fragment implements OnHistoryItemClickLis
         checkBox.setOnCheckedChangeListener(this::onCheckedChanged);
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -118,8 +117,6 @@ public class InventoryFragment extends Fragment implements OnHistoryItemClickLis
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.toolbar_share) {
-            // don't use getValue()
-            // share(viewModel.getItems().getValue());
             Toast.makeText(context(), "Shared", Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -164,7 +161,6 @@ public class InventoryFragment extends Fragment implements OnHistoryItemClickLis
         binding.inventoryList.setAdapter(this.adapter);
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -173,20 +169,17 @@ public class InventoryFragment extends Fragment implements OnHistoryItemClickLis
         dialogService.dismiss(DialogType.SIGN_INVENTORY);
         viewModel.signInventory(employee);
         Toast.makeText(context(), R.string.signature_success, Toast.LENGTH_SHORT).show();
-        CheckBox checkBox = (CheckBox) getMenu().findItem(
-                R.id.toolbar_toggle_check_all).getActionView();
+        CheckBox checkBox =
+                (CheckBox) getMenu().findItem(R.id.toolbar_toggle_check_all).getActionView();
         checkBox.setChecked(false);
         adapter.toggleCheckAll(false);
     }
-
 
     public Menu getMenu() {
         return menu;
     }
 
-
     private void onCheckedChanged(CompoundButton item, boolean checked) {
         adapter.toggleCheckAll(checked);
     }
-
 }

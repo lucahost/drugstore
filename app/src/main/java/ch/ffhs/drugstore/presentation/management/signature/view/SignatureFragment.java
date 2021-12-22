@@ -53,18 +53,10 @@ public class SignatureFragment extends Fragment implements OnSignatureItemClickL
      * {@inheritDoc}
      */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        SignatureViewModel viewModel = new ViewModelProvider(requireActivity()).get(
-                SignatureViewModel.class);
+        SignatureViewModel viewModel =
+                new ViewModelProvider(requireActivity()).get(SignatureViewModel.class);
         viewModel.getSignatures().observe(getViewLifecycleOwner(), adapter::submitList);
     }
 
@@ -73,8 +65,9 @@ public class SignatureFragment extends Fragment implements OnSignatureItemClickL
      */
     @Override
     public void onItemClick(View view, SignatureDto signature) {
-        NavDirections action = SignatureFragmentDirections.actionSignatureToSignatureDetailFragment(
-                (int) signature.getSignatureId());
+        NavDirections action =
+                SignatureFragmentDirections.actionSignatureToSignatureDetailFragment(
+                        signature.getSignatureId());
         Navigation.findNavController(view).navigate(action);
     }
 

@@ -21,11 +21,7 @@ import ch.ffhs.drugstore.data.relation.SignatureDrugWithDrug;
  */
 @Dao
 public interface SignatureDrugDao {
-    /**
-     * @Insert
-     * @Update
-     * @Delete insert, update and delete rows without SQL code because of room library
-     */
+
     @Insert
     void insert(SignatureDrug... signatureDrug);
 
@@ -35,15 +31,9 @@ public interface SignatureDrugDao {
     @Delete
     void delete(SignatureDrug signatureDrug);
 
-    /**
-     * @Query methods for special queries
-     */
     @Query("DELETE FROM signatureDrugs")
     void deleteAll();
 
-    /**
-     * @Transaction methods for relations (join)
-     */
     @Transaction
     @Query("SELECT * FROM signatureDrugs")
     LiveData<List<SignatureDrug>> getAllSignatureDrugs();

@@ -47,8 +47,10 @@ public class DrugManagementService {
      * @param unitRepository      unit repository
      */
     @Inject
-    public DrugManagementService(DrugRepository drugRepository,
-            DrugTypeRepository drugTypeRepository, SubstanceRepository substanceRepository,
+    public DrugManagementService(
+            DrugRepository drugRepository,
+            DrugTypeRepository drugTypeRepository,
+            SubstanceRepository substanceRepository,
             UnitRepository unitRepository) {
         this.drugRepository = drugRepository;
         this.drugTypeRepository = drugTypeRepository;
@@ -99,7 +101,7 @@ public class DrugManagementService {
      * this method edits drugs
      *
      * @param editDrugDto edit drug input dto
-     * @throws DrugstoreException if creation of the drug goes wrong
+     * @throws DrugNotFoundException if creation of the drug goes wrong
      */
     public void editDrug(EditDrugDto editDrugDto) throws DrugNotFoundException {
         DrugDto originalDrug = drugRepository.getDrugById(editDrugDto.getDrugId());
@@ -108,8 +110,8 @@ public class DrugManagementService {
         }
         DrugDto drugDto = mapper.editDrugDtoToDrugDto(editDrugDto);
 
-        SubstanceDto substance = substanceRepository.getOrCreateSubstanceByTitle(
-                drugDto.getSubstance());
+        SubstanceDto substance =
+                substanceRepository.getOrCreateSubstanceByTitle(drugDto.getSubstance());
         drugDto.setSubstance(String.valueOf(substance.getSubstanceId()));
 
         // EditDrugDto does not contain stockAmount
@@ -127,8 +129,8 @@ public class DrugManagementService {
     public long createDrug(CreateDrugDto createDrugDto) {
         DrugDto drugDto = mapper.createDrugDtoToDrugDto(createDrugDto);
 
-        SubstanceDto substance = substanceRepository.getOrCreateSubstanceByTitle(
-                drugDto.getSubstance());
+        SubstanceDto substance =
+                substanceRepository.getOrCreateSubstanceByTitle(drugDto.getSubstance());
         drugDto.setSubstance(String.valueOf(substance.getSubstanceId()));
 
         return drugRepository.createDrug(drugDto);

@@ -32,7 +32,8 @@ public class SignatureService {
      * @param userService             user service
      */
     @Inject
-    public SignatureService(SignatureRepository signatureRepository,
+    public SignatureService(
+            SignatureRepository signatureRepository,
             SignatureDrugRepository signatureDrugRepository,
             UserService userService) {
         this.signatureRepository = signatureRepository;

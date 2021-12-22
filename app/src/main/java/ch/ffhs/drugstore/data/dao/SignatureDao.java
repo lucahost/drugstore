@@ -21,11 +21,7 @@ import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrug
  */
 @Dao
 public interface SignatureDao {
-    /**
-     * @Insert
-     * @Update
-     * @Delete insert, update and delete rows without SQL code (room library)
-     */
+
     @Insert
     long insert(Signature signature);
 
@@ -36,13 +32,13 @@ public interface SignatureDao {
     void delete(Signature signature);
 
     /**
-     * @Query methods for special queries
+     * delete all signatures
      */
     @Query("DELETE FROM signatures")
     void deleteAll();
 
     /**
-     * @Transaction methods for relations (join)
+     * get all signatures
      */
     @Transaction
     @Query("SELECT * FROM signatures ORDER BY createdAt DESC")

@@ -30,7 +30,7 @@ import util.TestUtil;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({DispenseDrug.class})
 public class DispenseDrugTest {
-    Faker faker = new Faker();
+    final Faker faker = new Faker();
     DrugManagementService drugManagementService = null;
     HistoryService historyService = null;
 

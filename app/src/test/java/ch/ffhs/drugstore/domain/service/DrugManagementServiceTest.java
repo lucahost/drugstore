@@ -2,9 +2,12 @@ package ch.ffhs.drugstore.domain.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.when;
+
+import android.database.sqlite.SQLiteConstraintException;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -28,6 +31,7 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.EditDrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.SubstanceDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.UpdateDrugAmountDto;
+import ch.ffhs.drugstore.shared.exceptions.DrugAlreadyUsedException;
 import ch.ffhs.drugstore.shared.exceptions.DrugNotFoundException;
 import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
 import util.TestUtil;
@@ -219,5 +223,17 @@ public class DrugManagementServiceTest {
 
         // Verify
         verify(drugRepository, times(1)).deleteDrugById(drugId);
+    }
+
+    @Test(expected = DrugAlreadyUsedException.class)
+    public void deleteLinkedDrugThrowsAlreadyUsedException() throws DrugstoreException {
+        // Arrange
+        int drugId = 1;
+        doThrow(SQLiteConstraintException.class)
+                .when(drugRepository)
+                .deleteDrugById(drugId);
+
+        // Act
+        drugManagementService.deleteDrug(drugId);
     }
 }

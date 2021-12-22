@@ -7,7 +7,7 @@ import static java.time.ZoneOffset.UTC;
 
 import org.junit.Test;
 
-import java.time.ZoneId;
+import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
@@ -18,9 +18,11 @@ public class DateConverterTest {
         long valid_timestamp = 1639436411L;
         ZonedDateTime expected_date = ZonedDateTime.of(2021, 12, 13, 23, 0, 11, 0,
                 UTC);
-        assertEquals(expected_date.toLocalTime(),
-                DateConverter.fromTimestampToSystemDefaultZonedDateTime(
-                        valid_timestamp).toLocalTime());
+        ZonedDateTime systemLocalZonedDateTime = DateConverter.fromTimestampToSystemDefaultZonedDateTime(
+                valid_timestamp);
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(systemLocalZonedDateTime.toInstant(), ZoneOffset.UTC);
+        assertEquals(expected_date.toLocalDateTime(),
+                localDateTime);
     }
 
     @Test

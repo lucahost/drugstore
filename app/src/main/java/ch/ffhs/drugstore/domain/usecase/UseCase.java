@@ -1,5 +1,7 @@
 package ch.ffhs.drugstore.domain.usecase;
 
+import ch.ffhs.drugstore.shared.exceptions.DrugstoreException;
+
 /**
  * Generic {@link UseCase} interface for a use case class.
  *
@@ -14,7 +16,7 @@ public interface UseCase<T, P> {
      *
      * @param params the input type of the use case
      * @return T the return type of the use case
-     * @throws Exception error during use case execution
+     * @throws DrugstoreException error during use case execution
      */
-    T execute(P params) throws Exception;
+    T execute(P params) throws DrugstoreException;
 }

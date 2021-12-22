@@ -1,7 +1,7 @@
 package ch.ffhs.drugstore.shared.dto.management.user;
 
 /**
- * TODO: add description
+ * DTO to represent a user
  *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
@@ -15,11 +15,15 @@ public class UserDto {
     private String externalId;
 
     public UserDto() {
-
     }
 
-    public UserDto(Integer userId, String shortName, String firstName, String lastName,
-            String emailAddress, String externalId) {
+    public UserDto(
+            Integer userId,
+            String shortName,
+            String firstName,
+            String lastName,
+            String emailAddress,
+            String externalId) {
         this.userId = userId;
         this.shortName = shortName;
         this.firstName = firstName;

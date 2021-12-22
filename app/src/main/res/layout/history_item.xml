@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp" >
+    android:padding="16dp">
 
     <!-- Title, secondary and supporting text -->
     <TextView
@@ -20,11 +20,11 @@
         android:id="@+id/secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:textAppearance="?attr/textAppearanceBody2"
         android:textColor="?android:attr/textColorSecondary"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <TextView
         android:id="@+id/tertiary"
@@ -32,8 +32,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceBody2"
         android:textColor="?android:attr/textColorSecondary"
-        app:layout_constraintTop_toBottomOf="@+id/secondary"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/secondary" />
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip"

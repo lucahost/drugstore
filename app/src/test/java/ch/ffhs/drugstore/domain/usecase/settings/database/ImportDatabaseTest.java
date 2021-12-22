@@ -1,9 +1,7 @@
 package ch.ffhs.drugstore.domain.usecase.settings.database;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import org.junit.After;
 import org.junit.Before;

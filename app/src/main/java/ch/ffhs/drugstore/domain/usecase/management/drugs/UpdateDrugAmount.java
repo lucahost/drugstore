@@ -34,8 +34,8 @@ public class UpdateDrugAmount implements UseCase<Void, UpdateDrugAmountDto> {
      * @param historyService        history service
      */
     @Inject
-    public UpdateDrugAmount(DrugManagementService drugManagementService,
-            HistoryService historyService) {
+    public UpdateDrugAmount(
+            DrugManagementService drugManagementService, HistoryService historyService) {
         this.drugManagementService = drugManagementService;
         this.historyService = historyService;
     }
@@ -70,8 +70,9 @@ public class UpdateDrugAmount implements UseCase<Void, UpdateDrugAmountDto> {
         // Insert 'TO SYSTEM' Transaction in History
         UserDto user = new UserDto();
         user.setShortName(userShortName);
-        TransactionDto transactionDto = new TransactionDto(null, drug, user, ZonedDateTime.now(),
-                amountToAddOrRemove, "SYSTEM");
+        TransactionDto transactionDto =
+                new TransactionDto(null, drug, user, ZonedDateTime.now(), amountToAddOrRemove,
+                        "SYSTEM");
         historyService.addTransaction(transactionDto);
 
         return null;

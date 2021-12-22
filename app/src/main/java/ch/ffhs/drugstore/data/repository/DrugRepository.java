@@ -39,7 +39,7 @@ public class DrugRepository {
     /**
      * create a drug
      *
-     * @param drugDto
+     * @param drugDto the input dto for creating a new drug
      */
     public long createDrug(DrugDto drugDto) {
         Drug drug = mapper.drugDtoToDrug(drugDto);
@@ -49,7 +49,7 @@ public class DrugRepository {
     /**
      * edit a drug
      *
-     * @param drugDto
+     * @param drugDto the input dto for editing a drug
      */
     public void editDrug(DrugDto drugDto) {
         Drug drug = mapper.drugDtoToDrug(drugDto);
@@ -59,8 +59,8 @@ public class DrugRepository {
     /**
      * update the a drug amount
      *
-     * @param drugId
-     * @param newAmount
+     * @param drugId    the id of the drug to update
+     * @param newAmount the stock amount of the drug
      */
     public void updateDrugAmount(int drugId, double newAmount) {
         Drug drug = drugDao.getDrugById(drugId).getDrug();
@@ -80,8 +80,8 @@ public class DrugRepository {
     /**
      * get drugs from a specific id
      *
-     * @param drugId
-     * @return
+     * @param drugId the id of the drug to get
+     * @return the dto of the drug
      */
     public DrugDto getDrugById(int drugId) {
         return mapper.drugToDrugWithUnitAndDrugTypesAndSubstanceDto(drugDao.getDrugById(drugId));
@@ -90,36 +90,37 @@ public class DrugRepository {
     /**
      * get drugs who are on stock
      *
-     * @param favorites
-     * @param searchTerm
-     * @return
+     * @param favorites  if only favorites should be included in the results
+     * @param searchTerm a search term to filter drug titles by
+     * @return list of drug dto's
      */
     public LiveData<List<DrugDto>> getOnStockDrugs(boolean favorites, String searchTerm) {
         if (favorites) {
-            return Transformations.map(drugDao.getOnStockFavoriteDrugs(searchTerm),
-                    mapper::drugListToDrugDtoList);
+            return Transformations.map(
+                    drugDao.getOnStockFavoriteDrugs(searchTerm), mapper::drugListToDrugDtoList);
         } else {
-            return Transformations.map(drugDao.getOnStockDrugs(searchTerm),
-                    mapper::drugListToDrugDtoList);
+            return Transformations.map(
+                    drugDao.getOnStockDrugs(searchTerm), mapper::drugListToDrugDtoList);
         }
     }
 
     /**
      * get drugs who are on stock
      *
-     * @param favorites
-     * @param drugTypeIds
-     * @param searchTerm
-     * @return
+     * @param favorites   if only favorites should be included in the results
+     * @param drugTypeIds the id's of the drug types to filter results by
+     * @param searchTerm  a search term to filter drug titles by
+     * @return list of drug dto's
      */
-    public LiveData<List<DrugDto>> getOnStockDrugs(boolean favorites, List<Integer> drugTypeIds,
-            String searchTerm) {
+    public LiveData<List<DrugDto>> getOnStockDrugs(
+            boolean favorites, List<Integer> drugTypeIds, String searchTerm) {
         if (favorites) {
             return Transformations.map(
                     drugDao.getOnStockFavoriteDrugsByDrugTypes(drugTypeIds, searchTerm),
                     mapper::drugListToDrugDtoList);
         } else {
-            return Transformations.map(drugDao.getOnStockDrugsByDrugTypes(drugTypeIds, searchTerm),
+            return Transformations.map(
+                    drugDao.getOnStockDrugsByDrugTypes(drugTypeIds, searchTerm),
                     mapper::drugListToDrugDtoList);
         }
     }
@@ -127,7 +128,6 @@ public class DrugRepository {
     /**
      * execute dao methods
      */
-
     public long insert(Drug drug) {
         return drugDao.insert(drug);
     }

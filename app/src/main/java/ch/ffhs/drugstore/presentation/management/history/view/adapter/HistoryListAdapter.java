@@ -22,8 +22,7 @@ import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
-public class HistoryListAdapter
-        extends ListAdapter<TransactionDto, HistoryItemHolder> {
+public class HistoryListAdapter extends ListAdapter<TransactionDto, HistoryItemHolder> {
 
     /**
      * Constructs a {@link HistoryListAdapter}
@@ -57,7 +56,8 @@ public class HistoryListAdapter
      * @param position The position of the item within the adapter's data set
      * @return The item at specified position
      */
-    protected TransactionDto getItem(int position) {
+    @Override
+    public TransactionDto getItem(int position) {
         return super.getItem(position);
     }
 }

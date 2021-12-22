@@ -12,15 +12,21 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "users")
 public class User {
     @PrimaryKey(autoGenerate = true)
-    public int userId;
-    public String firstName;
-    public String lastName;
-    public String shortName;
-    public String emailAddress;
-    public String externalId;
+    private int userId;
 
-    public User(int userId, String firstName, String lastName, String shortName,
-            String emailAddress, String externalId) {
+    private String firstName;
+    private String lastName;
+    private String shortName;
+    private String emailAddress;
+    private String externalId;
+
+    public User(
+            int userId,
+            String firstName,
+            String lastName,
+            String shortName,
+            String emailAddress,
+            String externalId) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;

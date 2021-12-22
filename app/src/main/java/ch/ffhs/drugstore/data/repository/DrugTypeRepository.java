@@ -19,14 +19,12 @@ import ch.ffhs.drugstore.shared.mappers.DrugstoreMapper;
  * @version 2021.12.15
  */
 public class DrugTypeRepository {
-    private final DrugTypeDao drugTypeDao;
     private final LiveData<List<DrugTypeWithParentDrugType>> allDrugTypes;
     private final DrugstoreMapper mapper;
 
     @Inject
     public DrugTypeRepository(DrugTypeDao drugTypeDao) {
         mapper = DrugstoreMapper.INSTANCE;
-        this.drugTypeDao = drugTypeDao;
         allDrugTypes = drugTypeDao.getAllDrugTypes();
     }
 

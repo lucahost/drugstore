@@ -30,7 +30,7 @@ public class DispenseDrugTest {
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule =
             new ActivityScenarioRule<>(MainActivity.class);
-    Faker faker = new Faker();
+    final Faker faker = new Faker();
 
     @Test
     public void dispenseDrug() {

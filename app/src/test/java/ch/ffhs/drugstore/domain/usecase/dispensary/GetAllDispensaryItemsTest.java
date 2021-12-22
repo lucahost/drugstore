@@ -20,12 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.ffhs.drugstore.domain.service.DispensaryService;
-import ch.ffhs.drugstore.domain.service.DrugManagementService;
-import ch.ffhs.drugstore.domain.service.SignatureService;
-import ch.ffhs.drugstore.domain.usecase.management.signatures.GetSignatures;
 import ch.ffhs.drugstore.presentation.dispensary.view.FilterState;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
-import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
 import util.TestUtil;
 
 public class GetAllDispensaryItemsTest {

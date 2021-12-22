@@ -9,7 +9,6 @@ import javax.inject.Inject;
 
 import ch.ffhs.drugstore.data.dao.SignatureDao;
 import ch.ffhs.drugstore.data.dao.SignatureDrugDao;
-import ch.ffhs.drugstore.data.database.DrugstoreDatabase;
 import ch.ffhs.drugstore.data.entity.Signature;
 import ch.ffhs.drugstore.data.entity.SignatureDrug;
 import ch.ffhs.drugstore.data.relation.SignatureWithUserAndSignatureDrugsAndDrugs;
@@ -67,18 +66,20 @@ public class SignatureRepository {
     /**
      * create Signature from list
      *
-     * @param signatureDto
-     * @param signatureDrugDtoList
+     * @param signatureDto         the dto to create the signature from
+     * @param signatureDrugDtoList the list of dto's to create signature from
      */
-    public void createSignatureFrom(SignatureDto signatureDto,
-            List<SignatureDrugDto> signatureDrugDtoList) {
-        List<SignatureDrug> signatureDrugs = mapper.signatureDrugDtoListToSignatureDrugList(
-                signatureDrugDtoList);
+    public void createSignatureFrom(
+            SignatureDto signatureDto, List<SignatureDrugDto> signatureDrugDtoList) {
+        List<SignatureDrug> signatureDrugs =
+                mapper.signatureDrugDtoListToSignatureDrugList(signatureDrugDtoList);
 
         Signature signature = mapper.signatureDtoToSignature(signatureDto);
 
         long newSignatureId = signatureDao.insert(signature);
-        signatureDrugs.stream().forEach(s -> s.setSignatureId((int) newSignatureId));
+        for (SignatureDrug signatureDrug : signatureDrugs) {
+            signatureDrug.setSignatureId((int) newSignatureId);
+        }
 
         signatureDrugDao.insert(signatureDrugs.toArray(new SignatureDrug[0]));
     }

@@ -137,16 +137,18 @@ public class EditDrugDialogFragment extends DialogFragment {
      */
     @NonNull
     private AlertDialog getAlertDialog() {
-        AlertDialog dialog = new AlertDialog.Builder(requireContext())
-                .setView(binding.getRoot())
-                .setTitle(getString(R.string.edit_drug))
-                .setPositiveButton(getString(R.string.save), null)
-                .setNegativeButton(getString(R.string.cancel), null)
-                .create();
-        dialog.setOnShowListener(d -> {
-            Button button = ((AlertDialog) d).getButton(AlertDialog.BUTTON_POSITIVE);
-            button.setOnClickListener(view -> validateInputAndEditDrug());
-        });
+        AlertDialog dialog =
+                new AlertDialog.Builder(requireContext())
+                        .setView(binding.getRoot())
+                        .setTitle(getString(R.string.edit_drug))
+                        .setPositiveButton(getString(R.string.save), null)
+                        .setNegativeButton(getString(R.string.cancel), null)
+                        .create();
+        dialog.setOnShowListener(
+                d -> {
+                    Button button = ((AlertDialog) d).getButton(DialogInterface.BUTTON_POSITIVE);
+                    button.setOnClickListener(view -> validateInputAndEditDrug());
+                });
         return dialog;
     }
 
@@ -154,34 +156,37 @@ public class EditDrugDialogFragment extends DialogFragment {
      * Validates inputs and confirms the edit if there are no validation errors.
      */
     private void validateInputAndEditDrug() {
-        boolean nameNotEmpty = InputValidation.validateTextNotEmpty(
-                binding.nameText,
-                binding.nameTextLayout,
-                getString(R.string.error_name_required));
-        boolean substanceNotEmpty = InputValidation.validateTextNotEmpty(
-                binding.substanceText,
-                binding.substanceTextLayout,
-                getString(R.string.error_substance_required));
-        boolean dosageNotEmpty = InputValidation.validateTextNotEmpty(
-                binding.dosageText,
-                binding.dosageTextLayout,
-                getString(R.string.error_dosage_required));
+        boolean nameNotEmpty =
+                InputValidation.validateTextNotEmpty(
+                        binding.nameText, binding.nameTextLayout,
+                        getString(R.string.error_name_required));
+        boolean substanceNotEmpty =
+                InputValidation.validateTextNotEmpty(
+                        binding.substanceText,
+                        binding.substanceTextLayout,
+                        getString(R.string.error_substance_required));
+        boolean dosageNotEmpty =
+                InputValidation.validateTextNotEmpty(
+                        binding.dosageText,
+                        binding.dosageTextLayout,
+                        getString(R.string.error_dosage_required));
 
         if (nameNotEmpty && substanceNotEmpty && dosageNotEmpty) {
             String name = Objects.requireNonNull(binding.nameText.getText()).toString();
-            String substance = Objects.requireNonNull(binding.substanceText.getText()).toString();
-            String dosage = Objects.requireNonNull(binding.dosageText.getText()).toString();
+            String newSubstance = Objects.requireNonNull(
+                    binding.substanceText.getText()).toString();
+            String newDosage = Objects.requireNonNull(binding.dosageText.getText()).toString();
             int drugTypeId = binding.drugTypeRadioGroup.getCheckedRadioButtonId();
             int unitId = binding.dispenseUnitRadioGroup.getCheckedRadioButtonId();
-            String tolerance = Objects.requireNonNull(binding.toleranceText.getText()).toString();
-            boolean isFavorite = binding.isFavoriteCheckbox.isChecked();
+            String newTolerance = Objects.requireNonNull(
+                    binding.toleranceText.getText()).toString();
+            boolean newIsFavorite = binding.isFavoriteCheckbox.isChecked();
 
-            confirmEditDrugListener.onConfirmEditDrug(drugId, name, substance, dosage, drugTypeId,
-                    unitId,
-                    tolerance, isFavorite);
+            confirmEditDrugListener.onConfirmEditDrug(
+                    drugId, name, newSubstance, newDosage, drugTypeId, unitId, newTolerance,
+                    newIsFavorite);
         }
     }
-
 
     /**
      * {@inheritDoc}
@@ -207,14 +212,19 @@ public class EditDrugDialogFragment extends DialogFragment {
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setDrugTypeRadioButtons() {
-        viewModel.getDrugTypes().observe(this,
-                list -> list.forEach(item -> {
-                    RadioButton radio = new RadioButton(getContext());
-                    radio.setId(item.getDrugTypeId());
-                    radio.setText(item.getTitle());
-                    radio.setChecked(drugType.equals(item.getTitle()));
-                    binding.drugTypeRadioGroup.addView(radio);
-                }));
+        viewModel
+                .getDrugTypes()
+                .observe(
+                        this,
+                        list ->
+                                list.forEach(
+                                        item -> {
+                                            RadioButton radio = new RadioButton(getContext());
+                                            radio.setId(item.getDrugTypeId());
+                                            radio.setText(item.getTitle());
+                                            radio.setChecked(drugType.equals(item.getTitle()));
+                                            binding.drugTypeRadioGroup.addView(radio);
+                                        }));
     }
 
     /**
@@ -222,28 +232,39 @@ public class EditDrugDialogFragment extends DialogFragment {
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setDrugUnitRadioButtons() {
-        viewModel.getDrugUnits().observe(this,
-                list -> list.forEach(item -> {
-                    RadioButton radio = new RadioButton(getContext());
-                    radio.setId(item.getUnitId());
-                    radio.setText(item.getTitle());
-                    radio.setChecked(drugUnit.equals(item.getTitle()));
-                    binding.dispenseUnitRadioGroup.addView(radio);
-                }));
+        viewModel
+                .getDrugUnits()
+                .observe(
+                        this,
+                        list ->
+                                list.forEach(
+                                        item -> {
+                                            RadioButton radio = new RadioButton(getContext());
+                                            radio.setId(item.getUnitId());
+                                            radio.setText(item.getTitle());
+                                            radio.setChecked(drugUnit.equals(item.getTitle()));
+                                            binding.dispenseUnitRadioGroup.addView(radio);
+                                        }));
     }
 
     /**
      *
      */
     private void setSubstanceAutoComplete() {
-        viewModel.getSubstances().observe(this, substanceDtoList -> {
-            List<String> substanceTitles = substanceDtoList.stream().map(
-                    SubstanceDto::getTitle).collect(
-                    Collectors.toList());
-            binding.substanceText.setAdapter(
-                    new ArrayAdapter<>(getContext(),
-                            android.R.layout.simple_dropdown_item_1line, substanceTitles
-                    ));
-        });
+        viewModel
+                .getSubstances()
+                .observe(
+                        this,
+                        substanceDtoList -> {
+                            List<String> substanceTitles =
+                                    substanceDtoList.stream()
+                                            .map(SubstanceDto::getTitle)
+                                            .collect(Collectors.toList());
+                            binding.substanceText.setAdapter(
+                                    new ArrayAdapter<>(
+                                            getContext(),
+                                            android.R.layout.simple_dropdown_item_1line,
+                                            substanceTitles));
+                        });
     }
 }

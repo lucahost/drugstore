@@ -14,18 +14,18 @@ import java.time.ZonedDateTime;
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
-@Entity(tableName = "signatures",
+@Entity(
+        tableName = "signatures",
         foreignKeys = {
                 @ForeignKey(entity = User.class, parentColumns = "userId", childColumns = "userId"),
         },
-        indices = {
-                @Index(value = "userId")
-        })
+        indices = {@Index(value = "userId")})
 public class Signature {
     @PrimaryKey(autoGenerate = true)
-    public long signatureId;
-    public long userId;
-    public ZonedDateTime createdAt;
+    private long signatureId;
+
+    private long userId;
+    private ZonedDateTime createdAt;
 
     public Signature(long signatureId, long userId, ZonedDateTime createdAt) {
         this.signatureId = signatureId;

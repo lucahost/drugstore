@@ -20,16 +20,10 @@ import ch.ffhs.drugstore.data.relation.DrugTypeWithParentDrugType;
 @Dao
 public interface DrugTypeDao {
 
-    /**
-     * @Transaction methods for relations (join)
-     */
     @Transaction
     @Query("SELECT * FROM drugTypes")
     LiveData<List<DrugTypeWithParentDrugType>> getAllDrugTypes();
 
-    /**
-     * @Insert insert rows without SQL code (room library)
-     */
     @Insert
     long insert(DrugType drugType);
 }

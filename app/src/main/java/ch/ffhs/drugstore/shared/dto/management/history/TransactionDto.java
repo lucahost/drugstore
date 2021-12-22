@@ -1,6 +1,5 @@
 package ch.ffhs.drugstore.shared.dto.management.history;
 
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import ch.ffhs.drugstore.shared.dto.dispensary.SubmitDispenseDto;
@@ -8,7 +7,7 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
 
 /**
- * TODO: add description
+ * DTO for Transactions
  *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
@@ -22,11 +21,15 @@ public class TransactionDto {
     private String patient;
 
     public TransactionDto() {
-
     }
 
-    public TransactionDto(Integer transactionId, DrugDto drug, UserDto user, ZonedDateTime createdAt,
-            double amount, String patient) {
+    public TransactionDto(
+            Integer transactionId,
+            DrugDto drug,
+            UserDto user,
+            ZonedDateTime createdAt,
+            double amount,
+            String patient) {
         this.transactionId = transactionId;
         this.drug = drug;
         this.user = user;

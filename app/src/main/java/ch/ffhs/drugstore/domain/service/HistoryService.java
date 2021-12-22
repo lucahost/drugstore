@@ -28,8 +28,7 @@ public class HistoryService {
      * @param userService           user service
      */
     @Inject
-    public HistoryService(TransactionRepository transactionRepository,
-            UserService userService) {
+    public HistoryService(TransactionRepository transactionRepository, UserService userService) {
         this.transactionRepository = transactionRepository;
         this.userService = userService;
     }

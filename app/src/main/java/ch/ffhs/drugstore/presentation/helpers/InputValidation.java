@@ -14,12 +14,16 @@ import ch.ffhs.drugstore.shared.extensions.DoubleExtension;
  * @version 2021.12.15
  */
 public class InputValidation {
+    private InputValidation() {
+        throw new IllegalStateException("Utility class");
+    }
+
     /**
-     * Validates if a given input text is not empty.
-     * If it is empty it will set an error on a given text layout.
+     * Validates if a given input text is not empty. If it is empty it will set an error on a given
+     * text layout.
      *
-     * @param text edit text to be validated
-     * @param layout text input layout to show potential errors
+     * @param text    edit text to be validated
+     * @param layout  text input layout to show potential errors
      * @param message the error message
      * @return validation result
      */
@@ -37,10 +41,11 @@ public class InputValidation {
     }
 
     /**
-     * Validates if a given input text is not empty and does not contain a value of zero.
-     * If it is empty it will set an error on a given text layout.
-     * @param text edit text to be validated
-     * @param layout text input layout to show potential errors
+     * Validates if a given input text is not empty and does not contain a value of zero. If it is
+     * empty it will set an error on a given text layout.
+     *
+     * @param text    edit text to be validated
+     * @param layout  text input layout to show potential errors
      * @param message the error message
      * @return validation result
      */

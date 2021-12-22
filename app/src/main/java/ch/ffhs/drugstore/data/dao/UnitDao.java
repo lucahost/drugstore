@@ -18,15 +18,10 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
  */
 @Dao
 public interface UnitDao {
-    /**
-     * @Query methods for special queries
-     */
+
     @Query("SELECT unitId, title FROM units")
     LiveData<List<UnitDto>> getAllUnits();
 
-    /**
-     * @Insert insert rows without SQL code (room library)
-     */
     @Insert
     long insert(Unit unit);
 }

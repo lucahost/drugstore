@@ -24,8 +24,7 @@ import ch.ffhs.drugstore.databinding.SignatureItemBinding;
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
-public class SignatureItemHolder extends RecyclerView.ViewHolder
-        implements View.OnClickListener {
+public class SignatureItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private final SignatureListAdapter signatureListAdapter;
     private final TextView title;
     private final TextView secondary;
@@ -80,8 +79,8 @@ public class SignatureItemHolder extends RecyclerView.ViewHolder
     @RequiresApi(api = Build.VERSION_CODES.O)
     @NonNull
     private String getItemSecondaryText(int position) {
-        return context.getString(R.string.drug_count,
-                signatureListAdapter.getItem(position).getSignatureDrugs().size());
+        int drugCount = signatureListAdapter.getItem(position).getSignatureDrugs().size();
+        return context.getResources().getQuantityString(R.plurals.drug_count, drugCount, drugCount);
     }
 
     /**
@@ -99,8 +98,9 @@ public class SignatureItemHolder extends RecyclerView.ViewHolder
     @Override
     public void onClick(View view) {
         if (signatureListAdapter.getClickListener() != null) {
-            signatureListAdapter.getClickListener().onItemClick(view,
-                    signatureListAdapter.getItem(getAdapterPosition()));
+            signatureListAdapter
+                    .getClickListener()
+                    .onItemClick(view, signatureListAdapter.getItem(getAdapterPosition()));
         }
     }
 }

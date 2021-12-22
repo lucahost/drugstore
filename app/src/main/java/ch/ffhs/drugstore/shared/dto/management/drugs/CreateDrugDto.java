@@ -8,16 +8,22 @@ package ch.ffhs.drugstore.shared.dto.management.drugs;
  * @version 2021.12.15
  */
 public class CreateDrugDto {
-    private String title;
-    private String substance;
-    private String dosage;
-    private int drugTypeId;
-    private int unitId;
-    private double tolerance;
-    private boolean isFavorite;
+    private final String title;
+    private final String substance;
+    private final String dosage;
+    private final int drugTypeId;
+    private final int unitId;
+    private final double tolerance;
+    private final boolean isFavorite;
 
-    public CreateDrugDto(String title, String dosage, int drugTypeId, int unitId, String substance,
-            double tolerance, boolean isFavorite) {
+    public CreateDrugDto(
+            String title,
+            String dosage,
+            int drugTypeId,
+            int unitId,
+            String substance,
+            double tolerance,
+            boolean isFavorite) {
         this.title = title;
         this.dosage = dosage;
         this.drugTypeId = drugTypeId;
@@ -31,55 +37,27 @@ public class CreateDrugDto {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getDosage() {
         return dosage;
-    }
-
-    public void setDosage(String dosage) {
-        this.dosage = dosage;
     }
 
     public int getDrugTypeId() {
         return drugTypeId;
     }
 
-    public void setDrugTypeId(int drugTypeId) {
-        this.drugTypeId = drugTypeId;
-    }
-
     public int getUnitId() {
         return unitId;
-    }
-
-    public void setUnitId(int unitId) {
-        this.unitId = unitId;
     }
 
     public String getSubstance() {
         return substance;
     }
 
-    public void setSubstance(String substance) {
-        this.substance = substance;
-    }
-
     public double getTolerance() {
         return tolerance;
     }
 
-    public void setTolerance(double tolerance) {
-        this.tolerance = tolerance;
-    }
-
     public boolean isFavorite() {
         return isFavorite;
-    }
-
-    public void setFavorite(boolean favorite) {
-        isFavorite = favorite;
     }
 }

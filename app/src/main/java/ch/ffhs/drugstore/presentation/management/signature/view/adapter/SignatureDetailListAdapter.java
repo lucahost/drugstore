@@ -54,7 +54,8 @@ public class SignatureDetailListAdapter
      * @param position The position of the item within the adapter's data set
      * @return The item at specified position
      */
-    protected SignatureDrugDto getItem(int position) {
+    @Override
+    public SignatureDrugDto getItem(int position) {
         return super.getItem(position);
     }
 }

@@ -18,8 +18,8 @@ public class DispenseDrugDialogFragmentArgs {
      * @param drugDosage the dosage of the drug
      * @param drugUnit   the unit of the drug
      */
-    public DispenseDrugDialogFragmentArgs(int drugId, String drugTitle, String drugDosage,
-            String drugUnit) {
+    public DispenseDrugDialogFragmentArgs(
+            int drugId, String drugTitle, String drugDosage, String drugUnit) {
         this.drugId = drugId;
         this.drugTitle = drugTitle;
         this.drugDosage = drugDosage;
