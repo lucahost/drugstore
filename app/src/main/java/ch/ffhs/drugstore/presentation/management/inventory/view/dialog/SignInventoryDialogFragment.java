@@ -3,6 +3,7 @@ package ch.ffhs.drugstore.presentation.management.inventory.view.dialog;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -33,11 +34,9 @@ public class SignInventoryDialogFragment extends DialogFragment {
     private DialogSignInventoryBinding binding;
     private ConfirmSignInventoryListener confirmSignInventoryListener;
 
-    /**
-     * Empty constructor is required by the Android framework.
-     */
     @Inject
     public SignInventoryDialogFragment() {
+        // Empty constructor is required by the Android framework.
     }
 
     /**
@@ -78,16 +77,18 @@ public class SignInventoryDialogFragment extends DialogFragment {
      */
     @NonNull
     private AlertDialog getAlertDialog() {
-        AlertDialog dialog = new AlertDialog.Builder(requireContext())
-                .setView(binding.getRoot())
-                .setTitle(getString(R.string.sign))
-                .setPositiveButton(getString(R.string.sign), null)
-                .setNegativeButton(getString(R.string.cancel), null)
-                .create();
-        dialog.setOnShowListener(d -> {
-            Button button = ((AlertDialog) d).getButton(AlertDialog.BUTTON_POSITIVE);
-            button.setOnClickListener(view -> validateInputAndConfirmSignInventory());
-        });
+        AlertDialog dialog =
+                new AlertDialog.Builder(requireContext())
+                        .setView(binding.getRoot())
+                        .setTitle(getString(R.string.sign))
+                        .setPositiveButton(getString(R.string.sign), null)
+                        .setNegativeButton(getString(R.string.cancel), null)
+                        .create();
+        dialog.setOnShowListener(
+                d -> {
+                    Button button = ((AlertDialog) d).getButton(DialogInterface.BUTTON_POSITIVE);
+                    button.setOnClickListener(view -> validateInputAndConfirmSignInventory());
+                });
         return dialog;
     }
 
@@ -95,9 +96,11 @@ public class SignInventoryDialogFragment extends DialogFragment {
      * Validates inputs and confirms the sign of the inventory if there are no validation errors.
      */
     private void validateInputAndConfirmSignInventory() {
-        boolean employeeNotEmpty = InputValidation.validateTextNotEmpty(
-                binding.employeeText,
-                binding.employeeTextLayout, getString(R.string.error_employee_required));
+        boolean employeeNotEmpty =
+                InputValidation.validateTextNotEmpty(
+                        binding.employeeText,
+                        binding.employeeTextLayout,
+                        getString(R.string.error_employee_required));
 
         if (employeeNotEmpty) {
             String employee = Objects.requireNonNull(binding.employeeText.getText()).toString();

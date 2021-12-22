@@ -11,24 +11,28 @@ import androidx.room.PrimaryKey;
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
-@Entity(tableName = "drugs",
+@Entity(
+        tableName = "drugs",
         foreignKeys = {
-                @ForeignKey(entity = DrugType.class, parentColumns = "drugTypeId", childColumns =
-                        "drugTypeId"),
-                @ForeignKey(entity = Substance.class, parentColumns = "substanceId",
+                @ForeignKey(
+                        entity = DrugType.class,
+                        parentColumns = "drugTypeId",
+                        childColumns = "drugTypeId"),
+                @ForeignKey(
+                        entity = Substance.class,
+                        parentColumns = "substanceId",
                         childColumns = "substanceId"),
-                @ForeignKey(entity = Unit.class, parentColumns = "unitId",
-                        childColumns = "unitId")
+                @ForeignKey(entity = Unit.class, parentColumns = "unitId", childColumns = "unitId")
         },
         indices = {
                 @Index(value = "drugTypeId"),
                 @Index(value = "substanceId"),
                 @Index(value = "unitId")
-        }
-)
+        })
 public class Drug {
     @PrimaryKey(autoGenerate = true)
     private int drugId;
+
     private String title;
     private Integer drugTypeId;
     private Integer substanceId;
@@ -38,12 +42,19 @@ public class Drug {
     private double stockAmount;
     private boolean isFavorite;
 
-
     /**
      * Constructs a {@link Drug}.
      */
-    public Drug(int drugId, String title, Integer drugTypeId, Integer substanceId, Integer unitId,
-            String dosage, double tolerance, double stockAmount, boolean isFavorite) {
+    public Drug(
+            int drugId,
+            String title,
+            Integer drugTypeId,
+            Integer substanceId,
+            Integer unitId,
+            String dosage,
+            double tolerance,
+            double stockAmount,
+            boolean isFavorite) {
         this.drugId = drugId;
         this.title = title;
         this.drugTypeId = drugTypeId;

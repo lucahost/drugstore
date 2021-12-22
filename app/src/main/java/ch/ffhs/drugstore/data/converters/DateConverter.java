@@ -6,7 +6,6 @@ import androidx.room.TypeConverter;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.TimeZone;
 
 /**
  * This class converts the date to timestamp and reverse needed because SQLite can't handle date
@@ -17,6 +16,11 @@ import java.util.TimeZone;
  */
 @ProvidedTypeConverter
 public class DateConverter {
+
+    private DateConverter() {
+        throw new IllegalStateException("Utility class");
+    }
+
     /**
      * @param value (Long) checks if not null
      * @return ZonedDateTime

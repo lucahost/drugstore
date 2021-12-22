@@ -3,6 +3,7 @@ package ch.ffhs.drugstore.presentation.management.drugs.view.dialog.add;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -42,7 +43,6 @@ public class AddDrugDialogFragment extends DialogFragment {
     private String dosage = null;
     private String unit = null;
     private Double stockAmount = null;
-    private String userShortName = null;
     private ConfirmAddDrugListener confirmAddDrugListener = null;
 
     /**
@@ -119,16 +119,18 @@ public class AddDrugDialogFragment extends DialogFragment {
      */
     @NonNull
     private AlertDialog getAlertDialog() {
-        AlertDialog dialog = new AlertDialog.Builder(requireContext())
-                .setView(binding.getRoot())
-                .setTitle(getString(R.string.add_drug))
-                .setPositiveButton(getString(R.string.add), null)
-                .setNegativeButton(getString(R.string.cancel), null)
-                .create();
-        dialog.setOnShowListener(d -> {
-            Button button = ((AlertDialog) d).getButton(AlertDialog.BUTTON_POSITIVE);
-            button.setOnClickListener(view -> validateInputAndConfirmAddDrug());
-        });
+        AlertDialog dialog =
+                new AlertDialog.Builder(requireContext())
+                        .setView(binding.getRoot())
+                        .setTitle(getString(R.string.add_drug))
+                        .setPositiveButton(getString(R.string.add), null)
+                        .setNegativeButton(getString(R.string.cancel), null)
+                        .create();
+        dialog.setOnShowListener(
+                d -> {
+                    Button button = ((AlertDialog) d).getButton(DialogInterface.BUTTON_POSITIVE);
+                    button.setOnClickListener(view -> validateInputAndConfirmAddDrug());
+                });
         return dialog;
     }
 
@@ -136,19 +138,22 @@ public class AddDrugDialogFragment extends DialogFragment {
      * Validates inputs and confirms the adding of drug if there are no validation errors.
      */
     private void validateInputAndConfirmAddDrug() {
-        boolean drugCountNotEmpty = InputValidation.validateNumberDecimalStringNotZero(
-                binding.drugCountText,
-                binding.drugCountTextLayout,
-                getString(R.string.error_amount_over_zero_required));
+        boolean drugCountNotEmpty =
+                InputValidation.validateNumberDecimalStringNotZero(
+                        binding.drugCountText,
+                        binding.drugCountTextLayout,
+                        getString(R.string.error_amount_over_zero_required));
 
-        boolean userShortNameNotEmpty = InputValidation.validateTextNotEmpty(
-                binding.userShortNameText,
-                binding.userShortNameTextLayout,
-                getString(R.string.error_name_required));
+        boolean userShortNameNotEmpty =
+                InputValidation.validateTextNotEmpty(
+                        binding.userShortNameText,
+                        binding.userShortNameTextLayout,
+                        getString(R.string.error_name_required));
 
         if (drugCountNotEmpty && userShortNameNotEmpty) {
             String drugCount = Objects.requireNonNull(binding.drugCountText.getText()).toString();
-            String userShortName = Objects.requireNonNull(binding.userShortNameText.getText()).toString();
+            String userShortName = Objects.requireNonNull(
+                    binding.userShortNameText.getText()).toString();
 
             confirmAddDrugListener.onConfirmAddDrug(drugId, drugCount, userShortName);
         }

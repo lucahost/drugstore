@@ -15,28 +15,17 @@ import ch.ffhs.drugstore.data.entity.User;
  * @version 2021.12.15
  */
 public class TransactionWithDrugAndUser {
-    /**
-     * @Embedded allows to represent two entities as one
-     * @Relation represents join between two entities
-     */
+
     @Embedded
     public Transaction transaction;
 
-    @Relation(
-            parentColumn = "drugId",
-            entityColumn = "drugId",
-            entity = Drug.class
-    )
+    @Relation(parentColumn = "drugId", entityColumn = "drugId", entity = Drug.class)
     public DrugWithUnitAndDrugTypeAndSubstance drug;
 
     /**
      * second join
      */
-    @Relation(
-            parentColumn = "userId",
-            entityColumn = "userId",
-            entity = User.class
-    )
+    @Relation(parentColumn = "userId", entityColumn = "userId", entity = User.class)
     public User user;
 
     public Transaction getTransaction() {

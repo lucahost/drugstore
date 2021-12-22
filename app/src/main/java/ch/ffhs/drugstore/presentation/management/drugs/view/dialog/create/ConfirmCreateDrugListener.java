@@ -19,7 +19,11 @@ public interface ConfirmCreateDrugListener {
      * @param isFavorite if the drug is a favorite
      */
     void onConfirmCreateDrug(
-            String name, String substance, String dosage, int drugTypeId, int unitId,
+            String name,
+            String substance,
+            String dosage,
+            int drugTypeId,
+            int unitId,
             String tolerance,
             boolean isFavorite);
 }

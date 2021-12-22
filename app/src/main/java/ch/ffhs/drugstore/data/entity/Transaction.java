@@ -14,26 +14,28 @@ import java.time.ZonedDateTime;
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
-@Entity(tableName = "transactions",
+@Entity(
+        tableName = "transactions",
         foreignKeys = {
                 @ForeignKey(entity = User.class, parentColumns = "userId", childColumns = "userId"),
                 @ForeignKey(entity = Drug.class, parentColumns = "drugId", childColumns = "drugId")
         },
-        indices = {
-                @Index(value = "userId"),
-                @Index(value = "drugId")
-        }
-)
+        indices = {@Index(value = "userId"), @Index(value = "drugId")})
 public class Transaction {
     @PrimaryKey(autoGenerate = true)
-    public int transactionId;
-    public int userId;
-    public int drugId;
-    public ZonedDateTime createdAt;
-    public double amount;
-    public String patient;
+    private int transactionId;
 
-    public Transaction(int transactionId, int userId, int drugId, ZonedDateTime createdAt,
+    private int userId;
+    private int drugId;
+    private ZonedDateTime createdAt;
+    private double amount;
+    private String patient;
+
+    public Transaction(
+            int transactionId,
+            int userId,
+            int drugId,
+            ZonedDateTime createdAt,
             double amount,
             String patient) {
         this.transactionId = transactionId;
@@ -91,5 +93,4 @@ public class Transaction {
     public void setPatient(String patient) {
         this.patient = patient;
     }
-
 }

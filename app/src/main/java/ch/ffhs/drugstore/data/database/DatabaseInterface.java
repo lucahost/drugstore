@@ -33,14 +33,10 @@ public class DatabaseInterface {
         SupportSQLiteOpenHelper dbOpenHelper = db.getOpenHelper();
         String dbName = dbOpenHelper.getDatabaseName();
 
-        String dbFilePath = app.getApplicationContext().getDatabasePath(dbName).getAbsolutePath();
-
-        return dbFilePath;
+        return app.getApplicationContext().getDatabasePath(dbName).getAbsolutePath();
     }
 
-    /**
-     * empty method (have to be defined)
-     */
     public void importDatabase() {
+        // empty method (has to be defined)
     }
 }

@@ -23,8 +23,7 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.SelectableDrugDto;
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
-public class InventoryListAdapter extends
-        ListAdapter<SelectableDrugDto, InventoryItemHolder> {
+public class InventoryListAdapter extends ListAdapter<SelectableDrugDto, InventoryItemHolder> {
     private OnHistoryItemClickListener clickListener;
 
     /**
@@ -91,7 +90,7 @@ public class InventoryListAdapter extends
      * @return The item at specified position
      */
     @Override
-    protected SelectableDrugDto getItem(int position) {
+    public SelectableDrugDto getItem(int position) {
         return super.getItem(position);
     }
 }

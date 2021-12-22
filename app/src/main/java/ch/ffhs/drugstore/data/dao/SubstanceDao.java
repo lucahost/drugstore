@@ -5,7 +5,6 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Transaction;
 import androidx.room.Update;
 
 import java.util.List;
@@ -20,11 +19,7 @@ import ch.ffhs.drugstore.data.entity.Substance;
  */
 @Dao
 public interface SubstanceDao {
-    /**
-     * @Insert
-     * @Update
-     * @Delete insert, update and delete rows without SQL code (room library)
-     */
+
     @Insert
     long insert(Substance substance);
 
@@ -34,9 +29,6 @@ public interface SubstanceDao {
     @Delete
     void delete(Substance substance);
 
-    /**
-     * @Query methods for special queries
-     */
     @Query("DELETE FROM substances")
     void deleteAll();
 

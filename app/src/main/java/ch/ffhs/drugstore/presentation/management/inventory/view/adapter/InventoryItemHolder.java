@@ -17,8 +17,7 @@ import ch.ffhs.drugstore.databinding.InventoryItemBinding;
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
-public class InventoryItemHolder extends RecyclerView.ViewHolder implements
-        View.OnClickListener {
+public class InventoryItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private final InventoryListAdapter inventoryListAdapter;
     private final CheckedTextView title;
     private final TextView secondary;
@@ -30,8 +29,7 @@ public class InventoryItemHolder extends RecyclerView.ViewHolder implements
      * @param inventoryListAdapter the list adapter
      * @param binding              the view binding
      */
-    InventoryItemHolder(InventoryListAdapter inventoryListAdapter,
-            InventoryItemBinding binding) {
+    InventoryItemHolder(InventoryListAdapter inventoryListAdapter, InventoryItemBinding binding) {
         super(binding.getRoot());
         this.context = binding.getRoot().getContext();
         this.inventoryListAdapter = inventoryListAdapter;
@@ -66,7 +64,8 @@ public class InventoryItemHolder extends RecyclerView.ViewHolder implements
      */
     @NonNull
     private String getItemTitleText(int position) {
-        return context.getString(R.string.drug_title_and_dosage,
+        return context.getString(
+                R.string.drug_title_and_dosage,
                 inventoryListAdapter.getItem(position).getTitle(),
                 inventoryListAdapter.getItem(position).getDosage());
     }
@@ -77,7 +76,8 @@ public class InventoryItemHolder extends RecyclerView.ViewHolder implements
      */
     @NonNull
     private String getItemSecondaryText(int position) {
-        return context.getString(R.string.drug_stock_unit,
+        return context.getString(
+                R.string.drug_stock_unit,
                 inventoryListAdapter.getItem(position).getStockAmount(),
                 inventoryListAdapter.getItem(position).getUnit());
     }
@@ -89,9 +89,10 @@ public class InventoryItemHolder extends RecyclerView.ViewHolder implements
     public void onClick(View view) {
         if (inventoryListAdapter.getClickListener() != null) {
             title.setChecked(!title.isChecked());
-            inventoryListAdapter.getClickListener().onItemClick(
-                    inventoryListAdapter.getItem(getAdapterPosition()),
-                    title.isChecked());
+            inventoryListAdapter
+                    .getClickListener()
+                    .onItemClick(inventoryListAdapter.getItem(getAdapterPosition()),
+                            title.isChecked());
         }
     }
 }

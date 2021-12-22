@@ -14,17 +14,10 @@ import ch.ffhs.drugstore.data.entity.SignatureDrug;
  * @version 2021.12.15
  */
 public class SignatureDrugWithDrug {
-    /**
-     * @Embedded allows to represent two entities as one
-     * @Relation represents join between two entities
-     */
+
     @Embedded
     public SignatureDrug signatureDrug;
 
-    @Relation(
-            parentColumn = "drugId",
-            entityColumn = "drugId",
-            entity = Drug.class
-    )
+    @Relation(parentColumn = "drugId", entityColumn = "drugId", entity = Drug.class)
     public DrugWithUnitAndDrugTypeAndSubstance drug;
 }

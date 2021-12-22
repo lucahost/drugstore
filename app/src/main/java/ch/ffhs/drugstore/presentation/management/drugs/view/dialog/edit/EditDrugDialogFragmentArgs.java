@@ -26,9 +26,15 @@ public class EditDrugDialogFragmentArgs {
      * @param tolerance  the tolerance of the drug
      * @param isFavorite if the drug is a favorite
      */
-    public EditDrugDialogFragmentArgs(int drugId, String drugTitle, String substance, String dosage,
+    public EditDrugDialogFragmentArgs(
+            int drugId,
+            String drugTitle,
+            String substance,
+            String dosage,
             String drugType,
-            String drugUnit, double tolerance, boolean isFavorite) {
+            String drugUnit,
+            double tolerance,
+            boolean isFavorite) {
         this.drugId = drugId;
         this.drugTitle = drugTitle;
         this.substance = substance;

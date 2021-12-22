@@ -33,7 +33,7 @@ public class AddDrugTest {
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule =
             new ActivityScenarioRule<>(MainActivity.class);
-    Faker faker = new Faker();
+    final Faker faker = new Faker();
 
     @Test
     public void addDrug() {
@@ -50,6 +50,7 @@ public class AddDrugTest {
         // Fill form with random values
         double amount = faker.number().randomDouble(2, 1, 100);
         onView(withId(R.id.drug_count_text)).perform(typeText(Double.toString(amount)));
+        onView(withId(R.id.user_short_name_text)).perform(typeText(faker.funnyName().name()));
         // Confirm form
         onView(withId(android.R.id.button1)).perform(click());
         // Click on the first item in the list
@@ -78,6 +79,8 @@ public class AddDrugTest {
         // Check if validation error is shown
         onView(withId(R.id.drug_count_text_layout)).check(
                 matches(hasTextInputLayoutErrorText(R.string.error_amount_over_zero_required)));
+        onView(withId(R.id.user_short_name_text_layout)).check(
+                matches(hasTextInputLayoutErrorText(R.string.error_name_required)));
         // Dismiss form
         onView(withId(android.R.id.button2)).perform(click());
     }

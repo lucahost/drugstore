@@ -33,7 +33,6 @@ public class EditDrug implements UseCase<Void, EditDrugDto> {
      * @return Void
      * @throws DrugstoreException if creation of the drug goes wrong
      */
-
     @Override
     public Void execute(EditDrugDto editDrugDto) throws DrugstoreException {
         drugManagementService.editDrug(editDrugDto);

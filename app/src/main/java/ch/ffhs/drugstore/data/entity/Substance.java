@@ -14,6 +14,7 @@ import androidx.room.PrimaryKey;
 public class Substance {
     @PrimaryKey(autoGenerate = true)
     private int substanceId;
+
     private String title;
 
     public Substance(int substanceId, String title) {

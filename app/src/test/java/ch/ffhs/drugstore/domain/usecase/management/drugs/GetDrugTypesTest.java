@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.ffhs.drugstore.domain.service.DrugManagementService;
-import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
 import ch.ffhs.drugstore.shared.dto.management.drugs.DrugTypeDto;
 import util.TestUtil;
 

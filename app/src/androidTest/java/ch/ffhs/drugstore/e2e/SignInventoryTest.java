@@ -28,7 +28,7 @@ public class SignInventoryTest {
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule =
             new ActivityScenarioRule<>(MainActivity.class);
-    Faker faker = new Faker();
+    final Faker faker = new Faker();
 
     @Test
     public void signInventory() {

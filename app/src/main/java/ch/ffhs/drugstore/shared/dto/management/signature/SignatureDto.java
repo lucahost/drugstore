@@ -6,7 +6,7 @@ import java.util.List;
 import ch.ffhs.drugstore.shared.dto.management.user.UserDto;
 
 /**
- * TODO: add description
+ * DTO to represent a signature
  *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
@@ -51,8 +51,7 @@ public class SignatureDto {
         return signatureDrugs;
     }
 
-    public void setSignatureDrugs(
-            List<SignatureDrugDto> signatureDrugs) {
+    public void setSignatureDrugs(List<SignatureDrugDto> signatureDrugs) {
         this.signatureDrugs = signatureDrugs;
     }
 }

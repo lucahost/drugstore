@@ -5,18 +5,17 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
- * TODO: add description
+ * DTO to create a signature drug
  *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
 public class CreateSignatureDto {
-    List<SignatureDrugDto> signatureDrugs;
-    private String userShortName;
-    private ZonedDateTime createdAt;
+    private final String userShortName;
+    private final ZonedDateTime createdAt;
+    private final List<SignatureDrugDto> signatureDrugs;
 
-    public CreateSignatureDto(String userShortName,
-            List<SignatureDrugDto> signatureDrugs) {
+    public CreateSignatureDto(String userShortName, List<SignatureDrugDto> signatureDrugs) {
         this.userShortName = userShortName;
         this.signatureDrugs = signatureDrugs;
         this.createdAt = ZonedDateTime.now(ZoneId.of("UTC"));
@@ -26,24 +25,11 @@ public class CreateSignatureDto {
         return userShortName;
     }
 
-    public void setUserShortName(String userShortName) {
-        this.userShortName = userShortName;
-    }
-
     public List<SignatureDrugDto> getSignatureDrugs() {
         return signatureDrugs;
     }
 
-    public void setSignatureDrugs(
-            List<SignatureDrugDto> signatureDrugs) {
-        this.signatureDrugs = signatureDrugs;
-    }
-
     public ZonedDateTime getCreatedAt() {
         return createdAt;
-    }
-
-    public void setCreatedAt(ZonedDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 }

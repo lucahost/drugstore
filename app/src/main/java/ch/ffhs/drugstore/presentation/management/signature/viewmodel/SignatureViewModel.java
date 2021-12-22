@@ -30,13 +30,13 @@ public class SignatureViewModel extends AndroidViewModel {
     /**
      * Constructs a {@link SignatureViewModel}
      *
-     * @param application global application state
-     * @param getSignatures use case to get signatures
+     * @param application      global application state
+     * @param getSignatures    use case to get signatures
      * @param getSignatureDrug use case to get signature drug
      */
     @Inject
-    public SignatureViewModel(Application application,
-            GetSignatures getSignatures,
+    public SignatureViewModel(
+            Application application, GetSignatures getSignatures,
             GetSignatureDrug getSignatureDrug) {
         super(application);
         this.getSignatures = getSignatures;

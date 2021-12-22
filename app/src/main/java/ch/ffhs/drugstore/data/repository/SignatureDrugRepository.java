@@ -28,7 +28,7 @@ public class SignatureDrugRepository {
     }
 
     /**
-     * @param signatureId
+     * @param signatureId signature id to filter by
      * @return Live Data List with Drug Signatures
      */
     public LiveData<List<SignatureDrugDto>> getSignatureDrugsBySignatureId(int signatureId) {

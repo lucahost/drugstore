@@ -28,7 +28,8 @@ public class SignatureDrugItemHolder extends RecyclerView.ViewHolder {
      * @param signatureDetailListAdapter the list adapter
      * @param binding                    the view binding
      */
-    SignatureDrugItemHolder(SignatureDetailListAdapter signatureDetailListAdapter,
+    SignatureDrugItemHolder(
+            SignatureDetailListAdapter signatureDetailListAdapter,
             SignatureDrugItemBinding binding) {
         super(binding.getRoot());
         this.context = binding.getRoot().getContext();
@@ -55,7 +56,8 @@ public class SignatureDrugItemHolder extends RecyclerView.ViewHolder {
      */
     @NonNull
     private String getItemTitleText(int position) {
-        return context.getString(R.string.drug_title_and_dosage,
+        return context.getString(
+                R.string.drug_title_and_dosage,
                 signatureDetailListAdapter.getItem(position).getDrug().getTitle(),
                 signatureDetailListAdapter.getItem(position).getDrug().getDosage());
     }
@@ -66,7 +68,8 @@ public class SignatureDrugItemHolder extends RecyclerView.ViewHolder {
      */
     @NonNull
     private String getItemSecondaryText(int position) {
-        return context.getString(R.string.drug_tolerance,
+        return context.getString(
+                R.string.drug_tolerance,
                 signatureDetailListAdapter.getItem(position).getDrug().getTolerance());
     }
 
@@ -76,7 +79,8 @@ public class SignatureDrugItemHolder extends RecyclerView.ViewHolder {
      */
     @NonNull
     private String getItemChipText(int position) {
-        return context.getString(R.string.actual_vs_expected_units,
+        return context.getString(
+                R.string.actual_vs_expected_units,
                 signatureDetailListAdapter.getItem(position).getActualAmount(),
                 signatureDetailListAdapter.getItem(position).getExpectedAmount(),
                 signatureDetailListAdapter.getItem(position).getDrug().getUnit());

@@ -66,7 +66,8 @@ public class HistoryItemHolder extends RecyclerView.ViewHolder {
      */
     @NonNull
     private String getItemTitleText(int position) {
-        return context.getString(R.string.drug_title_and_dosage,
+        return context.getString(
+                R.string.drug_title_and_dosage,
                 historyListAdapter.getItem(position).getDrug().getTitle(),
                 historyListAdapter.getItem(position).getDrug().getDosage());
     }
@@ -77,7 +78,8 @@ public class HistoryItemHolder extends RecyclerView.ViewHolder {
      */
     @NonNull
     private String getItemSecondaryText(int position) {
-        return context.getString(R.string.from_to,
+        return context.getString(
+                R.string.from_to,
                 historyListAdapter.getItem(position).getUser().getShortName(),
                 historyListAdapter.getItem(position).getPatient());
     }
@@ -101,7 +103,8 @@ public class HistoryItemHolder extends RecyclerView.ViewHolder {
      */
     @NonNull
     private String getItemChipText(int position) {
-        return context.getString(R.string.drug_amount_and_unit,
+        return context.getString(
+                R.string.drug_amount_and_unit,
                 historyListAdapter.getItem(position).getAmount(),
                 historyListAdapter.getItem(position).getDrug().getUnit());
     }

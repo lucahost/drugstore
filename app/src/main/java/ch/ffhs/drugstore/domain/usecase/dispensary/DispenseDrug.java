@@ -37,8 +37,6 @@ public class DispenseDrug implements UseCase<Void, SubmitDispenseDto> {
         this.historyService = historyService;
     }
 
-    // TODO @Luca this should be transactional, use dispenseDrug from DAO make it transactional
-
     /**
      * {@inheritDoc}
      *
@@ -61,8 +59,9 @@ public class DispenseDrug implements UseCase<Void, SubmitDispenseDto> {
             throw new InsufficientAmountException(R.string.not_enough_stock_amount);
         }
 
-        UpdateDrugAmountDto updateDrugAmountDto = new UpdateDrugAmountDto(drug.getDrugId(),
-                newAmount, submitDispenseDto.getUserShortname());
+        UpdateDrugAmountDto updateDrugAmountDto =
+                new UpdateDrugAmountDto(drug.getDrugId(), newAmount,
+                        submitDispenseDto.getUserShortname());
         drugManagementService.updateDrugAmount(updateDrugAmountDto);
         historyService.addTransaction(transaction);
         return null;

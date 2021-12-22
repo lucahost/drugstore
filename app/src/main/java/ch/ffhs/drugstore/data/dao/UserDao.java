@@ -17,15 +17,10 @@ import ch.ffhs.drugstore.data.entity.User;
  */
 @Dao
 public interface UserDao {
-    /**
-     * @Insert insert rows without SQL code (room library)
-     */
+
     @Insert
     long insert(User user);
 
-    /**
-     * @Query query methods for special queries
-     */
     @Query("SELECT * FROM users")
     LiveData<List<User>> getAllUsers();
 

@@ -74,5 +74,4 @@ public class DatabaseModule {
     UserDao provideUserDao(DrugstoreDatabase db) {
         return db.userDao();
     }
-
 }

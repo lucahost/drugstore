@@ -30,126 +30,142 @@ import ch.ffhs.drugstore.presentation.management.inventory.view.dialog.SignInven
  */
 public class DialogService {
 
-  @Inject protected AddDrugDialogFragmentFactory addDrugDialogFragmentFactory;
-  @Inject protected DeleteDrugDialogFragmentFactory deleteDrugDialogFragmentFactory;
-  @Inject protected EditDrugDialogFragmentFactory editDrugDialogFragmentFactory;
-  @Inject protected RemoveDrugDialogFragmentFactory removeDrugDialogFragmentFactory;
-  @Inject protected DispenseDrugDialogFragmentFactory dispenseDrugDialogFragmentFactory;
-  @Inject protected CreateDrugDialogFragment createDrugDialogFragment;
-  @Inject protected SignInventoryDialogFragment signInventoryDialogFragment;
-  private AddDrugDialogFragment addDrugDialogFragment;
-  private EditDrugDialogFragment editDrugDialogFragment;
-  private RemoveDrugDialogFragment removeDrugDialogFragment;
-  private DeleteDrugDialogFragment deleteDrugDialogFragment;
-  private DispenseDrugDialogFragment dispenseDrugDialogFragment;
+    @Inject
+    protected AddDrugDialogFragmentFactory addDrugDialogFragmentFactory;
+    @Inject
+    protected DeleteDrugDialogFragmentFactory deleteDrugDialogFragmentFactory;
+    @Inject
+    protected EditDrugDialogFragmentFactory editDrugDialogFragmentFactory;
+    @Inject
+    protected RemoveDrugDialogFragmentFactory removeDrugDialogFragmentFactory;
+    @Inject
+    protected DispenseDrugDialogFragmentFactory dispenseDrugDialogFragmentFactory;
+    @Inject
+    protected CreateDrugDialogFragment createDrugDialogFragment;
+    @Inject
+    protected SignInventoryDialogFragment signInventoryDialogFragment;
+    private AddDrugDialogFragment addDrugDialogFragment;
+    private EditDrugDialogFragment editDrugDialogFragment;
+    private RemoveDrugDialogFragment removeDrugDialogFragment;
+    private DeleteDrugDialogFragment deleteDrugDialogFragment;
+    private DispenseDrugDialogFragment dispenseDrugDialogFragment;
 
-  /**
-   * Empty constructor is required by the Android framework.
-   */
-  @Inject
-  public DialogService() {
-  }
-
-  /**
-   * Show {@link DispenseDrugDialogFragment}
-   * @param fragmentManager the fragment manager
-   * @param args the constructor arguments to create the fragment
-   */
-  public void showDispenseDrugDialog(FragmentManager fragmentManager, DispenseDrugDialogFragmentArgs args) {
-    dispenseDrugDialogFragment = dispenseDrugDialogFragmentFactory.create(args);
-    if (!dispenseDrugDialogFragment.isAdded()) {
-      dispenseDrugDialogFragment.show(fragmentManager, DispenseDrugDialogFragment.TAG);
+    @Inject
+    public DialogService() {
+        // Empty constructor is required by the Android framework.
     }
-  }
 
-  /**
-   * Show {@link AddDrugDialogFragment}
-   * @param fragmentManager the fragment manager
-   * @param args the constructor arguments to create the fragment
-   */
-  public void showAddDrugDialog(FragmentManager fragmentManager, AddDrugDialogFragmentArgs args) {
-    addDrugDialogFragment = addDrugDialogFragmentFactory.create(args);
-    if (!addDrugDialogFragment.isAdded()) {
-      addDrugDialogFragment.show(fragmentManager, AddDrugDialogFragment.TAG);
+    /**
+     * Show {@link DispenseDrugDialogFragment}
+     *
+     * @param fragmentManager the fragment manager
+     * @param args            the constructor arguments to create the fragment
+     */
+    public void showDispenseDrugDialog(
+            FragmentManager fragmentManager, DispenseDrugDialogFragmentArgs args) {
+        dispenseDrugDialogFragment = dispenseDrugDialogFragmentFactory.create(args);
+        if (!dispenseDrugDialogFragment.isAdded()) {
+            dispenseDrugDialogFragment.show(fragmentManager, DispenseDrugDialogFragment.TAG);
+        }
     }
-  }
 
-  /**
-   * Show {@link EditDrugDialogFragment}
-   * @param fragmentManager the fragment manager
-   * @param args the constructor arguments to create the fragment
-   */
-  public void showEditDrugDialog(FragmentManager fragmentManager, EditDrugDialogFragmentArgs args) {
-    editDrugDialogFragment = editDrugDialogFragmentFactory.create(args);
-    if (!editDrugDialogFragment.isAdded()) {
-      editDrugDialogFragment.show(fragmentManager, EditDrugDialogFragment.TAG);
+    /**
+     * Show {@link AddDrugDialogFragment}
+     *
+     * @param fragmentManager the fragment manager
+     * @param args            the constructor arguments to create the fragment
+     */
+    public void showAddDrugDialog(FragmentManager fragmentManager, AddDrugDialogFragmentArgs args) {
+        addDrugDialogFragment = addDrugDialogFragmentFactory.create(args);
+        if (!addDrugDialogFragment.isAdded()) {
+            addDrugDialogFragment.show(fragmentManager, AddDrugDialogFragment.TAG);
+        }
     }
-  }
 
-  /**
-   * Show {@link RemoveDrugDialogFragment}
-   * @param fragmentManager the fragment manager
-   * @param args the constructor arguments to create the fragment
-   */
-  public void showRemoveDrugDialog(FragmentManager fragmentManager, RemoveDrugDialogFragmentArgs args) {
-    removeDrugDialogFragment = removeDrugDialogFragmentFactory.create(args);
-    if (!removeDrugDialogFragment.isAdded()) {
-      removeDrugDialogFragment.show(fragmentManager, RemoveDrugDialogFragment.TAG);
+    /**
+     * Show {@link EditDrugDialogFragment}
+     *
+     * @param fragmentManager the fragment manager
+     * @param args            the constructor arguments to create the fragment
+     */
+    public void showEditDrugDialog(FragmentManager fragmentManager,
+            EditDrugDialogFragmentArgs args) {
+        editDrugDialogFragment = editDrugDialogFragmentFactory.create(args);
+        if (!editDrugDialogFragment.isAdded()) {
+            editDrugDialogFragment.show(fragmentManager, EditDrugDialogFragment.TAG);
+        }
     }
-  }
 
-  /**
-   * Show {@link DeleteDrugDialogFragment}
-   * @param fragmentManager the fragment manager
-   * @param args the constructor arguments to create the fragment
-   */
-  public void showDeleteDrugDialog(FragmentManager fragmentManager, DeleteDrugDialogFragmentArgs args) {
-    deleteDrugDialogFragment = deleteDrugDialogFragmentFactory.create(args);
-    if (!deleteDrugDialogFragment.isAdded()) {
-      deleteDrugDialogFragment.show(fragmentManager, DeleteDrugDialogFragment.TAG);
+    /**
+     * Show {@link RemoveDrugDialogFragment}
+     *
+     * @param fragmentManager the fragment manager
+     * @param args            the constructor arguments to create the fragment
+     */
+    public void showRemoveDrugDialog(
+            FragmentManager fragmentManager, RemoveDrugDialogFragmentArgs args) {
+        removeDrugDialogFragment = removeDrugDialogFragmentFactory.create(args);
+        if (!removeDrugDialogFragment.isAdded()) {
+            removeDrugDialogFragment.show(fragmentManager, RemoveDrugDialogFragment.TAG);
+        }
     }
-  }
 
-  /**
-   * Show {@link CreateDrugDialogFragment}
-   * @param fragmentManager the fragment manager
-   */
-  public void showCreateDrugDialog(FragmentManager fragmentManager) {
-    if (!createDrugDialogFragment.isAdded()) {
-      createDrugDialogFragment.show(fragmentManager, CreateDrugDialogFragment.TAG);
+    /**
+     * Show {@link DeleteDrugDialogFragment}
+     *
+     * @param fragmentManager the fragment manager
+     * @param args            the constructor arguments to create the fragment
+     */
+    public void showDeleteDrugDialog(
+            FragmentManager fragmentManager, DeleteDrugDialogFragmentArgs args) {
+        deleteDrugDialogFragment = deleteDrugDialogFragmentFactory.create(args);
+        if (!deleteDrugDialogFragment.isAdded()) {
+            deleteDrugDialogFragment.show(fragmentManager, DeleteDrugDialogFragment.TAG);
+        }
     }
-  }
 
-  /**
-   * Show {@link SignInventoryDialogFragment}
-   * @param fragmentManager the fragment manager
-   */
-  public void showSignInventoryDialog(FragmentManager fragmentManager) {
-    if (!signInventoryDialogFragment.isAdded()) {
-      signInventoryDialogFragment.show(fragmentManager, SignInventoryDialogFragment.TAG);
+    /**
+     * Show {@link CreateDrugDialogFragment}
+     *
+     * @param fragmentManager the fragment manager
+     */
+    public void showCreateDrugDialog(FragmentManager fragmentManager) {
+        if (!createDrugDialogFragment.isAdded()) {
+            createDrugDialogFragment.show(fragmentManager, CreateDrugDialogFragment.TAG);
+        }
     }
-  }
 
-  /**
-   * Dismisses a dialog by it's type.
-   *
-   * @param dialog the dialog type to be dismissed.
-   */
-  public void dismiss(DialogType dialog) {
-    if (dialog == DialogType.ADD_DRUG && addDrugDialogFragment.isAdded()) {
-      addDrugDialogFragment.dismiss();
-    } else if (dialog == DialogType.CREATE_DRUG && createDrugDialogFragment.isAdded()) {
-      createDrugDialogFragment.dismiss();
-    } else if (dialog == DialogType.EDIT_DRUG && editDrugDialogFragment.isAdded()) {
-      editDrugDialogFragment.dismiss();
-    } else if (dialog == DialogType.REMOVE_DRUG && removeDrugDialogFragment.isAdded()) {
-      removeDrugDialogFragment.dismiss();
-    } else if (dialog == DialogType.DELETE_DRUG && deleteDrugDialogFragment.isAdded()) {
-      deleteDrugDialogFragment.dismiss();
-    } else if (dialog == DialogType.DISPENSE_DRUG && dispenseDrugDialogFragment.isAdded()) {
-      dispenseDrugDialogFragment.dismiss();
-    } else if (dialog == DialogType.SIGN_INVENTORY && signInventoryDialogFragment.isAdded()) {
-      signInventoryDialogFragment.dismiss();
+    /**
+     * Show {@link SignInventoryDialogFragment}
+     *
+     * @param fragmentManager the fragment manager
+     */
+    public void showSignInventoryDialog(FragmentManager fragmentManager) {
+        if (!signInventoryDialogFragment.isAdded()) {
+            signInventoryDialogFragment.show(fragmentManager, SignInventoryDialogFragment.TAG);
+        }
     }
-  }
+
+    /**
+     * Dismisses a dialog by it's type.
+     *
+     * @param dialog the dialog type to be dismissed.
+     */
+    public void dismiss(DialogType dialog) {
+        if (dialog == DialogType.ADD_DRUG && addDrugDialogFragment.isAdded()) {
+            addDrugDialogFragment.dismiss();
+        } else if (dialog == DialogType.CREATE_DRUG && createDrugDialogFragment.isAdded()) {
+            createDrugDialogFragment.dismiss();
+        } else if (dialog == DialogType.EDIT_DRUG && editDrugDialogFragment.isAdded()) {
+            editDrugDialogFragment.dismiss();
+        } else if (dialog == DialogType.REMOVE_DRUG && removeDrugDialogFragment.isAdded()) {
+            removeDrugDialogFragment.dismiss();
+        } else if (dialog == DialogType.DELETE_DRUG && deleteDrugDialogFragment.isAdded()) {
+            deleteDrugDialogFragment.dismiss();
+        } else if (dialog == DialogType.DISPENSE_DRUG && dispenseDrugDialogFragment.isAdded()) {
+            dispenseDrugDialogFragment.dismiss();
+        } else if (dialog == DialogType.SIGN_INVENTORY && signInventoryDialogFragment.isAdded()) {
+            signInventoryDialogFragment.dismiss();
+        }
+    }
 }

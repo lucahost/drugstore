@@ -16,38 +16,23 @@ import ch.ffhs.drugstore.data.entity.Unit;
  * @version 2021.12.15
  */
 public class DrugWithUnitAndDrugTypeAndSubstance {
-    /**
-     * @Embedded allows to represent two entities as one
-     * @Relation represents join between two entities
-     */
+
     @Embedded
     public Drug drug;
 
-    @Relation(
-            parentColumn = "unitId",
-            entityColumn = "unitId",
-            entity = Unit.class
-    )
+    @Relation(parentColumn = "unitId", entityColumn = "unitId", entity = Unit.class)
     public Unit unit;
 
     /**
      * second join
      */
-    @Relation(
-            parentColumn = "drugTypeId",
-            entityColumn = "drugTypeId",
-            entity = DrugType.class
-    )
+    @Relation(parentColumn = "drugTypeId", entityColumn = "drugTypeId", entity = DrugType.class)
     public DrugType drugType;
 
     /**
      * third join
      */
-    @Relation(
-            parentColumn = "substanceId",
-            entityColumn = "substanceId",
-            entity = Substance.class
-    )
+    @Relation(parentColumn = "substanceId", entityColumn = "substanceId", entity = Substance.class)
     public Substance substance;
 
     public Drug getDrug() {

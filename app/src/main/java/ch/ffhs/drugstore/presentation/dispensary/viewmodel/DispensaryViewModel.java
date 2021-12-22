@@ -50,16 +50,22 @@ public class DispensaryViewModel extends AndroidViewModel {
      * @param getDrugTypes          use case to get drug types
      */
     @Inject
-    public DispensaryViewModel(Application application, GetAllDispensaryItems getAllDispensaryItems,
-            ToggleDrugIsFavorite toggleDrugIsFavorite, DispenseDrug dispenseDrug,
+    public DispensaryViewModel(
+            Application application,
+            GetAllDispensaryItems getAllDispensaryItems,
+            ToggleDrugIsFavorite toggleDrugIsFavorite,
+            DispenseDrug dispenseDrug,
             GetDrugTypes getDrugTypes) {
         super(application);
         this.toggleDrugIsFavorite = toggleDrugIsFavorite;
         this.dispenseDrug = dispenseDrug;
         this.getDrugTypes = getDrugTypes;
         filterState.setValue(new FilterState<>());
-        dispensaryItems = Transformations.switchMap(filterState, f
-                -> getAllDispensaryItems.execute(Objects.requireNonNull(filterState.getValue())));
+        dispensaryItems =
+                Transformations.switchMap(
+                        filterState,
+                        f -> getAllDispensaryItems.execute(
+                                Objects.requireNonNull(filterState.getValue())));
     }
 
     /**

@@ -16,12 +16,10 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.UnitDto;
  * @version 2021.12.15
  */
 public class UnitRepository {
-    private final UnitDao unitDao;
     private final LiveData<List<UnitDto>> allUnits;
 
     @Inject
     public UnitRepository(UnitDao unitDao) {
-        this.unitDao = unitDao;
         allUnits = unitDao.getAllUnits();
     }
 

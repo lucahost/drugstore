@@ -40,8 +40,9 @@ public class DrugItemHolder extends RecyclerView.ViewHolder implements View.OnCl
     @Override
     public void onClick(View view) {
         if (drugListAdapter.getClickListener() != null) {
-            drugListAdapter.getClickListener().onItemClick(itemAction,
-                    drugListAdapter.getItem(getAdapterPosition()));
+            drugListAdapter
+                    .getClickListener()
+                    .onItemClick(itemAction, drugListAdapter.getItem(getAdapterPosition()));
         }
     }
 

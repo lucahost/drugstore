@@ -28,7 +28,7 @@ import ch.ffhs.drugstore.presentation.management.signature.viewmodel.SignatureVi
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
- * TODO: add description
+ * Fragment to display details of a signature
  *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
@@ -44,8 +44,8 @@ public class SignatureDetailFragment extends Fragment {
      * {@inheritDoc}
      */
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(
+            @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSignatureDetailBinding.inflate(getLayoutInflater());
         setupRecyclerView();
         return binding.getRoot();
@@ -57,10 +57,12 @@ public class SignatureDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        SignatureViewModel viewModel = new ViewModelProvider(requireActivity()).get(
-                SignatureViewModel.class);
+        SignatureViewModel viewModel =
+                new ViewModelProvider(requireActivity()).get(SignatureViewModel.class);
         int signatureId = SignatureDetailFragmentArgs.fromBundle(getArguments()).getSignatureId();
-        viewModel.getSignatureDrugBySignatureId(signatureId).observe(getViewLifecycleOwner(), adapter::submitList);
+        viewModel
+                .getSignatureDrugBySignatureId(signatureId)
+                .observe(getViewLifecycleOwner(), adapter::submitList);
     }
 
     /**
@@ -107,6 +109,7 @@ public class SignatureDetailFragment extends Fragment {
 
     /**
      * Convenience method to access the app context
+     *
      * @return app context
      */
     private Context context() {
@@ -118,7 +121,8 @@ public class SignatureDetailFragment extends Fragment {
      */
     private void setupRecyclerView() {
         binding.signatureDetailList.setLayoutManager(new LinearLayoutManager(context()));
-        binding.signatureDetailList.addItemDecoration(new DividerItemDecoration(context(), DividerItemDecoration.VERTICAL));
+        binding.signatureDetailList.addItemDecoration(
+                new DividerItemDecoration(context(), DividerItemDecoration.VERTICAL));
         binding.signatureDetailList.setAdapter(this.adapter);
     }
 }

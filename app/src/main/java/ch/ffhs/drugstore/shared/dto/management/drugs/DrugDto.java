@@ -18,10 +18,16 @@ public class DrugDto {
     private double stockAmount;
     private boolean isFavorite;
 
-    public DrugDto(int drugId, String title, String drugType, String substance, String unit,
+    public DrugDto(
+            int drugId,
+            String title,
+            String drugType,
+            String substance,
+            String unit,
             String dosage,
             double tolerance,
-            double stockAmount, boolean isFavorite) {
+            double stockAmount,
+            boolean isFavorite) {
         this.drugId = drugId;
         this.title = title;
         this.drugType = drugType;

@@ -16,7 +16,6 @@ import org.junit.Test;
 
 import java.util.List;
 
-import ch.ffhs.drugstore.data.repository.DrugRepository;
 import ch.ffhs.drugstore.data.repository.TransactionRepository;
 import ch.ffhs.drugstore.shared.dto.management.history.TransactionDto;
 import ch.ffhs.drugstore.shared.dto.management.user.UserDto;

@@ -20,11 +20,7 @@ import ch.ffhs.drugstore.data.relation.TransactionWithDrugAndUser;
  */
 @Dao
 public interface TransactionDao {
-    /**
-     * @Insert
-     * @Update
-     * @Delete insert, update and delete rows without SQL code (room library)
-     */
+
     @Insert
     void insert(Transaction transaction);
 
@@ -34,15 +30,9 @@ public interface TransactionDao {
     @Delete
     void delete(Transaction transaction);
 
-    /**
-     * @Query methods for special queries
-     */
     @Query("DELETE FROM transactions")
     void deleteAll();
 
-    /**
-     * @Transaction methods for relations (join)
-     */
     @androidx.room.Transaction
     @Query("SELECT * FROM transactions ORDER BY createdAt DESC")
     LiveData<List<TransactionWithDrugAndUser>> getAllTransactions();

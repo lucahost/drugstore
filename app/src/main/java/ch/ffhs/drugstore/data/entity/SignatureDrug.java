@@ -11,28 +11,33 @@ import androidx.room.Index;
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
-@Entity(tableName = "signatureDrugs",
+@Entity(
+        tableName = "signatureDrugs",
         primaryKeys = {"signatureId", "drugId"},
         foreignKeys = {
                 @ForeignKey(entity = Drug.class, parentColumns = "drugId", childColumns = "drugId"),
-                @ForeignKey(entity = Signature.class, parentColumns = "signatureId",
+                @ForeignKey(
+                        entity = Signature.class,
+                        parentColumns = "signatureId",
                         childColumns = "signatureId")
         },
         indices = {
-                @Index(value = {"signatureId", "drugId"}, unique = true),
+                @Index(
+                        value = {"signatureId", "drugId"},
+                        unique = true),
                 @Index(value = "drugId"),
                 @Index(value = "signatureId")
-        }
-)
+        })
 public class SignatureDrug {
 
-    public int signatureId;
-    public int drugId;
-    public double expectedAmount;
-    public double actualAmount;
-    public boolean approved;
+    private int signatureId;
+    private int drugId;
+    private double expectedAmount;
+    private double actualAmount;
+    private boolean approved;
 
-    public SignatureDrug(int signatureId, int drugId, double expectedAmount, double actualAmount,
+    public SignatureDrug(
+            int signatureId, int drugId, double expectedAmount, double actualAmount,
             boolean approved) {
         this.signatureId = signatureId;
         this.drugId = drugId;

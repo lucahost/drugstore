@@ -49,18 +49,10 @@ public class HistoryFragment extends Fragment {
      * {@inheritDoc}
      */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        HistoryViewModel viewModel = new ViewModelProvider(requireActivity()).get(
-                HistoryViewModel.class);
+        HistoryViewModel viewModel =
+                new ViewModelProvider(requireActivity()).get(HistoryViewModel.class);
         viewModel.getTransactions().observe(getViewLifecycleOwner(), adapter::submitList);
     }
 

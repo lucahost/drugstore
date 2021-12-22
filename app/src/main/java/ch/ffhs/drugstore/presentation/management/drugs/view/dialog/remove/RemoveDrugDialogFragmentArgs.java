@@ -20,8 +20,8 @@ public class RemoveDrugDialogFragmentArgs {
      * @param unit        the unit of the drug
      * @param stockAmount the stock of the drug
      */
-    public RemoveDrugDialogFragmentArgs(int drugId, String drugTitle, String dosage,
-            String unit, double stockAmount) {
+    public RemoveDrugDialogFragmentArgs(
+            int drugId, String drugTitle, String dosage, String unit, double stockAmount) {
         this.drugId = drugId;
         this.drugTitle = drugTitle;
         this.dosage = dosage;

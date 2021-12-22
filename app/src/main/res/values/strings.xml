@@ -1,8 +1,11 @@
 <resources>
+    <plurals name="drug_count">
+        <item quantity="one">%d Medikament</item>
+        <item quantity="other">%d Medikamente</item>
+    </plurals>
     <string name="is_supported_screen">false</string>
     <string name="device_not_supported">Diese Applikation wurde für die Benutzung auf Tablets optimiert.</string>
     <string name="app_name">Drugstore</string>
-    <string name="dialog_add_todo">Add Todo</string>
     <string name="dispense">Ausgeben</string>
     <string name="cancel">Abbrechen</string>
     <string name="create">Erfassen</string>
@@ -21,27 +24,18 @@
     <string name="inventory">Inventar</string>
     <string name="signatures">Signaturen</string>
     <string name="history">Abgaben</string>
-    <string name="search_title">Suche</string>
     <string name="search_hint">Medikament suchen</string>
     <string name="sign">Signieren</string>
     <string name="employee">Fachkraft</string>
     <string name="patient">Patient</string>
     <string name="amount">Anzahl</string>
-    <string name="deviation">Abweichender Bestand</string>
     <string name="name">Name</string>
     <string name="category">Kategorie</string>
     <string name="dispense_unit">Ausgabe-Einheit</string>
     <string name="tolerance">Toleranz</string>
     <string name="tolerance_double">%.2f</string>
     <string name="save">Speichern</string>
-    <string name="content">Inhalt</string>
-    <string name="count">Anzahl</string>
-    <string name="unit">Einheit</string>
     <string name="favorite">Favorite</string>
-    <string name="injection">Injektion</string>
-    <string name="oral">Oral</string>
-    <string name="oral_liquig">Oral flüssig</string>
-    <string name="plaster">Pflaster</string>
     <string name="no_items">Keine Einträge</string>
     <string name="marked_as_favorite">Als Favorit setzen</string>
     <string name="added_to_favorites">Zu Favoriten hinzugefügt</string>
@@ -52,27 +46,18 @@
     <string name="close">Schliessen</string>
     <string name="error_name_required">Bitte Name eingeben</string>
     <string name="error_dosage_required">Bitte Dosierung eingeben</string>
-    <string name="error_drugtype_required">Bitte Kategorie auswählen</string>
-    <string name="error_dispenseunit_required">Bitte Ausgabe-Einheit auswählen</string>
     <string name="error_employee_required">Bitte Fachkraft eingeben</string>
     <string name="error_patient_required">Bitte Patient eingeben</string>
-    <string name="error_amount_required">Bitte Anzahl eingeben</string>
     <string name="error_amount_over_zero_required">Bitte Anzahl grösser als 0 eingeben</string>
     <string name="error_create_drug">Beim Erstellen trat ein Fehler auf</string>
     <string name="drug_not_found">Medikament wurde nicht gefunden</string>
     <string name="error_update_drug_amount">Fehler beim aktualisieren des Bestandes</string>
     <string name="remaining">Noch</string>
-    <string name="created_at">Created at</string>
-    <string name="signature_id">Signature Id</string>
-    <string name="transaction_id">Transaction Id</string>
     <string name="back">Zurück</string>
     <string name="share">Teilen</string>
-    <string name="export">Export</string>
-    <string name="backup">Backup</string>
     <string name="settings">Einstellungen</string>
     <string name="from_to">Von %1$s an %2$s</string>
     <string name="drug_stock_unit">Bestand: %1$.2f %2$s</string>
-    <string name="drug_count">%d Medikamente</string>
     <string name="drug_tolerance">Toleranz: %.2f</string>
     <string name="drug_title_and_dosage">%1$s (%2$s)</string>
     <string name="drug_amount_and_unit">%1$.2f %2$s</string>
@@ -91,4 +76,5 @@
     <string name="backup_title">BACKUP</string>
     <string name="drug_prevente_delete">Medikament bereits in Transaktion - Löschen verhindert</string>
     <string name="error_delete_drug">Fehler beim Löschen</string>
+    <string name="drug_item_menu_description">Drug Item Menu</string>
 </resources>

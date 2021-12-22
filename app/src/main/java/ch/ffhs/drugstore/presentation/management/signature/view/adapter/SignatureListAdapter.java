@@ -22,8 +22,7 @@ import ch.ffhs.drugstore.shared.dto.management.signature.SignatureDto;
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
-public class SignatureListAdapter extends
-        ListAdapter<SignatureDto, SignatureItemHolder> {
+public class SignatureListAdapter extends ListAdapter<SignatureDto, SignatureItemHolder> {
     private OnSignatureItemClickListener clickListener;
 
     /**
@@ -75,7 +74,8 @@ public class SignatureListAdapter extends
      * @param position The position of the item within the adapter's data set
      * @return The item at specified position
      */
-    protected SignatureDto getItem(int position) {
+    @Override
+    public SignatureDto getItem(int position) {
         return super.getItem(position);
     }
 }

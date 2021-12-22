@@ -2,16 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ch.ffhs.drugstore">
 
-    <supports-screens
-        android:largeScreens="true"
-        android:normalScreens="false"
-        android:smallScreens="false"
-        android:requiresSmallestWidthDp="600"
-        android:xlargeScreens="true" />
-
     <application
         android:name=".Drugstore"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -30,12 +24,19 @@
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="ch.ffhs.drugstore.fileprovider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
         </provider>
     </application>
+
+    <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="false"
+        android:requiresSmallestWidthDp="600"
+        android:smallScreens="false"
+        android:xlargeScreens="true" />
 
 </manifest>

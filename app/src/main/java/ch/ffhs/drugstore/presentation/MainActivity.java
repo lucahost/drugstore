@@ -23,42 +23,44 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
-  private BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    SplashScreen.installSplashScreen(this);
-    if (isTablet()) {
-      ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
-      setContentView(binding.getRoot());
-      bottomNavigationView = binding.bottomNavigation;
-      setUpNavigation();
-    } else {
-      setContentView(R.layout.device_not_supported);
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SplashScreen.installSplashScreen(this);
+        if (isTablet()) {
+            ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+            setContentView(binding.getRoot());
+            bottomNavigationView = binding.bottomNavigation;
+            setUpNavigation();
+        } else {
+            setContentView(R.layout.device_not_supported);
+        }
     }
-  }
 
-  /**
-   * Setup the botton tab navigation.
-   */
-  private void setUpNavigation() {
-    NavHostFragment navHostFragment =
-        (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-    assert navHostFragment != null;
-    NavController navController = navHostFragment.getNavController();
-    NavigationUI.setupWithNavController(bottomNavigationView, navController);
-  }
+    /**
+     * Setup the botton tab navigation.
+     */
+    private void setUpNavigation() {
+        NavHostFragment navHostFragment =
+                (NavHostFragment) getSupportFragmentManager().findFragmentById(
+                        R.id.nav_host_fragment);
+        assert navHostFragment != null;
+        NavController navController = navHostFragment.getNavController();
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+    }
 
-  /**
-   * Checks if the app is running on a tablet (large) device.
-   * @return if the app is running on a large device.
-   */
-  private boolean isTablet() {
-    return Boolean.parseBoolean(
-            getApplicationContext().getResources().getString(R.string.is_supported_screen));
-  }
+    /**
+     * Checks if the app is running on a tablet (large) device.
+     *
+     * @return if the app is running on a large device.
+     */
+    private boolean isTablet() {
+        return Boolean.parseBoolean(
+                getApplicationContext().getResources().getString(R.string.is_supported_screen));
+    }
 }

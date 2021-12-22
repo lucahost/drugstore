@@ -20,7 +20,12 @@ public interface ConfirmEditDrugListener {
      * @param isFavorite if the drug is a favorite
      */
     void onConfirmEditDrug(
-            int drugId, String name, String substance, String dosage, int drugTypeId,
+            int drugId,
+            String name,
+            String substance,
+            String dosage,
+            int drugTypeId,
             int unitId,
-            String tolerance, boolean isFavorite);
+            String tolerance,
+            boolean isFavorite);
 }

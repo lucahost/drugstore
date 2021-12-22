@@ -1,7 +1,7 @@
 package ch.ffhs.drugstore.shared.dto.dispensary;
 
 /**
- * TODO: add description
+ * DTO to submit dispensation of a drug
  *
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
@@ -11,7 +11,6 @@ public class SubmitDispenseDto {
     private String userShortname;
     private String patient;
     private double amount;
-
 
     public SubmitDispenseDto(int drugId, String userShortname, String patient, double amount) {
         this.drugId = drugId;

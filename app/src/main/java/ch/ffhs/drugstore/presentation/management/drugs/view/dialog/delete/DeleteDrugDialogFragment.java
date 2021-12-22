@@ -98,5 +98,4 @@ public class DeleteDrugDialogFragment extends DialogFragment {
         super.onDetach();
         this.confirmDeleteDrugListener = null;
     }
-
 }

@@ -46,11 +46,14 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.activityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> context.revokeUriPermission(dbFileUri,
-                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                                | Intent.FLAG_GRANT_READ_URI_PERMISSION));
+        this.activityResultLauncher =
+                registerForActivityResult(
+                        new ActivityResultContracts.StartActivityForResult(),
+                        result ->
+                                context.revokeUriPermission(
+                                        dbFileUri,
+                                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                                                | Intent.FLAG_GRANT_READ_URI_PERMISSION));
     }
 
     /**
@@ -82,9 +85,12 @@ public class SettingsFragment extends Fragment {
                 System.err.println("no context in exportDb");
                 return;
             }
-            getContext().grantUriPermission("ch.ffhs.drugstore.fileprovider",
-                    dbFileUri,
-                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            getContext()
+                    .grantUriPermission(
+                            "ch.ffhs.drugstore.fileprovider",
+                            dbFileUri,
+                            Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                                    | Intent.FLAG_GRANT_READ_URI_PERMISSION);
         } catch (Exception ex) {
             System.err.println("grantUriPermissionFailed");
             return;

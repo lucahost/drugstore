@@ -17,9 +17,15 @@ public class EditDrugDto {
     private double tolerance;
     private boolean isFavorite;
 
-    public EditDrugDto(int drugId, String title, String dosage, int drugTypeId, int unitId,
+    public EditDrugDto(
+            int drugId,
+            String title,
+            String dosage,
+            int drugTypeId,
+            int unitId,
             String substance,
-            double tolerance, boolean isFavorite) {
+            double tolerance,
+            boolean isFavorite) {
         this.drugId = drugId;
         this.title = title;
         this.dosage = dosage;

@@ -35,7 +35,7 @@ public class InventoryViewModel extends AndroidViewModel {
     private final Map<Integer, SignatureDrugDto> signatureDrugs;
     private final GetInventory getInventory;
     private final ToggleInventoryItem toggleInventoryItem;
-    SignInventory signInventory;
+    private final SignInventory signInventory;
     private LiveData<List<SelectableDrugDto>> drugs;
 
     /**
@@ -47,7 +47,8 @@ public class InventoryViewModel extends AndroidViewModel {
      * @param signInventory       use case to sign an inventory
      */
     @Inject
-    public InventoryViewModel(Application application,
+    public InventoryViewModel(
+            Application application,
             GetInventory getInventory,
             ToggleInventoryItem toggleInventoryItem,
             SignInventory signInventory) {
@@ -65,9 +66,13 @@ public class InventoryViewModel extends AndroidViewModel {
      */
     public LiveData<List<SelectableDrugDto>> getDrugs() {
         if (drugs == null) {
-            drugs = Transformations.map(getInventory.execute(null),
-                    d -> d.stream().map(dt -> new SelectableDrugDto(dt, false)).collect(
-                            Collectors.toList()));
+            drugs =
+                    Transformations.map(
+                            getInventory.execute(null),
+                            d ->
+                                    d.stream()
+                                            .map(dt -> new SelectableDrugDto(dt, false))
+                                            .collect(Collectors.toList()));
         }
         return drugs;
     }

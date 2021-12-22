@@ -3,6 +3,7 @@ package ch.ffhs.drugstore.presentation.dispensary.view.dialog;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -111,16 +112,18 @@ public class DispenseDrugDialogFragment extends DialogFragment {
      */
     @NonNull
     private AlertDialog getAlertDialog() {
-        AlertDialog dialog = new AlertDialog.Builder(requireContext())
-                .setView(binding.getRoot())
-                .setTitle(drugTitle)
-                .setPositiveButton(getString(R.string.dispense), null)
-                .setNegativeButton(getString(R.string.cancel), null)
-                .create();
-        dialog.setOnShowListener(d -> {
-            Button button = ((AlertDialog) d).getButton(AlertDialog.BUTTON_POSITIVE);
-            button.setOnClickListener(view -> validateInputAndConfirmDispense());
-        });
+        AlertDialog dialog =
+                new AlertDialog.Builder(requireContext())
+                        .setView(binding.getRoot())
+                        .setTitle(drugTitle)
+                        .setPositiveButton(getString(R.string.dispense), null)
+                        .setNegativeButton(getString(R.string.cancel), null)
+                        .create();
+        dialog.setOnShowListener(
+                d -> {
+                    Button button = ((AlertDialog) d).getButton(DialogInterface.BUTTON_POSITIVE);
+                    button.setOnClickListener(view -> validateInputAndConfirmDispense());
+                });
         return dialog;
     }
 
@@ -128,18 +131,21 @@ public class DispenseDrugDialogFragment extends DialogFragment {
      * Validates inputs and confirms the dispense if there are no validation errors.
      */
     private void validateInputAndConfirmDispense() {
-        boolean employeeNotEmpty = InputValidation.validateTextNotEmpty(
-                binding.employeeText,
-                binding.employeeTextLayout,
-                getString(R.string.error_employee_required));
-        boolean patientNotEmpty = InputValidation.validateTextNotEmpty(
-                binding.patientText,
-                binding.patientTextLayout,
-                getString(R.string.error_patient_required));
-        boolean amountNotZero = InputValidation.validateNumberDecimalStringNotZero(
-                binding.amountText,
-                binding.amountTextLayout,
-                getString(R.string.error_amount_over_zero_required));
+        boolean employeeNotEmpty =
+                InputValidation.validateTextNotEmpty(
+                        binding.employeeText,
+                        binding.employeeTextLayout,
+                        getString(R.string.error_employee_required));
+        boolean patientNotEmpty =
+                InputValidation.validateTextNotEmpty(
+                        binding.patientText,
+                        binding.patientTextLayout,
+                        getString(R.string.error_patient_required));
+        boolean amountNotZero =
+                InputValidation.validateNumberDecimalStringNotZero(
+                        binding.amountText,
+                        binding.amountTextLayout,
+                        getString(R.string.error_amount_over_zero_required));
 
         if (employeeNotEmpty && patientNotEmpty && amountNotZero) {
             String employee = Objects.requireNonNull(binding.employeeText.getText()).toString();

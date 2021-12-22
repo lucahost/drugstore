@@ -19,25 +19,16 @@ import ch.ffhs.drugstore.data.entity.User;
  * @version 2021.12.15
  */
 public class SignatureWithUserAndSignatureDrugsAndDrugs {
-    /**
-     * @Embedded allows to represent two entities as one
-     * @Relation represents join between two entities
-     * @Junction use relation with junction table
-     */
+
     @Embedded
     public Signature signature;
 
-    @Relation(
-            parentColumn = "userId",
-            entityColumn = "userId",
-            entity = User.class
-    )
+    @Relation(parentColumn = "userId", entityColumn = "userId", entity = User.class)
     public User user;
 
     @Relation(
             parentColumn = "signatureId",
             entityColumn = "drugId",
-            associateBy = @Junction(SignatureDrug.class)
-    )
+            associateBy = @Junction(SignatureDrug.class))
     public List<Drug> signatureDrugs;
 }

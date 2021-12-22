@@ -17,8 +17,8 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
-public class GetAllDispensaryItems implements
-        UseCase<LiveData<List<DrugDto>>, FilterState<Integer>> {
+public class GetAllDispensaryItems
+        implements UseCase<LiveData<List<DrugDto>>, FilterState<Integer>> {
     private final DispensaryService dispensaryService;
 
     /**

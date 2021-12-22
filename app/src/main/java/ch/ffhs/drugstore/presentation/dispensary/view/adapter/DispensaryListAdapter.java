@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
 import javax.inject.Inject;
@@ -21,8 +20,7 @@ import ch.ffhs.drugstore.shared.dto.management.drugs.DrugDto;
  * @author Marc Bischof, Luca Hostettler, Sebastian Roethlisberger
  * @version 2021.12.15
  */
-public class DispensaryListAdapter
-        extends ListAdapter<DrugDto, DispensaryItemHolder> {
+public class DispensaryListAdapter extends ListAdapter<DrugDto, DispensaryItemHolder> {
     private OnDispensaryItemClickListener clickListener;
 
     /**
@@ -30,7 +28,7 @@ public class DispensaryListAdapter
      */
     @Inject
     public DispensaryListAdapter() {
-        super((DiffUtil.ItemCallback<DrugDto>) drugDtoItemDiffCallback);
+        super(drugDtoItemDiffCallback);
     }
 
     /**
@@ -73,7 +71,8 @@ public class DispensaryListAdapter
      * @param position The position of the item within the adapter's data set
      * @return The item at specified position
      */
-    protected DrugDto getItem(int position) {
+    @Override
+    public DrugDto getItem(int position) {
         return super.getItem(position);
     }
 }
